@@ -5,7 +5,7 @@ import sys, argparse
 This script will generate SQL queries to add or remove lists of projects from a given
 datahub. These queries can be copied/opened and run in SQLDeveloper.
 
-Usage: python3 generate_datahub_queries.py --add/--remove <options>
+Usage: generate_datahub_queries.py --add/--remove <options>
 
 Options:
     --datahub : (required) name of datahub

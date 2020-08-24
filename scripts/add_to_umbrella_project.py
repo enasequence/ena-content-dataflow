@@ -6,7 +6,7 @@ This script will generate an updated XML file from the template XML, adding
 the relevant <CHILD_PROJECT> fields. Note: the template XML *must* have a 
 <UMBRELLA_PROJECT/> tag present.
 
-Usage: python3 add_to_umbrella_project.py --xml <template_xml> --file <list of projects to add>
+Usage: add_to_umbrella_project.py --xml <template_xml> --file <list of projects to add>
 
 Options:
     --xml       : (required) path to XML template file
