@@ -2,10 +2,12 @@
 import sys, requests, json
 
 """
-This script fetches the file report from the ENA web API and checks:
+This script is designed to help to detect issues with data display on the ENA browser.
+For a given set of project accessions, it fetches the file report from the ENA web API 
+and reports on the following:
 1. the taxon id and count of each sample in the given project(s)
 2. the FastQ file counts, to check that a consistent number of files are
-   present for each run
+   present for each run. Reports an error if different file counts are detected.
 
 """
 
