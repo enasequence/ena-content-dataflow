@@ -1,9 +1,19 @@
+#!/usr/bin/env python3.7
 import os, sys
 from datetime import datetime
 import cx_Oracle, argparse
 from getpass import getpass
 
 description = """
+Setup
+-----
+This script uses the cx_Oracle python module, which requires a little setup. For details, see:
+https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html
+The Oracle Instant Client is a requirement of this module. Please set the location of this library
+using the $ORACLE_CLIENT_LIB environment variable before using this script.
+
+Usage
+-----
 This script will query ERAREAD for COVID-related projects and split the results into 4 logs:
     - log1 : sars-cov-2 sequences
     - log2 : other coronaviral sequences
@@ -12,12 +22,9 @@ This script will query ERAREAD for COVID-related projects and split the results 
 
 The script will create an output directory containing results for each log:
     - a TSV spreadsheet for import into Excel or similar
-    - a list of project accessions in the log (for input to the add_to_umbrella_project.py script)
+    - a list of all project accessions in the log (for input to the add_to_umbrella_project.py script)
+    - a list of public project accessions in the log (to link to the datahub with generate_datahub_queries.py)
 
-This script uses the cx_Oracle python module, which requires a little setup. For details, see:
-https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html
-The Oracle Instant Client is a requirement of this module. Please set the location of this library
-using the $ORACLE_CLIENT_LIB environment variable before using this script.
 """
 usage = """
 Usage: fetch_covid_projects_from_db.py <OPTIONS>
@@ -38,9 +45,10 @@ opts = parser.parse_args(sys.argv[1:])
 
 # set up gigantic SQL query
 where_clause = [ 
-    # "(lower(s.study_title) like '%sars-cov-2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%')",
-    "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632')",
-    "p.status_id = 4"
+    "(lower(s.study_title) like '%sars-cov-2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%')",
+
+    # this is a set of projects to use for testing
+    # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305')",
 ]
 if opts.where:
     where_clause.append(opts.where)
@@ -48,7 +56,8 @@ sql = """
 SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.first_created,
     s.study_id, s.study_title, COUNT(unique(sm.sample_id)) as sample_count, COUNT(unique(r.run_id)) 
     as run_count, p.center_name, p.tax_id as project_taxon_id, p.scientific_name as project_scientific_name,
-    sm.tax_id as sample_taxon_id, sm.scientific_name as sample_scientific_name
+    sm.tax_id as sample_taxon_id, sm.scientific_name as sample_scientific_name,
+    p.status_id, avg(e.status_id), avg(sm.status_id), avg(r.status_id)
 FROM study s 
     JOIN project p on s.project_id = p.project_id 
     LEFT JOIN dcc_meta_key d on d.project_id = p.project_id
@@ -61,7 +70,7 @@ FROM study s
 sql += "WHERE " + " AND ".join(where_clause)
 sql += """
 GROUP BY d.meta_key, l.to_id, p.project_id, p.first_created, s.study_id, s.study_title, p.center_name,
-    p.tax_id, p.scientific_name, sm.tax_id, sm.scientific_name
+    p.tax_id, p.scientific_name, sm.tax_id, sm.scientific_name, p.status_id
 ORDER BY p.first_created desc
 """
 
@@ -100,6 +109,22 @@ def setup_connection():
 def fetch_and_filter_projects(connection):
     cursor = connection.cursor()
     for row in cursor.execute(sql):
+        row = list(row) # is a tuple by default
+
+        # record the status of the project
+        this_status = ''
+        project_status, exp_status, sample_status, run_status = row[13:]
+        print(f"{row[2]} statuses : {project_status}, {exp_status}, {sample_status}, {run_status}")
+        if ( project_status != 4 ):
+            this_status = 'private'
+        else:
+            if ( exp_status == 4 and sample_status == 4 and run_status == 4 ):
+                this_status = 'public'
+            else:
+                this_status = 'part private'
+        row[13:] = [this_status]
+
+        # filter into different logs on taxon id and scientific name
         project_taxon_id = row[9]  if row[9]  else ''
         sample_taxon_id  = row[11] if row[11] else ''
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
@@ -134,8 +159,12 @@ def print_log(log, title):
 """
     extract project accessions from the log and return list string
 """
-def project_list_str(log):
-    proj_list = [x[2] for x in log]
+def project_list_str(log, status_filter=False):
+    proj_list = []
+    if status_filter:
+        proj_list = [x[2] for x in log if x[13] == status_filter]
+    else:
+        proj_list = [x[2] for x in log]
     return "\n".join(proj_list)
 
 """ 
@@ -153,14 +182,16 @@ def create_outdir():
 
 file_header =  ['datahub', 'umbrella_project_id', 'project_id', 'first_created', 'study_id',
     'study_title', 'sample_count', 'run_count', 'center_name', 'project_taxon_id', 'project_scientific_name',
-    'sample_taxon_id', 'sample_scientific_name'
+    'sample_taxon_id', 'sample_scientific_name', 'project_status'
 ]
 def write_log_files(log, file_prefix):
     with open(f"{file_prefix}.tsv", 'w') as log_tsv:
         log_tsv.write("\t".join(file_header) + "\n")
         log_tsv.write(log_to_str(log))
-    with open(f"{file_prefix}.projects.list", 'w') as log_proj:
+    with open(f"{file_prefix}.projects.all.list", 'w') as log_proj:
         log_proj.write(project_list_str(log))
+    with open(f"{file_prefix}.projects.public_only.list", 'w') as log_proj:
+        log_proj.write(project_list_str(log, 'public'))
 
 #------------------------#
 #          MAIN          #
