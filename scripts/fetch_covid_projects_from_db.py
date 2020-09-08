@@ -129,7 +129,6 @@ def fetch_and_filter_projects(connection):
         # record the status of the project
         this_status = ''
         project_status, exp_status, sample_status, run_status = row[13:]
-        print(f"{row[2]} statuses : {project_status}, {exp_status}, {sample_status}, {run_status}")
         if ( project_status != 4 ):
             this_status = 'private'
         else:
