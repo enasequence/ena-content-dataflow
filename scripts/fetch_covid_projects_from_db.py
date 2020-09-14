@@ -27,7 +27,7 @@ https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html
 The Oracle Instant Client is a requirement of this module. Please set the location of this library
 using the $ORACLE_CLIENT_LIB environment variable before using this script.
 
-Usage
+Description
 -----
 This script will query ERAREAD for COVID-related projects and split the results into 4 logs:
     - log1 : sars-cov-2 sequences
@@ -49,9 +49,13 @@ Options:
     --where  : (optional) additional filtering to add to the default SQL command (default: none)
 
 """
+example = """
+Example: save projects that are not in any umbrella in a directory called 'test_dir'
+    fetch_and_filter_projects.py --outdir test_dir --where "umbrella_project_id IS NULL"
 
+"""
 parser = argparse.ArgumentParser(
-    description=description
+    description=description+usage+example
 )
 parser.add_argument('--outdir', help="(optional) name of output directory (default: covid_logs_<timestamp>)");
 parser.add_argument('--where',  help="(optional) additional filtering to add to the default SQL command (default: none)")
@@ -60,10 +64,11 @@ opts = parser.parse_args(sys.argv[1:])
 
 # set up gigantic SQL query
 where_clause = [ 
-    "(lower(s.study_title) like '%sars-cov-2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%')",
+    "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
+    "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')",
 
-    # this is a set of projects to use for testing
-    # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305')",
+    # this is a set of projects to use for testing - PRJEB37513 is part private, PRJNA294305 is private
+    # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305', 'PRJEB37513')",
 ]
 if opts.where:
     where_clause.append(opts.where)
