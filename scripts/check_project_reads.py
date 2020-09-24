@@ -27,6 +27,7 @@ and reports on the following:
 """
 
 debug = False
+verbose = True
 project_accs = sys.argv[1:]
 try:
     project_accs[0]
@@ -36,6 +37,9 @@ except IndexError:
 if '--debug' in project_accs:
     debug = True
     project_accs.remove('--debug')
+if '--short' in project_accs:
+    verbose = False
+    project_accs.remove('--short')
 
 for project_acc in project_accs:
     url = f"https://www.ebi.ac.uk/ena/portal/api/filereport?accession={project_acc}&result=read_run&fields=sample_accession,experiment_accession,run_accession,tax_id,scientific_name,fastq_ftp,sra_ftp&format=json&download=false"
@@ -44,14 +48,18 @@ for project_acc in project_accs:
     try:
         data = json.loads(content.content)
     except json.decoder.JSONDecodeError:
-        print(f"Project {project_acc} is empty!")
+        if ( verbose ) :
+            print(f"Project {project_acc} is empty!")
+        else :
+            print(f"{project_acc}\tbad\t0 runs\t0 files")
         sys.exit(0)
 
     if debug:
         print(f"{data}\n\n")
 
     run_count = len(data)
-    print(f"{project_acc} showing {run_count} runs\n")
+    if ( verbose ) :
+        print(f"{project_acc} showing {run_count} runs\n")
 
     tax_id_summary = {}
     file_count_summary = {}
@@ -67,17 +75,29 @@ for project_acc in project_accs:
         except KeyError:
             file_count_summary[fastq_files_count] = [run['run_accession']]
 
-    print("Taxon ID Summary:")
-    for k in tax_id_summary.keys():
-        print(f"\t- {tax_id_summary[k]} samples with taxonomy {k}")
-    print("\n")
+    if ( verbose ) :
+        print("Taxon ID Summary:")
+        for k in tax_id_summary.keys():
+            print(f"\t- {tax_id_summary[k]} samples with taxonomy {k}")
+        print("\n")
 
-    print("FastQ File Check:")
+    if ( verbose ) :
+        print("FastQ File Check:")
     if len(file_count_summary) == 1:
         this_file_count = list(file_count_summary.keys())[0]
-        print(f"\t- All runs have consistent file counts : {this_file_count}")
+        if ( verbose ) :
+            print(f"\t- All runs have consistent file counts : {this_file_count}")
+        else :
+            print(f"{project_acc}\tgood\t{run_count} runs\tall runs have {this_file_count} files")
     else:
-        print("\t- Inconsistent file counts detected!!")
-        for c in file_count_summary:
-            print(f"\t\t* {c} files : runs {file_count_summary[c]}")
-    print("\n")
+        if ( verbose ) :
+            print("\t- Inconsistent file counts detected!!")
+            for c in file_count_summary:
+                print(f"\t\t* {c} files : runs {file_count_summary[c]}")
+        else :
+            file_count_list = ",".join(str(k) for k in list(file_count_summary))
+            run_count_justified = f"{run_count} runs".ljust(20)
+            print(f"{project_acc}\tbad\t{run_count_justified} inconsistent file counts ({file_count_list})")
+
+    if ( verbose ):
+        print("\n")
