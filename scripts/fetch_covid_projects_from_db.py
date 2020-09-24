@@ -29,11 +29,12 @@ using the $ORACLE_CLIENT_LIB environment variable before using this script.
 
 Description
 -----
-This script will query ERAREAD for COVID-related projects and split the results into 4 logs:
+This script will query ERAREAD for COVID-related projects and split the results into 5 logs:
     - log1 : sars-cov-2 sequences
     - log2 : other coronaviral sequences
     - log3 : human sequences
     - log4 : other host sequences
+    - log5 : metagenomes
 
 The script will create an output directory containing results for each log:
     - a TSV spreadsheet for import into Excel or similar
@@ -65,7 +66,8 @@ opts = parser.parse_args(sys.argv[1:])
 # set up gigantic SQL query
 where_clause = [ 
     "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
-    "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')",
+    "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')" +
+    " AND p.status_id not in (3, 5)"
 
     # this is a set of projects to use for testing - PRJEB37513 is part private, PRJNA294305 is private
     # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305', 'PRJEB37513')",
@@ -81,7 +83,7 @@ SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.fi
 FROM study s 
     JOIN project p on s.project_id = p.project_id 
     LEFT JOIN dcc_meta_key d on d.project_id = p.project_id
-    LEFT JOIN (select * from ena_link where to_id in ('PRJEB39908')) l on l.from_id = p.project_id
+    LEFT JOIN (select * from ena_link where to_id in ('PRJEB39908', 'PRJEB40349')) l on l.from_id = p.project_id
     JOIN experiment e on e.study_id = s.study_id
     JOIN experiment_sample es on es.experiment_id = e.experiment_id
     JOIN sample sm on sm.sample_id = es.sample_id
@@ -95,7 +97,7 @@ ORDER BY p.first_created desc
 """
 
 # global variables for use throughout the script
-log1, log2, log3, log4 = [], [], [], []
+log1, log2, log3, log4, log5 = [], [], [], [], []
 sars_tax_id, human_tax_id = '2697049', '9606'
 
 def get_oracle_usr_pwd():
@@ -125,6 +127,7 @@ def setup_connection():
         * log2 : other coronaviral sequences
         * log3 : human sequences (infected with covid-19)
         * log4 : other host sequences
+        * log5 : metagenomes
 """
 def fetch_and_filter_projects(connection):
     cursor = connection.cursor()
@@ -155,6 +158,8 @@ def fetch_and_filter_projects(connection):
             sample_scientific_name  = row[12] if row[12] else ''
             if 'virus' in project_scientific_name or 'virus' in sample_scientific_name:
                 log2.append(row)
+            elif 'metagenom' in project_scientific_name:
+                log5.append(row)
             else:
                 log4.append(row)
 
@@ -178,12 +183,16 @@ def print_log(log, title):
 """
     extract project accessions from the log and return list string
 """
-def project_list_str(log, status_filter=False):
-    proj_list = []
-    if status_filter:
-        proj_list = [x[2] for x in log if x[13] == status_filter]
-    else:
-        proj_list = [x[2] for x in log]
+def project_list_str(log, filter=[]):
+    proj_list = {}
+    for l in log:
+        match = True
+        for i in filter:
+            if l[i] != filter[i]:
+                match = False
+        if match:
+            proj_list[l[2]] = 1
+
     return "\n".join(proj_list)
 
 """ 
@@ -207,10 +216,13 @@ def write_log_files(log, file_prefix):
     with open(f"{file_prefix}.tsv", 'w') as log_tsv:
         log_tsv.write("\t".join(file_header) + "\n")
         log_tsv.write(log_to_str(log))
-    with open(f"{file_prefix}.projects.all.list", 'w') as log_proj:
-        log_proj.write(project_list_str(log))
-    with open(f"{file_prefix}.projects.public_only.list", 'w') as log_proj:
-        log_proj.write(project_list_str(log, 'public'))
+    with open(f"{file_prefix}.projects.no_umbrella.list", 'w') as log_proj:
+        # umbrella_project_id is index 1; filter for None/NULL
+        log_proj.write(project_list_str(log, {1: None}))
+    with open(f"{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
+        # datahub is index 0 : filter for None/NULL
+        # status is index 13: filter for 'public'
+        log_proj.write(project_list_str(log, {0: None, 13: 'public'}))
 
 #------------------------#
 #          MAIN          #
@@ -229,4 +241,5 @@ if __name__ == "__main__":
     write_log_files(log2, f"{outdir}/log2.other_viruses")
     write_log_files(log3, f"{outdir}/log3.human")
     write_log_files(log4, f"{outdir}/log4.other_hosts")
+    write_log_files(log5, f"{outdir}/log5.metagenomes")
     sys.stderr.write(f"Files written to '{outdir}'\n\n")
