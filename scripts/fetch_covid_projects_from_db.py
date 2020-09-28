@@ -32,14 +32,14 @@ Description
 This script will query ERAREAD for COVID-related projects and split the results into 5 logs:
     - log1 : sars-cov-2 sequences
     - log2 : other coronaviral sequences
-    - log3 : human sequences
-    - log4 : other host sequences
-    - log5 : metagenomes
+    - log3 : metagenomes
+    - log4 : human sequences
+    - log5 : other host sequences
 
 The script will create an output directory containing results for each log:
     - a TSV spreadsheet for import into Excel or similar
-    - a list of all project accessions in the log (for input to the add_to_umbrella_project.py script)
-    - a list of public project accessions in the log (to link to the datahub with generate_datahub_queries.py)
+    - a list of project accessions that are not yet in an umbrella project (for input to the add_to_umbrella_project.py script)
+    - a list of public project accessions that are not yet in a data hub (to link to the datahub with generate_datahub_queries.py)
 
 """
 usage = """
@@ -125,9 +125,9 @@ def setup_connection():
     fetch projects using the above SQL query and filter them into 1 of 4 logs:
         * log1 : sars-cov-2 sequences
         * log2 : other coronaviral sequences
-        * log3 : human sequences (infected with covid-19)
-        * log4 : other host sequences
-        * log5 : metagenomes
+        * log3 : metagenomes
+        * log4 : human sequences (infected with covid-19)
+        * log5 : other host sequences
 """
 def fetch_and_filter_projects(connection):
     cursor = connection.cursor()
@@ -152,16 +152,16 @@ def fetch_and_filter_projects(connection):
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
             log1.append(row)
         elif project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id:
-            log3.append(row)
+            log4.append(row)
         else:
             project_scientific_name = row[10] if row[10] else ''
             sample_scientific_name  = row[12] if row[12] else ''
             if 'virus' in project_scientific_name or 'virus' in sample_scientific_name:
                 log2.append(row)
             elif 'metagenom' in project_scientific_name:
-                log5.append(row)
+                log3.append(row)
             else:
-                log4.append(row)
+                log5.append(row)
 
 """
     a log can contain 'None' values and datetime objects - this method
@@ -239,7 +239,7 @@ if __name__ == "__main__":
     outdir = create_outdir()
     write_log_files(log1, f"{outdir}/log1.sars-cov-2")
     write_log_files(log2, f"{outdir}/log2.other_viruses")
-    write_log_files(log3, f"{outdir}/log3.human")
-    write_log_files(log4, f"{outdir}/log4.other_hosts")
-    write_log_files(log5, f"{outdir}/log5.metagenomes")
+    write_log_files(log3, f"{outdir}/log3.metagenomes")
+    write_log_files(log4, f"{outdir}/log4.human")
+    write_log_files(log5, f"{outdir}/log5.other_hosts")
     sys.stderr.write(f"Files written to '{outdir}'\n\n")
