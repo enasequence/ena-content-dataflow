@@ -1,0 +1,7 @@
+<PROJECT_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <PROJECT alias="insdc_covid19_human_umbrella">
+      <TITLE>INSDC COVID-19 Infected Human Sequencing Data</TITLE>
+      <DESCRIPTION>This umbrella project groups all (and only) public human sequencing data from COVID-19 infected individuals that is currently archived with the International Nucleotide Sequence Database Collaboration (INSDC).</DESCRIPTION>
+      <UMBRELLA_PROJECT/>
+   </PROJECT>
+</PROJECT_SET>

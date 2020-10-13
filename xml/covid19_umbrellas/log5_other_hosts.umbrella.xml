@@ -1,0 +1,7 @@
+<PROJECT_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <PROJECT alias="insdc_coronavirus_hosts_umbrella">
+      <TITLE>INSDC Non-Human Coronavirus Host Sequencing Data</TITLE>
+      <DESCRIPTION>This umbrella project groups all public non-human sequencing data from coronavirus infected hosts that is currently archived with the International Nucleotide Sequence Database Collaboration (INSDC).</DESCRIPTION>
+      <UMBRELLA_PROJECT/>
+   </PROJECT>
+</PROJECT_SET>
