@@ -226,11 +226,11 @@ def write_logs(log, file_prefix, outdir, xls_writer):
         dataframe.to_excel(xls_writer, sheet_name=file_prefix, index=False)
     with open(f"{outdir}/{file_prefix}.projects.no_umbrella.list", 'w') as log_proj:
         # umbrella_project_id is index 1; filter for None/NULL
-        log_proj.write(project_list_str(log, {1: None}))
+        log_proj.write(project_list_str(log, {1: 'NULL'}))
     with open(f"{outdir}/{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
         # datahub is index 0 : filter for None/NULL
         # status is index 13: filter for 'public'
-        log_proj.write(project_list_str(log, {0: None, 13: 'public'}))
+        log_proj.write(project_list_str(log, {0: 'NULL', 13: 'public'}))
 
 #------------------------#
 #          MAIN          #
