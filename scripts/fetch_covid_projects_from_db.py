@@ -1,13 +1,13 @@
 #!/usr/bin/env python3.7
 
 # Copyright [2020] EMBL-European Bioinformatics Institute
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,6 +18,7 @@ import os, sys
 from datetime import datetime
 import cx_Oracle, argparse
 from getpass import getpass
+import pandas as pd
 
 description = """
 Setup
@@ -36,10 +37,10 @@ This script will query ERAREAD for COVID-related projects and split the results 
     - log4 : human sequences
     - log5 : other host sequences
 
-The script will create an output directory containing results for each log:
-    - a TSV spreadsheet for import into Excel or similar
-    - a list of project accessions that are not yet in an umbrella project (for input to the add_to_umbrella_project.py script)
-    - a list of public project accessions that are not yet in a data hub (to link to the datahub with generate_datahub_queries.py)
+The script will create an output directory containing:
+    - an .xlsx spreadsheet for import into Excel or similar (one sheet per-log)
+    - per-log list of project accessions that are not yet in an umbrella project (for input to the add_to_umbrella_project.py script)
+    - per-log list of public project accessions that are not yet in a data hub (to link to the datahub with generate_datahub_queries.py)
 
 """
 usage = """
@@ -64,7 +65,7 @@ opts = parser.parse_args(sys.argv[1:])
 
 
 # set up gigantic SQL query
-where_clause = [ 
+where_clause = [
     "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
     "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')" +
     " AND p.status_id not in (3, 5)"
@@ -76,12 +77,12 @@ if opts.where:
     where_clause.append(opts.where)
 sql = """
 SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.first_created,
-    s.study_id, s.study_title, COUNT(unique(sm.sample_id)) as sample_count, COUNT(unique(r.run_id)) 
+    s.study_id, s.study_title, COUNT(unique(sm.sample_id)) as sample_count, COUNT(unique(r.run_id))
     as run_count, p.center_name, p.tax_id as project_taxon_id, p.scientific_name as project_scientific_name,
     sm.tax_id as sample_taxon_id, sm.scientific_name as sample_scientific_name,
     p.status_id, avg(e.status_id), avg(sm.status_id), avg(r.status_id)
-FROM study s 
-    JOIN project p on s.project_id = p.project_id 
+FROM study s
+    JOIN project p on s.project_id = p.project_id
     LEFT JOIN dcc_meta_key d on d.project_id = p.project_id
     LEFT JOIN (select * from ena_link where to_id in ('PRJEB39908', 'PRJEB40349')) l on l.from_id = p.project_id
     JOIN experiment e on e.study_id = s.study_id
@@ -119,7 +120,6 @@ def setup_connection():
         return connection
     except cx_Oracle.Error as error:
         print(error)
-    
 
 """
     fetch projects using the above SQL query and filter them into 1 of 4 logs:
@@ -132,7 +132,12 @@ def setup_connection():
 def fetch_and_filter_projects(connection):
     cursor = connection.cursor()
     for row in cursor.execute(sql):
-        row = list(row) # is a tuple by default
+        # row = list(row) # is a tuple by default
+        # row[0] = row[0] if row[0] == '' else 'NULL'
+        # row[1] = row[1] if row[1] == '' else 'NULL'
+
+        # convert tuple to list, and replace empty strings with NULL
+        row = ['NULL' if (not x or x == '') else x for x in list(row)]
 
         # record the status of the project
         this_status = ''
@@ -147,8 +152,8 @@ def fetch_and_filter_projects(connection):
         row[13:] = [this_status]
 
         # filter into different logs on taxon id and scientific name
-        project_taxon_id = row[9]  if row[9]  else ''
-        sample_taxon_id  = row[11] if row[11] else ''
+        project_taxon_id = row[9] #  if row[9]  else ''
+        sample_taxon_id  = row[11] # if row[11] else ''
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
             log1.append(row)
         elif project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id:
@@ -195,8 +200,8 @@ def project_list_str(log, filter=[]):
 
     return "\n".join(proj_list)
 
-""" 
-    generate and create the output directory 
+"""
+    generate and create the output directory
 """
 def create_outdir():
     if opts.outdir:
@@ -212,14 +217,17 @@ file_header =  ['datahub', 'umbrella_project_id', 'project_id', 'first_created',
     'study_title', 'sample_count', 'run_count', 'center_name', 'project_taxon_id', 'project_scientific_name',
     'sample_taxon_id', 'sample_scientific_name', 'project_status'
 ]
-def write_log_files(log, file_prefix):
+def write_logs(log, file_prefix, outdir, xls_writer):
     with open(f"{file_prefix}.tsv", 'w') as log_tsv:
-        log_tsv.write("\t".join(file_header) + "\n")
-        log_tsv.write(log_to_str(log))
-    with open(f"{file_prefix}.projects.no_umbrella.list", 'w') as log_proj:
+        # log_tsv = "\t".join(file_header) + "\n"
+        # log_tsv += log_to_str(log)
+        # dataframe = pd.read_csv(log_tsv, sep="\t")
+        dataframe = pd.DataFrame(log, columns = file_header)
+        dataframe.to_excel(xls_writer, sheet_name=file_prefix, index=False)
+    with open(f"{outdir}/{file_prefix}.projects.no_umbrella.list", 'w') as log_proj:
         # umbrella_project_id is index 1; filter for None/NULL
         log_proj.write(project_list_str(log, {1: None}))
-    with open(f"{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
+    with open(f"{outdir}/{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
         # datahub is index 0 : filter for None/NULL
         # status is index 13: filter for 'public'
         log_proj.write(project_list_str(log, {0: None, 13: 'public'}))
@@ -237,9 +245,11 @@ if __name__ == "__main__":
     # format output and write files
     sys.stderr.write("Writing files...\n")
     outdir = create_outdir()
-    write_log_files(log1, f"{outdir}/log1.sars-cov-2")
-    write_log_files(log2, f"{outdir}/log2.other_viruses")
-    write_log_files(log3, f"{outdir}/log3.metagenomes")
-    write_log_files(log4, f"{outdir}/log4.human")
-    write_log_files(log5, f"{outdir}/log5.other_hosts")
+    xls_writer = pd.ExcelWriter(f"{outdir}/covid_logs.xlsx", engine='xlsxwriter')
+    write_logs(log1, "log1.sars-cov-2", outdir, xls_writer)
+    write_logs(log2, "log2.other_viruses", outdir, xls_writer)
+    write_logs(log3, "log3.metagenomes", outdir, xls_writer)
+    write_logs(log4, "log4.human", outdir, xls_writer)
+    write_logs(log5, "log5.other_hosts", outdir, xls_writer)
+    xls_writer.save()
     sys.stderr.write(f"Files written to '{outdir}'\n\n")
