@@ -1,0 +1,7 @@
+cx_Oracle
+argparse
+getpass
+pandas
+openpyxl
+xlsxwriter
+xlrd
