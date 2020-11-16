@@ -65,11 +65,12 @@ opts = parser.parse_args(sys.argv[1:])
 
 
 # set up gigantic SQL query
+umbrella_project_ids = ['PRJEB39908', 'PRJEB40349', 'PRJEB40770', 'PRJEB40771', 'PRJEB40772']
 where_clause = [
     "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
     "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')" +
     " AND p.status_id not in (3, 5)" +
-    " AND s.study_id not like 'EGA%'"
+    " AND (s.study_id not like 'EGA%' AND s.project_id not like 'EGA%') "
 
     # this is a set of projects to use for testing - PRJEB37513 is part private, PRJNA294305 is private
     # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305', 'PRJEB37513')",
@@ -85,7 +86,9 @@ SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.fi
 FROM study s
     JOIN project p on s.project_id = p.project_id
     LEFT JOIN dcc_meta_key d on d.project_id = p.project_id
-    LEFT JOIN (select * from ena_link where to_id in ('PRJEB39908', 'PRJEB40349')) l on l.from_id = p.project_id
+    LEFT JOIN (select * from ena_link where to_id in ("""
+sql += ",".join([f"'{u}'" for u in umbrella_project_ids]) # quote and join
+sql += """)) l on l.from_id = p.project_id
     JOIN experiment e on e.study_id = s.study_id
     JOIN experiment_sample es on es.experiment_id = e.experiment_id
     JOIN sample sm on sm.sample_id = es.sample_id
