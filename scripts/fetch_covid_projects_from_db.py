@@ -68,7 +68,8 @@ opts = parser.parse_args(sys.argv[1:])
 where_clause = [
     "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
     "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')" +
-    " AND p.status_id not in (3, 5)"
+    " AND p.status_id not in (3, 5)" +
+    " AND s.study_id not like 'EGA%'"
 
     # this is a set of projects to use for testing - PRJEB37513 is part private, PRJNA294305 is private
     # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305', 'PRJEB37513')",
@@ -163,7 +164,7 @@ def fetch_and_filter_projects(connection):
             sample_scientific_name  = row[12] if row[12] else ''
             if 'virus' in project_scientific_name or 'virus' in sample_scientific_name:
                 log2.append(row)
-            elif 'metagenom' in project_scientific_name:
+            elif 'metagenom' in project_scientific_name or 'metagenom' in sample_scientific_name:
                 log3.append(row)
             else:
                 log5.append(row)
