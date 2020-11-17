@@ -50,6 +50,9 @@ gisaid_to_ena = {
 default_sheet = 'ENA Submission'
 
 
+"""
+Handle command line arguments & helptext
+"""
 def parse_args(args):
     from argparse import RawTextHelpFormatter
     parser = argparse.ArgumentParser(
@@ -123,6 +126,15 @@ def convert_gisaid_to_ena(gisaid_df):
         except KeyError:
             continue
 
+    ena_data = smart_fill(ena_data)
+    return pd.DataFrame(ena_data)
+
+
+"""
+Autofill as much stuff as possible, replace bad
+values, general tidy up of data.
+"""
+def smart_fill(ena_data):
     # need num of rows to autofill missing data
     num_rows = len(ena_data['collection date*'])
 
@@ -139,9 +151,7 @@ def convert_gisaid_to_ena(gisaid_df):
 
     ena_data = fix_missing_values(ena_data, num_rows)
 
-    # print(ena_data)
-    return pd.DataFrame(ena_data)
-
+    return ena_data
 
 """
 Fill 'not provided' in place of 'unknown', except for
