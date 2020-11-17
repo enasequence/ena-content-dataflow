@@ -5,3 +5,5 @@ pandas
 openpyxl
 xlsxwriter
 xlrd
+pycountry
+requests
