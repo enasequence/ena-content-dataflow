@@ -47,8 +47,9 @@ usage = """
 Usage: fetch_covid_projects_from_db.py <OPTIONS>
 
 Options:
-    --outdir : (optional) name of output directory (default: covid_logs_<timestamp>)
-    --where  : (optional) additional filtering to add to the default SQL command (default: none)
+    --outdir          : (optional) name of output directory (default: covid_logs_<timestamp>)
+    --where           : (optional) additional filtering to add to the default SQL command (default: none)
+    --ignore_projects : (optional) file containing list of project ids to ignore
 
 """
 example = """
@@ -61,8 +62,8 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument('--outdir', help="(optional) name of output directory (default: covid_logs_<timestamp>)");
 parser.add_argument('--where',  help="(optional) additional filtering to add to the default SQL command (default: none)")
+parser.add_argument('--ignore_projects',  help="(optional) file containing list of project ids to ignore (default: none)")
 opts = parser.parse_args(sys.argv[1:])
-
 
 # set up gigantic SQL query
 umbrella_project_ids = ['PRJEB39908', 'PRJEB40349', 'PRJEB40770', 'PRJEB40771', 'PRJEB40772']
@@ -137,11 +138,15 @@ def setup_connection():
         * log5 : other host sequences
 """
 def fetch_and_filter_projects(connection):
+    ignore_projects = []
+    if opts.ignore_projects:
+        ignore_projects = [line.strip() for line in open(opts.ignore_projects, 'r')]
+
     cursor = connection.cursor()
     for row in cursor.execute(sql):
-        # row = list(row) # is a tuple by default
-        # row[0] = row[0] if row[0] == '' else 'NULL'
-        # row[1] = row[1] if row[1] == '' else 'NULL'
+        project_id = row[2]
+        if project_id in ignore_projects:
+            continue
 
         # convert tuple to list, and replace empty strings with NULL
         row = ['NULL' if (not x or x == '') else x for x in list(row)]
