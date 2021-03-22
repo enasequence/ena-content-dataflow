@@ -70,8 +70,8 @@ where_clause = [
     "p.tax_id = 2697049 OR sm.tax_id = 2697049 OR " +
     "(lower(s.study_title) like '%sars%cov%2%' OR lower(s.study_title) like '%covid%' OR lower(s.study_title) like '%coronavirus%' OR lower(s.study_title) like '%severe acute respiratory%')" +
     " AND p.status_id not in (3, 5)" +
-    " AND (s.study_id not like 'EGA%' AND s.project_id not like 'EGA%') "
-
+    " AND (s.study_id not like 'EGA%' AND s.project_id not like 'EGA%') " +
+    " AND (a.analysis_type IS NULL OR a.analysis_type = 'SEQUENCE_ASSEMBLY')"
     # this is a set of projects to use for testing - PRJEB37513 is part private, PRJNA294305 is private
     # "s.project_id IN ('PRJNA656810', 'PRJNA656534', 'PRJNA656060', 'PRJNA622652', 'PRJNA648425', 'PRJNA648677', 'PRJEB39632', 'PRJNA294305', 'PRJEB37513')",
 ]
@@ -80,7 +80,8 @@ if opts.where:
 sql = """
 SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.first_created,
     s.study_id, s.study_title, COUNT(unique(sm.sample_id)) as sample_count, COUNT(unique(r.run_id))
-    as run_count, p.center_name, p.tax_id as project_taxon_id, p.scientific_name as project_scientific_name,
+    as run_count, count(unique(a.analysis_id)) as sequence_count,
+    p.center_name, p.tax_id as project_taxon_id, p.scientific_name as project_scientific_name,
     sm.tax_id as sample_taxon_id, sm.scientific_name as sample_scientific_name,
     p.status_id, avg(e.status_id), avg(sm.status_id), avg(r.status_id)
 FROM study s
@@ -89,10 +90,12 @@ FROM study s
     LEFT JOIN (select * from ena_link where to_id in ("""
 sql += ",".join([f"'{u}'" for u in umbrella_project_ids]) # quote and join
 sql += """)) l on l.from_id = p.project_id
-    JOIN experiment e on e.study_id = s.study_id
-    JOIN experiment_sample es on es.experiment_id = e.experiment_id
-    JOIN sample sm on sm.sample_id = es.sample_id
-    JOIN run r on e.experiment_id = r.experiment_id
+    LEFT JOIN experiment e on e.study_id = s.study_id
+    LEFT JOIN experiment_sample es on es.experiment_id = e.experiment_id
+    LEFT JOIN sample sm on sm.sample_id = es.sample_id
+    LEFT JOIN run r on e.experiment_id = r.experiment_id
+    LEFT JOIN analysis_sample ans on ans.sample_id = sm.sample_id
+    LEFT JOIN analysis a on ans.analysis_id = a.analysis_id
 """
 sql += "WHERE " + " AND ".join(where_clause)
 sql += """
@@ -145,7 +148,7 @@ def fetch_and_filter_projects(connection):
 
         # record the status of the project
         this_status = ''
-        project_status, exp_status, sample_status, run_status = row[13:]
+        project_status, exp_status, sample_status, run_status = row[14:]
         if ( project_status != 4 ):
             this_status = 'private'
         else:
@@ -153,18 +156,18 @@ def fetch_and_filter_projects(connection):
                 this_status = 'public'
             else:
                 this_status = 'part private'
-        row[13:] = [this_status]
+        row[14:] = [this_status]
 
         # filter into different logs on taxon id and scientific name
-        project_taxon_id = row[9] #  if row[9]  else ''
-        sample_taxon_id  = row[11] # if row[11] else ''
+        project_taxon_id = row[10] #  if row[9]  else ''
+        sample_taxon_id  = row[12] # if row[11] else ''
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
             log1.append(row)
         elif project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id:
             log4.append(row)
         else:
-            project_scientific_name = row[10] if row[10] else ''
-            sample_scientific_name  = row[12] if row[12] else ''
+            project_scientific_name = row[11] if row[11] else ''
+            sample_scientific_name  = row[13] if row[13] else ''
             if 'virus' in project_scientific_name or 'virus' in sample_scientific_name:
                 log2.append(row)
             elif 'metagenom' in project_scientific_name or 'metagenom' in sample_scientific_name:
@@ -218,8 +221,8 @@ def create_outdir():
     return outdir
 
 file_header =  ['datahub', 'umbrella_project_id', 'project_id', 'first_created', 'study_id',
-    'study_title', 'sample_count', 'run_count', 'center_name', 'project_taxon_id', 'project_scientific_name',
-    'sample_taxon_id', 'sample_scientific_name', 'project_status'
+    'study_title', 'sample_count', 'run_count', 'sequence_count', 'center_name', 'project_taxon_id',
+    'project_scientific_name', 'sample_taxon_id', 'sample_scientific_name', 'project_status'
 ]
 def write_logs(log, file_prefix, outdir, xls_writer):
     with open(f"{file_prefix}.tsv", 'w') as log_tsv:
@@ -234,7 +237,7 @@ def write_logs(log, file_prefix, outdir, xls_writer):
     with open(f"{outdir}/{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
         # datahub is index 0 : filter for None/NULL
         # status is index 13: filter for 'public'
-        log_proj.write(project_list_str(log, {0: 'NULL', 13: 'public'}))
+        log_proj.write(project_list_str(log, {0: 'NULL', 14: 'public'}))
 
 #------------------------#
 #          MAIN          #
