@@ -158,19 +158,20 @@ def fetch_and_filter_projects(connection):
                 this_status = 'part private'
         row[14:] = [this_status]
 
-        # filter into different logs on taxon id and scientific name
+        # filter into different logs on taxon id, scientific name and study title
+        study_title = row[5]
         project_taxon_id = row[10] #  if row[9]  else ''
         sample_taxon_id  = row[12] # if row[11] else ''
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
             log1.append(row)
-        elif project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id:
+        elif (project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id) and 'metagenom' not in study_title:
             log4.append(row)
         else:
             project_scientific_name = row[11] if row[11] else ''
             sample_scientific_name  = row[13] if row[13] else ''
-            if 'virus' in project_scientific_name or 'virus' in sample_scientific_name:
+            if 'virus' in project_scientific_name or 'virus' in sample_scientific_name or 'viridae' in project_scientific_name or 'viridae' in sample_scientific_name:
                 log2.append(row)
-            elif 'metagenom' in project_scientific_name or 'metagenom' in sample_scientific_name:
+            elif 'metagenom' in project_scientific_name or 'metagenom' in sample_scientific_name or 'metagenom' in study_title:
                 log3.append(row)
             else:
                 log5.append(row)
