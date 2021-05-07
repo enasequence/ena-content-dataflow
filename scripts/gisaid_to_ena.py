@@ -18,6 +18,7 @@ import sys, re, argparse, requests
 import pandas as pd
 import pycountry
 
+# required fields marked with *
 ena_fields = [
     'sample_alias*', 'tax_id*', 'scientific_name*', 'common_name',
     'sample_title*', 'sample_description', 'collection date*',
