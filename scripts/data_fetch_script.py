@@ -83,7 +83,7 @@ if repository == 'ena':
     dec_split = out.decode().strip('accession\n')
     print(dec_split)
     sys.stdout.close()
-
+    sys.stdout = stdoutOrigin
 # Creating the script for fetching data from COVID19dataPortal in ENA
 elif repository == 'covid19dataportal':
     if args.database == None:
@@ -225,4 +225,5 @@ elif repository == 'ncbi':
         for x in trimmed_accessions:
             print(x)
         sys.stdout.close()
+        sys.stdout = stdoutOrigin
 print('DONE...........................................................................')
