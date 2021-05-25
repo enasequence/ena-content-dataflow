@@ -22,7 +22,7 @@ The options are provided by either
         """)
 parser.add_argument('-db', '--database', help='Database type, sequences or reads', type=str, required=False)
 parser.add_argument('-org', '--organism', help='Organism id or scientific name', type=str, required=False)
-parser.add_argument('-r', '--repository', help='Name of the repository, ENA, NCBI, covid19dataportal,ebisearch', type=str, required=False)
+parser.add_argument('-r', '--repository', help='Name of the repository, ENA, NCBI, covid19dataportal, ebisearch, all(ENA-advanced search, ebisearch, covid19dataportal and NCBIvirus)', type=str, required=False)
 args = parser.parse_args()
 
 # generate and create the output directory
@@ -38,7 +38,7 @@ def create_outdir():
 outdir = create_outdir()
 
 if args.repository == None:
-    repository = input("Name of the repository, ENA, NCBI, covid19dataportal,ebisearch: ").lower()
+    repository = input("Name of the repository, ENA, NCBI, covid19dataportal,ebisearch,all: ").lower()
 else:
     repository = args.repository.lower()
 if args.organism == None:
@@ -77,13 +77,14 @@ if repository == 'ena':
     command = 'curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "'"result={}&query=tax_eq({})&fields=accession&format=tsv"'" "https://www.ebi.ac.uk/ena/portal/api/search"'.format(database, taxid)
     sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = sp.communicate()
-    print(command)
     stdoutOrigin = sys.stdout
     sys.stdout = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
     dec_split = out.decode().strip('accession\n')
     print(dec_split)
     sys.stdout.close()
     sys.stdout = stdoutOrigin
+    print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+
 # Creating the script for fetching data from COVID19dataPortal in ENA
 elif repository == 'covid19dataportal':
     if args.database == None:
@@ -109,7 +110,6 @@ elif repository == 'covid19dataportal':
         command = requests.get(server+ext, headers={"Content-Type": "application/json"})
         status = command.status_code
         if status == 500:
-            print(command)
             break
         else:
             data = json.loads(command.content)
@@ -133,7 +133,7 @@ elif repository == 'covid19dataportal':
                     output = x["id"]
                     f.write(output + "\n")
                 f.close()
-
+    print('Covid19dataportal Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 # Creating the script for fetching data from ebisearch in ENA
 elif repository == 'ebisearch':
     if args.database == None:
@@ -159,7 +159,6 @@ elif repository == 'ebisearch':
         command = requests.get(server+ext, headers={"Content-Type": "application/json"})
         status = command.status_code
         if status == 400:
-            print(command)
             break
         else:
             data = json.loads(command.content)
@@ -176,7 +175,7 @@ elif repository == 'ebisearch':
                     output = x["id"]
                     f.write(output + "\n")
                 f.close()
-
+    print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 # Creating the script for fetching data from NCBI
 elif repository == 'ncbi':
     if args.database == None:
@@ -205,14 +204,13 @@ elif repository == 'ncbi':
             print(x)
         sys.stdout.close()
         sys.stdout = stdoutOrigin
-
+        print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
     # Creating the script for fetching data from other databases in NCBI (installation of edirect dependency required)
-    else:
+    elif database == 'nucleotide':
         command = 'esearch -db {} -query {}"[ORGN]" | efetch -format acc '.format(
                     database, sciname)
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
-        print(command)
         stdoutOrigin=sys.stdout
         sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
         dec_split = out.decode()
@@ -226,4 +224,164 @@ elif repository == 'ncbi':
             print(x)
         sys.stdout.close()
         sys.stdout = stdoutOrigin
+        print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+    elif database == 'sra':
+        print('PROCESSING  data in SRA...................................................................')
+        command = 'esearch -db {} -query {}"[ORGN]" | esummary | xtract -pattern DocumentSummary -element Experiment@acc'.format(
+            database, sciname)
+        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = sp.communicate()
+        stdoutOrigin = sys.stdout
+        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
+        dec_split = out.decode()
+        print(dec_split)
+        sys.stdout.close()
+        sys.stdout = stdoutOrigin
+        print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+# Creating the script for fetching data from databases of ENA and NCBI at once ( databases are ENA-advance search, ebisearch, covid19portal and NCBIvirus)
+elif repository == 'all':
+    if args.database == None:
+        database= input("please indicate the dataset type, ex: sequence or reads: ").lower()
+        args.database = database
+        if database == 'sequences':
+            database = 'sequence'
+        elif database == 'reads':
+            database = 'read_experiment'
+    else:
+        database = args.database.lower()
+        if database == 'sequences':
+            database = 'sequence'
+        elif database == 'reads':
+            database = 'read_experiment'
+    print('PROCESSING data from ENA...................................................................')
+    command = 'curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "'"result={}&query=tax_eq({})&fields=accession&format=tsv"'" "https://www.ebi.ac.uk/ena/portal/api/search"'.format(database, taxid)
+    sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = sp.communicate()
+    stdoutOrigin = sys.stdout
+    sys.stdout = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
+    dec_split = out.decode().strip('accession\n')
+    print(dec_split)
+    sys.stdout.close()
+    sys.stdout = stdoutOrigin
+    print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+
+# Creating the script for fetching data from COVID19dataPortal in ENA
+    database = args.database.lower()
+    if database == 'sequence':
+        database = 'sequences'
+    elif database == 'reads':
+        database = 'raw-reads'
+    print('PROCESSING data in covid19portal...................................................................')
+
+   # Using While loop to go through all the pages in the covid19dataportal API
+    page = 1
+    while page >= 0:
+        page = page + 1
+        server = "https://www.covid19dataportal.org/api/backend/viral-sequences"
+        ext = "/{}?query=TAXON:2697049&page={}&size=1000".format(database, page)
+        command = requests.get(server+ext, headers={"Content-Type": "application/json"})
+        status = command.status_code
+        if status == 500:
+            break
+        else:
+            data = json.loads(command.content)
+            jsonData = data["entries"]
+            if page==1:
+            # script to select the keys in the jason output (not active)
+               # jsonData = data["entries"]
+                #for x in jsonData:
+                    #keys = x.keys()
+                    #print(keys)
+                    #values = x.values()
+                    #print(values)
+                f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "w")
+                for x in jsonData:
+                    output=x["id"]
+                    f.write(output+"\n")
+                f.close()
+            else:
+                f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "a")
+                for x in jsonData:
+                    output = x["id"]
+                    f.write(output + "\n")
+                f.close()
+    print('Covid19portal Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+
+# Creating the script for fetching data from ebisearch in ENA
+    database = args.database.lower()
+    if database == 'sequence':
+        database = 'embl-covid19'
+    elif database == 'reads':
+        database = 'sra-experiment-covid19'
+    print('PROCESSING data from ebisearch...................................................................')
+
+    # Using While loop to go through all the pages in the ebisearch API
+    start = 0
+    while start >= 0:
+        server = "http://www.ebi.ac.uk/ebisearch/ws/rest"
+        ext = "/{}?query=TAXON:{}&fields=acc&format=json&size=1000&start={}".format(database, taxid, start)
+        start = start + 1000
+        command = requests.get(server+ext, headers={"Content-Type": "application/json"})
+        status = command.status_code
+        if status == 400:
+            break
+        else:
+            data = json.loads(command.content)
+            jsonData = data["entries"]
+            if start == 0:
+                f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "w")
+                for x in jsonData:
+                    output = x["id"]
+                    f.write(output + "\n")
+                f.close()
+            else:
+                f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "a")
+                for x in jsonData:
+                    output = x["id"]
+                    f.write(output + "\n")
+                f.close()
+    print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+
+# Creating the script for fetching data from NCBI
+    database = args.database.lower()
+    if database == 'sequence':
+        database = 'ncbivirus'
+    elif database == 'reads':
+        database = 'sra'
+    # Creating the script for fetching data from NCBIvirus in NCBI
+    if database == 'ncbivirus':
+        print('PROCESSING  data in NCBIvirus...................................................................')
+        command = 'curl -X GET "https://api.ncbi.nlm.nih.gov/datasets/v1alpha/virus/taxon/"{}"/genome/table?refseq_only=false&annotated_only=false&table_fields=nucleotide_accession" -H "Accept: application/json"'.format(taxid)
+        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = sp.communicate()
+        print(command)
+        stdoutOrigin = sys.stdout
+        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
+        dec_split = out.decode().strip('Nucleotide Accession')
+        dec_split= dec_split.strip("\r\n")
+
+        # trimming the output by removing the version number (numbers after ".")
+        trimmed_accessions = []
+        for accession in dec_split.split("\n"):
+            accession = accession.split('.')[0]
+            trimmed_accessions.append(accession)
+        for x in trimmed_accessions:
+            print(x)
+        sys.stdout.close()
+        sys.stdout = stdoutOrigin
+        print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+    # Creating the script for fetching data from SRA in NCBI (installation of edirect dependency required)
+    elif database == 'sra':
+        print('PROCESSING  data in SRA...................................................................')
+        command = 'esearch -db {} -query {}"[ORGN]" | esummary | xtract -pattern DocumentSummary -element Experiment@acc'.format(
+            database, sciname)
+        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = sp.communicate()
+        stdoutOrigin = sys.stdout
+        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
+        dec_split = out.decode()
+        print(dec_split)
+        sys.stdout.close()
+        sys.stdout = stdoutOrigin
+    print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
 print('DONE...........................................................................')
