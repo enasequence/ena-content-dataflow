@@ -19,7 +19,6 @@ import argparse
 import pandas as pd
 from datetime import datetime
 
-
 description = """
 Description
 -----
@@ -78,10 +77,10 @@ project_name = (data['PROJECT_SET']['PROJECT']['NAME'])
 
 ## to account for release date not having a fixed index in project xml:
 for index, attribute in enumerate(data['PROJECT_SET']['PROJECT']['PROJECT_ATTRIBUTES']['PROJECT_ATTRIBUTE']):
-    if attribute['TAG'] == "ENA-FIRST-PUBLIC" :
-        #print(index, attribute)
-        release_date = (data['PROJECT_SET']['PROJECT']['PROJECT_ATTRIBUTES']['PROJECT_ATTRIBUTE'][index]['VALUE'])
-        print("release date is " +  release_date)
+     if attribute['TAG'] == "ENA-FIRST-PUBLIC" :
+         #print(index, attribute)
+         release_date = (data['PROJECT_SET']['PROJECT']['PROJECT_ATTRIBUTES']['PROJECT_ATTRIBUTE'][index]['VALUE'])
+         print("release date is " +  release_date)
 
 
 
@@ -102,13 +101,13 @@ values.extend((project_accession, "Raw Data", "ENA", ""))
 ## to link multiple projects to main biostudies entry
 if args.additional_projects != None:
 
-    additional_projects = len(args.additional_projects)
+     additional_projects = len(args.additional_projects)
 
-    def link_additional_projects(args): #not a required arguement
-        for a_project in range(additional_projects):
-            keys.extend(("Link", "Description", "Type", ""))
-            values.extend((args.additional_projects[a_project], "Raw Data", "ENA", ""))
-    link_additional_projects(args)
+     def link_additional_projects(args): #not a required arguement
+         for a_project in range(additional_projects):
+             keys.extend(("Link", "Description", "Type", ""))
+             values.extend((args.additional_projects[a_project], "Raw Data", "ENA", ""))
+     link_additional_projects(args)
 
 keys.extend(("Link", "Type"))
 values.extend(("<insert DOI here>", "DOI")) #this will be manually added by biostudies team
@@ -117,7 +116,7 @@ values.extend(("<insert DOI here>", "DOI")) #this will be manually added by bios
 ## to include multiple authors in pagetab file
 authors = len(args.author)
 unique_institutions = len(set(args.institution))
-
+unique_institutions_list = list(set(args.institution))
 
 def create_author_entries(args):
     print()
@@ -132,8 +131,15 @@ def create_author_entries(args):
             keys.extend(("Organization", "Name"))
             values.extend((affiliation, args.institution[i]))
             print(affiliation, args.institution[i])
-            ###TODO: how to print organization blocks if some authors are from the same institution?
+        else: #printing affiliation if multiple authors are from the same institution
+            for institute in unique_institutions_list:
+                affiliation = "o" + str(unique_institutions_list.index(institute) + 1)
+            values.extend((affiliation, ""))  # value for author 'affiliation' key
+    keys.extend(("Organization", "Name"))
+    values.extend((affiliation, args.institution[i]))
+    print(affiliation, args.institution[i])
 create_author_entries(args)
+
 
 
 ## creates a dataframe from zipping tuples together
