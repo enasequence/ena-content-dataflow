@@ -61,28 +61,39 @@ taxid= data['id']
 
 # Creating the script for fetching data from advance search in ENA
 if repository == 'ena':
+    acc = 'accession'
     if args.database == None:
         database= input("please indicate the dataset type, ex: sequence or reads: ").lower()
         if database == 'sequences':
             database = 'sequence'
         elif database == 'reads':
             database = 'read_experiment'
+            acc = 'experiment_accession'
     else:
         database = args.database.lower()
         if database == 'sequences':
             database = 'sequence'
         elif database == 'reads':
             database = 'read_experiment'
+            acc = 'experiment_accession'
     print('PROCESSING...................................................................')
-    command = 'curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "'"result={}&query=tax_eq({})&fields=accession&format=tsv"'" "https://www.ebi.ac.uk/ena/portal/api/search"'.format(database, taxid)
-    sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = sp.communicate()
-    stdoutOrigin = sys.stdout
-    sys.stdout = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
-    dec_split = out.decode().strip('accession\n')
-    print(dec_split)
-    sys.stdout.close()
-    sys.stdout = stdoutOrigin
+    server = "https://www.ebi.ac.uk/ena/portal/api/search"
+    ext = "?result={}&query=tax_eq({})&fields={}&format=json&limit=0".format(database, taxid, acc)
+    command = requests.get(server + ext, headers={"Content-Type": "application/json"})
+    status = command.status_code
+    if status == 500:
+        print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
+    data = json.loads(command.content)
+    f = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
+    if acc == 'experiment_accession':
+        for x in data:
+                output = x["experiment_accession"]
+                f.write(output + "\n")
+    else:
+        for x in data:
+                output = x["accession"]
+                f.write(output + "\n")
+    f.close()
     print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
 # Creating the script for fetching data from COVID19dataPortal in ENA
@@ -158,7 +169,9 @@ elif repository == 'ebisearch':
         start = start + 1000
         command = requests.get(server+ext, headers={"Content-Type": "application/json"})
         status = command.status_code
-        if status == 400:
+        if status == 400 or status == 500:
+            if status == 500:
+                print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
             break
         else:
             data = json.loads(command.content)
@@ -186,25 +199,25 @@ elif repository == 'ncbi':
 
     # Creating the script for fetching data from NCBIvirus in NCBI
     if database == 'ncbivirus':
-        command = 'curl -X GET "https://api.ncbi.nlm.nih.gov/datasets/v1alpha/virus/taxon/"{}"/genome/table?refseq_only=false&annotated_only=false&table_fields=nucleotide_accession" -H "Accept: application/json"'.format(taxid)
-        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = sp.communicate()
-        print(command)
-        stdoutOrigin = sys.stdout
-        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
-        dec_split = out.decode().strip('Nucleotide Accession')
+        server = "https://api.ncbi.nlm.nih.gov/datasets/v1alpha/virus/taxon/{}/genome/table".format(taxid)
+        ext = "?refseq_only=false&annotated_only=false&table_fields=nucleotide_accession"
+        command = requests.get(server + ext, headers={"Content-Type": "text/tab-separated-values"})
+        status = command.status_code
+        if status == 500:
+            print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
+        f = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
+        dec_split = command.content.decode('utf-8').strip('Nucleotide Accession')
         dec_split= dec_split.strip("\r\n")
-
-        # trimming the output by removing the version number (numbers after ".")
+        #trimming the output by removing the version number (numbers after ".")
         trimmed_accessions = []
         for accession in dec_split.split("\n"):
             accession = accession.split('.')[0]
             trimmed_accessions.append(accession)
         for x in trimmed_accessions:
-            print(x)
-        sys.stdout.close()
-        sys.stdout = stdoutOrigin
+            f.write(x + "\n")
+        f.close()
         print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+
     # Creating the script for fetching data from other databases in NCBI (installation of edirect dependency required)
     elif database == 'nucleotide':
         command = 'esearch -db {} -query {}"[ORGN]" | efetch -format acc '.format(
@@ -240,6 +253,7 @@ elif repository == 'ncbi':
         print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
 # Creating the script for fetching data from databases of ENA and NCBI at once ( databases are ENA-advance search, ebisearch, covid19portal and NCBIvirus)
 elif repository == 'all':
+    acc = 'accession'
     if args.database == None:
         database= input("please indicate the dataset type, ex: sequence or reads: ").lower()
         args.database = database
@@ -247,22 +261,32 @@ elif repository == 'all':
             database = 'sequence'
         elif database == 'reads':
             database = 'read_experiment'
+            acc = 'experiment_accession'
     else:
         database = args.database.lower()
         if database == 'sequences':
             database = 'sequence'
         elif database == 'reads':
             database = 'read_experiment'
+            acc = 'experiment_accession'
     print('PROCESSING data from ENA...................................................................')
-    command = 'curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "'"result={}&query=tax_eq({})&fields=accession&format=tsv"'" "https://www.ebi.ac.uk/ena/portal/api/search"'.format(database, taxid)
-    sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = sp.communicate()
-    stdoutOrigin = sys.stdout
-    sys.stdout = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
-    dec_split = out.decode().strip('accession\n')
-    print(dec_split)
-    sys.stdout.close()
-    sys.stdout = stdoutOrigin
+    server = "https://www.ebi.ac.uk/ena/portal/api/search"
+    ext = "?result={}&query=tax_eq({})&fields={}&format=json&limit=0".format(database, taxid, acc)
+    command = requests.get(server + ext, headers={"Content-Type": "application/json"})
+    status = command.status_code
+    if status == 500:
+        print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
+    data = json.loads(command.content)
+    f = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
+    if acc == 'experiment_accession':
+        for x in data:
+            output = x["experiment_accession"]
+            f.write(output + "\n")
+    else:
+        for x in data:
+            output = x["accession"]
+            f.write(output + "\n")
+    f.close()
     print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
 # Creating the script for fetching data from COVID19dataPortal in ENA
@@ -323,7 +347,9 @@ elif repository == 'all':
         start = start + 1000
         command = requests.get(server+ext, headers={"Content-Type": "application/json"})
         status = command.status_code
-        if status == 400:
+        if status == 400 or status == 500:
+            if status == 500:
+                print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
             break
         else:
             data = json.loads(command.content)
@@ -351,25 +377,23 @@ elif repository == 'all':
     # Creating the script for fetching data from NCBIvirus in NCBI
     if database == 'ncbivirus':
         print('PROCESSING  data in NCBIvirus...................................................................')
-        command = 'curl -X GET "https://api.ncbi.nlm.nih.gov/datasets/v1alpha/virus/taxon/"{}"/genome/table?refseq_only=false&annotated_only=false&table_fields=nucleotide_accession" -H "Accept: application/json"'.format(taxid)
-        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = sp.communicate()
-        print(command)
-        stdoutOrigin = sys.stdout
-        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
-        dec_split = out.decode().strip('Nucleotide Accession')
-        dec_split= dec_split.strip("\r\n")
-
+        server = "https://api.ncbi.nlm.nih.gov/datasets/v1alpha/virus/taxon/{}/genome/table".format(taxid)
+        ext = "?refseq_only=false&annotated_only=false&table_fields=nucleotide_accession"
+        command = requests.get(server + ext, headers={"Content-Type": "text/tab-separated-values"})
+        status = command.status_code
+        if status == 500:
+            print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incompleted )")
+        f = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
+        dec_split = command.content.decode('utf-8').strip('Nucleotide Accession')
+        dec_split = dec_split.strip("\r\n")
         # trimming the output by removing the version number (numbers after ".")
         trimmed_accessions = []
         for accession in dec_split.split("\n"):
             accession = accession.split('.')[0]
             trimmed_accessions.append(accession)
         for x in trimmed_accessions:
-            print(x)
-        sys.stdout.close()
-        sys.stdout = stdoutOrigin
-        print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+            f.write(x + "\n")
+        f.close()
     # Creating the script for fetching data from SRA in NCBI (installation of edirect dependency required)
     elif database == 'sra':
         print('PROCESSING  data in SRA...................................................................')
