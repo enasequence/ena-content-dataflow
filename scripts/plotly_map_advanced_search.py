@@ -2,6 +2,15 @@ import argparse
 import sys
 import os
 
+from urllib.request import urlopen
+import json
+
+import plotly.graph_objects as go
+import pandas as pd
+import pycountry as pc
+import pycountry_convert as pcc
+import math
+
 """
 Commands to generate input:
    - Sequences : curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'result=sequence&query=tax_tree(2697049)&fields=country,collection_date,first_public&format=tsv&limit=0' "https://www.ebi.ac.uk/ena/portal/api/search" > sequence.custom_fields.tsv
@@ -29,20 +38,10 @@ if opts.date_range:
     date_filter = opts.date_range.split(':')
     date_type = opts.date_type
 
-
-from urllib.request import urlopen
-import json
-
 # load set of polygons for each country
 geojson_path = "{0}/{1}".format("/".join(os.path.realpath(__file__).split('/')[:-1]), 'custom_with_ids.geo.json')
 with open(geojson_path) as json_file:
     countries = json.load(json_file)
-
-import plotly.graph_objects as go
-import pandas as pd
-import pycountry as pc
-import pycountry_convert as pcc
-import math
 
 # these countries are not named according to their official pycountry names
 # we need to include custom mapping
