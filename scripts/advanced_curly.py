@@ -60,7 +60,7 @@ def query_api(infile, input_t, query_t):
 
         url = "https://www.ebi.ac.uk/ena/portal/api/search"
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        payload = {'result': f'{query_t}', 'query': str(final_query), 'format': 'tsv'}
+        payload = {'result': f'{query_t}', 'query': str(final_query), 'fields': ['description',f'{query_t}_accession'] 'format': 'tsv'}
 
         r = requests.post(url, data=payload, headers=headers)
         results = r.text
