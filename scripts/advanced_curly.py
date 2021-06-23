@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-#!/usr/bin/env python3.7
-
 # Copyright [2021] EMBL-European Bioinformatics Institute
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
