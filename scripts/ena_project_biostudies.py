@@ -42,7 +42,8 @@ Arguments:
 
 example = """
 Example: create pagetab file for a single project with one author
-    ena_project_biostudies.py --project PRJEB37886 --author 'Zahra Waheed' --email zahra@ebi.ac.uk --institution EBI --output_file test_May_25
+    ena_project_biostudies.py --project PRJEB37886 --author 'Joe Bloggs' --email joe@bloggs.com --institution EBI --output_file /path/to/output_file
+
 
 """
 parser = argparse.ArgumentParser(
@@ -163,4 +164,3 @@ def create_output_file():
         dt_string = now.strftime("pagetab_%d-%m-%y_%H_%M_%S")
         df.to_excel(f"{dt_string}.xlsx", header=None, index=False)  # pagetab file output
 create_output_file()
-
