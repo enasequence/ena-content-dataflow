@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os, sys
+import os, sys, shutil, re
 from datetime import datetime
 import cx_Oracle, argparse
 from getpass import getpass
@@ -63,6 +63,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--outdir', help="(optional) name of output directory (default: covid_logs_<timestamp>)");
 parser.add_argument('--where',  help="(optional) additional filtering to add to the default SQL command (default: none)")
 parser.add_argument('--ignore_projects',  help="(optional) file containing list of project ids to ignore (default: none)")
+parser.add_argument('--webin', help="(optional) username and password for your Webin account. Format 'User:Password'")
 opts = parser.parse_args(sys.argv[1:])
 
 # set up gigantic SQL query
@@ -79,28 +80,27 @@ where_clause = [
 if opts.where:
     where_clause.append(opts.where)
 sql = """
-SELECT d.meta_key as datahub, l.to_id as umbrella_project_id, p.project_id, p.first_created,
+SELECT l.to_id as umbrella_project_id, p.project_id, p.first_created,
     s.study_id, s.study_title, COUNT(unique(sm.sample_id)) as sample_count, COUNT(unique(r.run_id))
     as run_count, count(unique(a.analysis_id)) as sequence_count,
     p.center_name, p.tax_id as project_taxon_id, p.scientific_name as project_scientific_name,
     sm.tax_id as sample_taxon_id, sm.scientific_name as sample_scientific_name,
-    p.status_id, avg(e.status_id), avg(sm.status_id), avg(r.status_id)
+    p.status_id
 FROM study s
     JOIN project p on s.project_id = p.project_id
-    LEFT JOIN dcc_meta_key d on d.project_id = p.project_id
     LEFT JOIN (select * from ena_link where to_id in ("""
 sql += ",".join([f"'{u}'" for u in umbrella_project_ids]) # quote and join
 sql += """)) l on l.from_id = p.project_id
-    LEFT JOIN experiment e on e.study_id = s.study_id
-    LEFT JOIN experiment_sample es on es.experiment_id = e.experiment_id
-    LEFT JOIN sample sm on sm.sample_id = es.sample_id
-    LEFT JOIN run r on e.experiment_id = r.experiment_id
-    LEFT JOIN analysis_sample ans on ans.sample_id = sm.sample_id
-    LEFT JOIN analysis a on ans.analysis_id = a.analysis_id
+    LEFT JOIN analysis a ON a.study_id = s.study_id
+    LEFT JOIN analysis_sample ans ON a.analysis_id = ans.analysis_id
+    LEFT JOIN experiment e ON e.study_id = s.study_id
+    LEFT JOIN experiment_sample es ON es.experiment_id = e.experiment_id
+    LEFT JOIN sample sm ON (ans.sample_id = sm.sample_id OR es.sample_id = sm.sample_id)
+    LEFT JOIN run r ON e.experiment_id = r.experiment_id
 """
 sql += "WHERE " + " AND ".join(where_clause)
 sql += """
-GROUP BY d.meta_key, l.to_id, p.project_id, p.first_created, s.study_id, s.study_title, p.center_name,
+GROUP BY l.to_id, p.project_id, p.first_created, s.study_id, s.study_title, p.center_name,
     p.tax_id, p.scientific_name, sm.tax_id, sm.scientific_name, p.status_id
 ORDER BY p.first_created desc
 """
@@ -110,9 +110,10 @@ log1, log2, log3, log4, log5 = [], [], [], [], []
 sars_tax_id, human_tax_id = '2697049', '9606'
 
 def get_oracle_usr_pwd():
-    usr = input("Username: ")
-    pwd = getpass()
-    return usr, pwd
+    # usr = input("Username: ")
+    # pwd = getpass()
+    # return usr, pwd
+    return ['era_reader', 'reader']
 
 def setup_connection():
     oracle_usr, oracle_pwd = get_oracle_usr_pwd()
@@ -127,7 +128,8 @@ def setup_connection():
         connection = cx_Oracle.connect(oracle_usr, oracle_pwd, dsn, encoding="UTF-8")
         return connection
     except cx_Oracle.Error as error:
-        print(error)
+        sys.stderr.write("Could not connect to ERAREAD...\n{}\n".format(error))
+        sys.exit(1)
 
 """
     fetch projects using the above SQL query and filter them into 1 of 4 logs:
@@ -144,36 +146,24 @@ def fetch_and_filter_projects(connection):
 
     cursor = connection.cursor()
     for row in cursor.execute(sql):
-        project_id = row[2]
+        project_id = row[1]
         if project_id in ignore_projects:
             continue
 
         # convert tuple to list, and replace empty strings with NULL
         row = ['NULL' if (not x or x == '') else x for x in list(row)]
 
-        # record the status of the project
-        this_status = ''
-        project_status, exp_status, sample_status, run_status = row[14:]
-        if ( project_status != 4 ):
-            this_status = 'private'
-        else:
-            if ( exp_status == 4 and sample_status == 4 and run_status == 4 ):
-                this_status = 'public'
-            else:
-                this_status = 'part private'
-        row[14:] = [this_status]
-
         # filter into different logs on taxon id, scientific name and study title
-        study_title = row[5]
-        project_taxon_id = row[10] #  if row[9]  else ''
-        sample_taxon_id  = row[12] # if row[11] else ''
+        study_title = row[4]
+        project_taxon_id = row[9]
+        sample_taxon_id  = row[11]
         if project_taxon_id == sars_tax_id or sample_taxon_id == sars_tax_id:
             log1.append(row)
         elif (project_taxon_id == human_tax_id or sample_taxon_id == human_tax_id) and 'metagenom' not in study_title:
             log4.append(row)
         else:
-            project_scientific_name = row[11] if row[11] else ''
-            sample_scientific_name  = row[13] if row[13] else ''
+            project_scientific_name = row[10] if row[10] else ''
+            sample_scientific_name  = row[12] if row[12] else ''
             if 'virus' in project_scientific_name or 'virus' in sample_scientific_name or 'viridae' in project_scientific_name or 'viridae' in sample_scientific_name:
                 log2.append(row)
             elif 'metagenom' in project_scientific_name or 'metagenom' in sample_scientific_name or 'metagenom' in study_title:
@@ -199,21 +189,6 @@ def print_log(log, title):
     print()
 
 """
-    extract project accessions from the log and return list string
-"""
-def project_list_str(log, filter=[]):
-    proj_list = {}
-    for l in log:
-        match = True
-        for i in filter:
-            if l[i] != filter[i]:
-                match = False
-        if match:
-            proj_list[l[2]] = 1
-
-    return "\n".join(proj_list)
-
-"""
     generate and create the output directory
 """
 def create_outdir():
@@ -223,32 +198,97 @@ def create_outdir():
         now = datetime.now()
         now_str = now.strftime("%d%m%y_%H%M%S")
         outdir = f"covid_logs_{now_str}"
+
+    if os.path.exists(outdir):
+        shutil.rmtree(outdir)
+
     os.mkdir(outdir)
     return outdir
 
-file_header =  ['datahub', 'umbrella_project_id', 'project_id', 'first_created', 'study_id',
+file_header =  ['umbrella_project_id', 'project_id', 'first_created', 'study_id',
     'study_title', 'sample_count', 'run_count', 'sequence_count', 'center_name', 'project_taxon_id',
-    'project_scientific_name', 'sample_taxon_id', 'sample_scientific_name', 'project_status'
+    'project_scientific_name', 'sample_taxon_id', 'sample_scientific_name', 'project_status_id'
 ]
 def write_logs(log, file_prefix, outdir, xls_writer):
     with open(f"{file_prefix}.tsv", 'w') as log_tsv:
-        # log_tsv = "\t".join(file_header) + "\n"
-        # log_tsv += log_to_str(log)
-        # dataframe = pd.read_csv(log_tsv, sep="\t")
         dataframe = pd.DataFrame(log, columns = file_header)
         dataframe.to_excel(xls_writer, sheet_name=file_prefix, index=False)
+
+    project_accs_no_umbrella = {}
+    for l in log:
+        if l[0] == 'NULL':
+            # use dictionary to get a uniq list
+            project_accs_no_umbrella[l[1]] = 1
+
     with open(f"{outdir}/{file_prefix}.projects.no_umbrella.list", 'w') as log_proj:
-        # umbrella_project_id is index 1; filter for None/NULL
-        log_proj.write(project_list_str(log, {1: 'NULL'}))
-    with open(f"{outdir}/{file_prefix}.projects.public.no_datahub.list", 'w') as log_proj:
-        # datahub is index 0 : filter for None/NULL
-        # status is index 13: filter for 'public'
-        log_proj.write(project_list_str(log, {0: 'NULL', 14: 'public'}))
+        log_proj.write("\n".join(project_accs_no_umbrella))
+
+    return project_accs_no_umbrella
+
+def update_umbrella(accs, xml_template, outdir):
+    # first, check that there are some accessions passed
+    if len(accs) == 0:
+        sys.stderr.write("No update required for {}. Skipping.\n".format(xml_template))
+        return
+
+    # construct the child projects XML
+    child_project_xml = ['<RELATED_PROJECTS>']
+    for project_acc in accs:
+        child_project_xml.append(f"\t<RELATED_PROJECT><CHILD_PROJECT accession=\"{project_acc}\"/></RELATED_PROJECT>")
+    child_project_xml.append('</RELATED_PROJECTS>')
+
+    # parse the template XML and place the child projects in the correct position
+    umbrella = False
+    umbrella_w_children_xml = []
+    with open(xml_template) as xml_file:
+        for line in xml_file:
+            line = line.rstrip()
+            # print(line)
+            umbrella_w_children_xml.append(line)
+            regex = re.match("(\s+)<UMBRELLA_PROJECT/>", line)
+            if regex:
+                umbrella = True
+                indent = regex.group(1)
+                child_project_xml = [f"{indent}{x}" for x in child_project_xml]
+                # print("\n".join(child_project_xml))
+                umbrella_w_children_xml.append("\n".join(child_project_xml))
+
+    if not umbrella:
+        sys.stderr.write("\n\nError: <UMBRELLA_PROJECT/> tag not found in the --xml file : no <CHILD_PROJECT> tags added\n\n")
+
+    # write the umbrella xml with child projects to file
+    umbrella_xml_file = "{}/{}".format(outdir, os.path.basename(xml_template).replace('.xml', '.umbrella.xml'))
+    with open(umbrella_xml_file, 'w') as ufile:
+        ufile.write("\n".join(umbrella_w_children_xml))
+
+    # write the submission xml to file
+    submission_xml = """
+<SUBMISSION>
+     <ACTIONS>
+         <ACTION>
+             <MODIFY/>
+         </ACTION>
+    </ACTIONS>
+</SUBMISSION>
+    """
+    submission_xml_file = "{}/{}".format(outdir, os.path.basename(xml_template).replace('.xml', '.submission.xml'))
+    with open(submission_xml_file, 'w') as sfile:
+        sfile.write(submission_xml)
+
+    user_pass = 'User:Password'
+    if opts.webin:
+        user_pass = opts.webin
+
+    # create and print the curl command required to submit the updated objects
+    print(f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"https://wwwdev.ebi.ac.uk/ena/submit/drop-box/submit/\"")
+
 
 #------------------------#
 #          MAIN          #
 #------------------------#
 if __name__ == "__main__":
+    outdir = create_outdir()
+
     # fetch and parse the data
     sys.stderr.write("Connecting to ERAREAD...\n")
     db_conn = setup_connection()
@@ -256,13 +296,25 @@ if __name__ == "__main__":
     fetch_and_filter_projects(db_conn)
 
     # format output and write files
+    file_prefixes = [
+        'log1.sars-cov-2', 'log2.other_coronavirus', 'log3.metagenomes',
+        'log4.human', 'log5.other_hosts'
+    ]
     sys.stderr.write("Writing files...\n")
-    outdir = create_outdir()
     xls_writer = pd.ExcelWriter(f"{outdir}/covid_logs.xlsx", engine='xlsxwriter')
-    write_logs(log1, "log1.sars-cov-2", outdir, xls_writer)
-    write_logs(log2, "log2.other_viruses", outdir, xls_writer)
-    write_logs(log3, "log3.metagenomes", outdir, xls_writer)
-    write_logs(log4, "log4.human", outdir, xls_writer)
-    write_logs(log5, "log5.other_hosts", outdir, xls_writer)
+    l1_no_umb = write_logs(log1, file_prefixes[0], outdir, xls_writer)
+    l2_no_umb = write_logs(log2, file_prefixes[1], outdir, xls_writer)
+    l3_no_umb = write_logs(log3, file_prefixes[2], outdir, xls_writer)
+    l4_no_umb = write_logs(log4, file_prefixes[3], outdir, xls_writer)
+    l5_no_umb = write_logs(log5, file_prefixes[4], outdir, xls_writer)
     xls_writer.save()
     sys.stderr.write(f"Files written to '{outdir}'\n\n")
+
+    # update the umbrellas
+    repo_root = os.path.realpath(__file__).replace('/scripts/fetch_covid_projects_from_db.py', '')
+    xml_dir = "{}/xml/covid19_umbrellas".format(repo_root)
+    update_umbrella(l1_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[0]), outdir)
+    update_umbrella(l2_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[1]), outdir)
+    update_umbrella(l3_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[2]), outdir)
+    update_umbrella(l4_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[3]), outdir)
+    update_umbrella(l5_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[4]), outdir)
