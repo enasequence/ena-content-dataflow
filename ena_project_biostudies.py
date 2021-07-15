@@ -56,11 +56,11 @@ parser.add_argument('-p', '--project', help='Main ENA project accession PRJEB###
 parser.add_argument('-ap', '--additional_projects', help='Additional ENA project accessions PRJEB#### to link to created Biostudies entry', type=str, nargs='*',
                     required=False)  # additional projects
 parser.add_argument('-a', '--author', help='name of author/s separated by a space', type=str, nargs='*',
-                    required=False)  # takes in multiple authors # 'Zahra Waheed'
+                    required=True)  # takes in multiple authors # 'Zahra Waheed'
 parser.add_argument('-e', '--email', help='email addresses separated by a space', type=str, nargs='*',
-                    required=False)  # takes in multiple email addresses
+                    required=True)  # takes in multiple email addresses
 parser.add_argument('-i', '--institution', help='each institution name to be enclosed in quotes', type=str, nargs='*',
-                    required=False)  # takes in multiple institutes
+                    required=True)  # takes in multiple institutes
 parser.add_argument('-o', '--output_file', help='output file name', type=str, nargs='*',
                     required=False)  # output file
 
@@ -104,11 +104,11 @@ if args.project:
             #print("release date is " + release_date)
 
 elif args.project is None: #and (args.title or args.description or args.center_name or args.release_date):
-    project_name = args.title
-    project_title = args.title
-    project_description = args.description
-    center_name = args.center_name
-    release_date = args.release_date # this would need to be converted into string format?
+    project_name = str(args.title[0])
+    project_title = str(args.title[0])
+    project_description = str(args.description[0])
+    center_name = str(args.center_name[0])
+    release_date = str(args.release_date[0]) # this would need to be converted into string format?
 
 
 ## creating two 'key:value' style lists
