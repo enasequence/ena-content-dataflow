@@ -102,7 +102,7 @@ def covid19portal_data_fetching(database):
     print('PROCESSING DATA FROM COVID-19 DATA PORTAL...................................................................')
 
     # Using While loop to go through all the pages in the covid19dataportal API
-    page = 1
+    page = 0
     while page >= 0:
         page = page + 1
         server = "https://www.covid19dataportal.org/api/backend/viral-sequences"
@@ -175,20 +175,6 @@ def NCBIvirus_data_fetching():
     dec_split = command.content.decode('utf-8').strip('Nucleotide Accession')
     dec_split= dec_split.strip("\r\n")
     trimmed_accessions = [accession.split('.')[0] for accession in dec_split.split("\n")]
-    ''' # please Ignore This in the meantime #
-    release_date_list =[]
-    for accession_2 in trimmed_accessions:
-        command = 'esearch -db nucleotide -query "{}" |   efetch -format docsum |xtract -pattern DocumentSummary -element UpdateDate'.format(accession_2)
-        sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = sp.communicate()
-        stdoutOrigin = sys.stdout
-        release_date = out.decode()
-        release_date_list.append(release_date)
-        sys.stdout = stdoutOrigin
-    print (release_date_list)
-    final_list = [i + j for i, j in zip(trimmed_accessions, release_date_list)]
-    f.write("\n".join(final_list))
-    '''
     f.write("\n".join(trimmed_accessions))
     f.close()
     print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
@@ -213,9 +199,8 @@ def NCBI_nucleotide_data_fetching():
 #Creating Script to fetch data from SRA
 def NCBI_SRA_data_fetching():
         print('PROCESSING  DATA IN SRA...................................................................')
-        command = 'esearch -db {} -query "{}[ORGN]"   | esummary   | xtract -pattern DocumentSummary -element Experiment@acc'.format(
-            database, tax_fetch[1]) # to be added later -element Run@acc, Experiment@acc, UpdateDate insted of -element Experiment@acc
-        print(command)
+        command = 'esearch -db {} -query "{}[ORGN]"   | esummary   | xtract -pattern DocumentSummary -element Run@acc, Experiment@acc, UpdateDate'.format(
+            database, tax_fetch[1])
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
         stdoutOrigin = sys.stdout
