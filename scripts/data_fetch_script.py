@@ -122,7 +122,7 @@ def covid19portal_data_fetching(database):
                 output = x["id"]
                 f.write(output + "\n")
             f.close()
-    print('Covid19dataportal Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+    print('Covid19dataportal Data written to ' + f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt")
 
 # Creating the script for fetching data from ebisearch in ENA
 def ebisearch_data_fetching(database):
@@ -140,7 +140,7 @@ def ebisearch_data_fetching(database):
         start = start + 1000
         command = requests.get(server + ext, headers={"Content-Type": "application/json"})
         status = command.status_code
-        if status == 400 or status == 500:
+        if status in [400, 500]:
             if status == 500:
                 print(
                     "Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )")
@@ -150,16 +150,12 @@ def ebisearch_data_fetching(database):
             jsonData = data["entries"]
             if start == 0:
                 f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "w")
-                for x in jsonData:
-                    output = x["id"]
-                    f.write(output + "\n")
-                f.close()
             else:
                 f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "a")
-                for x in jsonData:
-                    output = x["id"]
-                    f.write(output + "\n")
-                f.close()
+            for x in jsonData:
+                output = x["id"]
+                f.write(output + "\n")
+            f.close()
     print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
 #Creating script to fetch data from NCBIvirus
