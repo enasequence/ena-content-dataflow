@@ -16,6 +16,8 @@
 #
 # Authored by Colman O'Cathail @cocathail
 
+#!/usr/bin/python
+
 import requests
 import argparse
 
@@ -47,20 +49,17 @@ def query_api(infile, input_t, query_t):
         for line in in_file:
             line = line.strip('\n')
             sample_list.append(line)
-        string1 = f"{input_t}_accession%3D%22"
-        string2 = "%22%20OR%20"
-        new_sample_list = [string1 + x + string2 for x in sample_list]
-        second_fix = str(new_sample_list[-1:]).replace('%20OR%20', '')
-        new_sample_list.pop()
+        string1 = "%2C"
+        new_sample_list = [x + string1 for x in sample_list]
         full_query = ''.join(new_sample_list)
         size = len(full_query)
-        final_query = full_query[:size - 8]
-
+        final_query = full_query[:size - 3]
+    
         print("Querying....")
 
         url = "https://www.ebi.ac.uk/ena/portal/api/search"
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        payload = {'result': f'{query_t}', 'query': str(final_query), 'fields': ['description',f'{query_t}_accession'], 'format': 'tsv'}
+        payload = {'result': f'{query_t}', 'includeAccessionType': f'{input_t}', 'includeAccessions':str(final_query), 'fields': 'description%2Ccountry', 'format': 'tsv'}
 
         r = requests.post(url, data=payload, headers=headers)
         results = r.text
