@@ -48,13 +48,13 @@ Single Project based pagetabs:
     python ena_project_biostudies.py --project PRJEB37886 --author 'Joe Bloggs' --email joe@bloggs.ac.uk --institution EBI --output_file test_May_25
 
 Grouped Project pagetabs:
-    Example: create pagetab file for a grouped project with one corresponding author
+    Example: create pagetab file for a grouped biostudies record with one corresponding author
     
     mandatory arguments = -ap, -t, -d, -c, -r* (current date is taken if -r not provided)
     
     python ena_project_biostudies.py -ap PRJEB402 PRJEB1787 -t 'Grouped Project Title' -d 'this is a grouped description' -c 'new center name' -a 'Joe Bloggs' -e joe@bloggs.ac.uk -i CNN
 
-    Example 2: create pagetab file for a grouped project with several authors:
+    Example 2: create pagetab file for a grouped biostudies record with several authors:
     
     python ena_project_biostudies.py -ap PRJEB402 PRJEB1787 -t 'Grouped Project Title' -d 'this is a grouped description' -c 'new center name' -a 'Joe Bloggs' 'Jenny Smith' 'Jane Doe' -e joe@bloggs.ac.uk -i CNN BBC SkyNews
 """
@@ -68,7 +68,7 @@ parser.add_argument('-p', '--project', help='Main ENA project accession PRJEB###
 parser.add_argument('-ap', '--additional_projects', help='Additional ENA project accessions PRJEB#### to link to created Biostudies entry', type=str, nargs='*',
                     required=False)  # additional projects
 parser.add_argument('-a', '--author', help='name of author/s separated by a space', type=str, nargs='*',
-                    required=True)  # takes in multiple authors
+                    required=False)  # takes in multiple authors
 parser.add_argument('-e', '--email', help='email addresses separated by a space', type=str, nargs='*',
                     required=True)  # takes in multiple email addresses
 parser.add_argument('-i', '--institution', help='each institution name to be enclosed in quotes', type=str, nargs='*',
