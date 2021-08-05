@@ -534,11 +534,9 @@ def update_umbrella(accs, xml_template, outdir):
         submit_url = "https://www.ebi.ac.uk/ena/submit/drop-box/submit/"
 
     curl_cmd = f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\" > {submission_xml_file}.receipt"
+    print(curl_cmd)
     if opts.submit:
-        print(os.system(curl_cmd))
-    else:
-        print(curl_cmd)
-
+        os.system(curl_cmd)
 
 
 #------------------------#
