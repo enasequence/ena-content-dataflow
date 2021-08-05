@@ -421,7 +421,7 @@ def fetch_and_filter_projects():
 
             filter_into_logs(entry)
             print("\n-----------------\n\n") if opts.debug else ''
-    print("Processed {}/{} projects : {}%\n\n".format(x, total_studies, 100))
+    print("Processed {}/{} projects : {}%   \n\n".format(x, total_studies, 100))
 
 """
     Generate and create the output directory
@@ -532,10 +532,11 @@ def update_umbrella(accs, xml_template, outdir):
     if opts.environment == 'prod':
         submit_url = "https://www.ebi.ac.uk/ena/submit/drop-box/submit/"
 
+    curl_cmd = f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\" > {submission_xml_file}.receipt"
     if opts.submit:
-        print(os.system("curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\""))
+        print(os.system(curl_cmd)
     else:
-        print(f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\"")
+        print(curl_cmd)
 
 
 
