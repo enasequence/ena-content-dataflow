@@ -367,17 +367,17 @@ def filter_into_logs(entry_raw):
 """
 def fetch_and_filter_projects():
     # start with ERA
-    sys.stderr.write("Connecting to ERAREAD...\n")
+    print("Connecting to ERAREAD...")
     db_conn_era = setup_ERA_connection()
-    sys.stderr.write("Querying ERAREAD for COVID-19 projects...\n")
+    print("Querying ERAREAD for COVID-19 projects...")
     covid_study_lists = fetch_studies(db_conn_era)
-    sys.stderr.write("Fetching read counts...\n")
+    print("Querying ERAREAD for COVID-19 read counts...")
     read_counts = read_count(db_conn_era, covid_study_lists)
     db_conn_era.close()
 
-    sys.stderr.write("Connecting to ENAPRO...\n")
+    print("Connecting to ENAPRO...")
     db_conn_ena = setup_ENA_connection()
-    sys.stderr.write("Querying ERAPRO for COVID-19 sequence counts...\n")
+    print("Querying ERAPRO for COVID-19 sequence counts...")
     sequence_counts = sequence_count(db_conn_ena, covid_study_lists)
 
     # complete data and filter
@@ -503,6 +503,7 @@ def update_umbrella(accs, xml_template, outdir):
 
     if not umbrella:
         sys.stderr.write("\n\nError: <UMBRELLA_PROJECT/> tag not found in the --xml file : no <CHILD_PROJECT> tags added\n\n")
+        sys.exit(1)
 
     # write the umbrella xml with child projects to file
     umbrella_xml_file = "{}/{}".format(outdir, os.path.basename(xml_template).replace('.xml', '.umbrella.xml'))
