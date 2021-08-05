@@ -39,11 +39,22 @@ This script is used to analyse the data from NCBI and ENA that been produced by 
 parser.add_argument('-f', '--file', help='path for the input files', type=str, required=True)
 args = parser.parse_args()
 
-def get_oracle_usr_pwd():
-    usr = input("Username: ")
-    pwd = getpass()
-    return usr, pwd
 
+
+"""
+Request username and password for databases
+"""
+def get_oracle_usr_pwd():
+    if database == 'reads':
+        return ['era_reader', 'reader']
+    elif database == 'sequences':
+        return ['ena_reader', 'reader']
+
+
+
+"""
+Setup the connection to ENAPRO and ERAPRO. 
+"""
 def setup_connection():
     oracle_usr, oracle_pwd = get_oracle_usr_pwd()
     client_lib_dir = os.getenv('ORACLE_CLIENT_LIB')
@@ -72,7 +83,12 @@ def setup_connection():
         except cx_Oracle.Error as error:
             print(error)
 
+
+"""
+Query ENAPRO dataset, process the data and fetching release date from NCBI nucleotide database. Print to a file.
+"""
 def fetch_and_filter_seq(connection, output):
+   # This Part is for querying ENAPRO
     c = connection.cursor()
     f = open(f"{args.file}/analysis.inENAPRO.sequences.log.txt", "w")
     header = "\t".join(['Accession', 'First_public', 'Last_public', 'status_id' ])
@@ -84,17 +100,28 @@ def fetch_and_filter_seq(connection, output):
             f.write(str(accession) + "\t" + str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + "\n" )
             accession_list_seq.append(accession)
     f.close()
+
+   # Data analysis, to retrive the data that missing from ENAPRO
     print('Data Processing............')
-    noENAPRO_f = open(f"{args.file}/analysis.NoENAPRO.sequences.log.txt", "w")
+    noENAPRO_f = open(f"{args.file}/analysis.noENAPRO.sequences.log.txt", "w")
     accession_set_seq=set(accession_list_seq)
     accession_set_seq_diff = output.difference(accession_set_seq)
     no_enapro_list= [acc for acc in accession_set_seq_diff ]
+
+   # To fetch the release date from NCBI ( nucleotide database) for the data that missing from ENAPRO ( This command uses 'esearch', 'xtract' and 'efetch' functions, entrez-direct is needed)
     release_date_list = []
     for i in range(0, len(no_enapro_list), 100):
         stripped_list = ', '.join(no_enapro_list[i:i + 100])
         command = 'esearch -db nucleotide -query "{}" |   efetch -format docsum |xtract -pattern DocumentSummary -element Caption, UpdateDate'.format(stripped_list)
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
+        if err != None:
+            sys.stderr.write(err.decode()+ "\n This command uses 'esearch', 'xtract' and 'efetch' functions.\n "
+                                           "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
+                                           "\n Please follow the instruction in the link provided below. "
+                                           "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
+                                           "Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows \n ")
+            exit(1)
         stdoutOrigin = sys.stdout
         release_date = out.decode().strip("\n").split("\n")
         for obj in release_date:
@@ -103,7 +130,14 @@ def fetch_and_filter_seq(connection, output):
     noENAPRO_f.write("\n".join(release_date_list) + "\n")
     noENAPRO_f.close()
     # conn.close()
+
+
+
+    """
+    Query ERAPRO dataset and processing the data. Print to a file.
+    """
 def fetch_and_filter_reads(connection, output):
+    # This Part is for querying ERAPRO
     c = connection.cursor()
     f = open(f"{args.file}/analysis.inERAPRO.reads.log.txt", "w")
     header = "\t".join(['Accession', 'Run_id', 'Status_id' 'First_public', 'Last_updated'])
@@ -116,40 +150,60 @@ def fetch_and_filter_reads(connection, output):
             f.write(str(accession) + "\t" + str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + str(row[3]) + "\n")
             accession_list_reads.append(accession)
     f.close()
+
+    # Data analysis, to retrive the data that missing from ERAPRO
     print('Data Processing...........')
     accession_set_reads=set(accession_list_reads)
     accession_set_reads_diff = output.difference(accession_set_reads)
     noERAPRO_df= pd.DataFrame(list(accession_set_reads_diff), columns=['experiment_id'])
 
     inner_join = pd.merge(noERAPRO_df, sra_df, on='experiment_id', how='inner')
-    inner_join.to_csv(f"{args.file}/analysis.NoERAPRO.reads.log.txt")
+    inner_join.to_csv(f"{args.file}/analysis.noERAPRO.reads.log.txt")
 
+
+
+    """
+    getting the difference between reads in NCBI and ENA advanced search. Print to a file.
+    """
 def reads_dataset_difference ():
     output = set(sra_df.experiment_id).difference(set(ena_read_df.experiment_id))
     length_read_set = len(output)
 
-    f = open(f"{args.file}/'NCBI_vs_ENA_'{database}.log.txt", "w")
+    f = open(f"{args.file}/NCBI_vs_ENA_{database}.log.txt", "w")
     values = "\n".join(map(str, list(output)))
     f.write(values)
     f.close()
-    print('Number of data found in NCBI ( SRA database) but missing in ENA advance search is: ', length_read_set)
+    print('Number of data found in NCBI ( SRA database) but missing in ENA advanced search is: ', length_read_set)
     return output
+
+
+
+"""
+    getting the difference between sequences in NCBI and ENA advanced search. Print to a file.
+"""
 def sequence_dataset_difference ():
     output = ncbivirus_set.difference(ena_seq_set)
     length_seq_set = len(output)
-    f = open(f"{args.file}/'NCBI_vs_ENA_'{database}.log.txt", "w")
+    f = open(f"{args.file}/NCBI_vs_ENA_{database}.log.txt", "w")
     f.write("\n".join(output) + "\n")
     f.close()
-    print('Number of data found in NCBI ( NCBIVirus database) but missing in ENA advance search is: ', length_seq_set)
+    print('Number of data found in NCBI ( NCBIVirus database) but missing in ENA advanced search is: ', length_seq_set)
     return output
-def covid_advance_search_difference (ena_dataset, covid_portal_set, covid_portal_list):
+
+
+
+
+"""
+    getting the difference between sequences in COVID-19 portal and ENA advanced search. Print to a file.
+"""
+def covid_advanced_search_difference (ena_dataset, covid_portal_set, covid_portal_list):
     # Obtain the reads difference between Advanced search and COVID-19 Portal
     covid_portal_output = set(ena_dataset).difference(covid_portal_set)
     covid_diff_leng_set = len(covid_portal_output)
-    f = open(f"{args.file}/Covid19Portal.vs.ENA.advance.{database}.log.txt", "w")
+    f = open(f"{args.file}/Covid19Portal.vs.ENA.advanced.{database}.log.txt", "w")
     f.write("\n".join(covid_portal_output) + "\n")
     f.close()
-    print(f"Number of {database} found in ENA advance search but missing in COVID-19 data portal is: ", covid_diff_leng_set)
+    print(f"Number of {database} found in ENA advanced search but missing in COVID-19 data portal is: ", covid_diff_leng_set)
 
     # to create a list of reads duplicates if present in COVID-19 data Portal
     f_duplicates = open(f"{args.file}/Duplicates.Covid19Portal.{database}.log.txt", "w")
@@ -161,6 +215,10 @@ def covid_advance_search_difference (ena_dataset, covid_portal_set, covid_portal
     f_duplicates.close()
     length_covid_duplicate = len(covid_duplicate_list)
     print(f"Number of {database} found duplicated in COVID-19 data portal is: ", length_covid_duplicate)
+
+
+
+
 
 #############
 ##  MAIN   ##
@@ -177,7 +235,9 @@ if database == 'reads':
     sra_df =pd.read_csv(f"{args.file}/NCBI.sra.log.txt", sep="\t", header=None, names =['run_id', 'experiment_id', 'release_date'])
     print ('Number of Reads in NCBI (SRA database) is: ', len(sra_df))
     ena_read_df = pd.read_csv(f"{args.file}/ENA.read_experiment.log.txt", sep="\t", header=None, names =['experiment_id'])
-    print('Number of Reads in ENA Advance Search is: ', len(ena_read_df))
+    print('Number of Reads in ENA Advanced Search is: ', len(ena_read_df))
+
+
     #Uploading files from COVID-19 data Portal
     covid_reads_portal_list = list(open(f"{args.file}/Covid19DataPortal.raw-reads.log.txt").read().split())
     covid_reads_portal_set = set(covid_reads_portal_list)
@@ -187,7 +247,7 @@ if database == 'reads':
     output = reads_dataset_difference()
 
     #Obtain the reads difference between Advanced search and COVID-19 Portal, and duplicates if present
-    covid_advance_search_difference(ena_read_df, covid_reads_portal_set, covid_reads_portal_list)
+    covid_advanced_search_difference(ena_read_df, covid_reads_portal_set, covid_reads_portal_list)
 
     #Querying ERAPRO
     sys.stderr.write("Querying ERAPRO ..........\n")
@@ -202,7 +262,7 @@ elif database == 'sequences':
     ncbivirus_set = set(open(f"{args.file}/NCBI.ncbivirus.log.txt").read().split())
     print('Number of Sequences in NCBI (NCBIVirus database) is: ', len(ncbivirus_set))
     ena_seq_set = set(open(f"{args.file}/ENA.sequence.log.txt").read().split())
-    print('Number of Sequences in ENA Advance Search is: ', len(ena_seq_set))
+    print('Number of Sequences in ENA Advanced Search is: ', len(ena_seq_set))
     # Uploading files from COVID-19 data Portal
     covid_seq_portal_list = list(open(f"{args.file}/Covid19DataPortal.sequences.log.txt").read().split())
     covid_seq_portal_set = set(covid_seq_portal_list)
@@ -212,12 +272,12 @@ elif database == 'sequences':
     output = sequence_dataset_difference()
 
     #Obtain the sequence difference between Advanced search and COVID-19 Portal, and duplicates if present
-    covid_advance_search_difference(ena_seq_set,covid_seq_portal_set, covid_seq_portal_list)
+    covid_advanced_search_difference(ena_seq_set,covid_seq_portal_set, covid_seq_portal_list)
 
     #Querying ENAPRO
     sys.stderr.write("Querying ENAPRO ..........\n")
     fetch_and_filter_seq(db_conn, output)
 else:
-    print('The dataset type does not exist, please check your spelling and try again')
+    sys.stderr.write(f'The dataset type "{database}" does not exist, please check your spelling and try again')
 
-print ("\n **************** END ***************")
+print ("\n **************** END ***************\n")
