@@ -50,6 +50,7 @@ def create_outdir():
         os.mkdir(outdir)
     return outdir
 
+
 #Using ensembl REST to access NCBItaxonomy to standerise the organsim input
 def fetching_taxonomy():
     server = "https://rest.ensembl.org"
@@ -65,6 +66,7 @@ def fetching_taxonomy():
     taxid = data['id']
     return taxid, sciname
 
+
 # Creating the script for fetching data from advance search in ENA
 def advanced_search_data_fetching(database):
     acc = 'accession'
@@ -73,25 +75,27 @@ def advanced_search_data_fetching(database):
     elif database == 'reads':
         database = 'read_experiment'
         acc = 'experiment_accession'
+
     print('PROCESSING DATA FROM ADVANCED SEARCH...................................................................')
     server = "https://www.ebi.ac.uk/ena/portal/api/search"
     ext = "?result={}&query=tax_eq({})&fields={}&format=json&limit=0".format(database, tax_fetch[0], acc)
     command = requests.get(server + ext, headers={"Content-Type": "application/json"})
     status = command.status_code
     if status == 500:
-        print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )")
+        sys.stderr.write("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )\n")
     data = json.loads(command.content)
-    f = open(f"{outdir}/{'ENA'}.{database}.log.txt", "w")
-    if acc == 'experiment_accession':
-        for x in data:
-            output = x["experiment_accession"]
-            f.write(output + "\n")
-    else:
-        for x in data:
-            output = x["accession"]
-            f.write(output + "\n")
-    f.close()
+    with open(f"{outdir}/{'ENA'}.{database}.log.txt", "w") as f:
+        if acc == 'experiment_accession':
+            for x in data:
+                output = x["experiment_accession"]
+                f.write(output + "\n")
+        else:
+            for x in data:
+                output = x["accession"]
+                f.write(output + "\n")
+
     print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
+
 
 # Creating the script for fetching data from COVID19dataPortal in ENA
 def covid19portal_data_fetching(database):
@@ -99,6 +103,7 @@ def covid19portal_data_fetching(database):
         database = 'sequences'
     elif database == 'reads':
         database = 'raw-reads'
+
     print('PROCESSING DATA FROM COVID-19 DATA PORTAL...................................................................')
 
     # Using While loop to go through all the pages in the covid19dataportal API
@@ -124,12 +129,15 @@ def covid19portal_data_fetching(database):
             f.close()
     print('Covid19dataportal Data written to ' + f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt")
 
+
+
 # Creating the script for fetching data from ebisearch in ENA
 def ebisearch_data_fetching(database):
     if database == 'sequences':
         database = 'embl-covid19'
     elif database == 'reads':
         database = 'sra-experiment-covid19'
+
     print('PROCESSING DATA FROM EBI SEARCH...................................................................')
 
     # Using While loop to go through all the pages in the ebisearch API
@@ -142,8 +150,8 @@ def ebisearch_data_fetching(database):
         status = command.status_code
         if status in [400, 500]:
             if status == 500:
-                print(
-                    "Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )")
+                sys.stderr.write(
+                    "Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )\n")
             break
         else:
             data = json.loads(command.content)
@@ -158,6 +166,8 @@ def ebisearch_data_fetching(database):
             f.close()
     print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
+
+
 #Creating script to fetch data from NCBIvirus
 def NCBIvirus_data_fetching():
     print('PROCESSING  DATA IN NCBIVIRUS...................................................................')
@@ -166,14 +176,17 @@ def NCBIvirus_data_fetching():
     command = requests.get(server + ext, headers={"Content-Type": "text/tab-separated-values"})
     status = command.status_code
     if status == 500:
-        print("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )")
-    f = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
-    dec_split = command.content.decode('utf-8').strip('Nucleotide Accession')
-    dec_split= dec_split.strip("\r\n")
-    trimmed_accessions = [accession.split('.')[0] for accession in dec_split.split("\n")]
-    f.write("\n".join(trimmed_accessions))
-    f.close()
+        sys.stderr.write("Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )\n")
+
+    with open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w") as f:
+        dec_split = command.content.decode('utf-8').strip('Nucleotide Accession')
+        dec_split= dec_split.strip("\r\n")
+        trimmed_accessions = [accession.split('.')[0] for accession in dec_split.split("\n")]
+        f.write("\n".join(trimmed_accessions))
     print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+
+
+
 
 # Creating the script for fetching data from other databases in NCBI (installation of edirect dependency required)
 def NCBI_nucleotide_data_fetching():
@@ -182,15 +195,23 @@ def NCBI_nucleotide_data_fetching():
                     database, tax_fetch[1])
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
+        if err != None:
+            sys.stderr.write(err.decode()+ "\n This command uses 'esearch' and 'efetch' functions.\n "
+                                           "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
+                                           "\n Please follow the instruction in the link provided below. "
+                                           "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
+                                           "Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows \n ")
+            exit(1)
         stdoutOrigin=sys.stdout
-        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
-        dec_split = out.decode()
-        trimmed_accessions = [accession.split('.')[0] for accession in dec_split.split("\n")]
-        for x in trimmed_accessions:
-            print(x)
-        sys.stdout.close()
-        sys.stdout = stdoutOrigin
-        print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+        with open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w") as sys.stdout:
+            dec_split = out.decode()
+            trimmed_accessions = [accession.split('.')[0] for accession in dec_split.split("\n")]
+            for x in trimmed_accessions:
+                print(x)
+            sys.stdout = stdoutOrigin
+            print('NCBI Data written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+
+
 
 #Creating Script to fetch data from SRA
 def NCBI_SRA_data_fetching():
@@ -199,12 +220,21 @@ def NCBI_SRA_data_fetching():
             database, tax_fetch[1])
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
+        if err != None:
+            sys.stderr.write(err.decode()+ "\n This command uses 'esearch' and 'xtract' functions.\n "
+                                           "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
+                                           "\n Please follow the instruction in the link provided below. "
+                                           "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
+                                           "*****Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows***** \n ")
+            exit(1)
         stdoutOrigin = sys.stdout
-        sys.stdout = open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w")
-        print(out.decode())
-        sys.stdout.close()
-        sys.stdout = stdoutOrigin
+        with open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w") as sys.stdout:
+            print(out.decode())
+            sys.stdout = stdoutOrigin
         print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+
+
+
 
 # Creating the script for fetching data from NCBI
 def NCBI_data_fetching():
@@ -215,6 +245,10 @@ def NCBI_data_fetching():
         NCBI_nucleotide_data_fetching()
     elif database == 'sra':
         NCBI_SRA_data_fetching()
+    else:
+        sys.stderr.write(f'The NCBI database "{database}" does not exist or its not supported, please check your spelling or choose a different database and try again')
+
+
 
 ##############
 #   MAIN     #
@@ -223,48 +257,64 @@ if args.repository == None:
     repository = input("Name of the repository, ENA, NCBI, covid19dataportal,ebisearch,all: ").lower()
 else:
     repository = args.repository.lower()
-if args.organism == None:
-    organism = input("please indicate the taxon id or scientific name (ex: Severe acute respiratory syndrome coronavirus 2 or 2697049 ): ").lower()
-else:
-    organism = args.organism.lower()
+if repository in ['ena', 'ncbi','covid19dataportal', 'ebisearch', 'all']:
 
-#Calling the create_outdir module
-outdir = create_outdir()
-
-#Calling the ensembl REST to access NCBItaxonomy
-tax_fetch = fetching_taxonomy()
-
-# Running the script for fetching data from NCBI
-if repository == 'ncbi':
-    if args.database == None:
-        database = input("please indicate the dataset type, ex: ncbivirus, nucleotide, SRA: ").lower()
+    if args.organism == None:
+        organism = input("please indicate the taxon id or scientific name (ex: Severe acute respiratory syndrome coronavirus 2 or 2697049 ): ").lower()
     else:
-        database = args.database.lower()
-    NCBI_data_fetching()
-else:
-    if args.database == None:
-        database = input("please indicate the dataset type, ex: sequences or reads: ").lower()
-    else:
-        database = args.database.lower()
-    # Running the script for fetching data from advance search in ENA
-    if repository == 'ena':
-        advanced_search_data_fetching(database)
-    # Running the script for fetching data from COVID19dataPortal in ENA
-    elif repository == 'covid19dataportal':
-        covid19portal_data_fetching(database)
-    # Running the script for fetching data from ebisearch in ENA
-    elif repository == 'ebisearch':
-        ebisearch_data_fetching(database)
-#Running the script for all the databases
-    elif repository == 'all':
-        advanced_search_data_fetching(database)
-        covid19portal_data_fetching(database)
-        ebisearch_data_fetching(database)
-        if database == 'sequences':
-            database = 'ncbivirus'
-            NCBIvirus_data_fetching()
+        organism = args.organism.lower()
+
+
+    #Calling the create_outdir module
+    outdir = create_outdir()
+
+
+    #Calling the ensembl REST to access NCBItaxonomy
+    tax_fetch = fetching_taxonomy()
+
+
+    # Running the script for fetching data from NCBI
+    if repository == 'ncbi':
+        if args.database == None:
+            database = input("please indicate the dataset type, ex: ncbivirus, nucleotide, SRA: ").lower()
         else:
-            database = 'sra'
-            NCBI_SRA_data_fetching()
+            database = args.database.lower()
+        NCBI_data_fetching()
+    else:
+        if args.database == None:
+            database = input("please indicate the dataset type, ex: sequences or reads: ").lower()
+        else:
+            database = args.database.lower()
+        if database in ['sequences', 'reads']:
+
+            # Running the script for fetching data from advance search in ENA
+            if repository == 'ena':
+                advanced_search_data_fetching(database)
+
+            # Running the script for fetching data from COVID19dataPortal in ENA
+            elif repository == 'covid19dataportal':
+                covid19portal_data_fetching(database)
+
+            # Running the script for fetching data from ebisearch in ENA
+            elif repository == 'ebisearch':
+                ebisearch_data_fetching(database)
+
+        #Running the script for all the databases
+            elif repository == 'all':
+                advanced_search_data_fetching(database)
+                covid19portal_data_fetching(database)
+                ebisearch_data_fetching(database)
+                if database == 'sequences':
+                    database = 'ncbivirus'
+                    NCBIvirus_data_fetching()
+                else:
+                    database = 'sra'
+                    NCBI_SRA_data_fetching()
+        else:
+            sys.stderr.write(f'The dataset type "{database}" does not exist or its not supported yet, please check your spelling and try again')
+else:
+    sys.stderr.write(f'The repository type "{repository}" does not exist or its not supported yet, please check your spelling and try again')
+    sys.exit(1)
+
 
 print('DONE...........................................................................')
