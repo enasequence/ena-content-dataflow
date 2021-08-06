@@ -434,10 +434,11 @@ def create_outdir():
         now_str = now.strftime("%d%m%y_%H%M%S")
         outdir = f"covid_logs_{now_str}"
 
-    if os.path.exists(outdir):
-        shutil.rmtree(outdir)
+    outdir = os.path.abspath(outdir)
 
-    os.mkdir(outdir)
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+
     return outdir
 
 
