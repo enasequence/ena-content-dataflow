@@ -534,7 +534,7 @@ def update_umbrella(accs, xml_template, outdir):
         submit_url = "https://www.ebi.ac.uk/ena/submit/drop-box/submit/"
 
     curl_cmd = f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\" > {submission_xml_file}.receipt"
-    print(curl_cmd)
+    print(f"Running: {curl_cmd}" if opts.submit else f"Would run: {curl_cmd}")
     if opts.submit:
         os.system(curl_cmd)
 
@@ -553,7 +553,7 @@ if __name__ == "__main__":
         'log1.sars-cov-2', 'log2.other_coronavirus', 'log3.metagenomes',
         'log4.human', 'log5.other_hosts'
     ]
-    sys.stderr.write("Writing files...\n")
+    print("Writing files...\n")
     xls_writer = pd.ExcelWriter(f"{outdir}/covid_logs.xlsx", engine='xlsxwriter')
     l1_no_umb = write_logs(log1, file_prefixes[0], outdir, xls_writer, umbrella_project_ids[0])
     l2_no_umb = write_logs(log2, file_prefixes[1], outdir, xls_writer, umbrella_project_ids[1])
@@ -561,7 +561,7 @@ if __name__ == "__main__":
     l4_no_umb = write_logs(log4, file_prefixes[3], outdir, xls_writer, umbrella_project_ids[3])
     l5_no_umb = write_logs(log5, file_prefixes[4], outdir, xls_writer, umbrella_project_ids[4])
     xls_writer.save()
-    sys.stderr.write(f"Files written to '{outdir}'\n\n")
+    print(f"Files written to '{outdir}'\n\n")
 
     # update the umbrellas
     repo_root = os.path.realpath(__file__).replace('/scripts/fetch_covid_projects_from_db.py', '')
