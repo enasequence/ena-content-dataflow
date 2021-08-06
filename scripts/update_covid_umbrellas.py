@@ -40,8 +40,11 @@ This script will query ERAREAD for COVID-related projects and split the results 
 
 The script will create an output directory containing:
     - an .xlsx spreadsheet for import into Excel or similar (one sheet per-log)
-    - per-log list of project accessions that are not yet in an umbrella project (for input to the add_to_umbrella_project.py script)
-    - per-log list of public project accessions that are not yet in a data hub (to link to the datahub with generate_datahub_queries.py)
+    - per-log
+        - list of project accessions that are not yet in an umbrella project
+        - an updated umbrella project XML listing new child projects
+        - a submission XML calling the MODIFY action to add new child projects
+        - if --submit flag is on, a receipt XML
 
 """
 usage = """
