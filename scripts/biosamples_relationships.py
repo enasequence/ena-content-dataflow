@@ -52,9 +52,7 @@ parser.add_argument('-s', '--spreadsheet', help='input spreadsheet containing so
 parser.add_argument('-prod', '--production', help='Biosamples production environment', action='store_true')  # 'dev' env is default if prod not specified
 args = parser.parse_args()
 
-###TODO: Dipayan mentioned adding the "webinSubmissionAccountId" in the sample json when updating it to retain original owner of sample - to be fixed by mid-Aug
-
-#TODO: how can we connect this script to the creation of the ENA 'sample derived from' attribute?
+#TODO: think about connecting this script to the creation of the ENA 'sample derived from' attribute?
 
 root_user = input("Enter the root username: ")
 print(root_user)
