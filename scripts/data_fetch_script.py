@@ -195,13 +195,15 @@ def NCBI_nucleotide_data_fetching():
                     database, tax_fetch[1])
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
-        if err != None:
+        if "command not found" in err.decode():
             sys.stderr.write(err.decode()+ "\n This command uses 'esearch' and 'efetch' functions.\n "
                                            "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
                                            "\n Please follow the instruction in the link provided below. "
                                            "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
                                            "Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows \n ")
             exit(1)
+        else:
+            sys.stderr.write(err.decode())
         stdoutOrigin=sys.stdout
         with open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w") as sys.stdout:
             dec_split = out.decode()
@@ -220,18 +222,27 @@ def NCBI_SRA_data_fetching():
             database, tax_fetch[1])
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
-        if err != None:
+        if "command not found" in err.decode():
             sys.stderr.write(err.decode()+ "\n This command uses 'esearch' and 'xtract' functions.\n "
                                            "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
                                            "\n Please follow the instruction in the link provided below. "
                                            "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
                                            "*****Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows***** \n ")
             exit(1)
+        else:
+            sys.stderr.write(err.decode())
         stdoutOrigin = sys.stdout
         with open(f"{outdir}/{'NCBI'}.{database}.log.txt", "w") as sys.stdout:
-            print(out.decode())
+            reads_output_1 = re.split('[\n]',out.decode())
+            reads_output = list(filter(None,reads_output_1))
+            for row in reads_output:
+                row_list = row.split("\t")
+                exp_date = row_list[-2:]
+                run_id = row_list[:-2]
+                final_row = ",".join(run_id), exp_date[0], exp_date[1]
+                print("\t".join(final_row))
             sys.stdout = stdoutOrigin
-        print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
+            print('NCBI written to ' + f"{outdir}/{'NCBI'}.{database}.log.txt")
 
 
 
