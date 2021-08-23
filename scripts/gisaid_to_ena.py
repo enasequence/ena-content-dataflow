@@ -15,10 +15,20 @@
 # limitations under the License.
 
 import sys, re, argparse, requests
+import numpy as np
 import pandas as pd
 import pycountry
 
-# required fields marked with *
+from openpyxl.workbook import Workbook
+from openpyxl import load_workbook
+from openpyxl.styles import NamedStyle
+import lxml.etree
+import lxml.builder
+import xlrd
+from yattag import Doc, indent
+doc, tag, text = Doc().tagtext()
+xml_header = '<?xml version="1.0" encoding="UTF-8"?>'
+doc.asis(xml_header)
 ena_fields = [
     'sample_alias*', 'tax_id*', 'scientific_name*', 'common_name',
     'sample_title*', 'sample_description', 'collection date*',
@@ -68,17 +78,18 @@ description:
 
 examples:
   # convert GISAID spreadsheet in CSV format to ENA in excel format
-  gisaid_to_ena.py --csv gisaid.csv --out ena.xlsx
+  gisaid_to_ena.py --csv gisaid.csv --outfile ena.xlsx --outformat excel
   # convert GISAID metadata from sheet called 'Samples' to ENA spreadsheet
-  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --out ena.xlsx
+  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --outfile ena.xml --outformat xml
         """,
         formatter_class=RawTextHelpFormatter
     )
     parser.add_argument('--csv', help="path to CSV file")
     parser.add_argument('--xls', help="path to excel file")
     parser.add_argument('--sheet', help=f"(optional) name of excel sheet (default: 'Submissions')")
-    parser.add_argument('--out', help="output file name")
+    parser.add_argument('--outfile', help="output file name")
     parser.add_argument('--taxon', help="taxon name or id of samples")
+    parser.add_argument('--outformat', help='Specify between xml or excel', type=str, required=True)
     opts = parser.parse_args(sys.argv[1:])
     return opts
 
@@ -263,17 +274,18 @@ def format_sheet(writer, headers):
     fmt_black = workbook.add_format({'bold':True, 'font_color': 'black'})
 
     # first, add and format the essential header rows
-    worksheet.write(0, 0, '#checklist_accession', fmt_orange)
-    worksheet.write(1, 0, '#unique_name_prefix',  fmt_orange)
+    worksheet.write(0, 0, '#Checklist', fmt_orange)
+    #worksheet.write(1, 0, '#unique_name_prefix',  fmt_orange)
     worksheet.write(0, 1, 'ERC000033', fmt_black)
-    worksheet.write(3, 0, '#template', fmt_orange)
+    worksheet.write(0, 2, 'ENA virus pathogen reporting standard checklist', fmt_black)
+    worksheet.write(2, 0, '#units', fmt_orange)
 
     # second, add headers and highlight mandatory ones
     for i in range(len(headers)):
         if headers[i][-1] == '*':
-            worksheet.write(2, i, headers[i][:-1], fmt_orange)
+            worksheet.write(1, i, headers[i][:-1], fmt_orange)
         else:
-            worksheet.write(2, i, headers[i], fmt_black)
+            worksheet.write(1, i, headers[i], fmt_black)
 
     return writer
 
@@ -284,9 +296,66 @@ Write pandas dataframe object to excel spreadsheet
 def write_dataframe(df, outfile):
     out_suffix = outfile.split('.')[-1]
     writer = pd.ExcelWriter(outfile, engine='xlsxwriter')
-    df.to_excel(writer, index=False, columns=ena_fields, header=False, sheet_name=default_sheet, startrow=4, startcol=0)
+    print(writer)
+    df.to_excel(writer, index=False, columns=ena_fields, header=False, sheet_name=default_sheet, startrow=3, startcol=0)
     writer = format_sheet(writer, ena_fields)
     writer.save()
+
+
+
+"""
+Write pandas dataframe object to xml file
+"""
+def xml_generator (dataframe):
+    with tag('SAMPLE_SET'):
+        for index, body in dataframe.swapaxes("index", "columns").iteritems():
+            nona_body =body.dropna()
+            for item in nona_body.iteritems():
+                if item[1] not in [None, ' ']:
+                    if item[0].strip("*") == 'sample_alias':
+                        with tag('SAMPLE', alias=item[1]):
+                            for item in nona_body.iteritems():
+                                if item[1] not in [None, ' ']:
+                                    if item[0].strip("*") != 'sample_alias':
+                                        if item[0].strip("*") == 'sample_title':
+                                            with tag('TITLE'):
+                                                text(item[1])
+                                        elif item[0].strip("*") in ['tax_id', 'scientific_name']:
+                                            if item[0].strip("*") == 'tax_id':
+                                                with tag('SAMPLE_NAME'):
+                                                    with tag("TAXON_ID"):
+                                                        text(item[1])
+                                                    for item in nona_body.iteritems():
+                                                        if item[1] not in [None, ' ']:
+                                                            if item[0].strip("*") == 'scientific_name':
+                                                                with tag("SCIENTIFIC_NAME"):
+                                                                    text(item[1])
+                                        else:
+                                            if item[0].strip("*") == 'sample_description':
+                                                with tag("DESCRIPTION"):
+                                                    text(item[1])
+                                            else:
+                                                with tag("SAMPLE_ATTRIBUTE"):
+                                                    with tag("TAG"):
+                                                            text(item[0].strip("*"))
+                                                    with tag("VALUE"):
+                                                        text(item[1])
+                                    else:
+                                        with tag("SAMPLE_ATTRIBUTE"):
+                                            with tag("TAG"):
+                                                text("ENA-CHECKLIST")
+                                            with tag("VALUE"):
+                                                text("ERC000033")
+
+    result = indent(
+        doc.getvalue(),
+        # indentation = '    ',
+        indent_text=False
+    )
+
+    with open(opts.outfile, "w") as f:
+        f.write(result)
+
 
 #------------------------#
 #          MAIN          #
@@ -295,4 +364,19 @@ if __name__ == "__main__":
     opts = parse_args(sys.argv[1:])
     gisaid_dataframe = parse_gisaid_metadata(opts)
     ena_dataframe = convert_gisaid_to_ena(gisaid_dataframe)
-    write_dataframe(ena_dataframe, opts.out)
+
+    if opts.outformat.lower() == 'xml':
+        if opts.outfile == None:
+            opts.outfile = 'ENA_output.xml'
+        ena_dataframe_rearranged = ena_dataframe[ena_fields]
+        xml_generator(ena_dataframe_rearranged)
+
+
+    elif opts.outformat.lower() in ['excel','xls','xlsx']:
+        if opts.outfile == None:
+            opts.outfile = 'ENA_output.xlsx'
+        write_dataframe(ena_dataframe, opts.outfile)
+
+    else:
+        sys.stderr.write(f'The file format "{opts.outformat}" is not supported, accepted values : [xml, xls, xlsx, excel]')
+
