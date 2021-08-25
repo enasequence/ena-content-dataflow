@@ -40,8 +40,11 @@ This script will query ERAREAD for COVID-related projects and split the results 
 
 The script will create an output directory containing:
     - an .xlsx spreadsheet for import into Excel or similar (one sheet per-log)
-    - per-log list of project accessions that are not yet in an umbrella project (for input to the add_to_umbrella_project.py script)
-    - per-log list of public project accessions that are not yet in a data hub (to link to the datahub with generate_datahub_queries.py)
+    - per-log
+        - list of project accessions that are not yet in an umbrella project
+        - an updated umbrella project XML listing new child projects
+        - a submission XML calling the MODIFY action to add new child projects
+        - if --submit flag is on, a receipt XML
 
 """
 usage = """
@@ -367,17 +370,17 @@ def filter_into_logs(entry_raw):
 """
 def fetch_and_filter_projects():
     # start with ERA
-    sys.stderr.write("Connecting to ERAREAD...\n")
+    print("Connecting to ERAREAD...")
     db_conn_era = setup_ERA_connection()
-    sys.stderr.write("Querying ERAREAD for COVID-19 projects...\n")
+    print("Querying ERAREAD for COVID-19 projects...")
     covid_study_lists = fetch_studies(db_conn_era)
-    sys.stderr.write("Fetching read counts...\n")
+    print("Querying ERAREAD for COVID-19 read counts...")
     read_counts = read_count(db_conn_era, covid_study_lists)
     db_conn_era.close()
 
-    sys.stderr.write("Connecting to ENAPRO...\n")
+    print("Connecting to ENAPRO...")
     db_conn_ena = setup_ENA_connection()
-    sys.stderr.write("Querying ERAPRO for COVID-19 sequence counts...\n")
+    print("Querying ERAPRO for COVID-19 sequence counts...")
     sequence_counts = sequence_count(db_conn_ena, covid_study_lists)
 
     # complete data and filter
@@ -421,7 +424,7 @@ def fetch_and_filter_projects():
 
             filter_into_logs(entry)
             print("\n-----------------\n\n") if opts.debug else ''
-    print("Processed {}/{} projects : {}%\n\n".format(x, total_studies, 100))
+    print("Processed {}/{} projects : {}%   \n\n".format(x, total_studies, 100))
 
 """
     Generate and create the output directory
@@ -434,10 +437,11 @@ def create_outdir():
         now_str = now.strftime("%d%m%y_%H%M%S")
         outdir = f"covid_logs_{now_str}"
 
-    if os.path.exists(outdir):
-        shutil.rmtree(outdir)
+    outdir = os.path.abspath(outdir)
 
-    os.mkdir(outdir)
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+
     return outdir
 
 
@@ -503,6 +507,7 @@ def update_umbrella(accs, xml_template, outdir):
 
     if not umbrella:
         sys.stderr.write("\n\nError: <UMBRELLA_PROJECT/> tag not found in the --xml file : no <CHILD_PROJECT> tags added\n\n")
+        sys.exit(1)
 
     # write the umbrella xml with child projects to file
     umbrella_xml_file = "{}/{}".format(outdir, os.path.basename(xml_template).replace('.xml', '.umbrella.xml'))
@@ -532,11 +537,10 @@ def update_umbrella(accs, xml_template, outdir):
     if opts.environment == 'prod':
         submit_url = "https://www.ebi.ac.uk/ena/submit/drop-box/submit/"
 
+    curl_cmd = f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\" > {submission_xml_file}.receipt"
+    print(f"Running: {curl_cmd}" if opts.submit else f"Would run: {curl_cmd}")
     if opts.submit:
-        print(os.system("curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\""))
-    else:
-        print(f"curl -u {user_pass} -F \"SUBMISSION=@{submission_xml_file}\" -F \"PROJECT=@{umbrella_xml_file}\" \"{submit_url}\"")
-
+        os.system(curl_cmd)
 
 
 #------------------------#
@@ -553,7 +557,7 @@ if __name__ == "__main__":
         'log1.sars-cov-2', 'log2.other_coronavirus', 'log3.metagenomes',
         'log4.human', 'log5.other_hosts'
     ]
-    sys.stderr.write("Writing files...\n")
+    print("Writing files...\n")
     xls_writer = pd.ExcelWriter(f"{outdir}/covid_logs.xlsx", engine='xlsxwriter')
     l1_no_umb = write_logs(log1, file_prefixes[0], outdir, xls_writer, umbrella_project_ids[0])
     l2_no_umb = write_logs(log2, file_prefixes[1], outdir, xls_writer, umbrella_project_ids[1])
@@ -561,7 +565,7 @@ if __name__ == "__main__":
     l4_no_umb = write_logs(log4, file_prefixes[3], outdir, xls_writer, umbrella_project_ids[3])
     l5_no_umb = write_logs(log5, file_prefixes[4], outdir, xls_writer, umbrella_project_ids[4])
     xls_writer.save()
-    sys.stderr.write(f"Files written to '{outdir}'\n\n")
+    print(f"Files written to '{outdir}'\n\n")
 
     # update the umbrellas
     repo_root = os.path.realpath(__file__).replace('/scripts/fetch_covid_projects_from_db.py', '')
