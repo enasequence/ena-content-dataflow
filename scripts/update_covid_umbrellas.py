@@ -568,7 +568,7 @@ if __name__ == "__main__":
     print(f"Files written to '{outdir}'\n\n")
 
     # update the umbrellas
-    repo_root = os.path.realpath(__file__).replace('/scripts/fetch_covid_projects_from_db.py', '')
+    repo_root = re.sub('/scripts/.+\.py$', '', os.path.realpath(__file__))
     xml_dir = "{}/xml/covid19_umbrellas".format(repo_root)
     update_umbrella(l1_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[0]), outdir)
     update_umbrella(l2_no_umb, "{}/{}.umbrella.xml".format(xml_dir, file_prefixes[1]), outdir)
