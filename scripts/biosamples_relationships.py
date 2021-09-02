@@ -86,7 +86,7 @@ if response.status_code != 200:
     sys.exit()
 
 # input list of source + target accessions:
-df = pd.read_csv('test_sample_accs_list.txt', sep='\t')
+df = pd.read_csv(args.spreadsheet, sep='\t')
 print("Input accessions list:\n")
 print(df)
 
