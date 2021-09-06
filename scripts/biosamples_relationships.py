@@ -48,11 +48,13 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument('-s', '--spreadsheet', help='input spreadsheet containing source and target biosample accessions', type=str,
-                    required=False)
+                    required=True)
 parser.add_argument('-prod', '--production', help='Biosamples production environment', action='store_true')  # 'dev' env is default if prod not specified
 args = parser.parse_args()
 
-#TODO: think about connecting this script to the creation of the ENA 'sample derived from' attribute?
+##TODO: Dipayan mentioned adding the "webinSubmissionAccountId" in the sample json when updating it to retain original owner of sample - to be fixed by mid-Aug
+
+#TODO: how can we connect this script to the creation of the ENA 'sample derived from' attribute?
 
 root_user = input("Enter the root username: ")
 print(root_user)
@@ -93,6 +95,7 @@ print(df)
 source_accs = df['ena_biosample_id'].tolist()
 target_accs = df['ega_biosample_id'].tolist()
 
+
 print()
 for row in range(len(df)):
     print("linking ENA Biosample " + df.iloc[row,0] + " with EGA Biosample " + df.iloc[row,1])
@@ -103,7 +106,8 @@ if args.production:
 else:
     biosamples_start = 'https://wwwdev.ebi.ac.uk/biosamples/samples/'
 
-for ena_bs in source_accs:
+for i in range(len(df)):
+    ena_bs, ega_bs = source_accs[i], target_accs[i]
     biosamples_url = "{0}{1}".format(biosamples_start, ena_bs)
     r = requests.get(biosamples_url) #no auth token needed
     #print(r.text)
@@ -116,9 +120,7 @@ for ena_bs in source_accs:
         #print(file_data)
     file_data.pop("_links") #removes links array (will be added automatically after updating the biosample)
      #note the below code assumes a 1:1 mapping between ENA:EGA biosamples
-    ega_bs = target_accs[source_accs.index(ena_bs)]
     array = {"relationships": [{"source": ena_bs, "type": "derived from", "target": ega_bs}]}  #.tolist() preserves order, so mapping between ENA->EGA biosample accession should also be preserved
-    print('Source sample: ' + ena_bs + ' derived from target sample: ' + ega_bs)
     file_data.update(array)
 
     with open(os.path.join(path, f"linked_{ena_bs}.json"), 'w') as f:
