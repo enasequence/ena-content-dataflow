@@ -12,8 +12,8 @@ It outputs both the original and linked json files for each biosample.
 
 # Examples
 Example 1: link biosamples in development environment:
-    python3 biosamples_relationships.py -s test_sample_accs.txt
+```python3 biosamples_relationships.py -s test_sample_accs.txt```
 
 Example 2: link biosamples in production:
-    python3 biosamples_relationships.py -s test_sample_accs.txt -prod
+ ```python3 biosamples_relationships.py -s test_sample_accs.txt -prod```
     
