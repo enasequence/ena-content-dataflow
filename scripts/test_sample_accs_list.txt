@@ -1,0 +1,3 @@
+ena_biosample_id	ega_biosample_id
+SAMEA8785882	SAMEA8123975
+SAMEA7616999	SAMEA6941288
