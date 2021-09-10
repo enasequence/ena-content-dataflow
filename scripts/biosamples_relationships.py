@@ -120,8 +120,11 @@ for i in range(len(df)):
         #print(file_data)
     file_data.pop("_links") #removes links array (will be added automatically after updating the biosample)
      #note the below code assumes a 1:1 mapping between ENA:EGA biosamples
-    array = {"relationships": [{"source": ena_bs, "type": "derived from", "target": ega_bs}]}  #.tolist() preserves order, so mapping between ENA->EGA biosample accession should also be preserved
-    file_data.update(array)
+    array1 = {"relationships": [{"source": ena_bs, "type": "derived from", "target": ega_bs}]}  #.tolist() preserves order, so mapping between ENA->EGA biosample accession should also be preserved
+    array2 = {"webinSubmissionAccountId": root_user} #including this field in sample json allows original submitter to retain ownership of sample
+    #print('Source sample: ' + ena_bs + ' derived from target sample: ' + ega_bs)
+    newarray = {**array1, **array2}
+    file_data.update(newarray)
 
     with open(os.path.join(path, f"linked_{ena_bs}.json"), 'w') as f:
         json.dump(file_data, f, indent=1) #converts python dictionary back into json string
