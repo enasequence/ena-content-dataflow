@@ -15,23 +15,16 @@
 # limitations under the License.
 
 import sys, re, argparse, requests
-import numpy as np
 import pandas as pd
 import pycountry
 
-from openpyxl.workbook import Workbook
-from openpyxl import load_workbook
-from openpyxl.styles import NamedStyle
-import lxml.etree
-import lxml.builder
-import xlrd
 from yattag import Doc, indent
 doc, tag, text = Doc().tagtext()
 xml_header = '<?xml version="1.0" encoding="UTF-8"?>'
 doc.asis(xml_header)
 ena_fields = [
     'sample_alias*', 'tax_id*', 'scientific_name*', 'common_name',
-    'sample_title*', 'sample_description', 'collection date*',
+    'sample_title*', 'sample_description*', 'collection date*',
     'geographic location (country and/or sea)*', 'geographic location (region and locality)',
     'sample capture status*', 'host common name*', 'host subject id*', 'host age',
     'host health state*', 'host sex*', 'host scientific name*', 'virus identifier',
@@ -52,7 +45,7 @@ gisaid_to_ena = {
     # 'covv_outbreak': 'sample capture status*',
     'covv_patient_status': 'host health state*',
     'covv_patient_age': 'host age',
-    'covv_subm_sample_id': 'virus identifier',
+    'covv_subm_sample_id': 'sample_title*',
     'covv_specimen': 'isolation source host-associated',
     # experiment metadata
     # 'covv_seq_technology': 'sequencing_platform',
@@ -138,7 +131,7 @@ def convert_gisaid_to_ena(gisaid_df):
         except KeyError:
             continue
 
-    ena_data = smart_fill(ena_data)
+    ena_data = smart_fill(ena_data, gisaid_df)
     return pd.DataFrame(ena_data)
 
 
@@ -146,12 +139,13 @@ def convert_gisaid_to_ena(gisaid_df):
 Autofill as much stuff as possible, replace bad
 values, general tidy up of data.
 """
-def smart_fill(ena_data):
+def smart_fill(ena_data,gisaid_df):
     # need num of rows to autofill missing data
     num_rows = len(ena_data['collection date*'])
 
     # add taxon info if given
-    ena_data = add_taxonomic_information(ena_data)
+
+    ena_data = add_taxonomic_information(ena_data,gisaid_df)
 
     # add standard capture status
     ena_data['sample capture status*'] = ['active surveillance in response to outbreak' for i in range(num_rows)]
@@ -217,7 +211,7 @@ def extract_geographic_info(location_str):
 """
 Add extra taxonomic information to a given dataframe
 """
-def add_taxonomic_information(dataframe):
+def add_taxonomic_information(dataframe,gisaid_df):
     num_rows = len(dataframe['collection date*'])
     if opts.taxon:
         this_taxon_id = taxon_id(opts.taxon)
@@ -225,9 +219,31 @@ def add_taxonomic_information(dataframe):
 
         this_sci_name = scientific_name(opts.taxon)
         dataframe['scientific_name*'] = [this_sci_name for i in range(num_rows)]
+    # in case betacoronavirus is indicated in the spreadsheet and the --taxon is not specified
+    elif opts.taxon == None:
+        dataframe['tax_id*'] =[]
+        dataframe['scientific_name*']=[]
+        for tax in gisaid_df['covv_type']:
+            if tax == 'betacoronavirus':
+                this_taxon_id= taxon_id('2697049')
+                this_sci_name = scientific_name('2697049')
+
+                dataframe['tax_id*'].append (this_taxon_id)
+                dataframe['scientific_name*'].append(this_sci_name)
+            else:
+                dataframe['tax_id*'].append(' ')
+                dataframe['scientific_name*'].append(' ')
+
 
     if dataframe['host common name*']:
         dataframe['host scientific name*'] = [scientific_name(x) for x in dataframe['host common name*']]
+
+
+
+
+
+
+
 
     return dataframe
 
@@ -307,55 +323,43 @@ def write_dataframe(df, outfile):
 Write pandas dataframe object to xml file
 """
 def xml_generator (dataframe):
+    modified_ena_df = dataframe.where(pd.notnull(dataframe), None)
     with tag('SAMPLE_SET'):
-        for index, body in dataframe.swapaxes("index", "columns").iteritems():
-            nona_body =body.dropna()
-            for item in nona_body.iteritems():
-                if item[1] not in [None, ' ']:
-                    if item[0].strip("*") == 'sample_alias':
-                        with tag('SAMPLE', alias=item[1]):
-                            for item in nona_body.iteritems():
-                                if item[1] not in [None, ' ']:
-                                    if item[0].strip("*") != 'sample_alias':
-                                        if item[0].strip("*") == 'sample_title':
-                                            with tag('TITLE'):
-                                                text(item[1])
-                                        elif item[0].strip("*") in ['tax_id', 'scientific_name']:
-                                            if item[0].strip("*") == 'tax_id':
-                                                with tag('SAMPLE_NAME'):
-                                                    with tag("TAXON_ID"):
-                                                        text(item[1])
-                                                    for item in nona_body.iteritems():
-                                                        if item[1] not in [None, ' ']:
-                                                            if item[0].strip("*") == 'scientific_name':
-                                                                with tag("SCIENTIFIC_NAME"):
-                                                                    text(item[1])
-                                        else:
-                                            if item[0].strip("*") == 'sample_description':
-                                                with tag("DESCRIPTION"):
-                                                    text(item[1])
-                                            else:
-                                                with tag("SAMPLE_ATTRIBUTE"):
-                                                    with tag("TAG"):
-                                                            text(item[0].strip("*"))
-                                                    with tag("VALUE"):
-                                                        text(item[1])
-                                    else:
-                                        with tag("SAMPLE_ATTRIBUTE"):
-                                            with tag("TAG"):
-                                                text("ENA-CHECKLIST")
-                                            with tag("VALUE"):
-                                                text("ERC000033")
+        for item in modified_ena_df.to_dict('records'):
+            cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']}
+            with tag('SAMPLE', alias=cleaned_item_dict['sample_alias*']):
+                with tag('TITLE'):
+                    text(cleaned_item_dict['sample_title*'])
+                with tag('SAMPLE_NAME'):
+                    with tag("TAXON_ID"):
+                        text(cleaned_item_dict['tax_id*'])
+                    with tag("SCIENTIFIC_NAME"):
+                        text(cleaned_item_dict['scientific_name*'])
+                with tag("DESCRIPTION"):
+                    text(cleaned_item_dict['sample_description*'])
+
+                for header, object in cleaned_item_dict.items():
+                    if header not in ['sample_alias*', 'sample_title*', 'tax_id*', 'scientific_name*',
+                                      'sample_description*']:
+                        with tag("SAMPLE_ATTRIBUTE"):
+                            with tag("TAG"):
+                                text(header.strip("*"))
+                            with tag("VALUE"):
+                                text(object)
+
+                with tag("SAMPLE_ATTRIBUTE"):
+                    with tag("TAG"):
+                        text("ENA-CHECKLIST")
+                    with tag("VALUE"):
+                        text("ERC000033")
 
     result = indent(
         doc.getvalue(),
-        # indentation = '    ',
         indent_text=False
     )
 
     with open(opts.outfile, "w") as f:
         f.write(result)
-
 
 #------------------------#
 #          MAIN          #
@@ -369,6 +373,7 @@ if __name__ == "__main__":
         if opts.outfile == None:
             opts.outfile = 'ENA_output.xml'
         ena_dataframe_rearranged = ena_dataframe[ena_fields]
+
         xml_generator(ena_dataframe_rearranged)
 
 
