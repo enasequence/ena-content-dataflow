@@ -40,3 +40,9 @@ Example 1: link biosamples in development environment:
 Example 2: link biosamples in production:
  ```python3 biosamples_relationships.py -s test_sample_accs.txt -prod```
     
+# Output
+There are 2 output files produced for each source biosample:
+- a source biosample json
+- a linked source biosample json 
+
+All output files are found in the ./biosamples_output directory. To verify that the "derived from field" has been added correctly please check the dev or prod biosamples site.
