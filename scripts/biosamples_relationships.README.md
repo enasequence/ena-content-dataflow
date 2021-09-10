@@ -12,7 +12,7 @@ This is a collaboration between the ENA and EGA.
 
 # Input spreadsheet file format
 
-The script accepts a tab separated .txt, or .csv input file containing source and target accessions (see test_sample_accs_list.txt) and outputs both the original and linked json files for each biosample.   
+The script accepts a tab separated .txt, or .csv input file containing source and target accessions (see test_sample_accs_list.txt).
 The input file should contain two columns in the following order: 'ena_biosample_id' and 'ega_biosample_id' , with 1 source (i.e ENA biosample accession) and 1 corresponding target (i.e EGA biosample accession) per line. See example below:
 
 ```
