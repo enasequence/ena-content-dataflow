@@ -22,6 +22,7 @@ from urllib.request import urlopen
 import json
 
 import plotly.graph_objects as go
+import plotly.io as pio
 import pandas as pd
 import pycountry as pc
 import pycountry_convert as pcc
@@ -43,6 +44,7 @@ parser.add_argument('--tsv', help="input file")
 parser.add_argument('--region', help="optional list of regions (e.g. EU, US)")
 parser.add_argument('--date_range', help="filter to this date range, date format YYYY-MM-DD (e.g. 2020-01-01:2021-01-01)")
 parser.add_argument('--date_type', help="date type ")
+parser.add_argument('--out', help="write map to file (default = interactive)")
 opts = parser.parse_args(sys.argv[1:])
 
 if opts.region:
@@ -76,6 +78,9 @@ if date_filter:
 # and apply relevant filters
 map_data = {}
 for country in ena_df.country:
+    if country in ['not collected', '-']:
+        continue
+
     try:
         country = country.split(':')[0]
     except AttributeError:
@@ -128,7 +133,13 @@ fig = go.Figure(go.Choroplethmapbox(
     zmin=0, zmax=12, marker_opacity=0.5, marker_line_width=0, colorbar=count_colorbar,
     text=df.text, hoverinfo='text'
 ))
-fig.update_layout(mapbox_style="carto-positron",  mapbox_zoom=3, mapbox_center = {"lat": 50, "lon": 4}) 
-fig.update_layout(margin={"r":10,"t":10,"l":10,"b":10}, coloraxis_colorbar_x=-0.15)
+if region_filter == ['EU']:
+    fig.update_layout(mapbox_style="carto-positron",  mapbox_zoom=3, mapbox_center = {"lat": 50, "lon": 4})
+else:
+    fig.update_layout(mapbox_style="carto-positron",  mapbox_zoom=1.5, mapbox_center = {"lat": 10, "lon": 0})
+fig.update_layout(margin={"r":10,"t":10,"l":10,"b":10}, coloraxis_colorbar_x=-0.15, width=1500, height=800)
 
-fig.show()
+if opts.out:
+    pio.write_image(fig, opts.out)
+else:
+    fig.show()
