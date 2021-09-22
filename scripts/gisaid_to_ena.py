@@ -21,36 +21,26 @@ import pycountry
 from yattag import Doc, indent
 doc, tag, text = Doc().tagtext()
 xml_header = '<?xml version="1.0" encoding="UTF-8"?>'
-doc.asis(xml_header)
+
 ena_fields = [
-    'sample_alias*', 'tax_id*', 'scientific_name*', 'common_name',
-    'sample_title*', 'sample_description*', 'collection date*',
-    'geographic location (country and/or sea)*', 'geographic location (region and locality)',
-    'sample capture status*', 'host common name*', 'host subject id*', 'host age',
-    'host health state*', 'host sex*', 'host scientific name*', 'virus identifier',
-    'collector name*', 'collecting institution*', 'isolate*', 'isolation source host-associated',
+    'sample_alias', 'tax_id', 'scientific_name', 'common_name',
+    'sample_title', 'sample_description', 'collection date',
+    'geographic location (country and/or sea)', 'geographic location (region and locality)',
+    'sample capture status', 'host common name', 'host subject id', 'host age',
+    'host health state', 'host sex', 'host scientific name', 'virus identifier',
+    'collector name', 'collecting institution', 'isolate', 'isolation source host-associated',
     'gisaid_accession_id'
 ]
 
-gisaid_to_ena = {
-    # sample metadata
-    'covv_collection_date': 'collection date*',
-    'covv_location': 'geographic location (country and/or sea)*',
-    'covv_add_location': 'geographic location (region and locality)',
-    'covv_virus_name': 'sample_alias*',
-    'covv_host': 'host common name*',
-    'covv_gender': 'host sex*',
-    'covv_authors': 'collector name*',
-    'covv_orig_lab': 'collecting institution*',
-    # 'covv_outbreak': 'sample capture status*',
-    'covv_patient_status': 'host health state*',
-    'covv_patient_age': 'host age',
-    'covv_subm_sample_id': 'sample_title*',
-    'covv_specimen': 'isolation source host-associated',
-    # experiment metadata
-    # 'covv_seq_technology': 'sequencing_platform',
-    # 'covv_assembly_method': 'library_construction protocol'
-}
+'''
+Mapping the GISAID metadata headers to ENA metadata headers form an external file 
+'''
+def gisaid_spreadsheet_mapping(opts):
+    map_df = pd.read_csv(opts.map, sep="\t")
+    for item in map_df.to_dict('records'):
+        gisaid_to_ena = {k: v for k, v in item.items()}
+    return gisaid_to_ena
+
 default_sheet = 'ENA Submission'
 
 
@@ -73,7 +63,7 @@ examples:
   # convert GISAID spreadsheet in CSV format to ENA in excel format
   gisaid_to_ena.py --csv gisaid.csv --outfile ena.xlsx --outformat excel
   # convert GISAID metadata from sheet called 'Samples' to ENA spreadsheet
-  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --outfile ena.xml --outformat xml
+  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --outfile ena.xml --outformat xml --map mapping.txt
         """,
         formatter_class=RawTextHelpFormatter
     )
@@ -83,6 +73,7 @@ examples:
     parser.add_argument('--outfile', help="output file name")
     parser.add_argument('--taxon', help="taxon name or id of samples")
     parser.add_argument('--outformat', help='Specify between xml or excel', type=str, required=True)
+    parser.add_argument('--map', help='The path for the mapping file between GISAID and ENA headers', type=str, required=True)
     opts = parser.parse_args(sys.argv[1:])
     return opts
 
@@ -109,7 +100,7 @@ def parse_gisaid_metadata(opts):
 """
 Convert the metadata fields using the GISAID->ENA mapping
 """
-def convert_gisaid_to_ena(gisaid_df):
+def convert_gisaid_to_ena(gisaid_df, gisaid_to_ena):
     ena_data = {}
 
     # is additional location info provided or should we infer some from `covv_location`?
@@ -123,7 +114,7 @@ def convert_gisaid_to_ena(gisaid_df):
             ena_field = gisaid_to_ena[gisaid_field]
             if gisaid_field == 'covv_location':
                 geo_info = [ extract_geographic_info(gl) for gl in list(gisaid_df[gisaid_field]) ]
-                ena_data['geographic location (country and/or sea)*']  = [g[0] for g in geo_info]
+                ena_data['geographic location (country and/or sea)']  = [g[0] for g in geo_info]
                 if infer_add_loc:
                     ena_data['geographic location (region and locality)'] = [g[1] for g in geo_info]
             else:
@@ -141,14 +132,14 @@ values, general tidy up of data.
 """
 def smart_fill(ena_data,gisaid_df):
     # need num of rows to autofill missing data
-    num_rows = len(ena_data['collection date*'])
+    num_rows = len(ena_data['collection date'])
 
     # add taxon info if given
 
     ena_data = add_taxonomic_information(ena_data,gisaid_df)
 
     # add standard capture status
-    ena_data['sample capture status*'] = ['active surveillance in response to outbreak' for i in range(num_rows)]
+    ena_data['sample capture status'] = ['active surveillance in response to outbreak' for i in range(num_rows)]
 
     # make sure all other fields are in the spreadsheet
     for field in ena_fields:
@@ -174,8 +165,8 @@ def fix_missing_values(dataframe, num_rows):
     for field in dataframe:
         if 'unknown' in dataframe[field] or ' ' in dataframe[field]:
             # don't autofill sample_title
-            if field != 'sample_title*':
-                if field[-1] == '*':
+            if field != 'sample_title':
+                if field[-1] in ['tax_id', 'scientific_name','collection date', 'geographic location (country and/or sea)', 'sample_alias', 'host common name', 'host sex', 'collector name', 'collecting institution', 'host health state','sample_description']:
                     dataframe[field] = ['not provided' if v in ['unknown', ' '] else v for v in dataframe[field]]
                 else:
                     dataframe[field] = ['not provided' if v == 'unknown' else v for v in dataframe[field]]
@@ -212,38 +203,31 @@ def extract_geographic_info(location_str):
 Add extra taxonomic information to a given dataframe
 """
 def add_taxonomic_information(dataframe,gisaid_df):
-    num_rows = len(dataframe['collection date*'])
+    num_rows = len(dataframe['collection date'])
     if opts.taxon:
         this_taxon_id = taxon_id(opts.taxon)
-        dataframe['tax_id*'] = [this_taxon_id for i in range(num_rows)]
+        dataframe['tax_id'] = [this_taxon_id for i in range(num_rows)]
 
         this_sci_name = scientific_name(opts.taxon)
-        dataframe['scientific_name*'] = [this_sci_name for i in range(num_rows)]
+        dataframe['scientific_name'] = [this_sci_name for i in range(num_rows)]
     # in case betacoronavirus is indicated in the spreadsheet and the --taxon is not specified
     elif opts.taxon == None:
-        dataframe['tax_id*'] =[]
-        dataframe['scientific_name*']=[]
+        dataframe['tax_id'] =[]
+        dataframe['scientific_name']=[]
         for tax in gisaid_df['covv_type']:
             if tax == 'betacoronavirus':
                 this_taxon_id= taxon_id('2697049')
                 this_sci_name = scientific_name('2697049')
 
-                dataframe['tax_id*'].append (this_taxon_id)
-                dataframe['scientific_name*'].append(this_sci_name)
+                dataframe['tax_id'].append (this_taxon_id)
+                dataframe['scientific_name'].append(this_sci_name)
             else:
-                dataframe['tax_id*'].append(' ')
-                dataframe['scientific_name*'].append(' ')
+                dataframe['tax_id'].append('not provided')
+                dataframe['scientific_name'].append('not provided')
 
 
-    if dataframe['host common name*']:
-        dataframe['host scientific name*'] = [scientific_name(x) for x in dataframe['host common name*']]
-
-
-
-
-
-
-
+    if dataframe['host common name']:
+        dataframe['host scientific name'] = [scientific_name(x) for x in dataframe['host common name']]
 
     return dataframe
 
@@ -298,7 +282,7 @@ def format_sheet(writer, headers):
 
     # second, add headers and highlight mandatory ones
     for i in range(len(headers)):
-        if headers[i][-1] == '*':
+        if headers[i][-1] in ['tax_id', 'scientific_name','collection date', 'geographic location (country and/or sea)', 'sample_alias', 'host common name', 'host sex', 'collector name', 'collecting institution', 'host health state', 'sample_title', 'sample_description']:
             worksheet.write(1, i, headers[i][:-1], fmt_orange)
         else:
             worksheet.write(1, i, headers[i], fmt_black)
@@ -323,27 +307,28 @@ def write_dataframe(df, outfile):
 Write pandas dataframe object to xml file
 """
 def xml_generator (dataframe):
+    doc.asis(xml_header)
     modified_ena_df = dataframe.where(pd.notnull(dataframe), None)
     with tag('SAMPLE_SET'):
         for item in modified_ena_df.to_dict('records'):
             cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']}
-            with tag('SAMPLE', alias=cleaned_item_dict['sample_alias*']):
+            with tag('SAMPLE', alias=cleaned_item_dict['sample_alias']):
                 with tag('TITLE'):
-                    text(cleaned_item_dict['sample_title*'])
+                    text(cleaned_item_dict['sample_title'])
                 with tag('SAMPLE_NAME'):
                     with tag("TAXON_ID"):
-                        text(cleaned_item_dict['tax_id*'])
+                        text(cleaned_item_dict['tax_id'])
                     with tag("SCIENTIFIC_NAME"):
-                        text(cleaned_item_dict['scientific_name*'])
+                        text(cleaned_item_dict['scientific_name'])
                 with tag("DESCRIPTION"):
-                    text(cleaned_item_dict['sample_description*'])
+                    text(cleaned_item_dict['sample_description'])
 
                 for header, object in cleaned_item_dict.items():
-                    if header not in ['sample_alias*', 'sample_title*', 'tax_id*', 'scientific_name*',
-                                      'sample_description*']:
+                    if header not in ['sample_alias', 'sample_title', 'tax_id', 'scientific_name',
+                                      'sample_description']:
                         with tag("SAMPLE_ATTRIBUTE"):
                             with tag("TAG"):
-                                text(header.strip("*"))
+                                text(header)
                             with tag("VALUE"):
                                 text(object)
 
@@ -366,8 +351,9 @@ def xml_generator (dataframe):
 #------------------------#
 if __name__ == "__main__":
     opts = parse_args(sys.argv[1:])
+    gisaid_to_ena = gisaid_spreadsheet_mapping(opts)
     gisaid_dataframe = parse_gisaid_metadata(opts)
-    ena_dataframe = convert_gisaid_to_ena(gisaid_dataframe)
+    ena_dataframe = convert_gisaid_to_ena(gisaid_dataframe, gisaid_to_ena)
 
     if opts.outformat.lower() == 'xml':
         if opts.outfile == None:
