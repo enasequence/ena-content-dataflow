@@ -22,6 +22,7 @@ import json
 from datetime import datetime, date
 import os
 from argparse import RawTextHelpFormatter
+import config
 
 description = """
 This script links source (e.g. ENA) biosamples with target (e.g. EGA) biosamples, using the "derived from" relationships field
@@ -56,10 +57,10 @@ args = parser.parse_args()
 
 #TODO: how can we connect this script to the creation of the ENA 'sample derived from' attribute?
 
-root_user = input("Enter the root username: ")
-print(root_user)
-root_pwd = input("Enter the root password: ")
-print(root_pwd)
+root_user = config.root_user
+root_pwd = config.root_pwd
+#print(root_user)
+#print(root_pwd)
 
 # creating output dir
 def prepare_directory():
