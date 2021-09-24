@@ -64,10 +64,11 @@ def parse_args(args):
 
 description:
   Script to convert GISAID metadata spreadsheets into ENA formatted ones.
-  Can handle CSV or any format handled by the pandas.read_excel method
+  Can handle XLS/CSV input, or any format handled by the pandas.read_excel method
   (https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html)
 
-  Output format will be in Microsoft Excel format (.xlsx)
+  Output format can be in Microsoft Excel format (.xlsx) for interactive submissions, 
+  or in XML format for programmatic submissions.
 
 examples:
   # convert GISAID spreadsheet in CSV format to ENA in excel format
@@ -77,8 +78,8 @@ examples:
         """,
         formatter_class=RawTextHelpFormatter
     )
-    parser.add_argument('--csv', help="path to CSV file")
-    parser.add_argument('--xls', help="path to excel file")
+    parser.add_argument('--csv', help="path to GISAID formatted CSV file")
+    parser.add_argument('--xls', help="path to GISAID formatted XLS file")
     parser.add_argument('--sheet', help=f"(optional) name of excel sheet (default: 'Submissions')")
     parser.add_argument('--outfile', help="output file name")
     parser.add_argument('--taxon', help="taxon name or id of samples")
@@ -384,4 +385,3 @@ if __name__ == "__main__":
 
     else:
         sys.stderr.write(f'The file format "{opts.outformat}" is not supported, accepted values : [xml, xls, xlsx, excel]')
-
