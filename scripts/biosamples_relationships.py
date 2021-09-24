@@ -22,7 +22,7 @@ import json
 from datetime import datetime, date
 import os
 from argparse import RawTextHelpFormatter
-import config
+
 
 description = """
 This script links source (e.g. ENA) biosamples with target (e.g. EGA) biosamples, using the "derived from" relationships field
@@ -53,12 +53,9 @@ parser.add_argument('-s', '--spreadsheet', help='input spreadsheet containing so
 parser.add_argument('-prod', '--production', help='Biosamples production environment', action='store_true')  # 'dev' env is default if prod not specified
 args = parser.parse_args()
 
-##TODO: Dipayan mentioned adding the "webinSubmissionAccountId" in the sample json when updating it to retain original owner of sample - to be fixed by mid-Aug
 
-#TODO: how can we connect this script to the creation of the ENA 'sample derived from' attribute?
-
-root_user = config.root_user
-root_pwd = config.root_pwd
+root_user = os.environ['root_user']
+root_pwd = os.environ['root_pwd']
 #print(root_user)
 #print(root_pwd)
 
