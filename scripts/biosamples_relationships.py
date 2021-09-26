@@ -39,7 +39,6 @@ Options:
 example = """
 Example 1: link biosamples in development environment:
     python3 biosamples_relationships.py -s test_sample_accs.txt
-
 Example 2: link biosamples in production:
     python3 biosamples_relationships.py -s test_sample_accs.txt -prod
 """
@@ -78,11 +77,13 @@ print(data)
 
 response = requests.post(auth_url, headers=header, data=data)
 token = response.content.decode('utf-8') #to decode from bytes (indicated by b') to string
-print("Token is " + token)
 
-if response.status_code != 200:
+if response.status_code == 200:
+    print("Token is " + token)
+
+elif response.status_code != 200:
     print("\n Error generating token, see below:")
-    print(response.content)
+    print(response.content.decode('utf-8'))
     sys.exit()
 
 # input list of source + target accessions:
