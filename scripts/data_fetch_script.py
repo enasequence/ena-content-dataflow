@@ -23,7 +23,8 @@ import requests, sys
 import re
 import requests
 import json
-from datetime import datetime
+import datetime
+from dateutil.relativedelta import relativedelta, MO
 parser = argparse.ArgumentParser(prog='data_fetch_script.py', formatter_class=argparse.RawDescriptionHelpFormatter,
                                      epilog="""
         + ============================================================ +
@@ -43,7 +44,7 @@ args = parser.parse_args()
 
 # generate and create the output directory
 def create_outdir():
-    now = datetime.now()
+    now = datetime.datetime.now()
     now_str = now.strftime("%d%m%y")
     outdir = f"databases_logs_{now_str}"
     if not os.path.exists(outdir):
@@ -70,15 +71,17 @@ def fetching_taxonomy():
 # Creating the script for fetching data from advance search in ENA
 def advanced_search_data_fetching(database):
     acc = 'accession'
+    date ='last_updated'
     if database == 'sequences':
         database = 'sequence'
     elif database == 'reads':
         database = 'read_experiment'
         acc = 'experiment_accession'
+        date = 'first_public'
 
     print('PROCESSING DATA FROM ADVANCED SEARCH...................................................................')
     server = "https://www.ebi.ac.uk/ena/portal/api/search"
-    ext = "?result={}&query=tax_eq({})&fields={}&format=json&limit=0".format(database, tax_fetch[0], acc)
+    ext = "?result={}&query=tax_eq({})&fields={}%2C{}&format=json&limit=0".format(database, tax_fetch[0], acc, date)
     command = requests.get(server + ext, headers={"Content-Type": "application/json"})
     status = command.status_code
     if status == 500:
@@ -87,56 +90,67 @@ def advanced_search_data_fetching(database):
     with open(f"{outdir}/{'ENA'}.{database}.log.txt", "w") as f:
         if acc == 'experiment_accession':
             for x in data:
-                output = x["experiment_accession"]
-                f.write(output + "\n")
+                output = x["experiment_accession"], x['first_public']
+                f.write("\t".join(output) + "\n")
         else:
             for x in data:
-                output = x["accession"]
-                f.write(output + "\n")
+                output = x["accession"], x['last_updated']
+                f.write("\t".join(output) + "\n")
 
     print('ENA-Advanced Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
 
 # Creating the script for fetching data from COVID19dataPortal in ENA
 def covid19portal_data_fetching(database):
+    dateformat = 'creation_date'
     if database == 'sequence':
         database = 'sequences'
     elif database == 'reads':
         database = 'raw-reads'
+        dateformat = 'first_public_date'
 
     print('PROCESSING DATA FROM COVID-19 DATA PORTAL...................................................................')
 
-    # Using While loop to go through all the pages in the covid19dataportal API
-    page = 0
-    while page >= 0:
-        page = page + 1
-        server = "https://www.covid19dataportal.org/api/backend/viral-sequences"
-        ext = "/{}?query=TAXON:2697049&page={}&size=1000".format(database, page)
-        command = requests.get(server + ext, headers={"Content-Type": "application/json"})
-        status = command.status_code
-        if status == 500:
-            break
-        else:
-            data = json.loads(command.content)
-            jsonData = data["entries"]
-            if page == 1:
-                f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "w")
+    # Using While loop to go through all the pages per each month of their release by the covid19dataportal API
+    now = datetime.datetime.now()
+    start = datetime.datetime(2020, 1, 1)
+    delta = relativedelta(months=1)
+    while start <= now:
+        page = 0
+        year=start.strftime("%Y")
+        month =start.strftime("%m")
+        start += delta
+        while page >= 0:
+            page = page + 1
+            server = "https://www.covid19dataportal.org/api/backend/viral-sequences"
+            ext = "/{}?query=TAXON:2697049 AND {}:{}-{}&page={}&size=1000&format=idlist".format(database,dateformat,year,month, page)
+            command = requests.get(server + ext, headers={"Content-Type": "application/json"})
+            status = command.status_code
+            if status == 500:
+                break
             else:
-                f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "a")
-            for x in jsonData:
-                output = x["id"]
-                f.write(output + "\n")
-            f.close()
+                data = json.loads(command.content)
+                jsonData = data["entries"]
+                if start == '2020-02-01 00:00:00':
+                    f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "w")
+                else:
+                    f = open(f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt", "a")
+                for x in jsonData:
+                    output = x["id"]
+                    f.write(output + "\n")
+                f.close()
     print('Covid19dataportal Data written to ' + f"{outdir}/{'Covid19DataPortal'}.{database}.log.txt")
 
 
 
 # Creating the script for fetching data from ebisearch in ENA
 def ebisearch_data_fetching(database):
+    date = 'creation_date'
     if database == 'sequences':
         database = 'embl-covid19'
     elif database == 'reads':
         database = 'sra-experiment-covid19'
+        date = 'first_public'
 
     print('PROCESSING DATA FROM EBI SEARCH...................................................................')
 
@@ -144,7 +158,7 @@ def ebisearch_data_fetching(database):
     start = 0
     while start >= 0:
         server = "http://www.ebi.ac.uk/ebisearch/ws/rest"
-        ext = "/{}?query=TAXON:{}&fields=acc&format=json&size=1000&start={}".format(database, tax_fetch[0], start)
+        ext = "/{}?query=TAXON:{}&fields=acc,{}&format=json&size=1000&start={}".format(database, tax_fetch[0], date, start)
         start = start + 1000
         command = requests.get(server + ext, headers={"Content-Type": "application/json"})
         status = command.status_code
@@ -161,8 +175,8 @@ def ebisearch_data_fetching(database):
             else:
                 f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "a")
             for x in jsonData:
-                output = x["id"]
-                f.write(output + "\n")
+                output = [x['fields']['acc'][0], x['fields'][date][0]]
+                f.write("\t".join(output) + "\n")
             f.close()
     print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
