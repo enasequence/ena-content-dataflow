@@ -23,16 +23,25 @@ SAMEA8203563	SAMEA8203566
 
 
 
-# Usage options 
+# Usage 
+
+Please first **export the root Webin credentials** as environment variables in your local terminal, before running the script.  
+To do so in a Linux terminal:
+
+```
+export root_user='Webin-40894'
+export root_pwd='<root pwd>' #Please contact the Biosamples team for the password.
+```
+If you are the original owner of the samples you may use your own Webin credentials instead.    
+
+## Usage options
 
     -s, --spreadsheet : (mandatory) filename for spreadsheet (csv or .txt) containing source and target biosample accessions, with 1 source and 1 corresponding target accession per line.
     -prod            : (optional) link biosamples in production (if -prod not specified, biosamples will be linked in development by default)
 
+  
 
-To perform the linking, if you are not the original owner of the samples, **please input the root Webin credentials (Webin-40894) at the prompt**. Please contact the Biosamples team for the password.    
-Otherwise, if you are the original owner of the samples you may use your own Webin credentials.   
-
-# Examples
+## Examples
 
 Example 1: link biosamples in development environment:
 ```python3 biosamples_relationships.py -s test_sample_accs.txt```
