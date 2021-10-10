@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import pandas as pd
+import numpy as np
 import fnmatch #module for unix style pattern matching
 import glob #module is used to retrieve files/pathnames matching a specified pattern
 from yattag import Doc, indent
@@ -47,7 +48,6 @@ General trimming to the metadata in the spreadsheet and save it in a panda dataf
 """
 def trimming_the_spreadsheet(df):
     trimmed_df = df.iloc[3: ,].copy()
-    trimmed_df.dropna(axis=0, how='all', inplace=True)
     trimmed_df.insert(7,"submission_tool",'drag and drop uploader tool',allow_duplicates=True) #study #to inject constant into trimmed df
     trimmed_df.insert(24,"submission_tool",'drag and drop uploader tool',allow_duplicates=True) #sample
     trimmed_df.insert(26,"sample capture status",'active surveillance in response to outbreak',allow_duplicates=False)
@@ -70,25 +70,26 @@ def study_xml_generator(df):
     doc.asis(xml_header)
     with tag('STUDY_SET'):
         for item in modified_df.to_dict('records'):
-            cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']} # remove all the none and " " values
-            with tag('STUDY', alias=cleaned_item_dict['study_alias']):
-                with tag('DESCRIPTOR'):
-                    with tag("STUDY_TITLE"):
-                        text(cleaned_item_dict['study_name'])
-                    doc.stag('STUDY_TYPE', existing_study_type="Other")
-                    with tag('STUDY_ABSTRACT'):
-                        text(cleaned_item_dict['abstract'])
-                    with tag('CENTER_PROJECT_NAME'):
-                        text(cleaned_item_dict['short_description'])
-                with tag('STUDY_ATTRIBUTES'):
-                    for header, object in cleaned_item_dict.items():
-                        if header not in ['study_alias', 'email_address', 'center_name', 'study_name',
-                                          'short_description', 'abstract']:
-                            with tag("STUDY_ATTRIBUTE"):
-                                with tag("TAG"):
-                                    text(header)
-                                with tag("VALUE"):
-                                    text(object)
+            if item['study_alias'] != None:
+                cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']} # remove all the none and " " values
+                with tag('STUDY', alias=cleaned_item_dict['study_alias']):
+                    with tag('DESCRIPTOR'):
+                        with tag("STUDY_TITLE"):
+                            text(cleaned_item_dict['study_name'])
+                        doc.stag('STUDY_TYPE', existing_study_type="Other")
+                        with tag('STUDY_ABSTRACT'):
+                            text(cleaned_item_dict['abstract'])
+                        with tag('CENTER_PROJECT_NAME'):
+                            text(cleaned_item_dict['short_description'])
+                    with tag('STUDY_ATTRIBUTES'):
+                        for header, object in cleaned_item_dict.items():
+                            if header not in ['study_alias', 'email_address', 'center_name', 'study_name',
+                                              'short_description', 'abstract']:
+                                with tag("STUDY_ATTRIBUTE"):
+                                    with tag("TAG"):
+                                        text(header)
+                                    with tag("VALUE"):
+                                        text(object)
 
     result_study = indent(
         doc.getvalue(),
@@ -113,42 +114,43 @@ def sample_xml_generator(df):
     doc.asis(xml_header)
     with tag('SAMPLE_SET'):
         for item in modified_df.to_dict('records'):
-            cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']} # remove all the none and " " values
-            if cleaned_item_dict:
-                with tag('SAMPLE', alias=cleaned_item_dict['sample_alias']):
-                    with tag('TITLE'):
-                        text(cleaned_item_dict['sample_title'])
-                    with tag('SAMPLE_NAME'):
-                        with tag("TAXON_ID"):
-                            text(cleaned_item_dict['tax_id'])
-                        with tag("SCIENTIFIC_NAME"):
-                            text(cleaned_item_dict['scientific_name'])
-                    with tag("DESCRIPTION"):
-                        text(cleaned_item_dict['sample_description'])
+            if item['sample_alias'] != None:
+                cleaned_item_dict = {k: v for k, v in item.items() if v not in [None, ' ']} # remove all the none and " " values
+                if cleaned_item_dict:
+                    with tag('SAMPLE', alias=cleaned_item_dict['sample_alias']):
+                        with tag('TITLE'):
+                            text(cleaned_item_dict['sample_title'])
+                        with tag('SAMPLE_NAME'):
+                            with tag("TAXON_ID"):
+                                text(cleaned_item_dict['tax_id'])
+                            with tag("SCIENTIFIC_NAME"):
+                                text(cleaned_item_dict['scientific_name'])
+                        with tag("DESCRIPTION"):
+                            text(cleaned_item_dict['sample_description'])
 
-                    with tag('SAMPLE_ATTRIBUTES'):
-                        for header, object in cleaned_item_dict.items():
-                            if header not in ['sample_alias', 'sample_title', 'tax_id', 'scientific_name',
-                                              'sample_description']:
-                                with tag("SAMPLE_ATTRIBUTE"):
-                                    with tag("TAG"):
-                                        text(header)
-                                    with tag("VALUE"):
-                                        text(object)
-                                    if header in ['geographic location (latitude)', 'geographic location (longitude)']:
-                                        with tag("UNITS"):
-                                            text('DD')
-                                    elif header in ['host age']:
-                                        with tag("UNITS"):
-                                            text('years')
+                        with tag('SAMPLE_ATTRIBUTES'):
+                            for header, object in cleaned_item_dict.items():
+                                if header not in ['sample_alias', 'sample_title', 'tax_id', 'scientific_name',
+                                                  'sample_description']:
+                                    with tag("SAMPLE_ATTRIBUTE"):
+                                        with tag("TAG"):
+                                            text(header)
+                                        with tag("VALUE"):
+                                            text(object)
+                                        if header in ['geographic location (latitude)', 'geographic location (longitude)']:
+                                            with tag("UNITS"):
+                                                text('DD')
+                                        elif header in ['host age']:
+                                            with tag("UNITS"):
+                                                text('years')
 
 
 
-                        with tag("SAMPLE_ATTRIBUTE"):
-                            with tag("TAG"):
-                                text("ENA-CHECKLIST")
-                            with tag("VALUE"):
-                                text("ERC000033")
+                            with tag("SAMPLE_ATTRIBUTE"):
+                                with tag("TAG"):
+                                    text("ENA-CHECKLIST")
+                                with tag("VALUE"):
+                                    text("ERC000033")
 
     result = indent(
         doc.getvalue(),
@@ -172,9 +174,9 @@ def submission_xml_generator(df):
             with tag("ACTIONS"):
                 with tag('ACTION'):
                     doc.stag(args.action.upper())
-                if pd.notnull(df.iloc[1]['release_date']):
+                if not df['release_date'].dropna().empty: # in case of multiple studies, it will take the release date of the first study only - make sure all the study release dates are the same
                     with tag('ACTION'):
-                        doc.stag('HOLD', HoldUntilDate=str(df.iloc[1]['release_date']))
+                        doc.stag('HOLD', HoldUntilDate=str(df.iloc[0]['release_date']))
 
     result_s = indent(
         doc.getvalue(),
