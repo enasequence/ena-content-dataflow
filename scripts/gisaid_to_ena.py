@@ -1,23 +1,9 @@
-#!/usr/bin/env python3.7
 
-# Copyright [2020] EMBL-European Bioinformatics Institute
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import sys, re, argparse, requests
 import pandas as pd
 import pycountry
-
+import csv
 from yattag import Doc, indent
 doc, tag, text = Doc().tagtext()
 xml_header = '<?xml version="1.0" encoding="UTF-8"?>'
@@ -36,8 +22,9 @@ ena_fields = [
 Mapping the GISAID metadata headers to ENA metadata headers form an external file 
 '''
 def gisaid_spreadsheet_mapping(opts):
-    map_df = pd.read_csv(opts.map, sep="\t")
-    for item in map_df.to_dict('records'):
+    map_df = pd.read_csv(opts.map, sep="\t", header=0) #Attention, the headers in the GISAID column should be unique,
+
+    for item in map_df.set_index('GISAID').T.to_dict('records'):
         gisaid_to_ena = {k: v for k, v in item.items()}
     return gisaid_to_ena
 
@@ -111,6 +98,7 @@ def convert_gisaid_to_ena(gisaid_df, gisaid_to_ena):
             continue
 
         try:
+
             ena_field = gisaid_to_ena[gisaid_field]
             if gisaid_field == 'covv_location':
                 geo_info = [ extract_geographic_info(gl) for gl in list(gisaid_df[gisaid_field]) ]
@@ -123,6 +111,7 @@ def convert_gisaid_to_ena(gisaid_df, gisaid_to_ena):
             continue
 
     ena_data = smart_fill(ena_data, gisaid_df)
+
     return pd.DataFrame(ena_data)
 
 
@@ -216,8 +205,8 @@ def add_taxonomic_information(dataframe,gisaid_df):
         dataframe['scientific_name']=[]
         for tax in gisaid_df['covv_type']:
             if tax == 'betacoronavirus':
-                this_taxon_id= taxon_id('2697049')
-                this_sci_name = scientific_name('2697049')
+                this_taxon_id= '2697049'
+                this_sci_name = 'Severe acute respiratory syndrome coronavirus 2'
 
                 dataframe['tax_id'].append (this_taxon_id)
                 dataframe['scientific_name'].append(this_sci_name)
@@ -227,7 +216,19 @@ def add_taxonomic_information(dataframe,gisaid_df):
 
 
     if dataframe['host common name']:
-        dataframe['host scientific name'] = [scientific_name(x) for x in dataframe['host common name']]
+        host_tax = set(dataframe['host common name'])
+        host_tax_dict= {}
+        for i in host_tax:
+            k= i
+            v = scientific_name(i)
+            host_tax_dict[k]= v
+        dataframe['host scientific name'] = []
+        for x in dataframe['host common name']:
+            if x in host_tax_dict:
+                dataframe['host scientific name'].append(host_tax_dict[x])
+            else:
+                dataframe['host scientific name'].append(scientific_name(x))
+
 
     return dataframe
 
@@ -252,6 +253,7 @@ Query EnsEMBL taxonomy REST endpoint
 def taxonomy(id_or_name):
     endpoint = f"http://rest.ensembl.org/taxonomy/id/{id_or_name}?"
     r = requests.get(endpoint, headers={ "Content-Type" : "application/json"})
+
 
     if not r.ok:
         r.raise_for_status()
@@ -295,12 +297,11 @@ Write pandas dataframe object to excel spreadsheet
 """
 def write_dataframe(df, outfile):
     out_suffix = outfile.split('.')[-1]
-    writer = pd.ExcelWriter(outfile, engine='xlsxwriter')
-    print(writer)
-    df.to_excel(writer, index=False, columns=ena_fields, header=False, sheet_name=default_sheet, startrow=3, startcol=0)
-    writer = format_sheet(writer, ena_fields)
-    writer.save()
-
+    if opts.outformat.lower() in ['excel', 'xls', 'xlsx']:
+        writer = pd.ExcelWriter(outfile, engine='xlsxwriter')
+        df.to_excel(writer, index=False, columns=ena_fields, header=False, sheet_name=default_sheet, startrow=3, startcol=0)
+        writer = format_sheet(writer, ena_fields)
+        writer.save()
 
 
 """
@@ -322,21 +323,21 @@ def xml_generator (dataframe):
                         text(cleaned_item_dict['scientific_name'])
                 with tag("DESCRIPTION"):
                     text(cleaned_item_dict['sample_description'])
+                with tag('SAMPLE_ATTRIBUTES'):
+                    for header, object in cleaned_item_dict.items():
+                        if header not in ['sample_alias', 'sample_title', 'tax_id', 'scientific_name',
+                                          'sample_description']:
+                            with tag("SAMPLE_ATTRIBUTE"):
+                                with tag("TAG"):
+                                    text(header)
+                                with tag("VALUE"):
+                                    text(object)
 
-                for header, object in cleaned_item_dict.items():
-                    if header not in ['sample_alias', 'sample_title', 'tax_id', 'scientific_name',
-                                      'sample_description']:
-                        with tag("SAMPLE_ATTRIBUTE"):
-                            with tag("TAG"):
-                                text(header)
-                            with tag("VALUE"):
-                                text(object)
-
-                with tag("SAMPLE_ATTRIBUTE"):
-                    with tag("TAG"):
-                        text("ENA-CHECKLIST")
-                    with tag("VALUE"):
-                        text("ERC000033")
+                    with tag("SAMPLE_ATTRIBUTE"):
+                        with tag("TAG"):
+                            text("ENA-CHECKLIST")
+                        with tag("VALUE"):
+                            text("ERC000033")
 
     result = indent(
         doc.getvalue(),
@@ -361,13 +362,10 @@ if __name__ == "__main__":
         ena_dataframe_rearranged = ena_dataframe[ena_fields]
 
         xml_generator(ena_dataframe_rearranged)
-
-
     elif opts.outformat.lower() in ['excel','xls','xlsx']:
         if opts.outfile == None:
             opts.outfile = 'ENA_output.xlsx'
         write_dataframe(ena_dataframe, opts.outfile)
-
     else:
         sys.stderr.write(f'The file format "{opts.outformat}" is not supported, accepted values : [xml, xls, xlsx, excel]')
 
