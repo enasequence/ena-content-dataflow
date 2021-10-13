@@ -130,7 +130,7 @@ def fetch_studies(connection):
             "lower(s.study_title) like '%coronavirus%'",
             "lower(s.study_title) like '%severe acute respiratory%')"
         ]),
-        "p.status_id not in (3, 5)",
+        "p.status_id not in (2, 3, 5)", # no private, cancelled or suppressed projects
         "(s.study_id not like 'EGA%' AND s.project_id not like 'EGA%') "
     ])
     # where_clause_studies = "s.project_id IN ('PRJNA656810', 'PRJEB43555', 'PRJNA683801')"
@@ -541,7 +541,23 @@ def update_umbrella(accs, xml_template, outdir):
     print(f"Running: {curl_cmd}" if opts.submit else f"Would run: {curl_cmd}")
     if opts.submit:
         os.system(curl_cmd)
+        check_receipt(f"{submission_xml_file}.receipt")
 
+def check_receipt(file):
+    lines = []
+    with open(file, 'r') as fh:
+        lines = fh.readlines()
+
+    for l in lines:
+        rx_success = re.search("<RECEIPT .+ submissionFile=\"(.+)\" success=\"(.+)\"")
+        if rx_success:
+            if rx_success.group(2) == 'true':
+                return 1
+            else:
+                sys.stderr.write("\n!!! WARNING !!! Submission of {} was unsuccessful:".format(rx.group(1)))
+        if 'ERROR' in l:
+            sys.stderr.write(l)
+    return 0
 
 #------------------------#
 #          MAIN          #
