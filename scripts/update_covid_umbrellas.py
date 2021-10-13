@@ -549,7 +549,7 @@ def check_receipt(file):
         lines = fh.readlines()
 
     for l in lines:
-        rx_success = re.search("<RECEIPT .+ submissionFile=\"(.+)\" success=\"(.+)\"")
+        rx_success = re.search("<RECEIPT .+ submissionFile=\"(.+)\" success=\"(.+)\"", l)
         if rx_success:
             if rx_success.group(2) == 'true':
                 return 1
