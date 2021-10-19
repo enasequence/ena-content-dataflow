@@ -1,0 +1,2 @@
+covv_collection_date	covv_location	covv_add_location	covv_virus_name	covv_host	covv_gender	covv_authors	covv_orig_lab	covv_patient_status	covv_patient_age	covv_subm_sample_id	covv_specimen	covv_virus_name
+collection date	geographic location (country and/or sea)	geographic location (region and locality)	sample_alias	host common name	host sex	collector name	collecting institution	host health state	host age	sample_title	isolation source host-associated	sample_description
