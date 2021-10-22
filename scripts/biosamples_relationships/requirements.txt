@@ -2,4 +2,3 @@ pandas==1.2.2
 argparse==1.4.0
 datetime==4.3
 requests==2.25.1
-json==2.0.9
