@@ -1,6 +1,6 @@
 
 
-import sys, re, argparse, requests
+import os, sys, re, argparse, requests
 import pandas as pd
 import pycountry
 import csv
@@ -50,7 +50,9 @@ examples:
   # convert GISAID spreadsheet in CSV format to ENA in excel format
   gisaid_to_ena.py --csv gisaid.csv --outfile ena.xlsx --outformat excel
   # convert GISAID metadata from sheet called 'Samples' to ENA spreadsheet
-  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --outfile ena.xml --outformat xml --map mapping.txt
+  gisaid_to_ena.py --xls gisaid.xlsx --sheet Samples --outfile ena.xml --outformat xml
+  # convert using a custom metadata mapping file
+  gisaid_to_ena.py --xls gisaid.xlsx --outfile ena.xml --outformat xml --map path/to/mapping.tsv
         """,
         formatter_class=RawTextHelpFormatter
     )
@@ -59,8 +61,8 @@ examples:
     parser.add_argument('--sheet', help=f"(optional) name of excel sheet (default: 'Submissions')")
     parser.add_argument('--outfile', help="output file name")
     parser.add_argument('--taxon', help="taxon name or id of samples")
-    parser.add_argument('--outformat', help='Specify between xml or excel', type=str, required=True)
-    parser.add_argument('--map', help='The path for the mapping file between GISAID and ENA headers', type=str, required=True)
+    parser.add_argument('--map', help='the path for custom mapping file between GISAID and ENA headers (default: metadata_mapping.tsv)', type=str, default='{}/metadata_mapping.tsv'.format(os.path.abspath(os.path.dirname(__file__))))
+    parser.add_argument('--outformat', help='specify between xml or excel', type=str, required=True)
     opts = parser.parse_args(sys.argv[1:])
     return opts
 
@@ -368,4 +370,3 @@ if __name__ == "__main__":
         write_dataframe(ena_dataframe, opts.outfile)
     else:
         sys.stderr.write(f'The file format "{opts.outformat}" is not supported, accepted values : [xml, xls, xlsx, excel]')
-
