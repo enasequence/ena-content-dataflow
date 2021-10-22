@@ -141,6 +141,34 @@ def load_json_file(file):
         
     return loaded_dict
 
+def add_relationships(file_data, source_bs, target_list, r_type = "derived from", node_name = "relationships"): 
+    """ Fuction to add new relationships to a given node in a JSON file, based on a given source and target list. 
+        Returns a list of new relationships that can be used to update the file.
+
+        Parameters:
+            - file_data (JSON): JSON object to be updated.
+            - source_bs (string): source of the relationship (e.g. SAMEA7616999)
+            - target_list (list): list of targets of the relationship with the source (e.g. ['SAMEA6941288', 'SAMEA8698068'])
+            - r_type (string): type of relationship (by default 'derived from')
+            - node_name (string): node of the JSON file to add relationships to (by default 'relationships').
+    """
+    # We check if the node ("relationships") already exists in the JSON file.
+    if node_name in file_data:
+        rel_list = file_data[node_name]
+    else:
+        rel_list = []
+
+    for target_bs in target_list:
+        new_relationship = {"source": source_bs, "type": r_type, "target": target_bs}    
+
+        # We append the new relationship to the list (only if it's not already there) and update the JSON file
+        if new_relationship in rel_list:
+            print_v(f"- WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' already existed in the downloaded JSON file. Skipping.")
+            continue    
+        rel_list.append(new_relationship)
+    
+    return rel_list
+
 if not args.credentials_file == None:
     credentials_dict = load_json_file(file = args.credentials_file)
     credentials_user = credentials_dict[user_str]
@@ -179,8 +207,12 @@ if response.status_code != 200:
 # input list of source + target accessions:
 df = pd.read_csv(args.spreadsheet, sep='\t')
 print_v(f"Input accession list (sources and targets that will be linked):\n{df}\n")
-source_accs = df[source_col_name].tolist()
-target_accs = df[target_col_name].tolist()
+df_dict = {}
+for source_bs, target in zip(df[source_col_name], df[target_col_name]):
+    if source_bs not in df_dict:
+        df_dict[source_bs] = [target]
+    else:
+        df_dict[source_bs].append(target)
 
 # Download SOURCE/ENA sample metadata:
 if args.production:
@@ -188,11 +220,8 @@ if args.production:
 else:
     biosamples_start = 'https://wwwdev.ebi.ac.uk/biosamples/samples/'
 
-#! TBD - Sort input and group sources together, avoiding repeated calls for
-#          the same source and different targets. 
-for i in range(len(df)):
-    # Iterate over the dataframe and get the source and target BSD IDs
-    source_bs, target_bs = source_accs[i], target_accs[i]
+for source_bs in df_dict.keys():
+    # Iterate over the dictionary keys (the source BSD IDs) and their lists of targets
     biosamples_url = "{0}{1}".format(biosamples_start, source_bs)
     r = requests.get(biosamples_url) # No auth token needed
     source_json_file = os.path.join(output_dir, f"{source_bs}.json")
@@ -202,22 +231,14 @@ for i in range(len(df)):
 # Edit SOURCE/ENA sample metadata to include relationships block
     file_data = json.loads(r.text)
     file_data.pop("_links") # Removes links array (will be added automatically after updating the biosample)
-    new_relationship = {"source": source_bs, "type": "derived from", "target": target_bs}
 
-    # We check if the "relationships" node is already in the json file.
-    if "relationships" in file_data:
-        rel_list = file_data["relationships"]
-    else:
-        rel_list = []
+    # We call the function that returns the list of relationships
+    rel_list = add_relationships(file_data = file_data, 
+                                 source_bs = source_bs, 
+                                 target_list = df_dict[source_bs])
 
-    # We append the new relationship to the list (only if it's not already there) and update the JSON file
-    if new_relationship in rel_list:
-        print_v(f"- WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' already existed in the downloaded JSON file. Skipping.")
-        continue
-    
-    rel_list.append(new_relationship)
+    # We overwrite the relationships node in our array and file
     rel_array = {"relationships": rel_list}
-
     file_data.update(rel_array)
 
     edited_source_file = os.path.join(output_dir, f"linked_{source_bs}.json")
@@ -230,10 +251,10 @@ for i in range(len(df)):
 
 # error messages:
     if r.status_code == 200:
-        print_v(f"-- Biosamples successfully linked. Source sample '{source_bs}' derived from target sample '{target_bs}'.")
+        print_v(f"-- Biosamples successfully linked. Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}")
     else:
-        print(f"- ERROR: Biosamples linking failed (error code {r.status_code}) for Source sample '{source_bs}' derived from target sample '{target_bs}'. See error file", file=sys.stderr)
+        print(f"- ERROR: Biosamples linking failed (error code {r.status_code}). See error file. For Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}", file=sys.stderr)
         now = datetime.now()
         dt_string = now.strftime("%d-%m-%y_%H_%M_%S")
-        with open(os.path.join(output_dir, f"error_{source_bs}_{target_bs}_{dt_string}.log"), "wb") as e:
+        with open(os.path.join(output_dir, f"error_{source_bs}_{dt_string}.log"), "wb") as e:
             error_file = e.write(r.content)

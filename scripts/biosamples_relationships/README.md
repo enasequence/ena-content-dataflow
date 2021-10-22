@@ -14,8 +14,9 @@ The input file should contain two columns in the following order: ``source_biosa
 
 ```
 source_biosample_id    target_biosample_id
-SAMEA8203562	SAMEA8203561
-SAMEA8203563	SAMEA8203566
+SAMEA7616999	SAMEA6941288
+SAMEA8785882	SAMEA8123975
+SAMEA7616999	SAMEA8698068
 ```
 
 
@@ -65,8 +66,7 @@ export bsd_password='<put-your-password-here>'
         -s SPREADSHEET, --spreadsheet-file SPREADSHEET
                                 (required) filename for spreadsheet (csv or .txt) containing source and target biosample accessions, with 1 source and 1 corresponding target accession per line.
         -c [CREDENTIALS_FILE], --credentials-file [CREDENTIALS_FILE]
-                                (required) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the linkage to be pushed (default:
-                                                    "credentials.json")
+                                (optional) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the linkage to be pushed (default: "credentials.json"). If not given, environment variables 'bsd_username' and 'bsd_password' will be used.
         -prod, --production   (optional) link biosamples in production (if -prod not specified, biosamples will be linked in development by default).
         --verbose             A boolean switch to add verbosity to the scripts (printing initial token, source and target lists...)
   
