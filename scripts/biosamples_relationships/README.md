@@ -42,13 +42,22 @@ deactivate
 If you wish to install dependencies on your working environment, you will only need to run the two commands from steps 1 and 3 (skip steps 2 and 4). In case you do create a virtual environment, remember to always activate it (using `source venv_bsdrel/bin/activate`) prior running the scripts.
 
 ## Credentials
-In order to push changes to a BioSample record you will need authority over it: either being the **original owner** of such samples (i.e. samples were submitted using your account) or being the **Webin root user**. To provide credentials of your account you will need to create a JSON file with the following format (see ``data/test_credentials.json`` for reference):
+In order to push changes to a BioSample record you will need authority over it: either being the **original owner** of such samples (i.e. samples were submitted using your account) or being the **Webin root user**. 
+
+To provide credentials of your account you can either (1) provide them in a file (use optional argument ``-c``) or (2) set them as environmental variables. 
+1. Create a JSON file with the following format (see ``data/test_credentials.json`` for reference):
 ````
 {
-    "username": "put-your-username-here",
-    "password": "put-your-password-here"
+    "username": "<put-your-username-here>",
+    "password": "<put-your-password-here>"
 }
 ````
+2. Export both your username and password with the following command in your terminal before running the script:
+````
+export bsd_username='<put-your-username-here>'
+export bsd_password='<put-your-password-here>'
+````
+
 ## Usage options
 
     optional arguments:

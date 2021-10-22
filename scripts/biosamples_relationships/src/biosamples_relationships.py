@@ -32,6 +32,9 @@ interactive_check_production = True
 # Key names within the credentials file
 user_str = 'username'
 pwd_str = 'password'
+# Environmental variables
+env_user_str = 'bsd_username'
+env_pwd_str = 'bsd_password'
 # Parts of the URLs and response headers
 auth_url = 'https://wwwdev.ebi.ac.uk/ena/submit/webin/auth/token'
 header = {"Content-Type": "application/json"}
@@ -71,10 +74,8 @@ parser.add_argument('-s', '--spreadsheet-file',
 parser.add_argument('-c', '--credentials-file',
                     dest = 'credentials_file',
                     nargs = '?', # 0 or 1 arguments
-                    default = 'credentials.json',
-                    help = """(required) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the linkage to be pushed (default: 
-                    "credentials.json")""",
-                    required=True)
+                    help = f"""(optional) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the linkage to be pushed (default: "credentials.json"). If not given, environment variables '{env_user_str}' and '{env_pwd_str}' will be used.""",
+                    required = False)
 
 parser.add_argument('-prod', '--production', help='(optional) link biosamples in production (if -prod not specified, biosamples will be linked in development by default).', action='store_true')  # 'dev' env is default if prod not specified
 
@@ -90,11 +91,19 @@ args = parser.parse_args()
 # Input checks
 # -------- #
 # Check that credentials file exist and is a json file:
-if not os.path.isfile(args.credentials_file):
+if not args.credentials_file == None and not os.path.isfile(args.credentials_file):
     print(f"- ERROR in biosamples_relationships.py: given credentials file '{args.credentials_file}' does not exist.", file=sys.stderr)
     sys.exit()
-if not os.path.splitext(args.credentials_file)[1] == ".json":
+if not args.credentials_file == None and not os.path.splitext(args.credentials_file)[1] == ".json":
     print(f"- ERROR in biosamples_relationships.py: given credentials file '{args.credentials_file}' is not a JSON file.", file=sys.stderr)
+    sys.exit()
+
+# If a credentials file is not given, check the environmental variables
+if not env_user_str in os.environ:
+    print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_user_str}' was not found either.", file=sys.stderr)
+    sys.exit()
+if not env_pwd_str in os.environ:
+    print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_pwd_str}' was not found either.", file=sys.stderr)
     sys.exit()
 
 # Check that input file exists and is a .csv/.txt file:
@@ -132,9 +141,13 @@ def load_json_file(file):
         
     return loaded_dict
 
-credentials_dict = load_json_file(file = args.credentials_file)
-credentials_user = credentials_dict[user_str]
-credentials_pwd = credentials_dict[pwd_str]
+if not args.credentials_file == None:
+    credentials_dict = load_json_file(file = args.credentials_file)
+    credentials_user = credentials_dict[user_str]
+    credentials_pwd = credentials_dict[pwd_str]
+else:
+    credentials_user = os.environ[env_user_str]
+    credentials_pwd = os.environ[env_pwd_str]
 
 # Check if output_dir where the output_xml will reside exists, create it if not.
 #   Get the root directory of the tool.
