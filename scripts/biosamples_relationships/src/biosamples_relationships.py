@@ -99,12 +99,13 @@ if not args.credentials_file == None and not os.path.splitext(args.credentials_f
     sys.exit()
 
 # If a credentials file is not given, check the environmental variables
-if not env_user_str in os.environ:
-    print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_user_str}' was not found either.", file=sys.stderr)
-    sys.exit()
-if not env_pwd_str in os.environ:
-    print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_pwd_str}' was not found either.", file=sys.stderr)
-    sys.exit()
+if args.credentials_file == None:
+    if not env_user_str in os.environ:
+        print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_user_str}' was not found either.", file=sys.stderr)
+        sys.exit()
+    if not env_pwd_str in os.environ:
+        print(f"- ERROR in biosamples_relationships.py: no credentials file was given (option '-c'), but environmental variable '{env_pwd_str}' was not found either.", file=sys.stderr)
+        sys.exit()
 
 # Check that input file exists and is a .csv/.txt file:
 if not os.path.isfile(args.spreadsheet):
