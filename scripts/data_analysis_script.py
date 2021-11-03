@@ -115,13 +115,15 @@ def fetch_and_filter_seq(connection, output):
         command = 'esearch -db nucleotide -query "{}" |   efetch -format docsum |xtract -pattern DocumentSummary -element Caption, UpdateDate'.format(stripped_list)
         sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = sp.communicate()
-        if err != None:
-            sys.stderr.write(err.decode()+ "\n This command uses 'esearch', 'xtract' and 'efetch' functions.\n "
+        if "command not found" in err.decode():
+            sys.stderr.write(err.decode() + "\n This command uses 'esearch', 'xtract' and 'efetch' functions.\n "
                                            "You might need to download and install 'entrez-direct' to fetch any data from NCBI. "
-                                           "\n Please follow the instruction in the link provided below. "
+                                           "\n Please follow the instructions in the link provided below. "
                                            "\n https://www.ncbi.nlm.nih.gov/books/NBK179288/ \n "
                                            "Please note that 'entrez-direct' only runs on Unix and Macintosh environments or under the Cygwin Unix-emulation environment on Windows \n ")
             exit(1)
+        else:
+            sys.stderr.write(err.decode())
         stdoutOrigin = sys.stdout
         release_date = out.decode().strip("\n").split("\n")
         for obj in release_date:
@@ -140,14 +142,14 @@ def fetch_and_filter_reads(connection, output):
     # This Part is for querying ERAPRO
     c = connection.cursor()
     f = open(f"{args.file}/analysis.inERAPRO.reads.log.txt", "w")
-    header = "\t".join(['Accession', 'Run_id', 'Status_id' 'First_public', 'Last_updated'])
+    header = "\t".join(['Accession', 'Status_id' 'First_public', 'Last_updated'])
     f.write(str(header) + "\n")
     accession_list_reads = []
     for accession in output:
         c.execute(
-            f"select run_id, status_id, first_public, last_updated from run where experiment_id in ('{accession}')")
+            f"select status_id, first_public, last_updated from experiment where experiment_id in ('{accession}')")
         for row in c:
-            f.write(str(accession) + "\t" + str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + str(row[3]) + "\n")
+            f.write(str(accession) + "\t" + str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + "\n")
             accession_list_reads.append(accession)
     f.close()
 
@@ -155,18 +157,17 @@ def fetch_and_filter_reads(connection, output):
     print('Data Processing...........')
     accession_set_reads=set(accession_list_reads)
     accession_set_reads_diff = output.difference(accession_set_reads)
-    noERAPRO_df= pd.DataFrame(list(accession_set_reads_diff), columns=['experiment_id'])
+    noERAPRO_df= pd.DataFrame({'accession': list(accession_set_reads_diff)}, columns=['accession'])
 
-    inner_join = pd.merge(noERAPRO_df, sra_df, on='experiment_id', how='inner')
+    inner_join = pd.merge(noERAPRO_df, sra_df, on='accession', how='inner')
     inner_join.to_csv(f"{args.file}/analysis.noERAPRO.reads.log.txt")
-
 
 
     """
     getting the difference between reads in NCBI and ENA advanced search. Print to a file.
     """
 def reads_dataset_difference ():
-    output = set(sra_df.experiment_id).difference(set(ena_read_df.experiment_id))
+    output = set(sra_df.accession).difference(set(ena_read_df.accession))
     length_read_set = len(output)
 
     f = open(f"{args.file}/NCBI_vs_ENA_{database}.log.txt", "w")
@@ -177,12 +178,11 @@ def reads_dataset_difference ():
     return output
 
 
-
 """
     getting the difference between sequences in NCBI and ENA advanced search. Print to a file.
 """
 def sequence_dataset_difference ():
-    output = ncbivirus_set.difference(ena_seq_set)
+    output = ncbivirus_set.difference(set(ena_seq_df.accession))
     length_seq_set = len(output)
     f = open(f"{args.file}/NCBI_vs_ENA_{database}.log.txt", "w")
     f.write("\n".join(output) + "\n")
@@ -191,24 +191,24 @@ def sequence_dataset_difference ():
     return output
 
 
-
-
 """
     getting the difference between sequences in COVID-19 portal and ENA advanced search. Print to a file.
 """
-def covid_advanced_search_difference (ena_dataset, covid_portal_set, covid_portal_list):
+def covid_advanced_search_difference (ena_dataset, covid_reads_portal_df):
     # Obtain the reads difference between Advanced search and COVID-19 Portal
-    covid_portal_output = set(ena_dataset).difference(covid_portal_set)
+    covid_portal_output = set(ena_dataset.accession).difference(set(covid_reads_portal_df.accession))
     covid_diff_leng_set = len(covid_portal_output)
-    f = open(f"{args.file}/Covid19Portal.vs.ENA.advanced.{database}.log.txt", "w")
-    f.write("\n".join(covid_portal_output) + "\n")
-    f.close()
+    covid_portal_output_df = pd.DataFrame({'accession': list(covid_portal_output)}, columns=['accession'])
+
+    covid_inner_join = pd.merge(covid_portal_output_df, ena_dataset, on='accession', how='inner')
+    covid_inner_join.to_csv(f"{args.file}/Covid19Portal.vs.ENA.advanced.{database}.log.txt",sep="\t", index = None)
     print(f"Number of {database} found in ENA advanced search but missing in COVID-19 data portal is: ", covid_diff_leng_set)
+
 
     # to create a list of reads duplicates if present in COVID-19 data Portal
     f_duplicates = open(f"{args.file}/Duplicates.Covid19Portal.{database}.log.txt", "w")
     covid_duplicate_list= []
-    for item, count in collections.Counter(covid_portal_list).items():
+    for item, count in collections.Counter(covid_reads_portal_df).items():
         if count > 1:
             f_duplicates.write(str(item) + "\n")
             covid_duplicate_list.append(item)
@@ -217,6 +217,23 @@ def covid_advanced_search_difference (ena_dataset, covid_portal_set, covid_porta
     print(f"Number of {database} found duplicated in COVID-19 data portal is: ", length_covid_duplicate)
 
 
+def advanced_search_ebi_search_difference(ebi_df, ena_df):
+    # For data found in EBI search but missing in ENA advanced search
+    output_1 = set(ebi_df.accession).difference(set(ena_df.accession))
+    setLength_1 = len(output_1)
+    ebi_output1_df = pd.DataFrame({'accession': list(output_1)}, columns=['accession'])
+    ebi1_inner_join = pd.merge(ebi_output1_df, ebi_df, on='accession', how='inner')
+    print(f'Number of {database} found in EBI search but missing in ENA advanced search is: ', setLength_1)
+    ebi1_inner_join.to_csv(f"{args.file}/EBIsearch_vs_ENAadvanced_{database}.log.txt", sep="\t", index = None)
+
+
+    # For data found in ENA advanced search but missing in EBI search
+    output_2 = set(ena_df.accession).difference(set(ebi_df.accession))
+    setLength_2 = len(output_2)
+    ebi_output2_df = pd.DataFrame({'accession': list(output_2)}, columns=['accession'])
+    ebi2_inner_join = pd.merge(ebi_output2_df, ena_df, on='accession', how='inner')
+    print(f'Number of {database} found in ENA advanced search but missing in EBI search is: ', setLength_2)
+    ebi2_inner_join.to_csv(f"{args.file}/ENAadvanced_vs_EBIsearch_{database}.log.txt", sep="\t", index = None)
 
 
 
@@ -231,23 +248,28 @@ if database == 'reads':
     sys.stderr.write("Connecting to ERAPRO...\n")
     db_conn = setup_connection()
 
-    #Uploading Files from NCBI and ENA
-    sra_df =pd.read_csv(f"{args.file}/NCBI.sra.log.txt", sep="\t", header=None, names =['run_id', 'experiment_id', 'release_date'])
+    #Uploading Files from NCBI, ENA, ebisearch
+    sra_df =pd.read_csv(f"{args.file}/NCBI.sra.log.txt", sep="\t", header=None, names =['run_id', 'accession', 'release_date'])
     print ('Number of Reads in NCBI (SRA database) is: ', len(sra_df))
-    ena_read_df = pd.read_csv(f"{args.file}/ENA.read_experiment.log.txt", sep="\t", header=None, names =['experiment_id'])
+    ena_read_df = pd.read_csv(f"{args.file}/ENA.read_experiment.log.txt", sep="\t", header=None, names =['accession', 'date'])
     print('Number of Reads in ENA Advanced Search is: ', len(ena_read_df))
+    ebi_read_df= pd.read_csv(f"{args.file}/EBIsearch.sra-experiment-covid19.log.txt", sep="\t", header=None, names =['accession', 'date'])
+    print('Number of Reads in EBI Search is: ', len(ebi_read_df))
 
 
     #Uploading files from COVID-19 data Portal
-    covid_reads_portal_list = list(open(f"{args.file}/Covid19DataPortal.raw-reads.log.txt").read().split())
-    covid_reads_portal_set = set(covid_reads_portal_list)
-    print('Number of Reads in COVID-19 data portal is: ', len(covid_reads_portal_list))
+
+    covid_reads_portal_df = pd.read_csv(f"{args.file}/Covid19DataPortal.raw-reads.log.txt", sep="\t", header=None, names=['accession'])
+    print('Number of Reads in COVID-19 data portal is: ', len(covid_reads_portal_df))
 
     #Obtain the difference between the data in NCBI and ENA
     output = reads_dataset_difference()
 
     #Obtain the reads difference between Advanced search and COVID-19 Portal, and duplicates if present
-    covid_advanced_search_difference(ena_read_df, covid_reads_portal_set, covid_reads_portal_list)
+    covid_advanced_search_difference(ena_read_df, covid_reads_portal_df)
+
+    # Obtain the reads difference between Advanced search and EBI search
+    advanced_search_ebi_search_difference(ebi_read_df, ena_read_df)
 
     #Querying ERAPRO
     sys.stderr.write("Querying ERAPRO ..........\n")
@@ -261,22 +283,29 @@ elif database == 'sequences':
     # Uploading Files from NCBI and ENA
     ncbivirus_set = set(open(f"{args.file}/NCBI.ncbivirus.log.txt").read().split())
     print('Number of Sequences in NCBI (NCBIVirus database) is: ', len(ncbivirus_set))
-    ena_seq_set = set(open(f"{args.file}/ENA.sequence.log.txt").read().split())
-    print('Number of Sequences in ENA Advanced Search is: ', len(ena_seq_set))
+    ena_seq_df = pd.read_csv(f"{args.file}/ENA.sequence.log.txt", sep="\t", header=None, names=['accession', 'date'])
+    print('Number of Sequences in ENA Advanced Search is: ', len(ena_seq_df))
+    ebi_seq_df = pd.read_csv(f"{args.file}/EBIsearch.embl-covid19.log.txt", sep="\t", header=None, names=['accession', 'date'])
+    print('Number of Sequences in EBI Search is: ', len(ebi_seq_df))
+
     # Uploading files from COVID-19 data Portal
-    covid_seq_portal_list = list(open(f"{args.file}/Covid19DataPortal.sequences.log.txt").read().split())
-    covid_seq_portal_set = set(covid_seq_portal_list)
-    print('Number of Sequences in COVID-19 data portal is: ', len(covid_seq_portal_list))
+    covid_reads_portal_df = pd.read_csv(f"{args.file}/Covid19DataPortal.sequences.log.txt", sep="\t", header=None, names=['accession'])
+    print('Number of Sequences in COVID-19 data portal is: ', len(covid_reads_portal_df))
 
     #Obtain the difference between the data in NCBI and ENA
     output = sequence_dataset_difference()
 
     #Obtain the sequence difference between Advanced search and COVID-19 Portal, and duplicates if present
-    covid_advanced_search_difference(ena_seq_set,covid_seq_portal_set, covid_seq_portal_list)
+    covid_advanced_search_difference(ena_seq_df,covid_reads_portal_df)
+
+    # Obtain the reads difference between Advanced search and EBI search
+    advanced_search_ebi_search_difference(ebi_seq_df, ena_seq_df)
+
 
     #Querying ENAPRO
     sys.stderr.write("Querying ENAPRO ..........\n")
     fetch_and_filter_seq(db_conn, output)
+
 else:
     sys.stderr.write(f'The dataset type "{database}" does not exist, please check your spelling and try again')
 

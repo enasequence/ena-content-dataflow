@@ -149,8 +149,8 @@ def ebisearch_data_fetching(database):
     if database == 'sequences':
         database = 'embl-covid19'
     elif database == 'reads':
-        database = 'sra-experiment-covid19'        date = 'first_public'
-
+        database = 'sra-experiment-covid19'       
+        date = 'first_public'
     print('PROCESSING DATA FROM EBI SEARCH...................................................................')
 
     # Using While loop to go through all the pages in the ebisearch API
