@@ -141,31 +141,6 @@ def ebisearch_data_fetching(database):
     print('PROCESSING DATA FROM EBI SEARCH...................................................................')
 
     # Using While loop to go through all the pages in the ebisearch API
-<<<<<<< Updated upstream
-    start = 0
-    while start >= 0:
-        server = "http://www.ebi.ac.uk/ebisearch/ws/rest"
-        ext = "/{}?query=TAXON:{}&fields=acc&format=json&size=1000&start={}".format(database, tax_fetch[0], start)
-        start = start + 1000
-        command = requests.get(server + ext, headers={"Content-Type": "application/json"})
-        status = command.status_code
-        if status in [400, 500]:
-            if status == 500:
-                sys.stderr.write(
-                    "Attention: Internal Server Error, the process has stopped and skipped ( Data might be incomplete )\n")
-            break
-        else:
-            data = json.loads(command.content)
-            jsonData = data["entries"]
-            if start == 0:
-                f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "w")
-            else:
-                f = open(f"{outdir}/{'EBIsearch'}.{database}.log.txt", "a")
-            for x in jsonData:
-                output = x["id"]
-                f.write(output + "\n")
-            f.close()
-=======
     now = datetime.datetime.now()
     start = datetime.datetime(2020, 1, 1)
     delta = relativedelta(months=1)
@@ -196,7 +171,6 @@ def ebisearch_data_fetching(database):
                     output = [x['fields']['acc'][0], x['fields'][date][0]]
                     f.write("\t".join(output) + "\n")
                 f.close()
->>>>>>> Stashed changes
     print('EBI-Search Data written to ' + f"{outdir}/{'ENA'}.{database}.log.txt")
 
 
