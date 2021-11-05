@@ -48,11 +48,7 @@ General trimming to the metadata in the spreadsheet and save it in a panda dataf
 """
 def trimming_the_spreadsheet(df):
     trimmed_df = df.iloc[3: ,].copy()
-<<<<<<< Updated upstream
-    trimmed_df.insert(7,"submission_tool",'drag and drop uploader tool',allow_duplicates=True) #study #to inject constant into trimmed df
-=======
     trimmed_df.insert(6,"submission_tool",'drag and drop uploader tool',allow_duplicates=True) #study #to inject constant into trimmed df
->>>>>>> Stashed changes
     trimmed_df.insert(24,"submission_tool",'drag and drop uploader tool',allow_duplicates=True) #sample
     trimmed_df.insert(26,"sample capture status",'active surveillance in response to outbreak',allow_duplicates=False)
     trimmed_df.rename(columns = {'collecting institute':'collecting institution'}, inplace = True) #####temp fix for collecting institute error
@@ -70,10 +66,7 @@ def study_xml_generator(df):
     doc, tag, text = Doc().tagtext()
     xml_header = '<?xml version="1.0" encoding="UTF-8"?>'
     df = df.loc[3: ,'study_alias':'release_date'] # trim the dataframe to the study section only
-<<<<<<< Updated upstream
-=======
     df = df.iloc[:, :-1]
->>>>>>> Stashed changes
     modified_df = df.where(pd.notnull(df), None) # replace the nan with none values
     doc.asis(xml_header)
     with tag('STUDY_SET'):
