@@ -59,6 +59,8 @@ export bsd_username='<put-your-username-here>'
 export bsd_password='<put-your-password-here>'
 ````
 
+We recommend setting restrictive permissions on this file to ensure other users cannot gain access to your credentials (e.g. `chmod 600`).
+
 ## Usage options
 
     optional arguments:
