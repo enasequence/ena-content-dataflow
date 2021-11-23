@@ -316,11 +316,3 @@ for source_bs in df_dict.keys():
         dt_string = now.strftime("%d-%m-%y_%H_%M_%S")
         with open(os.path.join(output_dir, f"error_{source_bs}_{dt_string}.log"), "wb") as e:
             error_file = e.write(r.content)
-
-# #
-# # how to take in several relationships sepcified in spreadsheet and remove them?
-#
-# # index = file_data["relationships"].index({'source': f'{source_bs}', 'type': 'derived from', 'target': 'SAMEA8785882'}) #target_bs not defined
-# # print(file_data.pop(["relationships"][index])) #this removes the entire relationships node? why?
-# # print(file_data["relationships"]["source"])
-        #print(file_data.pop(["relationships"][0])) #but the desired relationship to remove is not always the first one in the list
