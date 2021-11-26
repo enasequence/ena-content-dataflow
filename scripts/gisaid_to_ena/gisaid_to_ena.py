@@ -56,7 +56,7 @@ description:
   Can handle CSV or any format handled by the pandas.read_excel method
   (https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html)
 
-  Output format will be in Microsoft Excel format (.xlsx)
+  Output format will be in Microsoft Excel format (.xlsx) or samples XML format
 
 examples:
   # convert GISAID spreadsheet in CSV format to ENA in excel format
