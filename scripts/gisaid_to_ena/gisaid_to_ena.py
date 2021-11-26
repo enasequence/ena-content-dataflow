@@ -56,7 +56,7 @@ description:
   Can handle XLS/CSV input, or any format handled by the pandas.read_excel method
   (https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html)
 
-  Output format can be in Microsoft Excel format (.xlsx) for interactive submissions, 
+  Output format can be in Microsoft Excel format (.xlsx) for interactive submissions,
   or in XML format for programmatic submissions.
 
 examples:
