@@ -1,9 +1,9 @@
 # Converting GISAID metadata to ENA-compatible format
 
-Script to convert GISAID metadata spreadsheets into ENA formatted ones using a mapping of equivalent metadata fields.
+Script to convert GISAID metadata spreadsheets into ENA formatted ones using a mapping of equivalent metadata fields (the GISAID headers in this mapping must be unique).
 The script can handle CSV, or any format handled by the `pandas.read_excel` method as input ([pandas documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html)).
 
-Output format will be in samples XML format for programmatic submission, or Microsoft Excel format (`.xlsx`), as set by the `--outformat` flag.
+Output format will be in samples XML format for programmatic submission, or Microsoft Excel format (`.xlsx`) for interactive, as set by the `--outformat` flag. Please note that `.xlsx` files should be inspected and converted to `.tsv` prior to submission.
 
 ### Download and run the script
 The script can be downloaded from our GitHub repository and requires Python3.7 or higher.
