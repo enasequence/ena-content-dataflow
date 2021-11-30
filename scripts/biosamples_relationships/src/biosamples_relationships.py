@@ -288,7 +288,7 @@ for source_bs in df_dict.keys():
         try:
             index = file_data["relationships"].index(new_relationship)
             file_data["relationships"].pop(index) # removing nested lists using integers not strings
-        except: #except if ValueError thrown
+        except ValueError: #except if ValueError thrown
             print(f"WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' does not exist in the downloaded JSON file. Skipping.")
             continue
 
