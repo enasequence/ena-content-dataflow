@@ -22,6 +22,7 @@ import json
 from datetime import datetime, date
 import os
 from argparse import RawTextHelpFormatter
+import csv
 
 # -------- #
 # Hard-coded variables
@@ -42,7 +43,8 @@ webin_auth = "?authProvider=WEBIN"
 # Column headers to be expected at the input file:
 source_col_name = "source_biosample_id"
 target_col_name = "target_biosample_id"
-
+# Using a boolean value for unlinking samples
+run = False
 # -------- #
 # Parsing given arguments
 # -------- #
@@ -224,7 +226,7 @@ if response.status_code != 200:
           file=sys.stderr)
     sys.exit()
 
-# ! TBD - Add XLSX as input
+#! TBD - Add XLSX as input
 # input list of source + target accessions:
 df = pd.read_csv(args.spreadsheet, sep='\t')
 print_v(f"Input accession list (sources and targets that will be linked):\n{df}\n")
@@ -264,7 +266,7 @@ for source_bs in df_dict.keys():
     if not args.unlink:
         # We first append the new relationship to the list (only if it's not already there)
         if new_relationship in rel_list:
-            print_v(f"- WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' already existed in the downloaded JSON file. Skipping.") #notdefined- why?
+            print_v(f"- WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' already existed in the downloaded JSON file. Skipping.")
             continue
         rel_list.append(new_relationship)
 
@@ -278,19 +280,25 @@ for source_bs in df_dict.keys():
             json.dump(file_data, f, indent=1)  # Converts python dictionary back into json string
 
     # Editing SOURCE/ENA sample metadata to unlink samples:
+
     elif args.unlink:
-        #interactive check whether user would really like to remove unlink samples
-        user_response = input(f" - \n WARNING: Relationship between source sample '{source_bs}' derived from target sample '{target_bs}' will be removed. Do you wish to proceed? [y/n]")
-        if not user_response == "y":
-            print("\t Aborting script.")
-            sys.exit()
+        #interactive check whether user would really like to unlink samples
+        if not run:
+            user_response = input(f" - \n WARNING: All relationships specified in the spreadsheet will be removed. Do you wish to proceed? [y/n]")
+            if user_response == "y":
+                run = True #ensures user_response if statement is run only once in the for loop
+            elif user_response == "n":
+                print("\t Aborting script.")
+                sys.exit()
+
         # Remove relationships between source + target accs
         try:
-            index = file_data["relationships"].index(new_relationship)
-            file_data["relationships"].pop(index) # removing nested lists using integers not strings
-        except: #except if ValueError thrown
-            print(f"WARNING: Relationship of source sample '{source_bs}' derived from target sample '{target_bs}' does not exist in the downloaded JSON file. Skipping.")
-            continue
+            file_data["relationships"].remove(new_relationship)
+        except ValueError:
+            print(f"WARNING: Specified relationships do not exist in the downloaded JSON file. Skipping.")
+        except:  # handle all other errors
+            raise
+            sys.exit()
 
         # We update the JSON file by removing the relationships
         edited_source_file = os.path.join(output_dir, f"unlinked_{source_bs}.json")
@@ -301,12 +309,12 @@ for source_bs in df_dict.keys():
     update_url = "{0}{1}".format(biosamples_url, webin_auth)
     r = requests.put(update_url, headers = headers, data = json.dumps(file_data))
 
-# error messages:
+#error messages:
     if r.status_code == 200:
         if not args.unlink:
             print_v(f"-- Biosamples successfully linked. Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}")
         elif args.unlink:
-            print_v(f"-- Biosamples successfully unlinked. The following relationship has been removed: 'Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}'")
+            print_v(f"-- Biosamples successfully unlinked. 'Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}' has been removed")
     else:
         if not args.unlink:
             print(f"- ERROR: Biosamples linking failed (error code {r.status_code}). See error file. For Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}", file=sys.stderr)
@@ -316,3 +324,14 @@ for source_bs in df_dict.keys():
         dt_string = now.strftime("%d-%m-%y_%H_%M_%S")
         with open(os.path.join(output_dir, f"error_{source_bs}_{dt_string}.log"), "wb") as e:
             error_file = e.write(r.content)
+
+#TODO:
+#create tsv listing all biosample relationships that have/have not been linked/unlinked
+#check file, and print "all biosamples linked/unlinked" if status_code = 200 for each one
+
+
+
+
+
+
+
