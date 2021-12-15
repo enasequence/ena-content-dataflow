@@ -23,6 +23,7 @@ from datetime import datetime, date
 import os
 from argparse import RawTextHelpFormatter
 import csv
+from os.path import exists
 
 # -------- #
 # Hard-coded variables
@@ -45,6 +46,10 @@ source_col_name = "source_biosample_id"
 target_col_name = "target_biosample_id"
 # Using a boolean value for unlinking samples
 run = False
+# Datetime string for error file
+now = datetime.now()
+dt_string = now.strftime("%d-%m-%y_%H_%M_%S")
+
 # -------- #
 # Parsing given arguments
 # -------- #
@@ -309,26 +314,38 @@ for source_bs in df_dict.keys():
     update_url = "{0}{1}".format(biosamples_url, webin_auth)
     r = requests.put(update_url, headers = headers, data = json.dumps(file_data))
 
-#error messages:
+# creating output tsv files
     if r.status_code == 200:
         if not args.unlink:
-            print_v(f"-- Biosamples successfully linked. Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}")
+            with open(os.path.join(output_dir, "linked_samples.tsv"), 'a+', newline='') as tsv1:  # removes newlines in tsv
+                writer = csv.writer(tsv1, delimiter='\t')
+                writer.writerow([f"-- Source biosample '{source_bs}' derived from target list: {df_dict[source_bs]}", r.status_code])
         elif args.unlink:
-            print_v(f"-- Biosamples successfully unlinked. 'Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}' has been removed")
+            with open(os.path.join(output_dir, "unlinked_samples.tsv"), 'a+', newline='') as tsv2:
+                writer = csv.writer(tsv2, delimiter='\t')
+                writer.writerow([f"-- REMOVED source biosample '{source_bs}' derived from target list: {df_dict[source_bs]}", r.status_code])
     else:
-        if not args.unlink:
-            print(f"- ERROR: Biosamples linking failed (error code {r.status_code}). See error file. For Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}", file=sys.stderr)
-        elif args.unlink:
-            print(f"- ERROR: Failed to remove Biosamples relationship/s (error code {r.status_code}). See error file. For Source sample '{source_bs}' derived from target list:\n{df_dict[source_bs]}", file=sys.stderr)
-        now = datetime.now()
-        dt_string = now.strftime("%d-%m-%y_%H_%M_%S")
-        with open(os.path.join(output_dir, f"error_{source_bs}_{dt_string}.log"), "wb") as e:
+        with open(os.path.join(output_dir, f"error_{dt_string}.log"), "a+") as e: #append error for each sample relationship to file
             error_file = e.write(r.content)
 
-#TODO:
-#create tsv listing all biosample relationships that have/have not been linked/unlinked
-#check file, and print "all biosamples linked/unlinked" if status_code = 200 for each one
+# check to see if all samples have been linked/unlinked successfully
+# note code below would require all output tsv's to be deleted before the script is run again
+if os.path.exists(os.path.join(output_dir, "linked_samples.tsv")):
+    df_tsv1 = pd.read_csv("linked_samples.tsv", sep='\t', header=None)
+    if len(df_tsv1) == len(df):
+        print("All Biosamples successfully linked")
+    else:
+        print("ERROR: Some Biosamples have not been linked successfully. Please see error file and try again") #name error file in error message?
 
+elif os.path.exists(os.path.join(output_dir, "unlinked_samples.tsv")):
+    df_tsv2 = pd.read_csv("unlinked_samples.tsv", sep='\t', header=None)
+    if len(df_tsv2) == len(df):
+        print("All Biosamples successfully unlinked")
+    else:
+        print("ERROR: Some Biosample relationships have not been removed successfully. Please see error file and try again")
+
+#TODO:
+#add datetime to linked/unlinked output file names
 
 
 
