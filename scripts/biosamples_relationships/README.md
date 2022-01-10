@@ -1,14 +1,14 @@
 # Linking human and viral biosamples using the "derived from" relationship field
 
-This script links ``source`` (e.g. viral ENA sample) biosamples with ``target`` (e.g. human EGA sample) biosamples, using the ``derived from`` relationships field in BioSamples (e.g. ``Viral sample`` - ``derived from`` - ``Human sample``). For more information on the relationships fields, please see [BioSample's documentation](https://www.ebi.ac.uk/biosamples/docs/guides/relationships).  
+This script links/unlinks ``source`` (e.g. viral ENA sample) biosamples with ``target`` (e.g. human EGA sample) biosamples, using the ``derived from`` relationships field in BioSamples (e.g. ``Viral sample`` - ``derived from`` - ``Human sample``). For more information on the relationships fields, please see [BioSample's documentation](https://www.ebi.ac.uk/biosamples/docs/guides/relationships).  
 
-The script ``src/biosamples_relationships.py`` accepts an input file containing source and target accessions (BioSample's IDs - see [format](https://www.ebi.ac.uk/biosamples/docs/faq#_what_pattern_do_biosamples_accessions_follow)) to be linked.
+The script ``src/biosamples_relationships.py`` accepts an input file containing source and target accessions (BioSample's IDs - see [format](https://www.ebi.ac.uk/biosamples/docs/faq#_what_pattern_do_biosamples_accessions_follow)) to be linked/unlinked.
   
 This is a collaboration between the [ENA](https://www.ebi.ac.uk/ena/browser/home) and [EGA](https://ega-archive.org/).   
 
 # Input spreadsheet file format
 
-The script accepts a tab separated ``.txt`` or ``.csv`` input file containing source and target accessions (see example ``data/test_sample_accs_list.txt``).
+The script accepts a tab separated ``.txt``, ``.csv``, ``.tsv`` or ``.xlsx`` input file containing source and target accessions (see example ``data/test_sample_accs_list.txt``).
 
 The input file should contain two columns in the following order: ``source_biosample_id`` and ``target_biosample_id``, with 1 source (e.g. ENA BioSample accession) and 1 corresponding target (e.g. EGA BioSample accession) per line. See example below:
 
@@ -63,30 +63,34 @@ We recommend setting restrictive permissions on this file to ensure other users 
 
 ## Usage options
 
-    optional arguments:
-        -h, --help            show this help message and exit
-        -s SPREADSHEET, --spreadsheet-file SPREADSHEET
-                                (required) filename for spreadsheet (csv or .txt) containing source and target biosample accessions, with 1 source and 1 corresponding target accession per line.
-        -c [CREDENTIALS_FILE], --credentials-file [CREDENTIALS_FILE]
-                                (optional) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the linkage to be pushed (default: "credentials.json"). If not given, environment variables 'bsd_username' and 'bsd_password' will be used.
-        -prod, --production   (optional) link biosamples in production (if -prod not specified, biosamples will be linked in development by default).
-        --verbose             A boolean switch to add verbosity to the scripts (printing initial token, source and target lists...)
-  
+```
+optional arguments:
+-h, --help            show this help message and exit
+-s SPREADSHEET, --spreadsheet-file SPREADSHEET
+                        (required) filename for spreadsheet (.csv, .txt, .tsv or .xlsx) containing source and target biosample accessions, with 1 source and 1 corresponding target accession per line. The two expected column headers are 'source_biosample_id' and 'target_biosample_id'.
+-c [CREDENTIALS_FILE], --credentials-file [CREDENTIALS_FILE]
+                        (optional) JSON file containing the credentials (either root or original owner credentials - see data/test_credentials.json for its format) for the changes to be pushed (default: credentials.json). If not given, environment variables 'bsd_username' and 'bsd_password' will be used.
+-u, --unlink-samples  (optional) remove relationships specified within the spreadsheet file. These are deleted at the source samples.
+-prod, --production   (optional) Changes (either link or unlink biosamples) are made in production (if -prod not specified, biosamples will be linked in development by default).
+--verbose             A boolean switch to add verbosity to the scripts (printing initial token, source and target lists...).
+```  
 
 ## Examples
 
-Example 1: link biosamples in **development** environment:`
-````
-python3 src/biosamples_relationships.py -s data/test_sample_accs_list.txt -c credentials.json --verbose
-````
-Example 2: link biosamples in **production**:
-````
-python3 src/biosamples_relationships.py -s data/test_sample_accs_list.txt -c credentials.json --verbose -prod
-````
-    
+```
+Example 1: link biosamples in development environment:
+    python3 biosamples_relationships.py -s test_sample_accs.txt
+Example 2: link biosamples in production:
+    python3 biosamples_relationships.py -s test_sample_accs.txt -prod
+Example 3: unlink biosamples in development environment:
+    python3 biosamples_relationships.py -u -s test_sample_accs.txt
+```        
+
 # Output
 There are 2 output files produced for each source biosample:
-- a source biosample json
-- a linked source biosample json 
+- A source biosample JSON
+- A modified (with the new relationships if linking; without the specified relationships if unlinking) source biosample JSON 
+
+Besides, a summary file with the timestamp is generated containing a summary of the pushed changes (exit statuses, sources, targets...)
 
 All output files are found in the ``biosamples_output`` directory. To verify that the "derived from field" has been added correctly please check the ``dev`` ([example](https://wwwdev.ebi.ac.uk/biosamples/samples/SAMEA8698068) for SAMEA8698068) or ``prod`` ([example](https://www.ebi.ac.uk/biosamples/samples/SAMN20032469) for SAMN20032469) BioSamples site.
