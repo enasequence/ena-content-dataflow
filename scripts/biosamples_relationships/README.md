@@ -31,6 +31,7 @@ To install Python dependencies:
 ```bash
 # Step 1. Cloning the tools repository
 git clone https://github.com/enasequence/ena-content-dataflow.git
+git checkout biosample_unlinking
 cd ena-content-dataflow/scripts/biosamples_relationships
 # Step 2. Creating and activating the virtual environment
 virtualenv -p python3 venv_bsdrel
