@@ -270,6 +270,7 @@ def read_input_file(input_file, number_input_columns = number_input_columns):
         raise
     
     # We assert that there are only 'number_input_columns' number of columns (above defined) in the dataframe.
+    input_dataframe.dropna(axis=1, how="all", subset=None, inplace=True)
     column_number = len(input_dataframe.columns)
     if column_number != number_input_columns:
         print(f"ERROR in read_input_file(): input file {input_file_basename} had {column_number} columns, but {number_input_columns} are expected.", file=sys.stderr)
@@ -323,6 +324,20 @@ if response.status_code != 200:
 ##
 df = read_input_file(args.spreadsheet)
 print_v(f"Input accession list (sources and targets that will be linked):\n{df}\n")
+
+if not source_col_name in df.columns or not target_col_name in df.columns:
+    print(f"\n- ERROR in biosamples_relationships.py: the dataframe created based on the input file '{args.spreadsheet}' did not contain both of the expected columns. Aborting script.\n\
+            \t- Expected columns: {[source_col_name, target_col_name]}'\n\
+            \t- Columns in the DF: {list(df.columns)}", file=sys.stderr)
+    exit()
+# We get rid of spaces (including unicode symbol for space, common in excel) in all rows
+df[source_col_name] = df[source_col_name].str.replace(' ', '')
+df[target_col_name] = df[target_col_name].str.replace(' ', '')
+
+df[source_col_name] = df[source_col_name].str.replace(u'\xa0', '')
+df[target_col_name] = df[target_col_name].str.replace(u'\xa0', '')
+
+# We create the dictionary of sources and targets
 df_dict = {}
 for source_bs, target in zip(df[source_col_name], df[target_col_name]):
     if source_bs not in df_dict:
