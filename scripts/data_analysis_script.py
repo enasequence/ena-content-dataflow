@@ -65,7 +65,7 @@ def setup_connection():
         cx_Oracle.init_oracle_client(lib_dir=client_lib_dir)
         connection = None
         try:
-            dsn = cx_Oracle.makedsn("ora-vm5-008.ebi.ac.uk", 1531, service_name="ENAPRO")
+            dsn = cx_Oracle.makedsn("ora-ena-pro-hl.ebi.ac.uk", 1531, service_name="ENAPRO")
             connection = cx_Oracle.connect(oracle_usr, oracle_pwd, dsn, encoding="UTF-8")
             return connection
         except cx_Oracle.Error as error:
@@ -77,7 +77,7 @@ def setup_connection():
         cx_Oracle.init_oracle_client(lib_dir=client_lib_dir)
         connection = None
         try:
-            dsn = cx_Oracle.makedsn("ora-vm-009.ebi.ac.uk", 1541, service_name="ERAPRO")
+            dsn = cx_Oracle.makedsn("ora-era-pro-hl.ebi.ac.uk", 1541, service_name="ERAPRO")
             connection = cx_Oracle.connect(oracle_usr, oracle_pwd, dsn, encoding="UTF-8")
             return connection
         except cx_Oracle.Error as error:
