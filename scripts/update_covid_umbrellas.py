@@ -109,13 +109,13 @@ def setup_connection(host,port,service_name,user,pwd):
     Return read-only connection to ERAREAD
 """
 def setup_ERA_connection():
-    return setup_connection("ora-vm-069.ebi.ac.uk", 1541, "ERAREAD", 'era_reader', 'reader')
+    return setup_connection("ora-era-read-hl.ebi.ac.uk", 1541, "ERAPRO", 'era_reader', 'reader')
 
 """
     Return read-only connection to ENAPRO
 """
 def setup_ENA_connection():
-    return setup_connection("ora-vm5-008.ebi.ac.uk", 1531, "ENAPRO", 'ena_reader', 'reader')
+    return setup_connection("ora-ena-pro-hl.ebi.ac.uk", 1531, "ENAPRO", 'ena_reader', 'reader')
 
 
 """
