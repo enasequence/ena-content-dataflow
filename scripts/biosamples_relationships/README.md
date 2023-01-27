@@ -2,7 +2,7 @@
 
 This script links/unlinks ``source`` (e.g. viral ENA sample) biosamples with ``target`` (e.g. human EGA sample) biosamples, using the ``derived from`` relationships field in BioSamples (e.g. ``Viral sample`` - ``derived from`` - ``Human sample``). For more information on the relationships fields, please see [BioSample's documentation](https://www.ebi.ac.uk/biosamples/docs/guides/relationships).  
 
-The script ``src/biosamples_relationships.py`` accepts an input file containing source and target accessions (BioSample's IDs - see [format](https://www.ebi.ac.uk/biosamples/docs/faq#_what_pattern_do_biosamples_accessions_follow)) to be linked/unlinked.
+The script ``src/master_biosamples_script_v2.py`` accepts an input file containing source and target accessions (BioSample's IDs - see [format](https://www.ebi.ac.uk/biosamples/docs/faq#_what_pattern_do_biosamples_accessions_follow)) to be linked/unlinked.
   
 This is a collaboration between the [ENA](https://www.ebi.ac.uk/ena/browser/home) and [EGA](https://ega-archive.org/).   
 
@@ -44,9 +44,9 @@ deactivate
 If you wish to install dependencies on your working environment, you will only need to run the two commands from steps 1 and 3 (skip steps 2 and 4). In case you do create a virtual environment, remember to always activate it (using `source venv_bsdrel/bin/activate`) prior running the scripts.
 
 ## Credentials
-In order to push changes to a BioSample record you will need authority over it: either being the **original owner** of such samples (i.e. samples were submitted using your account) or being the **Webin root user**. 
+In order to push changes to a BioSample record you will need authority over it: either being the **original owner** of such samples (i.e. samples were submitted using your account) or being the **Webin root user**.  Please contact the ENA team for Webin root user credentials.  
 
-To provide credentials of your account you can either (1) provide them in a file (use optional argument ``-c``) or (2) set them as environmental variables. 
+To provide credentials of your own account you can either (1) provide them in a file (use optional argument ``-c``) or (2) set them as environmental variables. 
 1. Create a JSON file with the following format (see ``data/test_credentials.json`` for reference):
 ````
 {
@@ -80,11 +80,11 @@ optional arguments:
 
 ```
 Example 1: link biosamples in development environment:
-    python3 biosamples_relationships.py -s test_sample_accs.txt
+    python3 master_biosamples_script_v2.py -s test_sample_accs.txt --verbose
 Example 2: link biosamples in production:
-    python3 biosamples_relationships.py -s test_sample_accs.txt -prod
+    python3 master_biosamples_script_v2.py -s test_sample_accs.txt -prod --verbose
 Example 3: unlink biosamples in development environment:
-    python3 biosamples_relationships.py -u -s test_sample_accs.txt
+    python3 master_biosamples_script_v2.py -u -s test_sample_accs.txt --verbose
 ```        
 
 # Output
