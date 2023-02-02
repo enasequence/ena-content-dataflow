@@ -391,7 +391,7 @@ for source_bs in df_dict.keys():
 
         # Submit curation file
         curation_url = "{0}{1}{2}".format(biosamples_start, source_bs, curation_links)
-        r = requests.post(curation_url, headers = headers, data = open(f"{source_bs}_new_rel_curation.json", 'rb')) #have to open + read json file first
+        r = requests.post(curation_url, headers = headers, data = open(os.path.join(output_dir, f"{source_bs}_new_rel_curation.json"), 'rb')) #have to open + read json file first
 
     else:
 
