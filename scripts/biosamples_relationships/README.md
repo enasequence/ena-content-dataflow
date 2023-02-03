@@ -81,9 +81,11 @@ optional arguments:
 ```
 Example 1: link biosamples in development environment:
     python3 master_biosamples_script_v2.py -s test_sample_accs.txt --verbose
-Example 2: link biosamples in production:
+Example 2: link biosamples in development environment, with credentials file:
+    python3 master_biosamples_script_v2.py -s test_sample_accs.txt -c test_credentials.json --verbose
+Example 3: link biosamples in production:
     python3 master_biosamples_script_v2.py -s test_sample_accs.txt -prod --verbose
-Example 3: unlink biosamples in development environment:
+Example 4: unlink biosamples in development environment:
     python3 master_biosamples_script_v2.py -u -s test_sample_accs.txt --verbose
 ```        
 
