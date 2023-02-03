@@ -89,9 +89,7 @@ Example 3: unlink biosamples in development environment:
 
 # Output
 There are 2 output files produced for each source biosample:
-- A source biosample JSON
-- A modified (with the new relationships if linking; without the specified relationships if unlinking) source biosample JSON 
-
-Besides, a summary file with the timestamp is generated containing a summary of the pushed changes (exit statuses, sources, targets...)
+- A JSON file containing the curation object, and source sample accession
+- A summary file with the timestamp, containing a summary of the pushed changes (exit statuses, sources, targets...)
 
 All output files are found in the ``biosamples_output`` directory. To verify that the "derived from field" has been added correctly please check the ``dev`` ([example](https://wwwdev.ebi.ac.uk/biosamples/samples/SAMEA8698068) for SAMEA8698068) or ``prod`` ([example](https://www.ebi.ac.uk/biosamples/samples/SAMN20032469) for SAMN20032469) BioSamples site.
