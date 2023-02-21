@@ -28,7 +28,6 @@ def query_api(taxon):
     url = "https://www.ebi.ac.uk/ena/portal/api/search"
     headers = {'Content-Type':'application/x-www-form-urlencoded'}
     payload = {f'result':'read_run', 'query':f'tax_tree{taxon}', 'fields':['accession%2Ccollection_date%2Cfirst_created'], 'limit':'0','format':'tsv'}
-    print(payload)
     r = requests.post(url, data=payload, headers=headers)
     results = r.text
     with open('input.tsv', 'w') as output:
