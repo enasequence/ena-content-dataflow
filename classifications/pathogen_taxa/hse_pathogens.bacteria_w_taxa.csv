@@ -1,0 +1,165 @@
+name,hse_hazard_group,notes,taxon_id
+Actinomadura madurae,2,,1993
+Actinomadura pelletieri,2,,111805
+Actinomyces gerencseriae,2,,52769
+Actinomyces israelii,2,,1659
+Actinomyces spp,2,,1654
+Aggregatibacter actinomycetemcomitans,2,HSE listed name: Actinobacillus actinomycetemcomitans,714
+Alcaligenes spp,2,,507
+Arcanobacterium haemolyticum,2,alt name: Corynebacterium haemolyticum,28264
+Arcobacter butzleri,2,formerly Campylobacter butzleri,28197
+Bacillus anthracis,3,Classified under SAPO; Vaccine available,1392
+Bacillus cereus,2,,1396
+Bacteroides fragilis,2,,817
+Bacteroides spp,2,,816
+Bartonella bacilliformis,2,,774
+Bartonella quintana,2,alt name: Rochalimaea quintana,803
+Bartonella spp,,alt name: Rochalimaea spp,773
+Bordetella bronchiseptica,2,,518
+Bordetella parapertussis,2,,519
+Bordetella pertussis,2,Vaccine available,520
+Bordetella spp,2,,517
+Borreliella burgdorferi,2,HSE listed name: Borrelia burgdorferi,139
+Borrelia duttonii,2,,40834
+Borrelia recurrentis,2,,44449
+Borrelia spp,2,,138
+Brachyspira spp,2,formerly Serpulina spp,29521
+Brucella abortus,3,Classified under SAPO,235
+Brucella canis,3,,36855
+Brucella melitensis,3,Classified under SAPO,29459
+Brucella suis,3,Classified under SAPO,29461
+Burkholderia cepacia,2,,292
+Burkholderia mallei,3,formerly Pseudomonas mallei; Classified under SAPO,13373
+Burkholderia pseudomallei,3,formerly Pseudomonas pseudomallei,28450
+Campylobacter fetus,2,,196
+Campylobacter jejuni,2,,197
+Campylobacter spp,2,,194
+Cardiobacterium hominis,2,,2718
+Chlamydia pneumoniae,2,,83558
+Chlamydia psittaci,2,,83554
+Chlamydia trachomatis,2,,813
+Clostridium botulinum,2,Toxigenic,1491
+Clostridium perfringens,2,,1502
+Clostridium spp,2,,1485
+Clostridium tetani,2,Toxigenic; Vaccine available,1513
+Corynebacterium diphtheriae,2,Toxigenic; Vaccine available,1717
+Corynebacterium minutissimum,2,,38301
+Corynebacterium pseudotuberculosis,2,,1719
+Corynebacterium spp,2,,1716
+Corynebacterium ulcerans,2,,65058
+Coxiella burnetii,3,,777
+Edwardsiella tarda,2,,636
+Ehrlichia spp,2,,943
+Eikenella corrodens,2,,539
+Elizabethkingia meningoseptica,2,formerly Flavobacterium meningosepticum,238
+Enterobacter cloacae,2,,550
+Enterobacter spp,2,,547
+Enterococcus spp,2,,1350
+Erysipelothrix rhusiopathiae,2,,1648
+Escherichia coli,2,hazard group 3* for verocytotoxigenic strains (eg O157:H7 or O103),562
+Fluoribacter bozemanae,2,formerly Legionella,447
+Francisella tularensis,3,Type A; Type B hazard group 2,263
+Fusobacterium necrophorum,2,,859
+Fusobacterium spp,2,,848
+Gardnerella vaginalis,2,,2702
+Haemophilus ducreyi,2,,730
+Haemophilus influenzae,2,,727
+Haemophilus spp,2,,724
+Helicobacter pylori,2,,210
+Klebsiella oxytoca,2,,571
+Klebsiella pneumoniae,2,,573
+Klebsiella spp,2,,570
+Legionella pneumophila,2,,446
+Legionella spp,2,See also Fluoribacter bozemanae (formerly Legionella),445
+Leptospira interrogans,2,all serovars,173
+Listeria ivanovii,2,,1638
+Listeria monocytogenes,2,,1639
+Moraxella catarrhalis,2,,480
+Morganella morganii,2,,582
+Mycobacterium africanum,3,Vaccine available,33894
+Mycobacterium avium,2,,1764
+Mycobacterium intracellulare,2,,1767
+Mycobacterium bovis,3,Vaccine available,1765
+Mycobacterium kansasii,2,,1768
+Mycobacterium leprae,3,Vaccine available,1769
+Mycobacterium malmoense,2,,1780
+Mycobacterium marinum,2,,1781
+Mycobacterium microti,3*,,1806
+Mycobacterium paratuberculosis,2,,1770
+Mycobacterium scrofulaceum,2,,1783
+Mycobacterium simiae,2,,1784
+Mycobacterium szulgai,3,,1787
+Mycobacterium tuberculosis,3,Vaccine available,1773
+Mycobacterium ulcerans,3*,,1809
+Mycobacterium xenopi,2,,1789
+Mycobacteroides chelonae,2,HSE listed name: Mycobacterium chelonae,1774
+Mycolicibacterium fortuitum,2,HSE listed name: Mycobacterium fortuitum,1766
+Mycoplasma caviae,2,,55603
+Mycoplasma hominis,2,,2098
+Mycoplasma pneumoniae,2,,2104
+Neisseria gonorrhoeae,2,,485
+Neisseria meningitidis,2,Vaccine available,487
+Neorickettsia sennetsu,3,HSE listed name: Ehrlichia sennetsu & Rickettsia sennetsu,951
+Nocardia asteroides,2,,1824
+Nocardia brasiliensis,2,,37326
+Nocardia farcinica,2,,37329
+Nocardia nova,2,,37330
+Nocardia otitidiscaviarum,2,,1823
+Orientia tsutsugamushi,3,HSE listed name: Rickettsia tsutsugamushi,784
+Pasteurella multocida,2,,747
+Pasteurella spp,2,,745
+Peptostreptococcus anaerobius,2,,1261
+Peptostreptococcus spp,2,,1257
+Plesiomonas shigelloides,2,,703
+Porphyromonas spp,2,,836
+Prevotella spp,2,,838
+Proteus mirabilis,2,,584
+Proteus penneri,2,,102862
+Proteus vulgaris,2,,585
+Providencia alcalifaciens,2,,126385
+Providencia rettgeri,2,,587
+Providencia spp,2,,586
+Pseudomonas aeruginosa,2,,287
+Rhodococcus equi,2,Synonym: Rhodococcus hoagii,43767
+Rickettsia akari,3*,,786
+Rickettsia canadensis,3*,HSE listed name: Rickettsia canada,788
+Rickettsia conorii,3,,781
+Rickettsia montanensis,3*,HSE listed name: Rickettsia montana,33991
+Rickettsia prowazekii,3,,782
+Rickettsia rickettsii,3,,783
+Rickettsia spp,3,,780
+Rickettsia typhi,3,alt name: Rickettsia mooseri,785
+Salmonella enterica arizonae,2,,59203
+Salmonella enterica serovar enteritidis,2,,149539
+Salmonella enterica serovar typhimurium,2,,90371
+Salmonella enterica paratyphi A,3*,,54388
+Salmonella enterica paratyphi B,3*,esp subsp. Java,57045
+Salmonella enterica paratyphi C,3*,alt name: Choleraesuis,57046
+Salmonella spp,2,"Serovars other than arizonae, enterica serovar enteritidis, enterica serovar typhimurium 2, paratyphi A, B, C, typhi",590
+Salmonella enterica typhi,3*,Vaccine available,90370
+Shigella boydii,2,,621
+Shigella dysenteriae,2,other than Type 1,622
+Shigella dysenteriae,3*,Type 1; Toxigenic,622
+Shigella flexneri,2,,623
+Shigella sonnei,2,,624
+Staphylococcus aureus,2,Toxigenic,1280
+Streptobacillus moniliformis,2,,34105
+Streptococcus agalactiae,2,,1311
+Streptococcus dysgalactiae subsp. equisimilis,2,,119602
+Streptococcus pneumoniae,2,,1313
+Streptococcus pyogenes,2,,1314
+Streptococcus spp,2,,1301
+Streptococcus suis,2,,1307
+Treponema pallidum,2,,160
+Treponema pertenue,2,,168
+Treponema spp,2,,157
+Trueperella pyogenes,2,HSE listed name: Arcanobacterium pyogenes & Arcanobacterium pyogenes,1661
+Ureaplasma parvum,2,,134821
+Ureaplasma urealyticum,2,,2130
+Vibrio cholerae,2,including El Tor; Toxigenic; Vaccine available,666
+Vibrio parahaemolyticus,2,,670
+Vibrio spp,2,,662
+Yersinia enterocolitica,2,,630
+Yersinia pestis,3,,632
+Yersinia pseudotuberculosis,2,,633
+Yersinia spp,2,,629
