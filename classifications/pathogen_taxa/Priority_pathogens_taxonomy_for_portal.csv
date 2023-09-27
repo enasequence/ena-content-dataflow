@@ -12,12 +12,12 @@ Taxonomy ID (NCBI Taxonomy),Scientific Name,Type,Rank,Source
 727,Haemophilus influenzae,Bacteria,Species,WHO
 620,Shigella,Bacteria,Genus,WHO
 1980519,Crimean-Congo hemorrhagic fever orthonairovirus,Virus,Species,WHO
-1570291,Ebola virus,Virus,,WHO
+1570291,Ebola virus,Virus,Species,WHO
 11269,Marburg marburgvirus,Virus,Species,WHO
 11620,Lassa mammarenavirus,Virus,Species,WHO
 121791,Nipah henipavirus,Virus,Species,WHO
 260964,Henipavirus,Virus,Genus,WHO
-11588,Rift Valley fever virus,Virus,,WHO
+11588,Rift Valley fever virus,Virus,Species,WHO
 64320,Zika virus,Virus,Species,WHO
 10244,Monkeypox virus,Virus,Species,WHO
 5207,Cryptococcus neoformans,Fungi,Species,WHO
