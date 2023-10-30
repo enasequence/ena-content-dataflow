@@ -14,6 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+: '
+Usage: ./copyright_update.sh
+
+This script will search for EMBL-EBI formatted copyright statements
+and update the active years to include the current year. 
+
+Backup files (*.crbkup) will be created as each file is modified and 
+cleaned up once all files have been processed. 
+'
+
 # work from PWD if no input given
 if [[ "$#" -eq 0 ]]; then
   dirs=$(pwd)
