@@ -351,7 +351,7 @@ DATAHUB NAME    |  DESCRIPTION    |  DATA  |   DORMANCY REASON
         if (len(dhub.projects) > 0) and (dhub.recc_status =='DORMANT'):
             body += f'{dhub.dhub_name}  | {dhub.desc}  | {dhub.notes}\n'
 
-    body += '\n\nThe scripts for this report can be found at: https://github.com/jas-mckin/datahubs-dormancy\n\nKind Regards,\nJasmine McKinnon\njasmine@ebi.ac.uk'
+    body += '\n\nThe scripts for this report can be found at: https://github.com/enasequence/ena-content-dataflow/tree/master/scripts\n\nKind Regards,\nJasmine McKinnon\njasmine@ebi.ac.uk'
 
     send_email(username, passworde, 'Datahubs Usage Report', body, recipients)
 
