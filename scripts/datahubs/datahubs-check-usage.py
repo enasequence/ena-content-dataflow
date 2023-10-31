@@ -19,31 +19,29 @@ from sqlalchemy import create_engine
 from sqlalchemy import text
 import pandas as pd
 import pickle
-
 import logging
-
-logging.basicConfig()
-logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
 from datetime import datetime
 from datetime import timedelta
 
-# get username and password from config file (for use if running locally using a config.py file):
-#import config
-#username = config.username
-#password = config.password
-#passworde = config.passworde
 
-
-
-# get username and password, plus email password (passworde) from .bash_profile (export MYUNAME="")
+# get username and password, plus email password (passworde) from .bash_profile (add export MYUNAME="". to .bash_profile)
 username = os.environ['MYUNAME']
 password = os.environ['MYORPW']
 passworde = os.environ['MYPW']
 
-# create the sqlalchemy engine using database login credentials
+# add date stamped path address for saving outputs
+today = datetime.now()
+save_path = "/hps/nobackup/cochrane/ena/users/jasmine/datahubs-" + today.strftime('%Y%m%d-%H:%M')
+os.mkdir(save_path)
+
+
+# create the sqlalchemy engine using database login credentials, and use logging package to prevent too many printed outputs from sqlalchemy package
+logging.basicConfig()
+logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
 engine = create_engine(f"oracle+oracledb://ops${username}:{password}@ora-era-read-hl.ebi.ac.uk:1531/?service_name=ERAPRO", echo=True)
-# add codon path address for saving outputs
-save_path = "/hps/nobackup/cochrane/ena/users/jasmine/"
+
+
+
 
 class Datahub:
     def __init__(self, dhub_name, desc, pub_desc, status, parent_webin = [], projects = [], submission_contact = [], latest_hold_date = '', run_count = 0 , latest_run = '', analysis_count = 0, latest_analysis = '', recc_status = '', notes = ''):
