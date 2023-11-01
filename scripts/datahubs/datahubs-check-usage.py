@@ -326,7 +326,7 @@ Outputs for this script have been saved at /hps/nobackup/cochrane/ena/users/jasm
 dhub_list.pkl
 projects.csv
 These can be uploaded to google colab to see the Datahubs Usage Report:
-https://colab.research.google.com/github/jas-mckin/datahubs-dormancy/blob/main/datahubs_dormancy_report.ipynb
+https://github.com/enasequence/ena-content-dataflow/tree/master/scripts/datahubs/datahubs_dormancy_report.ipynb
 
 A document with Dormancy notification email templates is here:
 https://docs.google.com/document/d/1RbLBsrXJh7FPshEt9gkRLIsW6rB0kcxXUcPwC0lS3XE/edit#heading=h.afx446nhk2x4
