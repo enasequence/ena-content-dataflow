@@ -322,7 +322,7 @@ def evaluate_and_report():
 
 Out of {len(dhub_list)} total datahubs, {total_recc} are reccommended to be changed to DORMANT.
 
-Outputs for this script have been saved at /hps/nobackup/cochrane/ena/users/jasmine/ 
+Outputs for this script have been saved at {save_path} 
 dhub_list.pkl
 projects.csv
 These can be uploaded to google colab to see the Datahubs Usage Report:
