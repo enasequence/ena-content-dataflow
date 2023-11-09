@@ -31,7 +31,7 @@ passworde = os.environ['MYPW']
 
 # add date stamped path address for saving outputs
 today = datetime.now()
-save_path = "/hps/nobackup/cochrane/ena/users/jasmine/datahubs-" + today.strftime('%Y%m%d-%H:%M')
+save_path = "/hps/nobackup/cochrane/ena/users/jasmine/" + "datahubs-" + today.strftime('%Y%m%d-%H:%M')
 os.mkdir(save_path)
 
 
