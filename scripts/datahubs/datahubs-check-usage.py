@@ -24,24 +24,27 @@ from datetime import datetime
 from datetime import timedelta
 
 
-# get username and password, plus email password (passworde) from .bash_profile (add export MYUNAME="". to .bash_profile)
+# BEFORE RUNNING SCRIPT
+# 1) add 'export MYUNAME="JohnDoe"' lines to .bash_profile to include usernames and passwords as bash variables
 username = os.environ['MYUNAME']
 password = os.environ['MYORPW']
 passworde = os.environ['MYPW']
 
-# add date stamped path address for saving outputs
+# 2) create date stamped path address for saving outputs - save path can be edited
 today = datetime.now()
 save_path = "/hps/nobackup/cochrane/ena/users/jasmine/" + "datahubs-" + today.strftime('%Y%m%d-%H:%M')
 os.mkdir(save_path)
 
+# 3) include email addresses to recieve the email output of the script (use list for multiple recipients e.g. ["johndoe@ebi.ac.uk","joebloggs@ebi.ac.uk"]
+recipients = "jasmine@ebi.ac.uk"
 
+
+
+# START OF SCRIPT
 # create the sqlalchemy engine using database login credentials, and use logging package to prevent too many printed outputs from sqlalchemy package
 logging.basicConfig()
 logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
 engine = create_engine(f"oracle+oracledb://ops${username}:{password}@ora-era-read-hl.ebi.ac.uk:1531/?service_name=ERAPRO", echo=True)
-
-
-
 
 class Datahub:
     def __init__(self, dhub_name, desc, pub_desc, status, parent_webin = [], projects = [], submission_contact = [], latest_hold_date = '', run_count = 0 , latest_run = '', analysis_count = 0, latest_analysis = '', recc_status = '', notes = ''):
@@ -198,7 +201,7 @@ def send_email(username, password, subject, body, recipients):
     # Disconnect from the server
     server.quit()
   
-def evaluate_and_report():
+def evaluate_and_report(recipients):
     # PROJECT
     for proj in proj_list:
         if (proj.run_count == 0 and proj.analysis_count == 0): # if no data, mark as empty
@@ -310,7 +313,7 @@ def evaluate_and_report():
 
 
     # SEND EMAIL REPORT
-    recipients ='jasmine@ebi.ac.uk'
+    recipients
 
     total_recc = 0
     for dhub in dhub_list:
@@ -361,7 +364,7 @@ fetch_data_dhub()
 # pickle - save outputs as class objects
 pickle_outputs(dhub_list, 'dhub_list.pkl', save_path) 
 pickle_outputs(proj_list, 'proj_list.pkl', save_path)
-send_email(username, passworde, 'dhub_dhpr_notif', 'dhub and proj data gathered, saved', recipients='jasmine@ebi.ac.uk')
+send_email(username, passworde, 'dhub_dhpr_notif', 'dhub and proj data gathered, saved', recipients)
 
 # get run information for project - WARNING - takes a long time
 for proj in proj_list:
@@ -379,13 +382,13 @@ for proj in proj_list:
 
 # save project output info
 save_project_csv(save_path)
-send_email(username, passworde, 'dhub_ra_notif', 'datahubs linked data check completed, saved', recipients='jasmine@ebi.ac.uk')
+send_email(username, passworde, 'dhub_ra_notif', 'datahubs linked run and analyses data check completed, saved', recipients)
 
 with open(save_path +'proj_list.pkl', 'rb') as f:
     proj_list = pickle.load(f)
 
 
-evaluate_and_report()
+evaluate_and_report(recipients)
 
 # save evaluation result
 pickle_outputs(dhub_list, 'dhub_list.pkl', save_path)  
