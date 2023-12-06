@@ -1,0 +1,5 @@
+atlassian-python-api
+calendar
+getpass
+pandas
+tabulate
