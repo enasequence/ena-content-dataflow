@@ -66,6 +66,7 @@ def print_page_summary(page):
 
 def create_new_pages_per_month(parent_page_id, year):
     month_html_header = open('html_snippets/month_header_section.html', 'r').read()
+    this_month_html_header = re.sub('YYYY', str(year), month_html_header)
     month_strs = [
         'January', 'February', 'March', 'April', 'May',
         'June', 'July', 'August', 'September', 'October',
@@ -76,7 +77,7 @@ def create_new_pages_per_month(parent_page_id, year):
         month_str = month_strs[x]
         month_html = write_month(year, x+1)
 
-        new_html = f"{month_html_header}\n{month_html}"
+        new_html = f"{this_month_html_header}\n{month_html}"
         new_title = f"{month_str} {year}"
         new_page = confluence.update_or_create(
             title=new_title, 
