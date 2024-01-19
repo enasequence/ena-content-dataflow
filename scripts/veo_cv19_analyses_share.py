@@ -201,11 +201,7 @@ European Bioinformatics Institute (EMBL-EBI)
 
     """
 
-def make_spreadsheet():
-    day = datetime.now().strftime('%d')
-    mon = datetime.now().strftime('%b')
-    send_file = f'latest_acc_ELTE_{day}{mon}.tsv'
-
+def make_spreadsheet(send_file):
     
     elte_out = raw_data[
         ['run_accession', 'analysis_accession', 'instrument_platform', 'instrument_model', 'country', 'collection_date',
@@ -300,7 +296,10 @@ if __name__ == '__main__':
         del analysis
         del merged
         get_stats_write_email()
-        make_spreadsheet() #save the spreadsheet
+        day = datetime.now().strftime('%d')
+        mon = datetime.now().strftime('%b')
+        send_file = f'latest_acc_ELTE_{day}{mon}.tsv'
+        make_spreadsheet(send_file) #save the spreadsheet
         # upload spreadsheet update to google drive using google credentials
         upload_to_folder(folder_id = '1zoowqmi1wuBOib6iE4tKBylJnwo6Q2PJ')
         # send email
