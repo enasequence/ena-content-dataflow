@@ -32,12 +32,15 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 # BEFORE RUNNING SCRIPT
 # 1) Install the above packages in your environment using conda or pip
-# 2) set the project ID to the latest VEO project ID (see: https://www.ebi.ac.uk/ena/browser/view/PRJEB45555)
+# 2) set the project ID to the latest VEO project ID containing unfiltered variant call data (see: https://www.ebi.ac.uk/ena/browser/view/PRJEB45555)
 project = 'TODO:add project ID'
-# 3) choose a path which will be the working directory for saving the sent_record and saving/reading API results
+# 3) choose a path which will be the working directory
 # note that the script assumes a sent_record.tsv file already exists in the working directory
 path='/path/to/working_dir/'
-# 4) Use local bash variables for credentuals for sending emails using EBI smtp server (add to .bash_profile)
+# 4) Add credentials for sending emails using SMTP server (see: https://docs.python.org/3/library/smtplib.html)
+server_id = 'TODO:find organisation server id'
+port = 0 #TODO: specify port number
+# use local bash variables for user id (TODO: add MYEMAIL and MYPW to .bash_profile file in home directory)
 username = os.environ.get('MYEMAIL')
 password = os.environ.get('MYPW')
 # 5) add list of email addresses to recieve the updates
@@ -45,11 +48,7 @@ recipients = ['TODO:add recipients email list']
 # 6) also set up local google credentials in working directory (credentials.josn and token.json) for uploading to a google drive folder using OAuth 
 # https://developers.google.com/workspace/guides/create-credentials#oauth-client-id
 # 7) Create an empty google drive folder using the same google account and specify the folder_id for the upload_to_folder function
-folder_id = ''
-# For the send_email function, specify the server ID and port
-server_id = ''
-port = 0
-
+folder_id = 'TODO:add google drive folder ID'
 
 # START OF SCRIPT
 def get_analyses():
@@ -99,7 +98,7 @@ https://github.com/enasequence/ena-content-dataflow/blob/master/scripts/veo_cv19
 The VEO projects are available to view at: https://www.ebi.ac.uk/ena/browser/view/PRJEB45555
 
 Best wishes,
-Jasmine
+<name>
 
         """
 
