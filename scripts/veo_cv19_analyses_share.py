@@ -31,22 +31,29 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 # BEFORE RUNNING SCRIPT
-# 1) Install the packages using conda or pip
-# 2) set the project ID to the latest VEO project ID
+# 1) Install the above packages in your environment using conda or pip
+# 2) set the project ID to the latest VEO project ID (see: https://www.ebi.ac.uk/ena/browser/view/PRJEB45555)
 project = 'TODO:add project ID'
 # 3) choose a path which will be the working directory for saving the sent_record and saving/reading API results
+# note that the script assumes a sent_record.tsv file already exists in the working directory
 path='/path/to/working_dir/'
-# 4) Use local bash variables for sending emails using EBI smtp server (add to .bash_profile)
+# 4) Use local bash variables for credentuals for sending emails using EBI smtp server (add to .bash_profile)
 username = os.environ.get('MYEMAIL')
 password = os.environ.get('MYPW')
 # 5) add list of email addresses to recieve the updates
 recipients = ['TODO:add recipients email list']
-# 6) also set up local google credentials (credentials.josn and token.json) for uploading to a google drive folder using OAuth 
+# 6) also set up local google credentials in working directory (credentials.josn and token.json) for uploading to a google drive folder using OAuth 
 # https://developers.google.com/workspace/guides/create-credentials#oauth-client-id
+# 7) Create an empty google drive folder using the same google account and specify the folder_id for the upload_to_folder function
+folder_id = ''
+# For the send_email function, specify the server ID and port
+server_id = ''
+port = 0
+
 
 # START OF SCRIPT
 def get_analyses():
-    # uses the ENA advanced search to get analyses from the specified project with the specified data fields
+    # uses the ENA advanced search API to get analyses from the specified project with the specified data fields
     url = "https://www.ebi.ac.uk/ena/portal/api/search"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
@@ -67,14 +74,13 @@ def get_analyses():
     body = f"""There are {how_many_total} analyses found in the project {project}.
 
     If its more than 500k - you need to make new project ids. 
-    https://docs.google.com/document/d/1txSZdGYOHDFb--IbSE1W9cIPSieXgM3Ajg5spuylUk4/edit
         """
-    send_email(username, password, 'CV19 - Project total check', body, recipients ='jasmine@ebi.ac.uk')
+    send_email(username, password, 'CV19 - Project total check', body, recipients ='jasmine@ebi.ac.uk', server_id, port)
 
 def check_new_analyses_email():
     # check analyses against sent data and decide whether to proceed - sent_record.tsv saved on codon cluster at path
     sent = pd.read_csv('sent_record.tsv', sep='\t')
-    # uses the set object to make a camparison
+    # uses the set object to make a comparison
     new_analyses_list = set(analysis['analysis_accession']) - set(sent['analysis_accession'])
 
     global how_many_new #how_many_new is global variable and if this is >0 then a report is generated to share new data.
@@ -97,7 +103,7 @@ Jasmine
 
         """
 
-    send_email(username, password, 'SARS-CoV-2 data update check', body, recipients)
+    send_email(username, password, 'SARS-CoV-2 data update check', body, recipients, server_id, port)
 
 
 def add_runs():
@@ -146,11 +152,6 @@ def get_stats_write_email():
     run_count = str(len(raw_data))
 
     global latest_analysis
-    #get the date of analysis from the alias instead of from first created (sense checking)
-    #raw_data['analysis_alias'] = raw_data['analysis_alias'].replace(regex=r'.*._.RR.*_', value='')
-    #raw_data['analysis_alias'] = raw_data['analysis_alias'].replace(regex=r'T', value=':')
-    #raw_data['analysis_alias'] = raw_data['analysis_alias'].replace(regex=r'-', value=':')
-    #raw_data['analysis_alias'] = raw_data['analysis_alias'].apply(lambda x: datetime.strptime(x, '%Y:%m:%d:%H:%M:%S'))
 
     # use first created to check date
     raw_data['first_created_date'] = raw_data['first_created'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
@@ -181,23 +182,20 @@ def get_stats_write_email():
                 pass
     latest_collection = max(realdates).strftime('%Y-%m-%d')
     global contents
-    contents = f"""Dear Krisztian and Jozsi,
+    contents = f"""Dear XXXX,
 **this is an auto-generated email**
 
-Here is a google drive link <https://drive.google.com/drive/folders/1zoowqmi1wuBOib6iE4tKBylJnwo6Q2PJ?usp=sharing> for the latest update of archived covid analysis data for you to download.
+Here is a google drive link <https://drive.google.com/drive/folders/{folder_id}?usp=sharing> for the latest update of archived covid analysis data for you to download.
 
 The latest collection date in this dataset is {latest_collection}, and it includes analysis of older data collected in 2021. The latest date an analysis was created was on {latest_analysis}.
 
 There is a total of {run_count} runs in this dataset.
 
 Best wishes,
-Jasmine
+<name>
 
 -- 
-Jasmine McKinnon
-User-Support Bioinformatician
-ENA - European Nucleotide Archive
-European Bioinformatics Institute (EMBL-EBI) 
+<email signature>
 
     """
 
@@ -267,9 +265,9 @@ def upload_to_folder(folder_id):
         return None
 
 
-def send_email(username, password, subject, body, recipients):
+def send_email(username, password, subject, body, recipients, server_id, port):
     # Set up the SMTP server for EBI
-    server = smtplib.SMTP('outgoing.ebi.ac.uk', 587)
+    server = smtplib.SMTP(server_id, port)
 
     server.ehlo()
     server.starttls()
@@ -301,9 +299,9 @@ if __name__ == '__main__':
         send_file = f'latest_acc_ELTE_{day}{mon}.tsv'
         make_spreadsheet(send_file) #save the spreadsheet
         # upload spreadsheet update to google drive using google credentials
-        upload_to_folder(folder_id = '1zoowqmi1wuBOib6iE4tKBylJnwo6Q2PJ')
+        upload_to_folder(folder_id)
         # send email
-        send_email(username, password, 'latest data update for SARS-CoV-2', contents, recipients)
+        send_email(username, password, 'latest data update for SARS-CoV-2', contents, recipients, server_id, port)
         save_sent_accs()
         os.remove('all_rundata.tsv')
         os.remove('analysis_input.tsv')
