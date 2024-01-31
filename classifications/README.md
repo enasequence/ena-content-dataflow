@@ -22,7 +22,7 @@ This list is divided into Hazard Groups as defined below.
 | Group 1 | Unlikely to cause human disease. |
 | Group 2 | Can cause human disease and may be a hazard to employees; it is unlikely to spread to the community and there is usually effective prophylaxis or treatment available.|
 | Group 3 | Can cause severe human disease and may be a serious hazard to employees; it may spread to the community, but there is usually effective prophylaxis or treatment available.|
-| Group 4 | Causes severe human disease and is a serious hazard toemployees; it is likely to spread to the community and there is usually no effective prophylaxis or treatment available.|
+| Group 4 | Causes severe human disease and is a serious hazard to employees; it is likely to spread to the community and there is usually no effective prophylaxis or treatment available.|
 
 Based on the above definitions, everything contained in Group 2 or higher was included.
 
