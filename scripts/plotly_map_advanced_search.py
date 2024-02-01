@@ -65,7 +65,11 @@ with open(geojson_path) as json_file:
 # we need to include custom mapping
 custom_codes = {
     'Russia':'RUS', 'USA':'USA', 'Czech Republic':'CZE', 'South Korea':'KOR',
-    'State of Palestine':'PSE', 'Iran':'IRN', 'West Bank':'PSE'
+    'State of Palestine':'PSE', 'Iran':'IRN', 'West Bank':'PSE', 'Laos': 'LAO',
+    'Syria': 'SYR', "Cote d'Ivoire": "CIV", 'Curacao': 'CUW', 'Korea': 'KOR', 
+    'North Korea': 'PRK', 'Democratic Republic of the Congo': 'COD',
+    'Brunei': 'BRN', 'Cape Verde': 'CPV', 'Burma': 'MMR', 'East Timor': 'TLS',
+    'Republic of the Congo': 'COG'
 }
 
 ena_df = pd.read_csv(opts.tsv, sep="\t")
