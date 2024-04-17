@@ -39,10 +39,10 @@ tracking = tracking.drop(['Unnamed: 0'], axis=1)
 dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
 print(dataset_NCBI)
 
-# NCBI API function for GCA
+# NCBI API function for GCA - need to add 'api-Key': to 'headers'
 def get_GCA(field):
     base_url = 'https://api.ncbi.nlm.nih.gov/datasets/v1/genome/accession/'
-    headers = {'api-Key': '15ac387fa012874cd38967399f2570e80408'}
+    headers = {'######'}
     params = {'filters.reference_only': 'false', 'filters.assembly_source': 'all', 'filters.has_annotation': 'false',
               'filters.exclude_atypical': 'false',
               'filters.assembly_level': ['contig', 'chromosome', 'complete_genome', 'scaffold']}
@@ -105,10 +105,10 @@ def validation(range):
         range['sample_OK'] = np.where(range['Sample_ID'][ind] == dataset_row['sample ID'], 'True', 'False')
     return range
 
-# NCBI API function for contigs and chromosomes
+# NCBI API function for contigs and chromosomes  - need to add 'api-Key': to 'headers'
 def get_seq(field):
     url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?'
-    headers = {'api-Key': '15ac387fa012874cd38967399f2570e80408'}
+    headers = {'########'}
     for ind in dataset_NCBI.index:
         if dataset_NCBI['Assembly type'][ind] == "clone or isolate" or dataset_NCBI['Assembly type'][ind] == "Metagenome-Assembled Genome (MAG)":
             if dataset_NCBI['accession type'][ind] == field:

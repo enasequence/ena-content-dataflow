@@ -22,7 +22,7 @@ https://docs.google.com/spreadsheets/d/1HtCbI7fvAOnpGOocUkKMiytz0odQeB9_OfnK-Dqb
 
 SUMMARY OF THE SCRIPTS
 
-initial import - this script was only used once at the beginning of setting up the assembly tracking to imprt existing public assemblies for the assembly projects
+initial import - this script was only used once at the beginning of setting up the assembly tracking to import existing public assemblies for the assembly projects
 
 Step1 - add assemblies to file
 
