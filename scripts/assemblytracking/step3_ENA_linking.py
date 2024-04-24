@@ -1,0 +1,203 @@
+#!/usr/bin/python3
+
+# Copyright [2024] EMBL-European Bioinformatics Institute
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import io
+import os
+import requests
+import numpy as np
+import pandas as pd
+from pandas import json_normalize
+
+# 1) set the working directory (depends if tracking ASG or DToL or ERGA)
+
+#os.chdir('c:\Data\EMBL-EBI\DToL\Assembly_tracking')
+#os.chdir('c:\Data\EMBL-EBI\ASG\Assembly_tracking')
+#os.chdir('c:\Data\EMBL-EBI\ERGA\Assembly_tracking')
+#os.chdir('c:/Users/jasmine/Documents/ASG/Assembly tracking')
+
+# import tracking file
+tracking = pd.read_csv('tracking_file.txt', sep='\t')
+tracking = tracking.drop(['Unnamed: 0'], axis=1)
+
+# base url for portal API
+base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
+
+# create sub dataframe with accessions not linked at ENA
+dataset_ENA = tracking[(tracking["Linked to Project"] == "N") | (tracking["Linked to Sample"] == "N")]
+Sample = dataset_ENA['sample ID'].unique()
+Project = dataset_ENA['project'].unique()
+
+# Portal API function
+def get_links(field,type):
+    v_range = pd.DataFrame([])
+    e_range = pd.DataFrame([])
+    df_data_list = []
+    status_error_list = []
+    for accession in field:
+        if accession.startswith("PRJ"):
+            value = "study/"
+        elif accession.startswith("SAM"):
+            value = "sample/"
+        url = base_url + value
+        params = {'format': 'json', 'accession': accession, 'result': type}
+        r = requests.get(url, params=params)
+        if r.status_code == 200:
+            json_data = r.json()
+            if not json_data:
+                print (accession, "Not available")
+            else:
+                df_data = json_normalize(json_data)
+                df_data['project/sample ID'] = accession
+                df_data_list.append(df_data)
+        else:
+            status_code = io.StringIO(str(r.status_code))
+            status_error = pd.read_csv(status_code, names=['status code'])
+            status_error['accession'] = accession
+            print(status_error)
+            status_error_list.append(status_error)
+    if not df_data_list:
+        print("no links")
+    else:
+        v_range = pd.concat(df_data_list, ignore_index=True)
+    if not status_error_list:
+        print("no errors")
+    else:
+        e_range = pd.concat(status_error_list, ignore_index=True)
+    return v_range, e_range
+
+# Project links to wgs_set
+print("Project links to contigs")
+get_links(Project, 'wgs_set')
+v_range, e_range = get_links(Project, 'wgs_set')
+Project_contigs = pd.DataFrame(v_range)
+Project_contigs_re = pd.DataFrame(e_range)
+print(Project_contigs)
+
+# Project links to chromosomes
+print("Project links to chromosomes")
+get_links(Project, 'sequence')
+v_range, e_range = get_links(Project, 'sequence')
+Project_chr = pd.DataFrame(v_range)
+Project_chr_re = pd.DataFrame(e_range)
+Project_chr_range = pd.DataFrame()
+if Project_chr.empty == True:
+    print("no project chromosome links")
+else:
+    Project_chr['accession_last'] = Project_chr['accession']
+    print(Project_chr)
+    aggregation_functions = {'accession': 'min', 'accession_last': 'max'}
+    Project_chr_range = Project_chr.groupby(Project_chr['project/sample ID'], as_index = False).aggregate(aggregation_functions)
+    Project_chr_range['chr_range'] = Project_chr_range['accession'] + "-" + Project_chr_range['accession_last']
+    print(Project_chr_range)
+    Project_chr_range.to_csv('Project_chr_range.txt', sep="\t")
+
+# Project links to GCAs
+print("Project links to GCA")
+get_links(Project, 'assembly')
+v_range, e_range = get_links(Project, 'assembly')
+Project_GCA = pd.DataFrame(v_range)
+Project_GCA_re = pd.DataFrame(e_range)
+print(Project_GCA)
+
+# Project links to Analysis
+print("Project links to metagenomes")
+get_links(Project, 'analysis')
+v_range, e_range = get_links(Project, 'analysis')
+Project_analysis = pd.DataFrame(v_range)
+Project_analysis_re = pd.DataFrame(e_range)
+print(Project_analysis)
+
+# Sample links to wgs_set
+print("Sample links to contigs")
+get_links(Sample, 'wgs_set')
+v_range, e_range = get_links(Sample, 'wgs_set')
+Sample_contigs = pd.DataFrame(v_range)
+Sample_contigs_re = pd.DataFrame(e_range)
+print(Sample_contigs)
+
+# Sample links to chromosomes
+print("Sample links to chromosomes")
+get_links(Sample, 'sequence')
+v_range, e_range = get_links(Sample, 'sequence')
+Sample_chr = pd.DataFrame(v_range)
+Sample_chr_re = pd.DataFrame(e_range)
+Sample_chr_range = pd.DataFrame()
+if Sample_chr.empty == True:
+    print("no sample chromosome links")
+else:
+    Sample_chr['accession_last'] = Sample_chr['accession']
+    print(Sample_chr)
+    aggregation_functions = {'accession': 'min', 'accession_last': 'max'}
+    Sample_chr_range = Sample_chr.groupby(Sample_chr['project/sample ID'], as_index = False).aggregate(aggregation_functions)
+    Sample_chr_range['chr_range'] = Sample_chr_range['accession'] + "-" + Sample_chr_range['accession_last']
+    print(Sample_chr_range)
+
+# Sample links to GCA
+print("Sample links to GCA")
+get_links(Sample, 'assembly')
+v_range, e_range = get_links(Sample, 'assembly')
+Sample_GCA = pd.DataFrame(v_range)
+Sample_GCA_re = pd.DataFrame(e_range)
+print(Sample_GCA)
+
+# Sample links to Analysis
+print("Sample links to metagenomes")
+get_links(Sample, 'analysis')
+v_range, e_range = get_links(Sample, 'analysis')
+Sample_analysis = pd.DataFrame(v_range)
+Sample_analysis_re = pd.DataFrame(e_range)
+print(Sample_analysis)
+
+# update info on tracking file
+for ind in dataset_ENA.index:
+    if dataset_ENA['Assembly type'][ind] == "primary metagenome" or dataset_ENA['Assembly type'][ind] == "binned metagenome":
+        accession = dataset_ENA['analysis ID'][ind]
+        print(accession)
+        if Project_analysis.empty == False:
+            tracking.loc[:, 'Linked to Project'][ind] = np.where(accession in set(Project_analysis['analysis_accession']), 'Y', 'N')
+        if Sample_analysis.empty == False:
+            tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_analysis['analysis_accession']), 'Y', 'N')
+    else:
+        if dataset_ENA['accession type'][ind] == "Contigs":
+            accession = dataset_ENA['accessions'].str[:8][ind]
+            print(accession)
+            if Project_contigs.empty == False:
+                tracking.loc[:, 'Linked to Project'][ind] = np.where(accession in set(Project_contigs['accession'].str[:8]), 'Y', 'N')
+            if Sample_contigs.empty == False:
+                tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_contigs['accession'].str[:8]), 'Y', 'N')
+        if dataset_ENA['accession type'][ind] == "GCA":
+            accession = dataset_ENA['accessions'][ind]
+            print(accession)
+            if Project_GCA.empty == False:
+                tracking.loc[:, 'Linked to Project'][ind] = np.where(accession in set(Project_GCA['accession']), 'Y', 'N')
+            if Sample_GCA.empty == False:
+                tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_GCA['accession']), 'Y', 'N')
+        if dataset_ENA['accession type'][ind] == "Chromosomes":
+            accession = dataset_ENA['accessions'][ind]
+            print(accession)
+            if Project_chr.empty == False:
+                tracking.loc[:, 'Linked to Project'][ind] = np.where(accession in set(Project_chr_range['chr_range']), 'Y', 'N')
+            if Sample_chr.empty == False:
+                tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_chr_range['chr_range']), 'Y', 'N')
+print(tracking)
+
+# save updated tracking file
+tracking.to_csv('tracking_file.txt', sep="\t")
+
+#Project_chr_range.to_csv('project_links_chr.txt', sep="\t")
+#Project_links_re.to_csv('project_links_errors.txt', sep="\t")
+
+#check if I'm checking version for chromosomes and GCAs
