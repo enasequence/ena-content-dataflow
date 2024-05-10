@@ -1,0 +1,16 @@
+[ERAREAD_DETAILS]
+host =
+port =
+serviceName =
+userName = 
+password =
+
+[ENAREAD_DETAILS]
+host =
+port =
+serviceName =
+userName =
+password =
+
+[NCBI_DETAILS]
+datasets_api_key =

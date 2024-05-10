@@ -15,41 +15,51 @@
 # limitations under the License.
 
 import os
-import numpy as np
 import pandas as pd
+import datetime
 
-# 1) set the working directory (depends if tracking ASG or DToL or ERGA)
+##################
+##  USER INPUT  ##
+##################
+# TODO: use argparse function
+# set the working directory
+# check the current working directory
+os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
+# set thw working directory to location of scripts and of config file
+os.chdir('scripts/assemblytracking/')
+# set which project to track - determines the folder where tracking files will be read and written
+project = 'ASG'  # or ASG or ERGA
 
-#os.chdir('c:\Data\EMBL-EBI\DToL\Assembly_tracking')
-#os.chdir('c:\Data\EMBL-EBI\ASG\Assembly_tracking')
-#os.chdir('c:\Data\EMBL-EBI\ERGA\Assembly_tracking')
-#os.chdir('c:/Users/jasmine/Documents/ASG/Assembly tracking')
+# set the location of the tracking files
+tracking_files_path = f'{project}-tracking-files'
+tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
 
+###################
+##  FILE INPUTS  ##
+###################
 # import GCA Public file
-PublicGCA_old = pd.read_csv('Public_GCAs.txt', sep='\t')
-#last_index_row = PublicGCA_old[-1]
-#last_index = last_index_row['index']
+PublicGCA_old = pd.read_csv(f'{tracking_files_path}/Public_GCAs.txt', sep='\t')
 
 # import tracking file
-tracking = pd.read_csv('tracking_file.txt', sep='\t')
-tracking = tracking.drop(['Unnamed: 0'], axis=1)
+tracking = pd.read_csv(tracking_file_path , sep='\t',index_col=0)
+
+#############
+##  MAIN   ##
+#############
 
 # create summary public assemblies dataframe
 GCA = tracking[tracking['accession type'] == "GCA"]
 PMET = tracking[tracking['Assembly type'] == 'primary metagenome']
 BMET = tracking[tracking['Assembly type'] == 'binned metagenome']
-frames = [GCA, PMET, BMET]
-GCA_MET = pd.concat(frames, ignore_index=True)
-GCA_MET.sort_values(by=['index'])
+GCA_MET = pd.concat([GCA, PMET, BMET], ignore_index=True)
+del GCA, PMET, BMET
 GCA_public = GCA_MET[GCA_MET['Public in ENA'] == "Y"]
-PublicGCA_new = GCA_public[GCA_public['publicly available date'] == "26/03/2024"]
-#PublicGCA_new = GCA_public[GCA_public['publicly available date'] == pd.to_datetime('today')]
-PublicGCA_new = PublicGCA_new.drop(['Public in ENA'], axis=1)
-PublicGCA_new = PublicGCA_new.drop(['Public in NCBI'], axis=1)
-PublicGCA_new = PublicGCA_new.drop(['Linked to Project'], axis=1)
-PublicGCA_new = PublicGCA_new.drop(['Linked to Sample'], axis=1)
-PublicGCA_new = PublicGCA_new.drop(['accession type'], axis=1)
+today = datetime.date.today().strftime('%d/%m/%Y')
+PublicGCA_new = GCA_public[GCA_public['publicly available date'] == today]
+# replace multiple column drops with integer based dropping
+PublicGCA_new = PublicGCA_new.drop(PublicGCA_new.iloc[:,13:17], axis=1)
 PublicGCA_new.rename(columns={'accessions': 'GCA ID'}, inplace=True)
+
 PublicGCA_new['contig range'] = ""
 PublicGCA_new['chromosome range'] = ""
 for ind in PublicGCA_new.index:
@@ -63,8 +73,7 @@ for ind in PublicGCA_new.index:
             PublicGCA_new['chromosome range'][ind] = tracking_set['accessions'][i]
 
 #join the new accessions with existing tracking file
-frames = [PublicGCA_old, PublicGCA_new]
-PublicGCA = pd.concat(frames, ignore_index=True)
+PublicGCA = pd.concat([PublicGCA_old, PublicGCA_new], ignore_index=True)
 PublicGCA = PublicGCA.drop(['Unnamed: 0'], axis=1)
 
 # create summary of assemblies being released per phase
@@ -97,8 +106,14 @@ Releasing_GCA = GCAnotPublic[GCAnotPublic['phase'] == "Releasing GCAs"]
 Processing_NCBI = GCAnotPublic[GCAnotPublic['phase'] == "Processing at NCBI"]
 Releasing_seq = GCAnotPublic[GCAnotPublic['phase'] == "Releasing sequences"]
 
+####################
+##  FILE OUTPUTS  ##
+####################
+
 # save summary tracking file
-PublicGCA.to_csv('Public_GCAs.txt', sep="\t")
-Releasing_GCA.to_csv('Releasing_GCAs.txt', sep="\t")
-Processing_NCBI.to_csv('Processing_NCBI.txt', sep="\t")
-Releasing_seq.to_csv('Releasing_sequences.txt', sep="\t")
+PublicGCA.to_csv(f'{tracking_files_path}/Public_GCAs.txt', sep="\t")
+Releasing_GCA.to_csv(f'{tracking_files_path}/Releasing_GCAs.txt', sep="\t")
+Processing_NCBI.to_csv(f'{tracking_files_path}/Processing_NCBI.txt', sep="\t")
+Releasing_seq.to_csv(f'{tracking_files_path}/Releasing_sequences.txt', sep="\t")
+
+

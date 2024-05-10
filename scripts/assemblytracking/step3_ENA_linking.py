@@ -21,25 +21,6 @@ import numpy as np
 import pandas as pd
 from pandas import json_normalize
 
-# 1) set the working directory (depends if tracking ASG or DToL or ERGA)
-
-#os.chdir('c:\Data\EMBL-EBI\DToL\Assembly_tracking')
-#os.chdir('c:\Data\EMBL-EBI\ASG\Assembly_tracking')
-#os.chdir('c:\Data\EMBL-EBI\ERGA\Assembly_tracking')
-#os.chdir('c:/Users/jasmine/Documents/ASG/Assembly tracking')
-
-# import tracking file
-tracking = pd.read_csv('tracking_file.txt', sep='\t')
-tracking = tracking.drop(['Unnamed: 0'], axis=1)
-
-# base url for portal API
-base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
-
-# create sub dataframe with accessions not linked at ENA
-dataset_ENA = tracking[(tracking["Linked to Project"] == "N") | (tracking["Linked to Sample"] == "N")]
-Sample = dataset_ENA['sample ID'].unique()
-Project = dataset_ENA['project'].unique()
-
 # Portal API function
 def get_links(field,type):
     v_range = pd.DataFrame([])
@@ -78,20 +59,54 @@ def get_links(field,type):
         e_range = pd.concat(status_error_list, ignore_index=True)
     return v_range, e_range
 
+##################
+##  USER INPUT  ##
+##################
+# TODO: use argparse function
+# set the working directory
+# check the current working directory
+os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
+# set thw working directory to location of scripts and of config file
+os.chdir('scripts/assemblytracking/')
+# set which project to track - determines the folder where tracking files will be read and written
+project = 'DToL'  # or ASG or ERGA
+
+# set the location of the tracking files
+tracking_files_path = f'{project}-tracking-files'
+tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
+
+#set the location of the config file
+config_file_path = 'config.yaml'
+
+###################
+##  FILE INPUTS  ##
+###################
+tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
+
+#############
+##  MAIN   ##
+#############
+#TODO: check if I'm checking version for chromosomes and GCAs
+
+# import tracking file
+tracking = tracking.drop(['Unnamed: 0'], axis=1)
+
+# base url for portal API
+base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
+
+# create sub dataframe with accessions not linked at ENA
+dataset_ENA = tracking[(tracking["Linked to Project"] == "N") | (tracking["Linked to Sample"] == "N")]
+Sample = dataset_ENA['sample ID'].unique()
+Project = dataset_ENA['project'].unique()
+
 # Project links to wgs_set
 print("Project links to contigs")
-get_links(Project, 'wgs_set')
-v_range, e_range = get_links(Project, 'wgs_set')
-Project_contigs = pd.DataFrame(v_range)
-Project_contigs_re = pd.DataFrame(e_range)
-print(Project_contigs)
+Project_contigs, Project_contigs_re = get_links(Project, 'wgs_set')
 
 # Project links to chromosomes
 print("Project links to chromosomes")
-get_links(Project, 'sequence')
-v_range, e_range = get_links(Project, 'sequence')
-Project_chr = pd.DataFrame(v_range)
-Project_chr_re = pd.DataFrame(e_range)
+Project_chr, Project_chr_re = get_links(Project, 'sequence')
+
 Project_chr_range = pd.DataFrame()
 if Project_chr.empty == True:
     print("no project chromosome links")
@@ -102,38 +117,24 @@ else:
     Project_chr_range = Project_chr.groupby(Project_chr['project/sample ID'], as_index = False).aggregate(aggregation_functions)
     Project_chr_range['chr_range'] = Project_chr_range['accession'] + "-" + Project_chr_range['accession_last']
     print(Project_chr_range)
-    Project_chr_range.to_csv('Project_chr_range.txt', sep="\t")
+    # Project_chr_range.to_csv('Project_chr_range.txt', sep="\t") #moved to file outputs section
 
 # Project links to GCAs
 print("Project links to GCA")
-get_links(Project, 'assembly')
-v_range, e_range = get_links(Project, 'assembly')
-Project_GCA = pd.DataFrame(v_range)
-Project_GCA_re = pd.DataFrame(e_range)
-print(Project_GCA)
+Project_GCA, Project_GCA_re = get_links(Project, 'assembly')
 
 # Project links to Analysis
 print("Project links to metagenomes")
-get_links(Project, 'analysis')
-v_range, e_range = get_links(Project, 'analysis')
-Project_analysis = pd.DataFrame(v_range)
-Project_analysis_re = pd.DataFrame(e_range)
-print(Project_analysis)
+Project_analysis, Project_analysis_re = get_links(Project, 'analysis')
 
 # Sample links to wgs_set
 print("Sample links to contigs")
-get_links(Sample, 'wgs_set')
-v_range, e_range = get_links(Sample, 'wgs_set')
-Sample_contigs = pd.DataFrame(v_range)
-Sample_contigs_re = pd.DataFrame(e_range)
-print(Sample_contigs)
+Sample_contigs, Sample_contigs_re = get_links(Sample, 'wgs_set')
 
 # Sample links to chromosomes
 print("Sample links to chromosomes")
-get_links(Sample, 'sequence')
-v_range, e_range = get_links(Sample, 'sequence')
-Sample_chr = pd.DataFrame(v_range)
-Sample_chr_re = pd.DataFrame(e_range)
+Sample_chr, Sample_chr_re = get_links(Sample, 'sequence')
+
 Sample_chr_range = pd.DataFrame()
 if Sample_chr.empty == True:
     print("no sample chromosome links")
@@ -147,19 +148,11 @@ else:
 
 # Sample links to GCA
 print("Sample links to GCA")
-get_links(Sample, 'assembly')
-v_range, e_range = get_links(Sample, 'assembly')
-Sample_GCA = pd.DataFrame(v_range)
-Sample_GCA_re = pd.DataFrame(e_range)
-print(Sample_GCA)
+Sample_GCA, Sample_GCA_re = get_links(Sample, 'assembly')
 
 # Sample links to Analysis
 print("Sample links to metagenomes")
-get_links(Sample, 'analysis')
-v_range, e_range = get_links(Sample, 'analysis')
-Sample_analysis = pd.DataFrame(v_range)
-Sample_analysis_re = pd.DataFrame(e_range)
-print(Sample_analysis)
+Sample_analysis, Sample_analysis_re = get_links(Sample, 'analysis')
 
 # update info on tracking file
 for ind in dataset_ENA.index:
@@ -194,10 +187,13 @@ for ind in dataset_ENA.index:
                 tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_chr_range['chr_range']), 'Y', 'N')
 print(tracking)
 
+####################
+##  FILE OUTPUTS  ##
+####################
+
 # save updated tracking file
-tracking.to_csv('tracking_file.txt', sep="\t")
+tracking.to_csv(f'{tracking_files_path}/tracking_file.txt', sep="\t")
 
-#Project_chr_range.to_csv('project_links_chr.txt', sep="\t")
+# save additional output(s)
+Project_chr_range.to_csv(f'{tracking_files_path}/Project_chr_range.txt', sep="\t")
 #Project_links_re.to_csv('project_links_errors.txt', sep="\t")
-
-#check if I'm checking version for chromosomes and GCAs
