@@ -240,6 +240,14 @@
         "source": "HSE (UK)"
     },
     {
+        "name": "Paracoccidioides lutzii",
+        "hazard_group": 3,
+        "notes": "",
+        "taxon_id": 1048829,
+        "taxon_rank": "Species",
+        "source": "HSE (UK)"
+    },
+    {
         "name": "Rhinocladiella mackenziei",
         "hazard_group": 3,
         "notes": "formerly Ramichloridium",
