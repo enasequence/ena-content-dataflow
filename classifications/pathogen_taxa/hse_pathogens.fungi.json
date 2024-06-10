@@ -282,16 +282,8 @@
     {
         "name": "Scedosporium apiospermum",
         "hazard_group": 2,
-        "notes": "",
+        "notes": "formerly Pseudallescheria boydii",
         "taxon_id": 563466,
-        "taxon_rank": "Species",
-        "source": "HSE (UK)"
-    },
-    {
-        "name": "Scedosporium boydii",
-        "hazard_group": 2,
-        "notes": "",
-        "taxon_id": 5597,
         "taxon_rank": "Species",
         "source": "HSE (UK)"
     },

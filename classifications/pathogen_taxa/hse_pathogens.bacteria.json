@@ -1,5 +1,13 @@
 [
     {
+        "name": "Acinetobacter baumannii",
+        "hse_hazard_group": 2,
+        "notes": "",
+        "taxon_id": 470,
+        "taxon_rank": "Species",
+        "source": "HSE (UK)"
+    },
+    {
         "name": "Actinomadura madurae",
         "hse_hazard_group": 2,
         "notes": "",
