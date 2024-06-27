@@ -2,3 +2,4 @@
 scripts/output.txt
 .idea
 scripts/assemblytracking/*-tracking-files
+scripts/assemblytracking/config_private.yaml

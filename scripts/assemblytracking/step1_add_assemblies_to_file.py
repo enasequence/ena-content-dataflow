@@ -30,7 +30,7 @@ os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-d
 # set thw working directory to location of scripts and of config file
 os.chdir('scripts/assemblytracking/')
 # set which project to track - determines the folder where tracking files will be read and written
-project = 'ASG'  # or ASG or ERGA
+project = 'DToL'  # DToL or ASG or ERGA
 
 # set the location of the tracking files
 tracking_files_path = f'{project}-tracking-files'
@@ -49,7 +49,7 @@ tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
 tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
 
 # import file with new accessions to add to tracking file
-data = pd.read_excel(f'{tracking_files_path}/ASG assembly tracking.xlsx', sheet_name='Releasing sequences')
+data = pd.read_excel(f'{tracking_files_path}/{project} assembly tracking.xlsx', sheet_name='Releasing sequences')
 
 #############
 ##  MAIN   ##
@@ -60,10 +60,14 @@ data = pd.read_excel(f'{tracking_files_path}/ASG assembly tracking.xlsx', sheet_
 # get Taxon info and report API errors.
 # add to tracking file and indexing - look at improving indexing.
 
+
+
+
 # get index of the latest row in the tracking file and increment this index onto new assemblies to be added to tracking
 last_index = tracking['index'].iloc[-1]
 # subset input data by slicing dataframe
 dataset = data.iloc[:, 0:11] #dataset = data.loc[:,'name':'Assembly type'] #this also works
+#apply index to new accessions dataset
 dataset.index = dataset.index + last_index + 1
 
 
@@ -88,7 +92,7 @@ Taxon = pd.concat(df_data_list, ignore_index=True)
 # subset columns
 Taxon.columns = ['taxon','sample ID']
 Taxon.index = Taxon.index + last_index + 1
-print(Taxon)
+
 #initial import version (commented out)
 #Taxon.columns = ['sample ID', 'tax_id', 'taxon']
 #Taxon1 = Taxon.drop(['sample ID', 'tax_id'], axis=1)
@@ -140,7 +144,7 @@ dataset3 = dataset2.drop(['GCA ID', 'Contig range', 'Chr range'], axis=1)
 #join the new accessions with existing tracking file
 frames = [tracking, dataset3]
 tracking_new = pd.concat(frames, ignore_index=True)
-tracking_new = tracking_new.drop(['Unnamed: 0'], axis=1)
+#tracking_new = tracking_new.drop(['Unnamed: 0'], axis=1) #not needed...
 
 tracking_new.to_csv(tracking_file_path, sep="\t")
 

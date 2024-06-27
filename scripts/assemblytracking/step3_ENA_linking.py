@@ -63,20 +63,18 @@ def get_links(field,type):
 ##  USER INPUT  ##
 ##################
 # TODO: use argparse function
+
 # set the working directory
 # check the current working directory
 os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
 # set thw working directory to location of scripts and of config file
 os.chdir('scripts/assemblytracking/')
 # set which project to track - determines the folder where tracking files will be read and written
-project = 'DToL'  # or ASG or ERGA
-
+project = 'DToL'  # DToL or ASG or ERGA
 # set the location of the tracking files
 tracking_files_path = f'{project}-tracking-files'
 tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
 
-#set the location of the config file
-config_file_path = 'config.yaml'
 
 ###################
 ##  FILE INPUTS  ##
@@ -87,9 +85,6 @@ tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
 ##  MAIN   ##
 #############
 #TODO: check if I'm checking version for chromosomes and GCAs
-
-# import tracking file
-tracking = tracking.drop(['Unnamed: 0'], axis=1)
 
 # base url for portal API
 base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
