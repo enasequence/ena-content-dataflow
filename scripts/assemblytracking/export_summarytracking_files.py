@@ -28,7 +28,7 @@ os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-d
 # set thw working directory to location of scripts and of config file
 os.chdir('scripts/assemblytracking/')
 # set which project to track - determines the folder where tracking files will be read and written
-project = 'ASG'  # or ASG or ERGA
+project = 'DToL'  # DToL or ASG or ERGA
 
 # set the location of the tracking files
 tracking_files_path = f'{project}-tracking-files'
@@ -53,10 +53,12 @@ PMET = tracking[tracking['Assembly type'] == 'primary metagenome']
 BMET = tracking[tracking['Assembly type'] == 'binned metagenome']
 GCA_MET = pd.concat([GCA, PMET, BMET], ignore_index=True)
 del GCA, PMET, BMET
+
 GCA_public = GCA_MET[GCA_MET['Public in ENA'] == "Y"]
 today = datetime.date.today().strftime('%d/%m/%Y')
 PublicGCA_new = GCA_public[GCA_public['publicly available date'] == today]
-# replace multiple column drops with integer based dropping
+
+# drop columns - replace multiple column drops with integer based range dropping
 PublicGCA_new = PublicGCA_new.drop(PublicGCA_new.iloc[:,13:17], axis=1)
 PublicGCA_new.rename(columns={'accessions': 'GCA ID'}, inplace=True)
 

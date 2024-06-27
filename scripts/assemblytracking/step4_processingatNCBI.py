@@ -113,20 +113,19 @@ def get_seq(field):
 ##  USER INPUT  ##
 ##################
 #TODO: use argparse function
+
 # set the working directory
 # check the current working directory
 os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
 # set thw working directory to location of scripts and of config file
 os.chdir('scripts/assemblytracking/')
 # set which project to track - determines the folder where tracking files will be read and written
-project = 'DToL'  # or ASG or ERGA
-
+project = 'DToL'  # DToL or ASG or ERGA
 # set the location of the tracking files
 tracking_files_path = f'{project}-tracking-files'
 tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-
 #set the location of the config file
-config_file_path = 'config.yaml'
+config_file_path = 'config_private.yaml'
 
 ###################
 ##  FILE INPUTS  ##
@@ -154,7 +153,6 @@ get_seq('Contigs')
 get_seq('Chromosomes')
 
 # check GCA
-get_GCA('accessions')
 GCA, GCA_re = get_GCA('accessions')
 
 # compare ids between GCA and tracking info
