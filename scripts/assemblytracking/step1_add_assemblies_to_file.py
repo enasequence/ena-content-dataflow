@@ -26,16 +26,20 @@ from pandas import json_normalize
 ##################
 # set the working directory
 # check the current working directory
-os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
+ # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
 # set thw working directory to location of scripts and of config file
-os.chdir('scripts/assemblytracking/')
-# set which project to track - determines the folder where tracking files will be read and written
-project = 'DToL'  # DToL or ASG or ERGA
 
-# set the location of the tracking files
-tracking_files_path = f'{project}-tracking-files'
-tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-# TODO: use argparse function
+# set which project to track - determines the folder where tracking files will be read and written
+  # DToL or ASG or ERGA
+
+
+parser = argparse.ArgumentParser(description="sql_processingatENA")
+parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
+parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                                                default="scripts/assemblytracking/")
+opts = parser.parse_args()
+
 
 ###################
 ##  FILE INPUTS  ##
@@ -45,29 +49,35 @@ tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
 # rename column names to 'dataset' format
 #dataset = pd.DataFrame(data, columns=['name', 'submission date', 'accessioned', 'shared to NCBI', 'project', 'analysis ID', 'sample ID', 'GCA ID', 'Contig range', 'Chr range','Assembly type'])
 
-# import tracking file
-tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
-
-# import file with new accessions to add to tracking file
-data = pd.read_excel(f'{tracking_files_path}/{project} assembly tracking.xlsx', sheet_name='Releasing sequences')
 
 #############
 ##  MAIN   ##
 #############
 # Purpose of script - adds new assemblies to the tracking_file.txt in the format used for logging and tracking of
 # the progress of the assemblies release.
+# add if __name__ == "__main__":
 #TODO: tidy this script into functions:
-# get Taxon info and report API errors.
-# add to tracking file and indexing - look at improving indexing.
+# 1- get Taxon info and report API errors.
+# 2 - add to tracking file and indexing - look at improving indexing.
 
-
+# set thw working directory to location of scripts and of config file
+os.chdir(opts.workingdir)
+# set which project to track - determines the folder where tracking files will be read and written
+project = opts.project  # DToL or ASG or ERGA
+# set the location of the tracking files
+tracking_files_path = f'{project}-tracking-files'
+tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
+# import tracking file
+tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
+# import file with new accessions to add to tracking file
+data = pd.read_csv(f'{tracking_files_path}/Releasing_sequences.txt', sep='\t', header=True)
 
 
 # get index of the latest row in the tracking file and increment this index onto new assemblies to be added to tracking
 last_index = tracking['index'].iloc[-1]
 # subset input data by slicing dataframe
-dataset = data.iloc[:, 0:11] #dataset = data.loc[:,'name':'Assembly type'] #this also works
-#apply index to new accessions dataset
+dataset = data.iloc[:, 0:11] # dataset = data.loc[:,'name':'Assembly type'] #this also works
+# apply index to new accessions dataset
 dataset.index = dataset.index + last_index + 1
 
 

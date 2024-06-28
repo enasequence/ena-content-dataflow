@@ -14,11 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import os, sys, argparse, configparser, logging
 import pandas as pd
-import configparser
 from sqlalchemy import create_engine
-import logging
+
+
+parser = argparse.ArgumentParser(description="sql_processingatENA")
+parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
+parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                                                default="scripts/assemblytracking/")
+opts = parser.parse_args()
 
 def get_db_creds(database, config_file_path):
     # creates the 'engine' object which makes it possible to read an oracle database
@@ -62,12 +68,12 @@ def check_era_for_submission(engine, xlinput):
             # get the term to search (after last .) and then add wildcard
             # NOTE: keep in touch with Sanger about naming conventions!!!
             eraname = None
-            tolid_list = name.split('.')
-            tolid = tolid_list[0]
-            if len(tolid_list) == 2:
+            split_name_list = name.split('.')
+            tolid = split_name_list[0]
+            if len(split_name_list) == 2:
                 eraname = 'webin-genome-' + tolid + '%'
-            elif len(tolid_list) == 3:
-                eraname = 'webin-genome-' + tolid + '.' + tolid_list[1] + '%'
+            elif len(split_name_list) == 3:
+                eraname = 'webin-genome-' + tolid + '.' + split_name_list[1] + '%'
             else:
                 row_index = xlinput.loc[xlinput["name to track"] == name].index[0]
                 xlinput.loc[row_index, "notes"] = 'unexpected name format, not tracked!'
@@ -92,7 +98,7 @@ def check_era_for_submission(engine, xlinput):
                                         where analysis_alias like ('{eraname}')"""
             tempdf = pd.read_sql(query_string, conn, parse_dates={'first_created': '%Y-%m-%d %H:%M:%S'})
 
-            namesfound = tempdf['analysis_alias'].unique()  # gets unique cases bcos 2 rows for each result
+            namesfound = tempdf['analysis_alias'].unique()  # gets unique cases bc 2 rows for each result
             namesfound = list(namesfound)
 
             # save results to processing at ENA stage (intermediary step)
@@ -102,20 +108,20 @@ def check_era_for_submission(engine, xlinput):
                          "state": "status"})
             pipelite_result = pd.concat([pipelite_result, tempdf])
 
-            # add notes to the original input dataframe about results of searches
+            # add notes to the original input dataframe about results of searches, get output names list
             note = ''
             if len(namesfound) > 0:
-                note += 'found '
+                note += 'found record(s)'
                 for name1 in namesfound:
                     name1 = name1.replace('webin-genome-', '')
                     era_result_name_list.append(name1)
-                    note += (name1 + ', ')
             else:
                 note += 'no submission found'
             row_index = xlinput.loc[xlinput["name to track"] == name].index[0]
             xlinput.loc[row_index, "notes"] = note
 
     conn.close()
+
     print('DONE')
 
     # filter 1 - remove assembly names that have an error based on 'in error at ena'
@@ -127,9 +133,6 @@ def check_era_for_submission(engine, xlinput):
         item = item.replace('webin-genome-', '')
         in_error_name_list.append(item)
     era_result_no_errors = set(era_result_name_list) - set(in_error_name_list)
-
-    in_error_at_ena.to_csv(f'{tracking_files_path}/In_error_at_ENA.txt', sep='\t', index=False)
-    print(f'Find assemblies with errors at: {tracking_files_path}/In_error_at_ENA.txt')
 
     xlinput.to_csv(f'{tracking_files_path}/In_process_to_submit.txt', sep='\t', index=False)
     print(f'In Process to Submit notes added, check the file at: {tracking_files_path}/In_process_to_submit.txt')
@@ -146,51 +149,62 @@ def check_era_for_submission(engine, xlinput):
     new_names = set(era_result_no_errors) - set(tracked_names)
     print(len(new_names), 'new names found.')
 
-    return new_names
+    return new_names, in_error_at_ena
 
-def get_ena_accessions(engine, new_names):
+
+def get_ena_accessions(engine, new_names, in_error_at_ena):
     # TODO: change loop storage from df concatenation to list of dictionary?
     ##search for assemblies in ENA database and get accession numbers
     # have status 4 - move to next step
     # have status 2 - 'In error at ENA'
-    releasing_sequences = pd.DataFrame(columns=['name', 'submission date', 'accessioned', 'shared to NCBI', 'project',
+    gcsassembly_result = pd.DataFrame(columns=['name', 'submission date', 'accessioned', 'shared to NCBI', 'project',
                                                 'analysis ID', 'sample ID', 'GCA ID', 'Contig range', 'Chr range',
                                                 'Assembly type', 'status ID', 'Notes'])
 
     with engine.connect() as conn:  # opens the connection to database
         print('retrieving assembly sequence accessions from ENAREAD...')
 
+        new_names = sorted(new_names)
         for name in new_names:
-            # tolidlist = name.split('.')
-            # tolid = tolidlist[0]
-            # name = name + '%'
-            # the primary assembly name is not changed
+            enaname = None
+            #split_name_list = name.split('.')
+            #tolid = split_name_list[0]
+            #if len(split_name_list) == 2:
+            enaname = name.replace('_alternate_haplotype', ' alternate haplotype')
+            #elif len(split_name_list) == 3:
+            #    enaname = tolid + '.' + split_name_list[1] + '.' + split_name_list[2]
+            #else:
+            #    row_index = xlinput.loc[xlinput["name to track"] == name].index[0]
+            #    xlinput.loc[row_index, "notes"] = 'unexpected name format, not tracked!'
+            print('searching for', enaname)
             query_string = f"""select name,created,accessioned,submitted,project_acc,assembly_id,biosample_id,gc_id,
             contig_acc_range,chromosome_acc_range,assembly_type,status_id 
                                 from GCS_ASSEMBLY
-                            where name = '{name}'"""
-            tempdf = pd.read_sql(query_string, conn, parse_dates={'submitted': '%Y-%m-%d %H:%M:%S'})
+                            where name = '{enaname}'"""
+            tempdf = pd.read_sql(query_string, conn, parse_dates={"submitted": {"format": "%d/%m/%y"}}) #%H:%M:%S
             # save the result...
-            outtempdf = tempdf.rename(
+            tempdf = tempdf.rename(
                 columns={"created": "submission date", "submitted": "shared to NCBI", "project_acc": "project",
                          "assembly_id": "analysis ID", "biosample_id": "sample ID", "gc_id": "GCA ID",
                          "contig_acc_range": "Contig range", "chromosome_acc_range": "Chr range",
                          "assembly_type": "Assembly type", "status_id": "status ID"})
-            releasing_sequences = pd.concat([releasing_sequences, outtempdf])
+            gcsassembly_result = pd.concat([gcsassembly_result, tempdf])
     conn.close()
     print('DONE')
     # Filter 3 - remove any assemblies that do not have status 4
-    not_released = releasing_sequences.loc[releasing_sequences["status ID"] != 4]
+    not_released = gcsassembly_result.loc[gcsassembly_result["status ID"] != 4]
     error_append_table = not_released.iloc[:, [0, 1, 4, 5, 11, 10, 7]]
     print(error_append_table)
-    in_error = pd.read_csv(f'{tracking_files_path}/In_error_at_ENA.txt', sep='\t')
-    in_error_at_ena = pd.concat([in_error, error_append_table])
-    in_error_at_ena.to_csv(f'{tracking_files_path}/In_error_at_ENA.txt', sep='\t', index=False)
+    in_error = pd.concat([in_error_at_ena, error_append_table])
+    in_error.to_csv(f'{tracking_files_path}/In_error_at_ENA.txt', sep='\t', index=False)
+    print(len(in_error), f' submissions with errors in: {tracking_files_path}/In_error_at_ENA.txt')
 
     # save result
-    print(len(releasing_sequences), 'new assemblies with accessions found ready to be added to the tracking file')
+    releasing_sequences = gcsassembly_result.loc[gcsassembly_result["status ID"] == 4]
+    releasing_sequences = releasing_sequences.sort_values(by=["submission date", "name"])
     releasing_sequences.to_csv(f'{tracking_files_path}/Releasing_sequences.txt', sep='\t', index=False)
-    return releasing_sequences
+    print(len(releasing_sequences), f'''new assemblies with accessions found ready to be added to the tracking file
+    in: {tracking_files_path}/Releasing_sequences.txt''')
 
 
 #############
@@ -199,26 +213,25 @@ def get_ena_accessions(engine, new_names):
 # Purpose of script - automate running of SQL queries and getting SQL results to remove copy and paste into SQL cmd step
 # from the tracking process
 
-if __name__ == "main":
+if __name__ == "__main__":
     # TODO: use argparse function
     # set thw working directory to location of scripts and of config file
-    os.chdir('scripts/assemblytracking/')
+    os.chdir(opts.workingdir)
     # set which project to track - determines the folder where tracking files will be read and written
-    project = 'DToL'  # DToL or ASG or ERGA
+    project = opts.project  # DToL or ASG or ERGA
     # set the location of the tracking files
     tracking_files_path = f'{project}-tracking-files'
     # set the location of the downloaded excel file for reading
     exceldl_path = f'{tracking_files_path}/{project} assembly tracking.xlsx'
-    # set the location of the config file
-    config_file_path = 'config_private.yaml'
     # FILE OUTPUTS SAVE LOCATIONS
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
     # read in the 0th sheet of Excel file, use first row as header
     xlinput = pd.read_excel(exceldl_path, sheet_name=0, header=1)
     xlinput = xlinput.drop(['Unnamed: 3'], axis=1)
     # run functions
-    get_db_creds(database='ERA', config_file_path='config_private.yaml')
-    check_era_for_submission(engine, xlinput)
-    get_db_creds(database='ENA', config_file_path='config_private.yaml')
-    get_ena_accessions(engine, new_names)
+    engine = get_db_creds(database='ERA', config_file_path=opts.config)
+    new_names, in_error_at_ena = check_era_for_submission(engine, xlinput)
+    engine = get_db_creds(database='ENA', config_file_path=opts.config)
+    get_ena_accessions(engine, new_names, in_error_at_ena)
+
 
