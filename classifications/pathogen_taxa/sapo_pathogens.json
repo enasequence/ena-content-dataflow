@@ -1,0 +1,466 @@
+[
+    {
+        "taxon_id":40050,
+        "name":"Orbivirus alphaequi",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"African horse sickness virus"
+    },
+    {
+        "taxon_id":10497,
+        "name":"African swine fever virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"African swine fever virus ASF"
+    },
+    {
+        "taxon_id":167791,
+        "name":"Bauhinia variegata",
+        "classification":"eudicots",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Bauhinia variegata"
+    },
+    {
+        "taxon_id":11320,
+        "name":"Influenza A virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Human Influenza A Virus"
+    },
+    {
+        "taxon_id":5865,
+        "name":"Babesia bovis",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Babesia bovis"
+    },
+    {
+        "taxon_id":5866,
+        "name":"Babesia bigemina",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Babesia bigemina"
+    },
+    {
+        "taxon_id":5871,
+        "name":"Babesia caballi",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Babesia caballi "
+    },
+    {
+        "taxon_id":1392,
+        "name":"Bacillus anthracis",
+        "classification":"firmicutes",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"anthrax, anthrax bacterium"
+    },
+    {
+        "taxon_id":40051,
+        "name":"Bluetongue virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Bluetongue virus group"
+    },
+    {
+        "taxon_id":11901,
+        "name":"Bovine leukemia virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"bovine leukemia virus BLV"
+    },
+    {
+        "taxon_id":235,
+        "name":"Brucella abortus",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Brucella melitensis bv. Abortus"
+    },
+    {
+        "taxon_id":29459,
+        "name":"Brucella melitensis",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Streptococcus Miletensis"
+    },
+    {
+        "taxon_id":236,
+        "name":"Brucella ovis",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Brucella melitensis bv. Ovis"
+    },
+    {
+        "taxon_id":29461,
+        "name":"Brucella suis",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Brucella melitensis bv. Suis"
+    },
+    {
+        "taxon_id":13373,
+        "name":"Burkholderia mallei",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Burkholderia mallei"
+    },
+    {
+        "taxon_id":11096,
+        "name":"Classical swine fever virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Hog cholera virus"
+    },
+    {
+        "taxon_id":115425,
+        "name":"Cochliomyia hominivorax",
+        "classification":"flies",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"primary screw-worm"
+    },
+    {
+        "taxon_id":11022,
+        "name":"Eastern equine encephalitis virus (STRAIN VA33[TEN BROECK])",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Eastern equine encephalitis virus (STRAIN VA33[TEN BROECK])"
+    },
+    {
+        "taxon_id":11025,
+        "name":"Western equine encephalitis virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Western equine encephalitis virus"
+    },
+    {
+        "taxon_id":6211,
+        "name":"Echinococcus multilocularis",
+        "classification":"flatworms",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Echinococcus multilocularis"
+    },
+    {
+        "taxon_id":6210,
+        "name":"Echinococcus granulosus",
+        "classification":"flatworms",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Echinococcus granulosus"
+    },
+    {
+        "taxon_id":779,
+        "name":"Ehrlichia ruminantium",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"heartwater rickettsia"
+    },
+    {
+        "taxon_id":11665,
+        "name":"Equine infectious anemia virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"equine infectious anemia virus EIAV"
+    },
+    {
+        "taxon_id":12110,
+        "name":"Foot-and-mouth disease virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Foot and mouth disease virus"
+    },
+    {
+        "taxon_id":3052223,
+        "name":"Henipavirus hendraense",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Henipavirus hendraense"
+    },
+    {
+        "taxon_id":149547,
+        "name":"Histoplasma capsulatum var. Farciminosum",
+        "classification":"fungi",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Histoplasma capsulatum var. Farciminosum"
+    },
+    {
+        "taxon_id":11072,
+        "name":"Japanese encephalitis virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Japanese encephalitis (JE) virus"
+    },
+    {
+        "taxon_id":59509,
+        "name":"Lumpy skin disease virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Lumpy skin disease virus"
+    },
+    {
+        "taxon_id":2110,
+        "name":"Mycoplasmopsis agalactiae",
+        "classification":"bacteria",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Mycoplasmopsis agalactiae "
+    },
+    {
+        "taxon_id":40480,
+        "name":"Mycoplasma capricolum subsp. Capripneumoniae",
+        "classification":"mycoplasmas",
+        "taxon_rank":"subspecies",
+        "source":"SAPO",
+        "common_name":"Mycoplasma capricolum capripneumoniae"
+    },
+    {
+        "taxon_id":44101,
+        "name":"Mycoplasma mycoides subsp. mycoides SC",
+        "classification":"mycoplasmas",
+        "taxon_rank":"strain",
+        "source":"SAPO",
+        "common_name":"Mycoplasma mycoides subsp. mycoides SC"
+    },
+    {
+        "taxon_id":44100,
+        "name":"Mycoplasma mycoides subsp. capri LC",
+        "classification":"mycoplasmas",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Mycoplasma mycoides subsp. capri LC"
+    },
+    {
+        "taxon_id":40477,
+        "name":"Mycoplasma mycoides subsp. capri",
+        "classification":"mycoplasmas",
+        "taxon_rank":"subspecies",
+        "source":"SAPO",
+        "common_name":"Mycoplasma mycoides capri"
+    },
+    {
+        "taxon_id":2560319,
+        "name":"avian paramyxovirus type 1",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Avian orthoavulavirus 1"
+    },
+    {
+        "taxon_id":3052225,
+        "name":"Henipavirus nipahense",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Nipah henipavirus"
+    },
+    {
+        "taxon_id":2593991,
+        "name":"peste-des-petits-ruminants virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"peste-des-petits-ruminants virus"
+    },
+    {
+        "taxon_id":11292,
+        "name":"Lyssavirus rabies",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Rabies lyssavirus"
+    },
+    {
+        "taxon_id":11588,
+        "name":"Rift Valley Fever virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Rift Valley fever virus"
+    },
+    {
+        "taxon_id":11241,
+        "name":"Rinderpest morbillivirus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Rinderpest virus"
+    },
+    {
+        "taxon_id":11080,
+        "name":"St. Louis encephalitis virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Saint Louis encephalitis virus"
+    },
+    {
+        "taxon_id":10266,
+        "name":"Sheeppox virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"sheep pox virus"
+    },
+    {
+        "taxon_id":186805,
+        "name":"Goatpox virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Goatpox virus"
+    },
+    {
+        "taxon_id":12075,
+        "name":"Swine vesicular disease virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"Swine vesicular disease virus"
+    },
+    {
+        "taxon_id":118139,
+        "name":"Teschovirus",
+        "classification":"viruses",
+        "taxon_rank":"genus",
+        "source":"SAPO",
+        "common_name":"Teschovirus"
+    },
+    {
+        "taxon_id":5874,
+        "name":"Theileria annulata",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Theileria annulata"
+    },
+    {
+        "taxon_id":5872,
+        "name":"Theileria equi",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Theileria equi"
+    },
+    {
+        "taxon_id":5875,
+        "name":"Theileria parva",
+        "classification":"apicomplexans",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Theileria parva"
+    },
+    {
+        "taxon_id":6334,
+        "name":"Trichinella spiralis",
+        "classification":"nematodes",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trichinella spiralis"
+    },
+    {
+        "taxon_id":5691,
+        "name":"Trypanosoma brucei",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma brucei"
+    },
+    {
+        "taxon_id":5692,
+        "name":"Trypanosoma congolense",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma congolense"
+    },
+    {
+        "taxon_id":5694,
+        "name":"Trypanosoma equiperdum",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma equiperdum"
+    },
+    {
+        "taxon_id":5697,
+        "name":"Trypanosoma evansi",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma evansi"
+    },
+    {
+        "taxon_id":5701,
+        "name":"Trypanosoma simiae",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma simiae"
+    },
+    {
+        "taxon_id":5699,
+        "name":"Trypanosoma vivax",
+        "classification":"kinetoplastids",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Trypanosoma vivax"
+    },
+    {
+        "taxon_id":11036,
+        "name":"Venezuelan equine encephalomyelitis virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Venezuelan equine encephalitis virus"
+    },
+    {
+        "taxon_id":11276,
+        "name":"Vesicular stomatitis virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Vesicular stomatitis virus"
+    },
+    {
+        "taxon_id":11082,
+        "name":"West Nile virus",
+        "classification":"viruses",
+        "taxon_rank":"no rank",
+        "source":"SAPO",
+        "common_name":"West Nile virus"
+    },
+    {
+        "taxon_id":11976,
+        "name":"Rabbit hemorrhagic disease virus",
+        "classification":"viruses",
+        "taxon_rank":"species",
+        "source":"SAPO",
+        "common_name":"Rabbit hemorrhagic disease virus"
+    }
+]
