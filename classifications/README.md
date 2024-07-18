@@ -75,8 +75,9 @@ To generate CSV files for the Pathogens Portal classifications view, we use the 
 
 1. validate all taxon IDs and names listed in the source JSON against a taxonomy API (unless the `--no-validate` flag is used)
 2. remove duplicates and group common taxa across sources
-3. extract priority pathogens based on the list of priority sources (currently just WHO) and write CSV file
-4. write CSV file for each classification (bacteria, fungi, etc)
+3. print some stats/counts
+4. extract priority pathogens based on the list of priority sources (currently just WHO) and write CSV file
+5. write CSV file for each classification (bacteria, fungi, etc)
 
 #### To run:
 ```
