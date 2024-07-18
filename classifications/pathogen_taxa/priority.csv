@@ -1,0 +1,42 @@
+Taxonomy ID,Scientific Name,Type,Rank,Source
+287,Pseudomonas aeruginosa,Bacteria,Species,WHO
+470,Acinetobacter baumannii,Bacteria,Species,WHO
+485,Neisseria gonorrhoeae,Bacteria,Species,WHO
+543,Enterobacteriaceae,Bacteria,Family,WHO
+590,Salmonella,Bacteria,Genus,WHO
+620,Shigella,Bacteria,Genus,WHO
+727,Haemophilus influenzae,Bacteria,Species,WHO
+1280,Staphylococcus aureus,Bacteria,Species,WHO
+1313,Streptococcus pneumoniae,Bacteria,Species,WHO
+1319,Streptococcus sp. 'group B',Bacteria,Species,WHO
+1352,Enterococcus faecium,Bacteria,Species,WHO
+1773,Mycobacterium tuberculosis,Bacteria,Species,WHO
+4827,Mucorales,Fungi,Order,WHO
+4909,Pichia kudriavzevii,Fungi,Species,WHO
+5036,Histoplasma,Fungi,Genus,WHO
+5207,Cryptococcus neoformans,Fungi,Species,WHO
+5476,Candida albicans,Fungi,Species,WHO
+5478,Nakaseomyces glabratus,Fungi,Species,WHO
+5480,Candida parapsilosis,Fungi,Species,WHO
+5482,Candida tropicalis,Fungi,Species,WHO
+5500,Coccidioides,Fungi,Genus,WHO
+5506,Fusarium,Fungi,Genus,WHO
+10244,Monkeypox virus,Viruses,Species,WHO
+11269,Orthomarburgvirus marburgense,Viruses,Species,WHO
+11588,Rift Valley fever virus,Viruses,Species,WHO
+11620,Mammarenavirus lassaense,Viruses,Species,WHO
+36470,Streptococcus sp. 'group A',Bacteria,Species,WHO
+37727,Talaromyces marneffei,Fungi,Species,WHO
+38946,Paracoccidioides,Fungi,Genus,WHO
+41687,Scedosporium,Fungi,Genus,WHO
+41688,Lomentospora prolificans,Fungi,Species,WHO
+42068,Pneumocystis jirovecii,Fungi,Species,WHO
+64320,Zika virus,Viruses,Species,WHO
+121791,Henipavirus nipahense,Viruses,Species,WHO
+142796,Eumycetozoa,Protozoa,Class,WHO
+260964,Henipavirus,Viruses,Genus,WHO
+498019,Candida auris,Fungi,Species,WHO
+746128,Aspergillus fumigatus,Fungi,Species,WHO
+1570291,Ebola virus,Viruses,Species,WHO
+1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
+1980519,Orthonairovirus haemorrhagiae,Viruses,Species,WHO
