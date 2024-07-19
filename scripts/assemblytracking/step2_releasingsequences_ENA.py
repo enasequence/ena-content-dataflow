@@ -14,12 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import io
-import os
-import requests
+import io, os, requests, sys, argparse
 import numpy as np
 import pandas as pd
 from pandas import json_normalize
+
+parser = argparse.ArgumentParser(description="sql_processingatENA")
+parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                                                default="scripts/assemblytracking/")
+opts = parser.parse_args()
 
 # browser API function for project and sample
 def get_accessions(field):
@@ -136,177 +140,172 @@ def validation(range):
         print("##WARNING SAMPLE ERRORS##")
     return range, p_error, s_error
 
-##################
-##  USER INPUT  ##
-##################
-# TODO: use argparse function
-# set the working directory
-# check the current working directory
-os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
-# set thw working directory to location of scripts and of config file
-os.chdir('scripts/assemblytracking/')
-# set which project to track - determines the folder where tracking files will be read and written
-project = 'DToL'  # DToL or ASG or ERGA
-# set the location of the tracking files
-tracking_files_path = f'{project}-tracking-files'
-tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-
-###################
-##  FILE INPUTS  ##
-###################
-tracking = pd.read_csv(tracking_file_path, sep='\t',index_col=0)
 
 #############
 ##  MAIN   ##
 #############
+# purpose of script - uses ena browser API to check for links to sample and project in browser
 # TODO: NOT CHECKING VERSION FOR CHROMOSOMES - THINK ON HOW TO DO THIS
 
-# create sub dataframe with accessions not public at ENA
-dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
-#print(dataset_ENA.info()) #get infoo about dataframe
+if __name__ == "__main__":
+    # set the working directory
+    # check the current working directory
 
-# base url for browser API
-base_url = 'https://www.ebi.ac.uk/ena/browser/api/summary/'
+    os.chdir(opts.workingdir)
+    # set which project to track - determines the folder where tracking files will be read and written
+    project = opts.project  # DToL or ASG or ERGA
+    # set the location of the tracking files
+    tracking_files_path = f'{project}-tracking-files'
+    tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
 
-# to query the Browser API for taxID of project and export to a data frame
-print("Project")
-Project, Project_re = get_accessions('project')
-# Project data frame written out to txt at this point - moved to end - inexplicable why saved
+    # create sub dataframe with accessions not public at ENA
+    dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
+    #print(dataset_ENA.info()) #get infoo about dataframe
+    # base url for browser API
+    base_url = 'https://www.ebi.ac.uk/ena/browser/api/summary/'
+    # to query the Browser API for taxID of project and export to a data frame
+    print("Project")
+    Project, Project_re = get_accessions('project')
+    # Project data frame written out to txt at this point - moved to end - inexplicable why saved
 
-# to query the Browser API for taxID of sample and export to a data frame
-print("Sample")
-#get_accessions('sample ID')
-Sample, Sample_re = get_accessions('sample ID')
-print(Sample)
+    # to query the Browser API for taxID of sample and export to a data frame
+    print("Sample")
+    #get_accessions('sample ID')
+    Sample, Sample_re = get_accessions('sample ID')
+    print(Sample)
 
-# to query the Browser API for summary records of Contigs and export to a data frame
-print("Contigs")
-#get_data('Contigs')
-Contig_range, Contig_range_re = get_data('Contigs')
+    # to query the Browser API for summary records of Contigs and export to a data frame
+    print("Contigs")
+    #get_data('Contigs')
+    Contig_range, Contig_range_re = get_data('Contigs')
 
-# compare ids between project, sample, taxon and Contig_range
-Contig_range, Contig_Project_errors, Contig_sample_errors = validation(Contig_range)
-print(Contig_range)
+    # compare ids between project, sample, taxon and Contig_range
+    Contig_range, Contig_Project_errors, Contig_sample_errors = validation(Contig_range)
+    print(Contig_range)
 
-# read out contig_range, contig_project_errors, contig_sample_erros to csv file - moved to end of script
+    # read out contig_range, contig_project_errors, contig_sample_erros to csv file - moved to end of script
 
-# to query the Browser API for summary records of Chr_range and export it to a data frame
-print("Chr range")
-Chr_range, Chr_range_re = get_data('Chromosomes')
+    # to query the Browser API for summary records of Chr_range and export it to a data frame
+    print("Chr range")
+    Chr_range, Chr_range_re = get_data('Chromosomes')
 
-# compare ids between project, sample, taxon and Chr_range
-Chr_range, Chr_Project_errors, Chr_sample_errors = validation(Chr_range)
-#try to merge identical lines in the errors files
+    # compare ids between project, sample, taxon and Chr_range
+    Chr_range, Chr_Project_errors, Chr_sample_errors = validation(Chr_range)
+    #try to merge identical lines in the errors files
 
-# update info on tracking file for Contigs
-for ind in Contig_range.index:
-    accession = Contig_range['contigs'][ind]
-    if (Chr_range['version_OK'][ind] == "True" and Chr_range['project_OK'][ind] == "True" and
-            Chr_range['sample_OK'][ind] == "True" and Chr_range['taxon_prj_OK'][ind] == "True" and
-            Chr_range['taxon_sp_OK'][ind] == "True"):
-        tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
-        tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
-print(tracking)
+    # update info on tracking file for Contigs
+    for ind in Contig_range.index:
+        accession = Contig_range['contigs'][ind]
+        if (Chr_range['version_OK'][ind] == "True" and Chr_range['project_OK'][ind] == "True" and
+                Chr_range['sample_OK'][ind] == "True" and Chr_range['taxon_prj_OK'][ind] == "True" and
+                Chr_range['taxon_sp_OK'][ind] == "True"):
+            tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
+            tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
+    print(tracking)
 
 
 
-# read out chr_range, chr_project_errors, chr_sample_erros to csv file - moved to end of script
+    # read out chr_range, chr_project_errors, chr_sample_erros to csv file - moved to end of script
 
-# update info on tracking file for Chromosomes
-for ind in Chr_range.index:
-    i_accession = Chr_range['i'][ind]
-    Chr_range_i = Chr_range[Chr_range['i'] == i_accession]
-    first_accession = Chr_range_i['accession'].iloc[0]
-    last_accession = Chr_range_i['accession'].iloc[-1]
-    accession = first_accession + "-" + last_accession
-    print(accession)
-    if (Chr_range['version_OK'][ind] == "True" and Chr_range['project_OK'][ind] == "True" and
-            Chr_range['sample_OK'][ind] == "True" and Chr_range['taxon_prj_OK'][ind] == "True" and
-            Chr_range['taxon_sp_OK'][ind] == "True"):
-        tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
-        tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
-print(tracking)
+    # update info on tracking file for Chromosomes
+    for ind in Chr_range.index:
+        i_accession = Chr_range['i'][ind]
+        Chr_range_i = Chr_range[Chr_range['i'] == i_accession]
+        first_accession = Chr_range_i['accession'].iloc[0]
+        last_accession = Chr_range_i['accession'].iloc[-1]
+        accession = first_accession + "-" + last_accession
+        print(accession)
+        if (Chr_range['version_OK'][ind] == "True" and Chr_range['project_OK'][ind] == "True" and
+                Chr_range['sample_OK'][ind] == "True" and Chr_range['taxon_prj_OK'][ind] == "True" and
+                Chr_range['taxon_sp_OK'][ind] == "True"):
+            tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
+            tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime(
+                'today').strftime('%d/%m/%Y')
+    print(tracking)
 
-# to query the Browser API for summary records of GCAs and export to a data frame
-print("GCA")
-GCA, GCA_re = get_data('GCA')
+    # to query the Browser API for summary records of GCAs and export to a data frame
+    print("GCA")
+    GCA, GCA_re = get_data('GCA')
 
-# compare ids between project, sample, taxon and GCA
-GCA, p_error, s_error = validation(GCA)
+    # compare ids between project, sample, taxon and GCA
+    GCA, p_error, s_error = validation(GCA)
 
-# write GCA to file at this point - this has been moved to end of script to include with outputs
+    # write GCA to file at this point - this has been moved to end of script to include with outputs
 
-# update info on tracking file for GCAs
-for ind in GCA.index:
-    accession = GCA['accession'][ind]
-    if GCA['version_OK'][ind] == "True":
-        tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
-        tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
-print(tracking)
+    # update info on tracking file for GCAs
+    for ind in GCA.index:
+        accession = GCA['accession'][ind]
+        if GCA['version_OK'][ind] == "True":
+            tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
+            tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime(
+                'today').strftime('%d/%m/%Y')
+    print(tracking)
 
-#to query the Browser API for summary records of analysis (metagenomes and binned metagenomes) and export to a data frame
-print("metagenomes")
-analysis = pd.DataFrame()
-analysis_errors = pd.DataFrame()
-df_analysis_list, status_error_list_a  = [], []
+    # to query the Browser API for summary records of analysis (metagenomes and binned metagenomes) and export to a data frame
+    print("metagenomes")
+    analysis = pd.DataFrame()
+    analysis_errors = pd.DataFrame()
+    df_analysis_list, status_error_list_a = [], []
 
-for ind in dataset_ENA.index:
-    if dataset_ENA['Assembly type'][ind] == "primary metagenome" or dataset_ENA['Assembly type'][ind] == "binned metagenome":
-        value = dataset_ENA['analysis ID'][ind]
-        url = base_url + str(value)
-        r = requests.get(url)
-        if r.status_code == 200:
-            json_data = r.json()
-            df_data = json_normalize(json_data['summaries'])
-            df_data['i'] = ind
-            df_analysis_list.append(df_data)
+    for ind in dataset_ENA.index:
+        if dataset_ENA['Assembly type'][ind] == "primary metagenome" or dataset_ENA['Assembly type'][
+            ind] == "binned metagenome":
+            value = dataset_ENA['analysis ID'][ind]
+            url = base_url + str(value)
+            r = requests.get(url)
+            if r.status_code == 200:
+                json_data = r.json()
+                df_data = json_normalize(json_data['summaries'])
+                df_data['i'] = ind
+                df_analysis_list.append(df_data)
+            else:
+                status_code = io.StringIO(str(r.status_code))
+                status_error = pd.read_csv(status_code, names=['status code'])
+                status_error['accession'] = value
+                print(status_error)
+                status_error_list_a.append(status_error)
+        if not df_analysis_list:
+            print("no analysis")
         else:
-            status_code = io.StringIO(str(r.status_code))
-            status_error = pd.read_csv(status_code, names=['status code'])
-            status_error['accession'] = value
-            print(status_error)
-            status_error_list_a.append(status_error)
-    if not df_analysis_list:
-        print("no analysis")
-    else:
-        analysis = pd.concat(df_analysis_list, ignore_index=True)
-    if not status_error_list_a:
-        print("no errors")
-    else:
-        analysis_errors = pd.concat(status_error_list_a, ignore_index=True)
-print(analysis)
+            analysis = pd.concat(df_analysis_list, ignore_index=True)
+        if not status_error_list_a:
+            print("no errors")
+        else:
+            analysis_errors = pd.concat(status_error_list_a, ignore_index=True)
+    print(analysis)
 
-# update info on tracking file for Analysis
-for ind in analysis.index:
-    accession = analysis['accession'][ind]
-    tracking.loc[tracking['analysis ID'] == accession, 'Public in ENA'] = "Y"
-    tracking.loc[tracking['analysis ID'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
-print(tracking)
+    # update info on tracking file for Analysis
+    for ind in analysis.index:
+        accession = analysis['accession'][ind]
+        tracking.loc[tracking['analysis ID'] == accession, 'Public in ENA'] = "Y"
+        tracking.loc[tracking['analysis ID'] == accession, 'publicly available date'] = pd.to_datetime(
+            'today').strftime('%d/%m/%Y')
+    print(tracking)
 
+    ####################
+    ##  FILE OUTPUTS  ##
+    ####################
+    # some of the file outputs list errors and need to be reported if present as part of this intermediate step.
 
-####################
-##  FILE OUTPUTS  ##
-####################
-# some of the file outputs list errors and need to be reported if present as part of this intermediate step.
+    # read out Project
+    Project_save_path = f'{tracking_files_path}/Project.txt'
+    Project.to_csv(Project_save_path, sep="\t")
 
-# read out Project
-Project_save_path = f'{tracking_files_path}/Project.txt'
-Project.to_csv(Project_save_path, sep="\t")
+    # read out contig_range, contig_project_errors, contig_sample_erros to csv file - moved to end of script - presumably
+    # includes manual intervention for any errors identified at this point.
+    Contig_range.to_csv(f'{tracking_files_path}/Contig_range.txt', sep="\t")
+    # Contig_Project_errors.to_csv(f'{tracking_files_path}/Contig_project_errors.txt', sep="\t") #cant save a list as a csv
+    # Contig_sample_errors.to_csv(f'{tracking_files_path}/Contig_sample_errors.txt', sep="\t") #cant save a list as a csv
 
-# read out contig_range, contig_project_errors, contig_sample_erros to csv file - moved to end of script - presumably
-# includes manual intervention for any errors identified at this point.
-Contig_range.to_csv(f'{tracking_files_path}/Contig_range.txt', sep="\t")
-#Contig_Project_errors.to_csv(f'{tracking_files_path}/Contig_project_errors.txt', sep="\t") #cant save a list as a csv
-#Contig_sample_errors.to_csv(f'{tracking_files_path}/Contig_sample_errors.txt', sep="\t") #cant save a list as a csv
+    # read out chr_range, chr_project_errors, chr_sample_erros to csv file - moved to end of script
+    Chr_range.to_csv(f'{tracking_files_path}/Chr_range.txt', sep="\t")
+    # Chr_Project_errors.to_csv(f'{tracking_files_path}/Chr_project_errors.txt', sep="\t") #cant save a list as a csv
+    # Chr_sample_errors.to_csv(f'{tracking_files_path}/Chr_sample_errors.txt', sep="\t") #cant save a list as a csv
 
-# read out chr_range, chr_project_errors, chr_sample_erros to csv file - moved to end of script
-Chr_range.to_csv(f'{tracking_files_path}/Chr_range.txt', sep="\t")
-#Chr_Project_errors.to_csv(f'{tracking_files_path}/Chr_project_errors.txt', sep="\t") #cant save a list as a csv
-#Chr_sample_errors.to_csv(f'{tracking_files_path}/Chr_sample_errors.txt', sep="\t") #cant save a list as a csv
+    # write GCA to file at this point - this has been moved to end of script again
+    GCA.to_csv(f'{tracking_files_path}/GCA.txt', sep="\t")
 
-# write GCA to file at this point - this has been moved to end of script again
-GCA.to_csv(f'{tracking_files_path}/GCA.txt', sep="\t")
+    # save updated tracking file
+    tracking.to_csv(tracking_file_path, sep="\t")
 
-
-# save updated tracking file
-tracking.to_csv(tracking_file_path, sep="\t")

@@ -15,16 +15,25 @@
 # limitations under the License.
 
 import os, sys, argparse, configparser, logging
+import datetime as dt
 import pandas as pd
 from sqlalchemy import create_engine
 
-
 parser = argparse.ArgumentParser(description="sql_processingatENA")
+
 parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
 parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
 parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
-                                                default="scripts/assemblytracking/")
+                        default="scripts/assemblytracking/")
+
 opts = parser.parse_args()
+
+# set file path strings (needs to be outside of main function)
+tracking_files_path = f'{opts.project}-tracking-files'
+# set the location of the downloaded excel file for reading
+exceldl_path = f'{tracking_files_path}/{opts.project} assembly tracking.xlsx'
+# FILE OUTPUTS SAVE LOCATIONS
+tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
 
 def get_db_creds(database, config_file_path):
     # creates the 'engine' object which makes it possible to read an oracle database
@@ -56,7 +65,7 @@ def get_db_creds(database, config_file_path):
 
 
 def check_era_for_submission(engine, xlinput):
-    print(f'checking ERA database for new {project} assembly submissions and status...')
+    print(f'checking ERA database for new {opts.project} assembly submissions and status...')
 
     names_input = xlinput['name to track'].unique()  # read in unique names from excel input file
 
@@ -166,22 +175,13 @@ def get_ena_accessions(engine, new_names, in_error_at_ena):
 
         new_names = sorted(new_names)
         for name in new_names:
-            enaname = None
-            #split_name_list = name.split('.')
-            #tolid = split_name_list[0]
-            #if len(split_name_list) == 2:
             enaname = name.replace('_alternate_haplotype', ' alternate haplotype')
-            #elif len(split_name_list) == 3:
-            #    enaname = tolid + '.' + split_name_list[1] + '.' + split_name_list[2]
-            #else:
-            #    row_index = xlinput.loc[xlinput["name to track"] == name].index[0]
-            #    xlinput.loc[row_index, "notes"] = 'unexpected name format, not tracked!'
             print('searching for', enaname)
             query_string = f"""select name,created,accessioned,submitted,project_acc,assembly_id,biosample_id,gc_id,
             contig_acc_range,chromosome_acc_range,assembly_type,status_id 
                                 from GCS_ASSEMBLY
                             where name = '{enaname}'"""
-            tempdf = pd.read_sql(query_string, conn, parse_dates={"submitted": {"format": "%d/%m/%y"}}) #%H:%M:%S
+            tempdf = pd.read_sql(query_string, conn, parse_dates={"submitted": {"format": "%Y-%m-%d"}})
             # save the result...
             tempdf = tempdf.rename(
                 columns={"created": "submission date", "submitted": "shared to NCBI", "project_acc": "project",
@@ -191,6 +191,11 @@ def get_ena_accessions(engine, new_names, in_error_at_ena):
             gcsassembly_result = pd.concat([gcsassembly_result, tempdf])
     conn.close()
     print('DONE')
+    # strip #%H:%M:%S from result
+    gcsassembly_result['submission date'] = gcsassembly_result["submission date"].dt.strftime("%Y-%m-%d")
+    gcsassembly_result['accessioned'] = gcsassembly_result["accessioned"].dt.strftime("%Y-%m-%d")
+    gcsassembly_result['shared to NCBI'] = gcsassembly_result["shared to NCBI"].dt.strftime("%Y-%m-%d")
+
     # Filter 3 - remove any assemblies that do not have status 4
     not_released = gcsassembly_result.loc[gcsassembly_result["status ID"] != 4]
     error_append_table = not_released.iloc[:, [0, 1, 4, 5, 11, 10, 7]]
@@ -205,6 +210,7 @@ def get_ena_accessions(engine, new_names, in_error_at_ena):
     releasing_sequences.to_csv(f'{tracking_files_path}/Releasing_sequences.txt', sep='\t', index=False)
     print(len(releasing_sequences), f'''new assemblies with accessions found ready to be added to the tracking file
     in: {tracking_files_path}/Releasing_sequences.txt''')
+    return gcsassembly_result
 
 
 #############
@@ -213,25 +219,16 @@ def get_ena_accessions(engine, new_names, in_error_at_ena):
 # Purpose of script - automate running of SQL queries and getting SQL results to remove copy and paste into SQL cmd step
 # from the tracking process
 
-if __name__ == "__main__":
-    # TODO: use argparse function
-    # set thw working directory to location of scripts and of config file
+def main():
     os.chdir(opts.workingdir)
-    # set which project to track - determines the folder where tracking files will be read and written
-    project = opts.project  # DToL or ASG or ERGA
-    # set the location of the tracking files
-    tracking_files_path = f'{project}-tracking-files'
-    # set the location of the downloaded excel file for reading
-    exceldl_path = f'{tracking_files_path}/{project} assembly tracking.xlsx'
-    # FILE OUTPUTS SAVE LOCATIONS
-    tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-    # read in the 0th sheet of Excel file, use first row as header
     xlinput = pd.read_excel(exceldl_path, sheet_name=0, header=1)
     xlinput = xlinput.drop(['Unnamed: 3'], axis=1)
     # run functions
-    engine = get_db_creds(database='ERA', config_file_path=opts.config)
+    engine = get_db_creds('ERA', opts.config)
     new_names, in_error_at_ena = check_era_for_submission(engine, xlinput)
-    engine = get_db_creds(database='ENA', config_file_path=opts.config)
+    engine = get_db_creds('ENA', opts.config)
     get_ena_accessions(engine, new_names, in_error_at_ena)
 
+if __name__ == "__main__":
+    main()
 

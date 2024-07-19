@@ -14,14 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import io
-import os
-import requests
+import io, os, requests, sys, argparse, configparser
 import numpy as np
 import pandas as pd
 from pandas import json_normalize
 from xml.etree import ElementTree
-import configparser
+
+
+parser = argparse.ArgumentParser(description="sql_processingatENA")
+parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
+parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                                                default="scripts/assemblytracking/")
+opts = parser.parse_args()
 
 # NCBI API function for GCA - need to add 'api-Key': to 'headers'
 def get_GCA(field):
@@ -109,67 +114,57 @@ def get_seq(field):
                     if result is not None:
                         tracking.loc[:, 'Public in NCBI'][ind] = 'Y'
 
-##################
-##  USER INPUT  ##
-##################
-#TODO: use argparse function
-
-# set the working directory
-# check the current working directory
-os.getcwd()  # should be 'C:\\Users\\USERNAME\\pathto\\githubrepo\\ena-content-dataflow' on local machine
-# set thw working directory to location of scripts and of config file
-os.chdir('scripts/assemblytracking/')
-# set which project to track - determines the folder where tracking files will be read and written
-project = 'DToL'  # DToL or ASG or ERGA
-# set the location of the tracking files
-tracking_files_path = f'{project}-tracking-files'
-tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-#set the location of the config file
-config_file_path = 'config_private.yaml'
-
-###################
-##  FILE INPUTS  ##
-###################
-# import tracking file
-tracking = pd.read_csv(tracking_file_path , sep='\t',index_col=0)
 
 #############
 ##  MAIN   ##
 #############
-#TODO: update NCBI datasets and eutils to NCBI datasets v2 API - https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/
+#TODO: update NCBI datasets and eutils to NCBI datasets v2 API
+# - https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/
+if __name__ == "__main__":
+    # set the working directory
+    # check the current working directory
 
-# get the NCBI API key from the config file
-config = configparser.ConfigParser()
-config.read(config_file_path)
-ncbi_api_key = config['NCBI_DETAILS']['datasets_api_key']
+    os.chdir(opts.workingdir)
+    # set which project to track - determines the folder where tracking files will be read and written
+    project = opts.project  # DToL or ASG or ERGA
+    # set the location of the tracking files
+    tracking_files_path = f'{project}-tracking-files'
+    tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
+    config_file_path = opts.config
 
-# create sub dataframe with accessions not public at NCBI
-dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
+    # get the NCBI API key from the config file
+    config = configparser.ConfigParser()
+    config.read(config_file_path)
+    ncbi_api_key = config['NCBI_DETAILS']['datasets_api_key']
 
-# check contigs
-get_seq('Contigs')
+    # create sub dataframe with accessions not public at NCBI
+    dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
 
-# check chromosomes
-get_seq('Chromosomes')
+    # check contigs
+    get_seq('Contigs')
 
-# check GCA
-GCA, GCA_re = get_GCA('accessions')
+    # check chromosomes
+    get_seq('Chromosomes')
 
-# compare ids between GCA and tracking info
-GCA = validation(GCA)
+    # check GCA
+    GCA, GCA_re = get_GCA('accessions')
 
+    # compare ids between GCA and tracking info
+    GCA = validation(GCA)
 
-# update info on tracking file for GCA
-for ind in GCA.index:
-    accession = GCA['accession'][ind]
-    if GCA['project_OK'][ind] == "True" and GCA['sample_OK'][ind] == "True":
+    # update info on tracking file for GCA
+    for ind in GCA.index:
+        accession = GCA['accession'][ind]
+        if GCA['project_OK'][ind] == "True" and GCA['sample_OK'][ind] == "True":
             tracking.loc[tracking['accessions'] == accession, 'Public in NCBI'] = "Y"
 
-####################
-##  FILE OUTPUTS  ##
-####################
+    ####################
+    ##  FILE OUTPUTS  ##
+    ####################
 
-GCA.to_csv(f'{tracking_files_path}/GCA_ncbi.txt', sep="\t")
+    GCA.to_csv(f'{tracking_files_path}/GCA_ncbi.txt', sep="\t")
 
-# save updated tracking file
-tracking.to_csv(f'{tracking_files_path}/tracking_file.txt', sep="\t")
+    # save updated tracking file
+    tracking.to_csv(f'{tracking_files_path}/tracking_file.txt', sep="\t")
+
