@@ -1,282 +1,293 @@
-[
+{
+    "source_full_name": "World Health Organisation",
+    "source_short_name": "WHO",
+    "source_urls": [
+        "https://www.who.int/activities/prioritizing-diseases-for-research-and-development-in-emergency-contexts",
+        "https://www.who.int/publications/i/item/9789240093461",
+        "https://www.who.int/publications/i/item/9789240060241"
+    ],
+    "last_updated": "2024-07-15",
+    "taxa": [
     {
         "taxon_id": 470,
         "name": "Acinetobacter baumannii",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Critical group (carbapenem-resistant)"
     },
     {
         "taxon_id": 287,
         "name": "Pseudomonas aeruginosa",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High group (carbapenem-resistant)"
     },
     {
         "taxon_id": 543,
         "name": "Enterobacteriaceae",
         "classification": "Bacteria",
         "taxon_rank": "Family",
-        "source": "WHO"
+        "notes": "Critical group (third-generation cephalosporin-resistant and/or carbapenem-resistant"
     },
     {
         "taxon_id": 1352,
         "name": "Enterococcus faecium",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High group (vancomycin-resistant)"
     },
     {
         "taxon_id": 1280,
         "name": "Staphylococcus aureus",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
-    },
-    {
-        "taxon_id": 210,
-        "name": "Helicobacter pylori",
-        "classification": "Bacteria",
-        "taxon_rank": "Species",
-        "source": "WHO"
-    },
-    {
-        "taxon_id": 194,
-        "name": "Campylobacter",
-        "classification": "Bacteria",
-        "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "High group (methicillin-resistant)"
     },
     {
         "taxon_id": 590,
         "name": "Salmonella",
         "classification": "Bacteria",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "High group (fluoroquinolone-resistant)"
     },
     {
         "taxon_id": 485,
         "name": "Neisseria gonorrhoeae",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High group (third-generation cephalosporin and/or fluoroquinolone-resistant)"
     },
     {
         "taxon_id": 1313,
         "name": "Streptococcus pneumoniae",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium group (macrolide-resistant)"
     },
     {
         "taxon_id": 727,
         "name": "Haemophilus influenzae",
         "classification": "Bacteria",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium group (ampicillin-resistant)"
     },
     {
         "taxon_id": 620,
         "name": "Shigella",
         "classification": "Bacteria",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "High group (fluoroquinolone-resistant)"
+    },
+    {
+        "taxon_id": 1773,
+        "name": "Mycobacterium tuberculosis",
+        "classification": "Bacteria",
+        "taxon_rank": "Species",
+        "notes": "Critical group (rifampicin-resistant); newly added in 2024 list"
+    },
+    {
+        "taxon_id": 36470,
+        "name": "Streptococcus sp. 'group A'",
+        "classification": "Bacteria",
+        "taxon_rank": "Species",
+        "notes": "Medium group (macrolide-resistant); newly added in 2024 list"
+    },
+    {
+        "taxon_id": 1319,
+        "name": "Streptococcus sp. 'group B'",
+        "classification": "Bacteria",
+        "taxon_rank": "Species",
+        "notes": "Medium group (penicillin-resistant); newly added in 2024 list"
     },
     {
         "taxon_id": 1980519,
-        "name": "Crimean-Congo hemorrhagic fever orthonairovirus",
-        "classification": "Virus",
+        "name": "Orthonairovirus haemorrhagiae",
+        "classification": "Viruses",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "aka Crimean-Congo hemorrhagic fever orthonairovirus"
     },
     {
         "taxon_id": 1570291,
         "name": "Ebola virus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 11269,
-        "name": "Marburg marburgvirus",
-        "classification": "Virus",
+        "name": "Orthomarburgvirus marburgense",
+        "classification": "Viruses",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "aka Marburg marburgvirus"
     },
     {
         "taxon_id": 11620,
-        "name": "Lassa mammarenavirus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "name": "Mammarenavirus lassaense",
+        "notes": "aka Lassa mammarenavirus",
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 121791,
-        "name": "Nipah henipavirus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "name": "Henipavirus nipahense",
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 260964,
         "name": "Henipavirus",
-        "classification": "Virus",
-        "taxon_rank": "Genus",
-        "source": "WHO"
+        "classification": "Viruses",
+        "taxon_rank": "Genus"
     },
     {
         "taxon_id": 11588,
         "name": "Rift Valley fever virus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 64320,
         "name": "Zika virus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 10244,
         "name": "Monkeypox virus",
-        "classification": "Virus",
-        "taxon_rank": "Species",
-        "source": "WHO"
+        "classification": "Viruses",
+        "taxon_rank": "Species"
     },
     {
         "taxon_id": 5207,
         "name": "Cryptococcus neoformans",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Critical priority group"
     },
     {
         "taxon_id": 498019,
         "name": "Candida auris",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Critical priority group"
     },
     {
         "taxon_id": 5476,
         "name": "Candida albicans",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Critical priority group"
     },
     {
         "taxon_id": 746128,
         "name": "Aspergillus fumigatus",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Critical priority group"
     },
     {
         "taxon_id": 5478,
         "name": "Nakaseomyces glabratus",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 5036,
         "name": "Histoplasma",
         "classification": "Fungi",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 142796,
         "name": "Eumycetozoa",
-        "classification": "Eukaryote",
+        "classification": "Protozoa",
         "taxon_rank": "Class",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 4827,
         "name": "Mucorales",
         "classification": "Fungi",
         "taxon_rank": "Order",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 5506,
         "name": "Fusarium",
         "classification": "Fungi",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 5482,
         "name": "Candida tropicalis",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 5480,
         "name": "Candida parapsilosis",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "High priority group"
     },
     {
         "taxon_id": 41687,
         "name": "Scedosporium",
         "classification": "Fungi",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 1884637,
         "name": "Cryptococcus gattii species complex",
         "classification": "Fungi",
         "taxon_rank": "Species Group",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 41688,
         "name": "Lomentospora prolificans",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 37727,
         "name": "Talaromyces marneffei",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 5500,
         "name": "Coccidioides",
         "classification": "Fungi",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 42068,
         "name": "Pneumocystis jirovecii",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 4909,
         "name": "Pichia kudriavzevii",
         "classification": "Fungi",
         "taxon_rank": "Species",
-        "source": "WHO"
+        "notes": "Medium priority group"
     },
     {
         "taxon_id": 38946,
         "name": "Paracoccidioides",
         "classification": "Fungi",
         "taxon_rank": "Genus",
-        "source": "WHO"
+        "notes": "Medium priority group"
     }
 ]
+}

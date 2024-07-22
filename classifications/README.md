@@ -29,9 +29,58 @@ Based on the above definitions, everything contained in Group 2 or higher was in
 ### WHO Priority List
 The WHO produced a list of pathogens considered to be of utmost importance from the persepctive of outbreak potential and the challenges posed by drug/vaccine development against said pathogens.
 
-There is a list for [bacteria](https://www.who.int/publications/i/item/WHO-EMP-IAU-2017.12) and a list for [fungi](https://www.who.int/publications/i/item/9789240060241) which consitute priority pathogens.
+There is a list for [bacteria](https://www.who.int/publications/i/item/9789240093461) and a list for [fungi](https://www.who.int/publications/i/item/9789240060241) which consitute priority pathogens. Additionally, several diseases have been marked as high priority for research and development ([list](https://www.who.int/activities/prioritizing-diseases-for-research-and-development-in-emergency-contexts)), so the causative agents of each disease (where applicable) have also been included.
+
+### The Specified Animal Pathogens Order 2008
+
+The UK Department for Environment, Food and Rural Affairs maintains a list of animal pathogen that are of interest/concern within the UK. Its purpose is to prevent the release of dangerous animal pathogens into the environment where they may cause serious animal or human disease.
+
+[Link to full list here](https://www.legislation.gov.uk/uksi/2008/944/schedule/1/made)
 
 ### User asserted/requested taxa
 
 | Scientific Name | TaxID | Reason for Inclusion | Requested by |
 | ---------- | ------- | --------- | ------- |
+
+
+## Generation of files
+
+Each source is represented by a JSON file, which defines information about the source, as well as a list of taxa. It takes the basic format:
+
+```json
+{
+    "source_full_name": "Full name of source authority/organisation",
+    "source_short_name": "Acronym",
+    "source_urls": [ "links to listed taxa" ],
+    "last_updated": "date of last update in this repo",
+    "taxa": [
+        {
+            "name": "Bacteria 1",
+            "taxon_id": 12345,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        ...
+        {
+            "name": "Virus N",
+            "taxon_id": 67890,
+            "taxon_rank": "Species",
+            "classification": "Viruses"
+        },
+    ]
+}
+```
+
+To generate CSV files for the Pathogens Portal classifications view, we use the `pathogen_taxa/portal_csvs_from_jsons.py`. This script will:
+
+1. validate all taxon IDs and names listed in the source JSON against a taxonomy API (unless the `--no-validate` flag is used)
+2. remove duplicates and group common taxa across sources
+3. print some stats/counts
+4. extract priority pathogens based on the list of priority sources (currently just WHO) and write CSV file
+5. write CSV file for each classification (bacteria, fungi, etc)
+
+#### To run:
+```
+cd pathogen_taxa/
+python portal_csvs_from_jsons.py source.*.json
+```

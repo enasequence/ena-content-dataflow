@@ -1,0 +1,3057 @@
+{
+    "source_full_name": "Health and Safety Executive, UK",
+    "source_short_name": "HSE (UK)",
+    "source_urls": ["https://www.hse.gov.uk/pubns/misc208.pdf"],
+    "last_updated": "2023-09-30",
+    "taxa": [
+        {
+            "name": "Acinetobacter baumannii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 470,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Actinomadura madurae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1993,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Actinomadura pelletieri",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 111805,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Actinomyces gerencseriae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 52769,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Actinomyces israelii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1659,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Actinomyces spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1654,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Aggregatibacter actinomycetemcomitans",
+            "hse_hazard_group": 2,
+            "notes": "HSE listed name: Actinobacillus actinomycetemcomitans",
+            "taxon_id": 714,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Alcaligenes spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 507,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Arcanobacterium haemolyticum",
+            "hse_hazard_group": 2,
+            "notes": "alt name: Corynebacterium haemolyticum",
+            "taxon_id": 28264,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Arcobacter butzleri",
+            "hse_hazard_group": 2,
+            "notes": "formerly Campylobacter butzleri",
+            "taxon_id": 28197,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bacillus anthracis",
+            "hse_hazard_group": 3,
+            "notes": "Classified under SAPO; Vaccine available",
+            "taxon_id": 1392,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bacillus cereus",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1396,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bacteroides fragilis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 817,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bacteroides spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 816,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bartonella bacilliformis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 774,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bartonella quintana",
+            "hse_hazard_group": 2,
+            "notes": "alt name: Rochalimaea quintana",
+            "taxon_id": 803,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bartonella spp",
+            "hse_hazard_group": "",
+            "notes": "alt name: Rochalimaea spp",
+            "taxon_id": 773,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bordetella bronchiseptica",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 518,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bordetella parapertussis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 519,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bordetella pertussis",
+            "hse_hazard_group": 2,
+            "notes": "Vaccine available",
+            "taxon_id": 520,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Bordetella spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 517,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Borreliella burgdorferi",
+            "hse_hazard_group": 2,
+            "notes": "HSE listed name: Borrelia burgdorferi",
+            "taxon_id": 139,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Borrelia duttonii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 40834,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Borrelia recurrentis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 44449,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Borrelia spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 138,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Brachyspira spp",
+            "hse_hazard_group": 2,
+            "notes": "formerly Serpulina spp",
+            "taxon_id": 29521,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Brucella abortus",
+            "hse_hazard_group": 3,
+            "notes": "Classified under SAPO",
+            "taxon_id": 235,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Brucella canis",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 36855,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Brucella melitensis",
+            "hse_hazard_group": 3,
+            "notes": "Classified under SAPO",
+            "taxon_id": 29459,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Brucella suis",
+            "hse_hazard_group": 3,
+            "notes": "Classified under SAPO",
+            "taxon_id": 29461,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Burkholderia cepacia",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 292,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Burkholderia mallei",
+            "hse_hazard_group": 3,
+            "notes": "formerly Pseudomonas mallei; Classified under SAPO",
+            "taxon_id": 13373,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Burkholderia pseudomallei",
+            "hse_hazard_group": 3,
+            "notes": "formerly Pseudomonas pseudomallei",
+            "taxon_id": 28450,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Campylobacter fetus",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 196,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Campylobacter jejuni",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 197,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Campylobacter spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 194,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Cardiobacterium hominis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 2718,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Chlamydia pneumoniae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 83558,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Chlamydia psittaci",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 83554,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Chlamydia trachomatis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 813,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Clostridium botulinum",
+            "hse_hazard_group": 2,
+            "notes": "Toxigenic",
+            "taxon_id": 1491,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Clostridium perfringens",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1502,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Clostridium spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1485,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Clostridium tetani",
+            "hse_hazard_group": 2,
+            "notes": "Toxigenic; Vaccine available",
+            "taxon_id": 1513,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Corynebacterium diphtheriae",
+            "hse_hazard_group": 2,
+            "notes": "Toxigenic; Vaccine available",
+            "taxon_id": 1717,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Corynebacterium minutissimum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 38301,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Corynebacterium pseudotuberculosis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1719,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Corynebacterium spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1716,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Corynebacterium ulcerans",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 65058,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Coxiella burnetii",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 777,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Edwardsiella tarda",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 636,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Ehrlichia spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 943,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Eikenella corrodens",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 539,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Elizabethkingia meningoseptica",
+            "hse_hazard_group": 2,
+            "notes": "formerly Flavobacterium meningosepticum",
+            "taxon_id": 238,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Enterobacter cloacae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 550,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Enterobacter spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 547,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Enterococcus spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1350,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Erysipelothrix rhusiopathiae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1648,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Escherichia coli",
+            "hse_hazard_group": 2,
+            "notes": "hazard group 3* for verocytotoxigenic strains (eg O157:H7 or O103)",
+            "taxon_id": 562,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Legionella bozemanae",
+            "hse_hazard_group": 2,
+            "notes": "aka Fluoribacter bozemanae",
+            "taxon_id": 447,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Francisella tularensis",
+            "hse_hazard_group": 3,
+            "notes": "Type A; Type B hazard group 2",
+            "taxon_id": 263,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Fusobacterium necrophorum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 859,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Fusobacterium spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 848,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Gardnerella vaginalis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 2702,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Haemophilus ducreyi",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 730,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Haemophilus influenzae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 727,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Haemophilus spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 724,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Helicobacter pylori",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 210,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Klebsiella oxytoca",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 571,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Klebsiella pneumoniae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 573,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Klebsiella spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 570,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Legionella pneumophila",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 446,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Legionella spp",
+            "hse_hazard_group": 2,
+            "notes": "See also Fluoribacter bozemanae (formerly Legionella)",
+            "taxon_id": 445,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Leptospira interrogans",
+            "hse_hazard_group": 2,
+            "notes": "all serovars",
+            "taxon_id": 173,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Listeria ivanovii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1638,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Listeria monocytogenes",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1639,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Moraxella catarrhalis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 480,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Morganella morganii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 582,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium tuberculosis variant africanum",
+            "hse_hazard_group": 3,
+            "notes": "Vaccine available; aka Mycobacterium africanum",
+            "taxon_id": 33894,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium avium",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1764,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium intracellulare",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1767,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium tuberculosis variant bovis",
+            "hse_hazard_group": 3,
+            "notes": "Vaccine available",
+            "taxon_id": 1765,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium kansasii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1768,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium leprae",
+            "hse_hazard_group": 3,
+            "notes": "Vaccine available",
+            "taxon_id": 1769,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium malmoense",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1780,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium marinum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1781,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium tuberculosis variant microti",
+            "hse_hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 1806,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium paratuberculosis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1770,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium scrofulaceum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1783,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium simiae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1784,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium szulgai",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 1787,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium tuberculosis",
+            "hse_hazard_group": 3,
+            "notes": "Vaccine available",
+            "taxon_id": 1773,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium ulcerans",
+            "hse_hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 1809,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacterium xenopi",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1789,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycobacteroides chelonae",
+            "hse_hazard_group": 2,
+            "notes": "HSE listed name: Mycobacterium chelonae",
+            "taxon_id": 1774,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycolicibacterium fortuitum",
+            "hse_hazard_group": 2,
+            "notes": "HSE listed name: Mycobacterium fortuitum",
+            "taxon_id": 1766,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycoplasma caviae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 55603,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycoplasma hominis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 2098,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Mycoplasma pneumoniae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 2104,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Neisseria gonorrhoeae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 485,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Neisseria meningitidis",
+            "hse_hazard_group": 2,
+            "notes": "Vaccine available",
+            "taxon_id": 487,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Neorickettsia sennetsu",
+            "hse_hazard_group": 3,
+            "notes": "HSE listed name: Ehrlichia sennetsu & Rickettsia sennetsu",
+            "taxon_id": 951,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Nocardia asteroides",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1824,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Nocardia brasiliensis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 37326,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Nocardia farcinica",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 37329,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Nocardia nova",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 37330,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Nocardia otitidiscaviarum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1823,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Orientia tsutsugamushi",
+            "hse_hazard_group": 3,
+            "notes": "HSE listed name: Rickettsia tsutsugamushi",
+            "taxon_id": 784,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Pasteurella multocida",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 747,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Pasteurella spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 745,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Peptostreptococcus anaerobius",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1261,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Peptostreptococcus spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1257,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Plesiomonas shigelloides",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 703,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Porphyromonas spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 836,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Prevotella spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 838,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Proteus mirabilis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 584,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Proteus penneri",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 102862,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Proteus vulgaris",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 585,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Providencia alcalifaciens",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 126385,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Providencia rettgeri",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 587,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Providencia spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 586,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Pseudomonas aeruginosa",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 287,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Prescottella equi",
+            "hse_hazard_group": 2,
+            "notes": "Synonym: Rhodococcus hoagii, Rhodococcus equi",
+            "taxon_id": 43767,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia akari",
+            "hse_hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 786,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia canadensis",
+            "hse_hazard_group": "3*",
+            "notes": "HSE listed name: Rickettsia canada",
+            "taxon_id": 788,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia conorii",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 781,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia montanensis",
+            "hse_hazard_group": "3*",
+            "notes": "HSE listed name: Rickettsia montana",
+            "taxon_id": 33991,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia prowazekii",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 782,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia rickettsii",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 783,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia spp",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 780,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Rickettsia typhi",
+            "hse_hazard_group": 3,
+            "notes": "alt name: Rickettsia mooseri",
+            "taxon_id": 785,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica arizonae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 59203,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica serovar enteritidis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 149539,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica serovar typhimurium",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 90371,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica subsp. enterica serovar Paratyphi A",
+            "hse_hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 54388,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica subsp. enterica serovar Paratyphi B",
+            "hse_hazard_group": "3*",
+            "notes": "esp subsp. Java",
+            "taxon_id": 57045,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica subsp. enterica serovar Paratyphi C",
+            "hse_hazard_group": "3*",
+            "notes": "alt name: Choleraesuis",
+            "taxon_id": 57046,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella spp",
+            "hse_hazard_group": 2,
+            "notes": "Serovars other than arizonae, enterica serovar enteritidis, enterica serovar typhimurium 2, paratyphi A, B, C, typhi",
+            "taxon_id": 590,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Salmonella enterica subsp. enterica serovar Typhi",
+            "hse_hazard_group": "3*",
+            "notes": "Vaccine available",
+            "taxon_id": 90370,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Shigella boydii",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 621,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Shigella dysenteriae",
+            "hse_hazard_group": 2,
+            "notes": "other than Type 1",
+            "taxon_id": 622,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Shigella dysenteriae",
+            "hse_hazard_group": "3*",
+            "notes": "Type 1; Toxigenic",
+            "taxon_id": 622,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Shigella flexneri",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 623,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Shigella sonnei",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 624,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Staphylococcus aureus",
+            "hse_hazard_group": 2,
+            "notes": "Toxigenic",
+            "taxon_id": 1280,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptobacillus moniliformis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 34105,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus agalactiae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1311,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus dysgalactiae subsp. equisimilis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 119602,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus pneumoniae",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1313,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus pyogenes",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1314,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1301,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Streptococcus suis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1307,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Treponema pallidum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 160,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Treponema pallidum subsp. pertenue",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 168,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Treponema spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 157,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Trueperella pyogenes",
+            "hse_hazard_group": 2,
+            "notes": "HSE listed name: Arcanobacterium pyogenes & Arcanobacterium pyogenes",
+            "taxon_id": 1661,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Ureaplasma parvum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 134821,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Ureaplasma urealyticum",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 2130,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Vibrio cholerae",
+            "hse_hazard_group": 2,
+            "notes": "including El Tor; Toxigenic; Vaccine available",
+            "taxon_id": 666,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Vibrio parahaemolyticus",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 670,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Vibrio spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 662,
+            "taxon_rank": "Genus",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Yersinia enterocolitica",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 630,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Yersinia pestis",
+            "hse_hazard_group": 3,
+            "notes": "",
+            "taxon_id": 632,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Yersinia pseudotuberculosis",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 633,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Yersinia spp",
+            "hse_hazard_group": 2,
+            "notes": "",
+            "taxon_id": 629,
+            "taxon_rank": "Species",
+            "classification": "Bacteria"
+        },
+        {
+            "name": "Aspergillus fumigatus",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 746128,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Aspergillus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5052,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Blastomyces dermatitidis",
+            "hazard_group": 3,
+            "notes": "alt name: Ajellomyces dermatitidis",
+            "taxon_id": 5039,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Blastomyces parvus",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Emmonsia parva",
+            "taxon_id": 2060905,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Candida albicans",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 5476,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Candida spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1535326,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Candida tropicalis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5482,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Cladophialophora bantiana",
+            "hazard_group": 3,
+            "notes": "formerly Xylohypha bantiana, Cladosporium bantianum",
+            "taxon_id": 89940,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Coccidioides immitis",
+            "hazard_group": 3,
+            "notes": "Allergen",
+            "taxon_id": 5501,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Coccidioides posadasii",
+            "hazard_group": 3,
+            "notes": "Allergen",
+            "taxon_id": 199306,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Cryptococcus gattii VGI",
+            "hazard_group": 2,
+            "notes": "alt name: Filobasidiella bacillispora; Allergen",
+            "taxon_id": 37769,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Cryptococcus bacillisporus",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Filobasidiella bacillispora",
+            "taxon_id": 552467,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Cryptococcus neoformans var. neoformans",
+            "hazard_group": 2,
+            "notes": "alt name: Filobasidiella neoformans var neoformans; Allergen",
+            "taxon_id": 40410,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Emmonsia crescens",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 73230,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Epidermophyton floccosum",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 34391,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Exophiala spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5583,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Fonsecaea compacta",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 86057,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Fonsecaea pedrosoi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 40355,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Fusarium spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5506,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Geotrichum spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 43987,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Histoplasma capsulatum var. capsulatum",
+            "hazard_group": 3,
+            "notes": "alt name: Ajellomyces capsulatus",
+            "taxon_id": 278162,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Histoplasma capsulatum var. duboisii",
+            "hazard_group": 3,
+            "notes": "",
+            "taxon_id": 149546,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Histoplasma capsulatum var. farciminosum",
+            "hazard_group": 3,
+            "notes": "Classified under SAPO",
+            "taxon_id": 149547,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Lichtheimia corymbifera",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 42458,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Lomentospora prolificans",
+            "hazard_group": "2",
+            "notes": "HSE listed name: Scedosporium proliferans (inflatum)",
+            "taxon_id": "41688",
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Madurella mycetomatis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 100816,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Malassezia spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 55193,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Microsporum spp",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 34392,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Zopfia rosatii",
+            "hazard_group": 2,
+            "notes": "aka Neotestudina rosatii",
+            "taxon_id": 160030,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Paracoccidioides brasiliensis",
+            "hazard_group": 3,
+            "notes": "",
+            "taxon_id": 121759,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Paracoccidioides lutzii",
+            "hazard_group": 3,
+            "notes": "",
+            "taxon_id": 1048829,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Rhinocladiella mackenziei",
+            "hazard_group": 3,
+            "notes": "formerly Ramichloridium",
+            "taxon_id": 86056,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Rhizomucor pusillus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 4840,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Rhizopus microsporus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 58291,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Saksenaea vasiformis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 90258,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Scedosporium apiospermum",
+            "hazard_group": 2,
+            "notes": "formerly Pseudallescheria boydii",
+            "taxon_id": 563466,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Scopulariopsis brevicaulis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 561152,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Sporothrix schenckii",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 29908,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Talaromyces marneffei",
+            "hazard_group": 3,
+            "notes": "HSE listed name: Penicillium marneffei; Allergen",
+            "taxon_id": 37727,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Trematosphaeria grisea",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Madurella grisea",
+            "taxon_id": 1489895,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Trichophyton rubrum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5551,
+            "taxon_rank": "Species",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Trichophyton spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5550,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Trichosporon spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5552,
+            "taxon_rank": "Genus",
+            "classification": "Fungi"
+        },
+        {
+            "name": "Angiostrongylus cantonensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6313,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Angiostrongylus costaricensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 334426,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Ascaris lumbricoides",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 6252,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Ascaris suum",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 6253,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia malayi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6279,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia pahangi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6280,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia timori",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 42155,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Capillaria spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 119095,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Clonorchis spp",
+            "hazard_group": 2,
+            "notes": "See Opisthorchis",
+            "taxon_id": 79922,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Contracaecum osculatum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 106324,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dibothriocephalus latus",
+            "hazard_group": 2,
+            "notes": "HSE listed name : Diphyllobothrium latum",
+            "taxon_id": 60516,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dicrocoelium dendriticum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 57078,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dipetalonema",
+            "hazard_group": 2,
+            "notes": "See Mansonella",
+            "taxon_id": 114233,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dracunculus medinensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 318479,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus granulosus",
+            "hazard_group": "3*",
+            "notes": "Classified under SAPO",
+            "taxon_id": 6210,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus multilocularis",
+            "hazard_group": "3*",
+            "notes": "Classified under SAPO",
+            "taxon_id": 6211,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus vogeli",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 6213,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Enterobius vermicularis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 51028,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciola gigantica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 46835,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciola hepatica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6192,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciolopsis buski",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 27845,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Heterophyes spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 104454,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Hymenolepis diminuta",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6216,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Loa loa",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 7209,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella ozzardi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 122354,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella perstans",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 42231,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella streptocerca",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1761664,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Metagonimus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 84527,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Necator americanus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 51031,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Onchocerca volvulus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6282,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis felineus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 147828,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis sinensis",
+            "hazard_group": 2,
+            "notes": "alt_name: Clonorchis sinensis",
+            "taxon_id": 41765,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6197,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis viverrini",
+            "hazard_group": 2,
+            "notes": "alt_name: Clonorchis viverrini",
+            "taxon_id": 6198,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paracapillaria philippinensis",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Capillaria philippinensis",
+            "taxon_id": 1457282,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paragonimus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 34503,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paragonimus westermani",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 34504,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Pseudoterranova decipiens",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6271,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Rodentolepis nana",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Hymenolepis nana",
+            "taxon_id": 102285,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma haematobium",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6185,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma intercalatum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6187,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma japonicum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6182,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma mansoni",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6183,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma mekongi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 38744,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6181,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Strongyloides spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6247,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Strongyloides stercoralis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6248,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Taenia saginata",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6206,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Taenia solium",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 6204,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Toxocara canis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6265,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Toxocara cati",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6266,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella nativa",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6335,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella nelsoni",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6336,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella pseudospiralis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6337,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella spiralis",
+            "hazard_group": 2,
+            "notes": "Classified under SAPO",
+            "taxon_id": 6334,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichostrongylus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6318,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichuris trichiura",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 36087,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Wuchereria bancrofti",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6293,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Angiostrongylus cantonensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6313,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Angiostrongylus costaricensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 334426,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Ascaris lumbricoides",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 6252,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Ascaris suum",
+            "hazard_group": 2,
+            "notes": "Allergen",
+            "taxon_id": 6253,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia malayi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6279,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia pahangi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6280,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Brugia timori",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 42155,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Capillaria spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 119095,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Clonorchis spp",
+            "hazard_group": 2,
+            "notes": "See Opisthorchis",
+            "taxon_id": 79922,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Contracaecum osculatum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 106324,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dibothriocephalus latus",
+            "hazard_group": 2,
+            "notes": "HSE listed name : Diphyllobothrium latum",
+            "taxon_id": 60516,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dicrocoelium dendriticum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 57078,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dipetalonema",
+            "hazard_group": 2,
+            "notes": "See Mansonella",
+            "taxon_id": 114233,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dracunculus medinensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 318479,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus granulosus",
+            "hazard_group": "3*",
+            "notes": "Classified under SAPO",
+            "taxon_id": 6210,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus multilocularis",
+            "hazard_group": "3*",
+            "notes": "Classified under SAPO",
+            "taxon_id": 6211,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Echinococcus vogeli",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 6213,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Enterobius vermicularis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 51028,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciola gigantica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 46835,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciola hepatica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6192,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Fasciolopsis buski",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 27845,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Heterophyes spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 104454,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Hymenolepis diminuta",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6216,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Loa loa",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 7209,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella ozzardi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 122354,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella perstans",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 42231,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Mansonella streptocerca",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 1761664,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Metagonimus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 84527,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Necator americanus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 51031,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Onchocerca volvulus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6282,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis felineus",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 147828,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis sinensis",
+            "hazard_group": 2,
+            "notes": "alt_name: Clonorchis sinensis",
+            "taxon_id": 41765,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6197,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Opisthorchis viverrini",
+            "hazard_group": 2,
+            "notes": "alt_name: Clonorchis viverrini",
+            "taxon_id": 6198,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paracapillaria philippinensis",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Capillaria philippinensis",
+            "taxon_id": 1457282,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paragonimus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 34503,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Paragonimus westermani",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 34504,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Pseudoterranova decipiens",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6271,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Rodentolepis nana",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Hymenolepis nana",
+            "taxon_id": 102285,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma haematobium",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6185,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma intercalatum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6187,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma japonicum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6182,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma mansoni",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6183,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma mekongi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 38744,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Schistosoma spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6181,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Strongyloides spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6247,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Strongyloides stercoralis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6248,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Taenia saginata",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6206,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Taenia solium",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 6204,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Toxocara canis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6265,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Toxocara cati",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6266,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella nativa",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6335,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella nelsoni",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6336,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella pseudospiralis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6337,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichinella spiralis",
+            "hazard_group": 2,
+            "notes": "Classified under SAPO",
+            "taxon_id": 6334,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichostrongylus spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6318,
+            "taxon_rank": "Genus",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichuris trichiura",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 36087,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Wuchereria bancrofti",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6293,
+            "taxon_rank": "Species",
+            "classification": "Helminths",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Acanthamoeba spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5754,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Babesia divergens",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 32595,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Babesia microti",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5868,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Babesia spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5864,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Balantioides coli",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Balantidium coli",
+            "taxon_id": 71585,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Blastocystis hominis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 12968,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cryptosporidium hominis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 237895,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cryptosporidium parvum",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5807,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cryptosporidium spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5806,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cyclospora cayetanensis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 88456,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cyclospora spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 44417,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Cystoisospora belli",
+            "hazard_group": 2,
+            "notes": "HSE listed name: Isopora belli",
+            "taxon_id": 482538,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Dientamoeba fragilis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 43352,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Encephalitozoon cuniculi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 6035,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Encephalitozoon hellem",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 27973,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Encephalitozoon intestinalis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 58839,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Entamoeba histolytica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5759,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Enterocytozoon bieneusi",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 31281,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Giardia intestinalis",
+            "hazard_group": 2,
+            "notes": "alt_name: Giardia lamblia",
+            "taxon_id": 5741,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania aethiopica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5667,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania braziliensis",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 5660,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania donovani",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 5661,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania major",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5664,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania mexicana",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5665,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania peruviana",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5681,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania spp",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5658,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Leishmania tropica",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5666,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Naegleria fowleri",
+            "hazard_group": 3,
+            "notes": "",
+            "taxon_id": 5763,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Plasmodium falciparum",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 5833,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Plasmodium spp",
+            "hazard_group": 2,
+            "notes": "human & simian strains",
+            "taxon_id": 5820,
+            "taxon_rank": "Genus",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Sarcocystis suihominis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 102713,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Toxoplasma gondii",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5811,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trichomonas vaginalis",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 5722,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trypanosoma brucei brucei",
+            "hazard_group": 2,
+            "notes": "Classified under SAPO",
+            "taxon_id": 5702,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trypanosoma brucei gambiense",
+            "hazard_group": 2,
+            "notes": "",
+            "taxon_id": 31285,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trypanosoma brucei rhodesiense",
+            "hazard_group": "3*",
+            "notes": "",
+            "taxon_id": 31286,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Trypanosoma cruzi",
+            "hazard_group": 3,
+            "notes": "",
+            "taxon_id": 5693,
+            "taxon_rank": "Species",
+            "classification": "Protozoa",
+            "source": "HSE (UK)"
+        },
+        {
+            "name": "Viruses",
+            "notes": "",
+            "taxon_id": 10239,
+            "taxon_rank": "Superkingdom",
+            "classification": "Viruses",
+            "source": "HSE (UK)"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+Taxonomy ID,Scientific Name,Type,Rank,Source
+5658,Leishmania spp,Protozoa,Genus,HSE (UK)
+5660,Leishmania braziliensis,Protozoa,Species,HSE (UK)
+5661,Leishmania donovani,Protozoa,Species,HSE (UK)
+5664,Leishmania major,Protozoa,Species,HSE (UK)
+5665,Leishmania mexicana,Protozoa,Species,HSE (UK)
+5666,Leishmania tropica,Protozoa,Species,HSE (UK)
+5667,Leishmania aethiopica,Protozoa,Species,HSE (UK)
+5681,Leishmania peruviana,Protozoa,Species,HSE (UK)
+5691,Trypanosoma brucei,Protozoa,Species,SAPO
+5692,Trypanosoma congolense,Protozoa,Species,SAPO
+5693,Trypanosoma cruzi,Protozoa,Species,HSE (UK)
+5694,Trypanosoma equiperdum,Protozoa,Species,SAPO
+5697,Trypanosoma evansi,Protozoa,Species,SAPO
+5699,Trypanosoma vivax,Protozoa,Species,SAPO
+5701,Trypanosoma simiae,Protozoa,Species,SAPO
+5702,Trypanosoma brucei brucei,Protozoa,Species,HSE (UK)
+5722,Trichomonas vaginalis,Protozoa,Species,HSE (UK)
+5741,Giardia intestinalis,Protozoa,Species,HSE (UK)
+5754,Acanthamoeba spp,Protozoa,Genus,HSE (UK)
+5759,Entamoeba histolytica,Protozoa,Species,HSE (UK)
+5763,Naegleria fowleri,Protozoa,Species,HSE (UK)
+5806,Cryptosporidium spp,Protozoa,Genus,HSE (UK)
+5807,Cryptosporidium parvum,Protozoa,Species,HSE (UK)
+5811,Toxoplasma gondii,Protozoa,Species,HSE (UK)
+5820,Plasmodium spp,Protozoa,Genus,HSE (UK)
+5833,Plasmodium falciparum,Protozoa,Species,HSE (UK)
+5864,Babesia spp,Protozoa,Genus,HSE (UK)
+5865,Babesia bovis,Protozoa,Species,SAPO
+5866,Babesia bigemina,Protozoa,Species,SAPO
+5868,Babesia microti,Protozoa,Species,HSE (UK)
+5871,Babesia caballi,Protozoa,Species,SAPO
+5872,Theileria equi,Protozoa,Species,SAPO
+5874,Theileria annulata,Protozoa,Species,SAPO
+5875,Theileria parva,Protozoa,Species,SAPO
+6035,Encephalitozoon cuniculi,Protozoa,Species,HSE (UK)
+12968,Blastocystis hominis,Protozoa,Species,HSE (UK)
+27973,Encephalitozoon hellem,Protozoa,Species,HSE (UK)
+31281,Enterocytozoon bieneusi,Protozoa,Species,HSE (UK)
+31285,Trypanosoma brucei gambiense,Protozoa,Species,HSE (UK)
+31286,Trypanosoma brucei rhodesiense,Protozoa,Species,HSE (UK)
+32595,Babesia divergens,Protozoa,Species,HSE (UK)
+43352,Dientamoeba fragilis,Protozoa,Species,HSE (UK)
+44417,Cyclospora spp,Protozoa,Genus,HSE (UK)
+58839,Encephalitozoon intestinalis,Protozoa,Species,HSE (UK)
+71585,Balantioides coli,Protozoa,Species,HSE (UK)
+88456,Cyclospora cayetanensis,Protozoa,Species,HSE (UK)
+102713,Sarcocystis suihominis,Protozoa,Species,HSE (UK)
+142796,Eumycetozoa,Protozoa,Class,WHO
+237895,Cryptosporidium hominis,Protozoa,Species,HSE (UK)
+482538,Cystoisospora belli,Protozoa,Species,HSE (UK)
