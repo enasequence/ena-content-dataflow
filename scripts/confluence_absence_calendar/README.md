@@ -16,3 +16,11 @@ pip install -r requirements.txt
 [Absence Calendar](https://www.ebi.ac.uk/seqdb/confluence/display/EMBL/Absence+Calendar) page, 
 click on the `...` button at the top right, and click 'Page Information'. The page ID can now
 be found in the URL.
+4. Optionally, set environment variables `CONFLUENCE_USER` and `CONFLUENCE_PASS`. If these are not set, the script will ask for them at runtime
+
+# Running the script
+Simply pass the year and the script will generate the pages directly in confluence:
+```
+python confluence_absence_calendar.py 2025
+```
+The script will also print out a table of holiday dates (incl suggested symbols), which should be manually added to each confluence page.
