@@ -1,0 +1,3 @@
+datahub	fullname	email	address	role	submission_account_id
+dcc_example	Person 1	person1@ebi.ac.uk	Person 1 Address	PROVIDER	Webin-XXXXX
+dcc_example	Person 2	person2@ebi.ac.uk	Person 2 Address	CONSUMER
