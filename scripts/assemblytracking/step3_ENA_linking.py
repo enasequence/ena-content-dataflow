@@ -19,17 +19,9 @@ import numpy as np
 import pandas as pd
 from pandas import json_normalize
 
-##################
-##  USER INPUT  ##
-##################
-# set the working directory
-# check the current working directory
+# purpose of scripts - chckes ENA portal API for links between assembly, sequences and projects.
+#TODO: check if I'm checking version for chromosomes and GCAs
 
-parser = argparse.ArgumentParser(description="sql_processingatENA")
-parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
-parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
-                                                default="scripts/assemblytracking/")
-opts = parser.parse_args()
 
 # Portal API function
 def get_links(field,type):
@@ -70,16 +62,19 @@ def get_links(field,type):
     return v_range, e_range
 
 
-#############
-##  MAIN   ##
-#############
-#TODO: check if I'm checking version for chromosomes and GCAs
-
-
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+    parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                        default="scripts/assemblytracking/")
+    opts = parser.parse_args()
+    print(    '''
+    --------------------------------------
+    running step3 - ENA linking
+    --------------------------------------
+        ''')
     # set the working directory
     # check the current working directory
-
     os.chdir(opts.workingdir)
     # set which project to track - determines the folder where tracking files will be read and written
     project = opts.project  # DToL or ASG or ERGA
