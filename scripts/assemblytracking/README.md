@@ -1,47 +1,49 @@
-README file for Assembly tracking scripts.
-=========================================
+README for ENA Assembly Tracking
+================================
 
-Project still in progress.
+These scripts are for tracking the processing and publication of assemblies submitted to the ENA, primarily from the 
+DToL and ASG projects. This is to ensure the release of all assemblies and to resolve errors.
 
-These scripts are designed to track the processing and publication of assemblies submitted to the ENA, primarily from the DTOL and ASG projects.
-This is to ensure the release of all assemblies and to resolve errors.
+Assembly tracking (Automating) SOP link:
 
-- Assembly tracking SOP: https://docs.google.com/document/d/1uAeiAGMUC3zva2eGkmz4iir7spBeiRaGiLkhjsmXimA/edit?usp=sharing.
+https://docs.google.com/document/d/1nPvh8xYBjBwL79RqFiSLI75ntSvzJ_oJCg4lpZ5KyBM/edit#heading=h.xj6oat7og6us 
 
 Set up of Environment
 ---------------------
-install packages for use in your environment (you can use conda or pip to install the packages):
-
+- install packages for use in your environment:
+```
 pip install numpy
 pip install pandas
 pip install openpyxl
 pip install elementtree
-pip install oracledb
 pip install sqlalchemy
+```
+- An NCBI API key can be obtained from your NCBI account, but you need to contact NCBI if you plan to make a high rate
+  of requests
+- Edit the config.yaml file to include database credentials and NCBI API key
+- save the edited file with credentials as **config_private.yaml** and check the config_private.yaml file has been added
+  to the .gitignore file
 
-Edit your config.yaml file to include oracle database credentials and NCBI API key
-
-Before running scripts - back up and download assembly tracking files
+Back up and download assembly tracking files
 --------------------------------------------
 An up-to-date copy of the latest tracking files is stored on shared drive in addition to a local copy used when running
 the tracking scripts.
 
-- DToL tracking files
+- DToL tracking files folder
 
 https://drive.google.com/drive/folders/1eOMJ8unxDyj9Ek8nB0gyJq_3PbaQWRL5
-- ASG tracking files
+
+- ASG tracking files folder
 
 https://drive.google.com/drive/folders/1FtDJBoEpYndyHckt8pyzsoSpyJkmnplX
 
-The tracking files save the outputs of the scripts at various stages for backing up tracking results at each stage of 
-tracking. This is because each step in the tracking may take some time.
 
-In addition, each project specific folder contains a tracking_file.txt, this is an indexed master list of assemblies for 
+Each project specific folder contains a tracking_file.txt, this is an indexed master list of assemblies for 
 the project and lists all accessions linked to each assembly, and the status of the data in ENA and NCBI.
 
-A live google sheets document is the master file for tracking assemblies progress for each project. Before running tracking,
+A google sheet document is the master file for tracking assemblies progress for each project. Before running tracking,
 it is necessary to download the latest assembly tracking spreadsheet from google drive in excel format, with the newly
-submitted assemblies added for tracking, and save this the 'project-tracking-files' folder for reading by the tracking scripts:
+submitted assemblies added for tracking, and save this in the 'project-tracking-files' folder for reading by the tracking scripts:
 
 - DToL google sheet
 
@@ -50,25 +52,45 @@ https://docs.google.com/spreadsheets/d/1j7NEKfwqHoXCo5yrb25YE7o6A6GagFdetRk3t4ke
 
 https://docs.google.com/spreadsheets/d/1HtCbI7fvAOnpGOocUkKMiytz0odQeB9_OfnK-Dqb7RU/edit#gid=0
 
-Summary of Scripts
+Running the scripts
 -------------------
-At the start of each script there is a step to set the working directory and the file folder containing the tracking 
-files. Please ensure this is correct, and that the assembly tracking files are backed up before progressing any further 
-with the tracking.
+The scripts can be run individually or multiple scripts can be run at once. The scripts can be run using the command line
+or using a run configuration from an IDE.
 
-- **sql** - checks ENA database for assembly progress and identify errors (in progress)
+The arguments for the scripts are:
 
-- **import/step1** - import public assebmly list, gets taxon information and adds assemblies to master list of project assemblies 
-in the tracking.txt file
+```-p -project ``` : the project to track (e.g. DToL or ASG)
 
-- **step2** - uses the ENA browser API to check that assemblies have been linked to their accessions correctly
+``` -w -workingdir ``` : the folder location containing the tracking scripts and subfolders holding 
+  the tracking files (scripts/assemblytracking/ by default)
 
-- **step3** - uses the ENA portal API to check that assemblies have been linked to their accessions correctly
+``` -c -config ```: the file path for the config file (config_private.yaml by default)
 
-- **step4** - uses the NCBI datasets API to check sequence accessions have been made available by NCBI
+``` -a -action ```: this argument is for the assembly_tracking.py script only. It defines which scripts will be run.
+  The options are:
+- sql - runs database searching step only (requires database credentials in config)
+- add - adds assemblies listed in a Releasing_Sequences.txt to the tracking file and then runs all tracking scripts
+- track - runs tracking scripts only 
+- all - runs all assembly tracking scripts from start to finish
 
-- **export** - exports results of tracking back to master assemblies list in tracking file
-
+e.g. to run the sql database step and **then** all the remaining assembly tracking steps, for DToL, using the current dir, use:
+```
+python3 assembly_tracking.py -project DToL -workingdir .  -config config_private.yaml -action sql
+python3 assembly_tracking.py -project DToL -workingdir .  -config config_private.yaml -action add
+```
+or:
+```
+python3 assembly_tracking.py -p DToL -w .  -c config_private.yaml -a sql
+python3 assembly_tracking.py -p DToL -w .  -c config_private.yaml -a add
+```
+or to run all tracking scripts at once use the 'all' option:
+```
+python3 assembly_tracking.py -p DToL -w .  -c config_private.yaml -a all
+```
+or to run a script alone, use:
+```
+python3 step4_processingatNCBI.py -p DToL -w .  -c config_private.yaml
+```
 
 
 

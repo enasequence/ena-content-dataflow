@@ -18,18 +18,20 @@ import os, sys, argparse
 import pandas as pd
 import datetime
 
-parser = argparse.ArgumentParser(description="sql_processingatENA")
-parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
-parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
-                                                default="scripts/assemblytracking/")
-opts = parser.parse_args()
 
-#############
-##  MAIN   ##
-#############
 # TODO: see if this can just be one function in another script
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+    parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                        default="scripts/assemblytracking/")
+    opts = parser.parse_args()
+    '''
+    --------------------------------------
+    running export summary
+    --------------------------------------
+        '''
     # set the working directory
     # check the current working directory
 
@@ -52,7 +54,8 @@ if __name__ == "__main__":
     del GCA, PMET, BMET
 
     GCA_public = GCA_MET[GCA_MET['Public in ENA'] == "Y"]
-    today = datetime.date.today().strftime('%d/%m/%Y')
+    today = '22/08/2024'
+    # today = datetime.date.today().strftime('%d/%m/%Y')
     PublicGCA_new = GCA_public[GCA_public['publicly available date'] == today]
 
     # drop columns - replace multiple column drops with integer based range dropping

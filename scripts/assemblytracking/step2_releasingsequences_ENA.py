@@ -19,11 +19,10 @@ import numpy as np
 import pandas as pd
 from pandas import json_normalize
 
-parser = argparse.ArgumentParser(description="sql_processingatENA")
-parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
-parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
-                                                default="scripts/assemblytracking/")
-opts = parser.parse_args()
+
+# purpose of script - uses ena browser API to check for links to sample and project in browser
+# TODO: NOT CHECKING VERSION FOR CHROMOSOMES - THINK ON HOW TO DO THIS
+
 
 # browser API function for project and sample
 def get_accessions(field):
@@ -141,13 +140,17 @@ def validation(range):
     return range, p_error, s_error
 
 
-#############
-##  MAIN   ##
-#############
-# purpose of script - uses ena browser API to check for links to sample and project in browser
-# TODO: NOT CHECKING VERSION FOR CHROMOSOMES - THINK ON HOW TO DO THIS
-
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
+    parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
+                        default="scripts/assemblytracking/")
+    opts = parser.parse_args()
+    print('''
+--------------------------------------
+running step2 - releasing sequences ENA
+--------------------------------------
+    ''')
     # set the working directory
     # check the current working directory
 
