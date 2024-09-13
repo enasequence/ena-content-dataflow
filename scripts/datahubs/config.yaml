@@ -1,0 +1,17 @@
+# config file to hold ERAREAD database login credentials
+[ERAREAD_DETAILS]
+host = 
+port = 
+servicename = 
+username = 
+password = 
+
+[EMAILSENDER_DETAILS]
+email_user = 
+email_password = 
+
+[DataHubs_exemption]
+exemption = dcc_walton,dcc_schubert,dcc_metagenome,dcc_korman,dcc_lightsey,dcc_corea,dcc_green,dcc_grusin
+
+[RECIPIENTS_DETAILS]
+recipients = 
