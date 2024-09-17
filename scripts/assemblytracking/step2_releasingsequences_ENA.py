@@ -25,7 +25,8 @@ from pandas import json_normalize
 
 
 # browser API function for project and sample
-def get_accessions(field):
+def get_accessions(field, base_url):
+    dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
     v_range = pd.DataFrame()
     e_range = pd.DataFrame()
     df_data_list, status_error_list = [], []
@@ -55,7 +56,8 @@ def get_accessions(field):
     return v_range, e_range
 
 # browser API function for data
-def get_data(field):
+def get_data(field, base_url):
+    dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
     v_range = pd.DataFrame()
     e_range = pd.DataFrame()
     df_data_list, status_error_list = [], []
@@ -88,6 +90,7 @@ def get_data(field):
 
 # validation function
 def validation(range):
+    dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
     range['version_OK'] = "True"
     range['project_OK'] = ""
     range['sample_OK'] = ""
@@ -147,9 +150,9 @@ if __name__ == "__main__":
                         default="scripts/assemblytracking/")
     opts = parser.parse_args()
     print('''
---------------------------------------
+---------------------------------------
 running step2 - releasing sequences ENA
---------------------------------------
+---------------------------------------
     ''')
     # set the working directory
     # check the current working directory
@@ -163,25 +166,24 @@ running step2 - releasing sequences ENA
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
 
     # create sub dataframe with accessions not public at ENA
-    dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
     #print(dataset_ENA.info()) #get infoo about dataframe
     # base url for browser API
     base_url = 'https://www.ebi.ac.uk/ena/browser/api/summary/'
     # to query the Browser API for taxID of project and export to a data frame
     print("Project")
-    Project, Project_re = get_accessions('project')
+    Project, Project_re = get_accessions('project', base_url)
     # Project data frame written out to txt at this point - moved to end - inexplicable why saved
 
     # to query the Browser API for taxID of sample and export to a data frame
     print("Sample")
     #get_accessions('sample ID')
-    Sample, Sample_re = get_accessions('sample ID')
+    Sample, Sample_re = get_accessions('sample ID', base_url)
     print(Sample)
 
     # to query the Browser API for summary records of Contigs and export to a data frame
     print("Contigs")
     #get_data('Contigs')
-    Contig_range, Contig_range_re = get_data('Contigs')
+    Contig_range, Contig_range_re = get_data('Contigs', base_url)
 
     # compare ids between project, sample, taxon and Contig_range
     Contig_range, Contig_Project_errors, Contig_sample_errors = validation(Contig_range)
@@ -191,7 +193,7 @@ running step2 - releasing sequences ENA
 
     # to query the Browser API for summary records of Chr_range and export it to a data frame
     print("Chr range")
-    Chr_range, Chr_range_re = get_data('Chromosomes')
+    Chr_range, Chr_range_re = get_data('Chromosomes', base_url)
 
     # compare ids between project, sample, taxon and Chr_range
     Chr_range, Chr_Project_errors, Chr_sample_errors = validation(Chr_range)
@@ -229,7 +231,7 @@ running step2 - releasing sequences ENA
 
     # to query the Browser API for summary records of GCAs and export to a data frame
     print("GCA")
-    GCA, GCA_re = get_data('GCA')
+    GCA, GCA_re = get_data('GCA', base_url)
 
     # compare ids between project, sample, taxon and GCA
     GCA, p_error, s_error = validation(GCA)
@@ -252,8 +254,8 @@ running step2 - releasing sequences ENA
     df_analysis_list, status_error_list_a = [], []
 
     for ind in dataset_ENA.index:
-        if dataset_ENA['Assembly type'][ind] == "primary metagenome" or dataset_ENA['Assembly type'][
-            ind] == "binned metagenome":
+        if dataset_ENA['Assembly type'][ind] == "primary metagenome" or \
+                dataset_ENA['Assembly type'][ind] == "binned metagenome":
             value = dataset_ENA['analysis ID'][ind]
             url = base_url + str(value)
             r = requests.get(url)
