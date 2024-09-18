@@ -41,12 +41,15 @@ if __name__ == "__main__":
     # set the location of the tracking files
     tracking_files_path = f'{project}-tracking-files'
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
 
+    #############
+    ##  MAIN   ##
+    #############
     # import GCA Public file
     PublicGCA_old = pd.read_csv(f'{tracking_files_path}/Public_GCAs.txt', sep='\t')
 
     # create summary public assemblies dataframe
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0) # import the tracking file
     GCA = tracking[tracking['accession type'] == "GCA"]
     PMET = tracking[tracking['Assembly type'] == 'primary metagenome']
     BMET = tracking[tracking['Assembly type'] == 'binned metagenome']
@@ -54,8 +57,7 @@ if __name__ == "__main__":
     del GCA, PMET, BMET
 
     GCA_public = GCA_MET[GCA_MET['Public in ENA'] == "Y"]
-    today = '22/08/2024'
-    # today = datetime.date.today().strftime('%d/%m/%Y')
+    today = datetime.date.today().strftime('%d/%m/%Y')
     PublicGCA_new = GCA_public[GCA_public['publicly available date'] == today]
 
     # drop columns - replace multiple column drops with integer based range dropping

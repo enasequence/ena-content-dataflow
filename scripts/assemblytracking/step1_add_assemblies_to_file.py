@@ -22,13 +22,6 @@ from pandas import json_normalize
 
 # Purpose of script - adds new assemblies to the tracking_file.txt in the format used for logging and tracking of
 # the progress of the assemblies release.
-# TODO: tidy this script into functions:
-# 1- get Taxon info and report API errors.
-# 2 - add to tracking file and indexing - look at improving indexing.
-
-#############
-##  MAIN   ##
-#############
 
 def get_taxon(releasing_seq):
     # get taxon information
@@ -141,6 +134,9 @@ if __name__ == "__main__":
     ------------------------------------------
     ''')
 
+    #############
+    ##  MAIN   ##
+    #############
     # import file with new assemblies
     releasing_seq = pd.read_csv(f'{tracking_files_path}/Releasing_sequences.csv', header=0)
     releasing_seq_tx = get_taxon(releasing_seq)

@@ -163,10 +163,12 @@ if __name__ == "__main__":
     --------------------------------------------
     ''')
 
+    #############
+    ##  MAIN   ##
+    #############
     # base url for ENA browser API
     base_url = 'https://www.ebi.ac.uk/ena/browser/api/summary/'
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import tracking file
-
     # to query the Browser API for taxID of project and export to a data frame
     print("Project")
     Project, Project_re = get_accessions('project', base_url)

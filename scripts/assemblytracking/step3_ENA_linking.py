@@ -81,12 +81,15 @@ if __name__ == "__main__":
     # set the location of the tracking files
     tracking_files_path = f'{project}-tracking-files'
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0) # import tracking file
 
+    #############
+    ##  MAIN   ##
+    #############
     # base url for portal API
     base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
 
     # create sub dataframe with accessions not linked at ENA
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import tracking file
     dataset_ENA = tracking[(tracking["Linked to Project"] == "N") | (tracking["Linked to Sample"] == "N")]
     Sample = dataset_ENA['sample ID'].unique()
     Project = dataset_ENA['project'].unique()

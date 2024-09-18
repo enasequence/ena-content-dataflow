@@ -135,6 +135,9 @@ if __name__ == "__main__":
     --------------------------------------
         ''')
 
+    #############
+    ##  MAIN   ##
+    #############
     # create sub dataframe with accessions not public at NCBI
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import the tracking file
     dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]

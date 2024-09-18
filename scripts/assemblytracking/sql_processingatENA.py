@@ -51,8 +51,6 @@ def get_db_creds(database, config_file_path):
 
 
 def check_era_for_submission(tracking_file_path, tracking_files_path, xl_sheet0, engine):
-    # TODO: consider time delay between haplotype release
-    #  need to keep input file list + run again for >1week or add more generic query for untracked against all tolids
     print(f'checking ERA database for new assembly submissions and status...')
 
     # Gets a list of names for searching in the ERA analysis/pipelite tables
@@ -172,7 +170,6 @@ def get_ena_accessions(tracking_file_path, tracking_files_path, xl_sheet2, engin
     processingat_ENA_new = list(processingat_ENA_new)
     new_names = processingat_ENA_new + new_names
     new_names = set(new_names)
-    print('new_names', new_names)
     print(len(new_names), 'total new names to search in ENA')
     gcs_assembly_result_obj = []
 
@@ -204,11 +201,15 @@ def get_ena_accessions(tracking_file_path, tracking_files_path, xl_sheet2, engin
     # strip #%H:%M:%S from result
     not_released = None
     gcsassembly_result = pd.DataFrame(gcs_assembly_result_obj)
-    gcsassembly_result.to_csv('gcsassembly_result.csv')
     if gcsassembly_result.empty:
         pass
     else:
+        # datetime conversion
         gcsassembly_result = pd.DataFrame(gcs_assembly_result_obj)
+        gcsassembly_result['submission date'] = pd.to_datetime(gcsassembly_result['submission date'],
+                                                               format='%Y-%m-%d %H:%M:%S', errors='ignore')
+        gcsassembly_result['shared to NCBI'] = pd.to_datetime(gcsassembly_result['shared to NCBI'],
+                                                               format='%Y-%m-%d %H:%M:%S', errors='igonre')
 
         gcsassembly_result['submission date'] = gcsassembly_result['submission date'].dt.strftime("%Y-%m-%d")
         gcsassembly_result['accessioned'] = gcsassembly_result["accessioned"].dt.strftime("%Y-%m-%d")
