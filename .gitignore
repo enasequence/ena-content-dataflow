@@ -1,5 +1,4 @@
-
-scripts/output.txt
 .idea
+scripts/output.txt
 scripts/assemblytracking/*-tracking-files
-scripts/assemblytracking/config_private.yaml
+*config_private.yaml
