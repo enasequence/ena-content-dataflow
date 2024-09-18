@@ -24,7 +24,7 @@ from pandas import json_normalize
 
 
 # Portal API function
-def get_links(field,type):
+def get_links(field, type):
     v_range = pd.DataFrame([])
     e_range = pd.DataFrame([])
     df_data_list = []
@@ -56,21 +56,21 @@ def get_links(field,type):
     else:
         v_range = pd.concat(df_data_list, ignore_index=True)
     if not status_error_list:
-        print("no errors")
+        pass
     else:
         e_range = pd.concat(status_error_list, ignore_index=True)
     return v_range, e_range
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser = argparse.ArgumentParser(description="step 3 script argparser")
     parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
     parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
                         default="scripts/assemblytracking/")
     opts = parser.parse_args()
-    print(    '''
+    print('''
     --------------------------------------
-    running step3 - ENA linking
+         running step3 - ENA linking
     --------------------------------------
         ''')
     # set the working directory
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     # set the location of the tracking files
     tracking_files_path = f'{project}-tracking-files'
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0) # import tracking file
 
     # base url for portal API
     base_url = 'https://www.ebi.ac.uk/ena/portal/api/links/'
@@ -104,13 +104,10 @@ if __name__ == "__main__":
         print("no project chromosome links")
     else:
         Project_chr['accession_last'] = Project_chr['accession']
-        print(Project_chr)
         aggregation_functions = {'accession': 'min', 'accession_last': 'max'}
         Project_chr_range = Project_chr.groupby(Project_chr['project/sample ID'], as_index=False).aggregate(
             aggregation_functions)
         Project_chr_range['chr_range'] = Project_chr_range['accession'] + "-" + Project_chr_range['accession_last']
-        print(Project_chr_range)
-        # Project_chr_range.to_csv('Project_chr_range.txt', sep="\t") #moved to file outputs section
 
     # Project links to GCAs
     print("Project links to GCA")
@@ -133,12 +130,10 @@ if __name__ == "__main__":
         print("no sample chromosome links")
     else:
         Sample_chr['accession_last'] = Sample_chr['accession']
-        print(Sample_chr)
         aggregation_functions = {'accession': 'min', 'accession_last': 'max'}
         Sample_chr_range = Sample_chr.groupby(Sample_chr['project/sample ID'], as_index=False).aggregate(
             aggregation_functions)
         Sample_chr_range['chr_range'] = Sample_chr_range['accession'] + "-" + Sample_chr_range['accession_last']
-        print(Sample_chr_range)
 
     # Sample links to GCA
     print("Sample links to GCA")
@@ -153,7 +148,6 @@ if __name__ == "__main__":
         if dataset_ENA['Assembly type'][ind] == "primary metagenome" or dataset_ENA['Assembly type'][
             ind] == "binned metagenome":
             accession = dataset_ENA['analysis ID'][ind]
-            print(accession)
             if Project_analysis.empty == False:
                 tracking.loc[:, 'Linked to Project'][ind] = np.where(
                     accession in set(Project_analysis['analysis_accession']), 'Y', 'N')
@@ -163,7 +157,6 @@ if __name__ == "__main__":
         else:
             if dataset_ENA['accession type'][ind] == "Contigs":
                 accession = dataset_ENA['accessions'].str[:8][ind]
-                print(accession)
                 if Project_contigs.empty == False:
                     tracking.loc[:, 'Linked to Project'][ind] = np.where(
                         accession in set(Project_contigs['accession'].str[:8]), 'Y', 'N')
@@ -172,7 +165,6 @@ if __name__ == "__main__":
                         accession in set(Sample_contigs['accession'].str[:8]), 'Y', 'N')
             if dataset_ENA['accession type'][ind] == "GCA":
                 accession = dataset_ENA['accessions'][ind]
-                print(accession)
                 if Project_GCA.empty == False:
                     tracking.loc[:, 'Linked to Project'][ind] = np.where(accession in set(Project_GCA['accession']),
                                                                          'Y', 'N')
@@ -181,14 +173,12 @@ if __name__ == "__main__":
                                                                         'N')
             if dataset_ENA['accession type'][ind] == "Chromosomes":
                 accession = dataset_ENA['accessions'][ind]
-                print(accession)
                 if Project_chr.empty == False:
                     tracking.loc[:, 'Linked to Project'][ind] = np.where(
                         accession in set(Project_chr_range['chr_range']), 'Y', 'N')
                 if Sample_chr.empty == False:
                     tracking.loc[:, 'Linked to Sample'][ind] = np.where(accession in set(Sample_chr_range['chr_range']),
                                                                         'Y', 'N')
-    print(tracking)
 
     ####################
     ##  FILE OUTPUTS  ##

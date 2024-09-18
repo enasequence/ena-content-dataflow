@@ -21,8 +21,8 @@ from pandas import json_normalize
 from xml.etree import ElementTree
 
 
-# NCBI API function for GCA (API docs: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/)
-def check_GCA(field, dataset_NCBI):
+# NCBI API function for GCA (v2 API docs: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/)
+def check_GCA(field, dataset_NCBI, ncbi_api_key):
     # checks for availability all GCA in tracking file that have 'N' for public in NCBI
     base_url = 'https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/'
     headers = {'api-Key': ncbi_api_key}
@@ -34,12 +34,12 @@ def check_GCA(field, dataset_NCBI):
     e_range = pd.DataFrame()
     GCA_data_list = []
     status_error_list = []
-    for ind in dataset_NCBI.index:
-        if (dataset_NCBI['Assembly type'][ind] == "clone or isolate" \
-                or dataset_NCBI['Assembly type'][ind] == "Metagenome-Assembled Genome (MAG)") \
-                and dataset_NCBI['accession type'][ind] == "GCA":
-            version = dataset_NCBI.loc[ind, 'version']
-            gc_id = dataset_NCBI.loc[ind, field]
+    for ind, row in dataset_NCBI.iterrows():
+        if (row['Assembly type'] == "clone or isolate" \
+                or row['Assembly type'] == "Metagenome-Assembled Genome (MAG)") \
+                and row['accession type'] == "GCA":
+            version = row['version']
+            gc_id = row[field]
             value = gc_id + "." + str(version)
             url = base_url + str(value) + '/dataset_report'
             r = requests.get(url, headers=headers, params=params)
@@ -53,6 +53,7 @@ def check_GCA(field, dataset_NCBI):
                     gc_v = data['reports'][0]['current_accession']
                     gca = gc_v.split('.')[0]
                     # noinspection PyDictCreation
+                    # create dictionary data from json data
                     GCA_data = {'project_ID': data['reports'][0]['assembly_info']['bioproject_accession'],
                                'title': data['reports'][0]['assembly_info']['bioproject_lineage'][0]['bioprojects'][0]['title'],
                                'parent_accessions': parent_accessions,
@@ -66,73 +67,61 @@ def check_GCA(field, dataset_NCBI):
                 status_code = io.StringIO(str(r.status_code))
                 status_error = pd.read_csv(status_code, names=['status code'])
                 status_error['accession'] = value
-                print(status_error)
+                #print(status_error)
                 status_error_list.append(status_error)
     print('status_error_list', status_error_list)
-    print('GCA_data_list', GCA_data_list)
     if not GCA_data_list:
         print("no new GCA accessions public at NCBI")
     else:
         print(len(GCA_data_list), "new GCA accessions public at NCBI")
         v_range = pd.DataFrame(GCA_data_list)
     if not status_error_list:
-        print("no errors")
+        pass
     else:
         e_range = pd.concat(status_error_list, ignore_index=True)
     return v_range, e_range
 
 # validation function for GCA
 def validation(range, dataset_NCBI):
-    for ind in range.index:
-        i_accession = range['i'][ind]
+    for ind, row in range.iterrows():
+        i_accession = row['i']
         dataset_row = dataset_NCBI.loc[i_accession]
-        range['project_OK'] = np.where(range['project_ID'][ind] == dataset_row['project'], 'True', 'False')
-        range['sample_OK'] = np.where(range['Sample_ID'][ind] == dataset_row['sample ID'], 'True', 'False')
+        range['project_OK'] = np.where(row['project_ID'] == dataset_row['project'], 'Y', 'N')
+        range['sample_OK'] = np.where(row['Sample_ID'] == dataset_row['sample ID'], 'Y', 'N')
     return range
 
-# NCBI API function for contigs and chromosomes  - need to add 'api-Key': to 'headers'
-def get_seq(field, dataset_NCBI):
+# NCBI API function for contigs and chromosomes
+def get_seq(field, dataset_NCBI, ncbi_api_key):
     url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?'
     headers = {'api-Key': ncbi_api_key}
-    for ind in dataset_NCBI.index:
-        if (dataset_NCBI.loc[ind, 'Assembly type'] == "clone or isolate" \
-                or dataset_NCBI.loc[ind,'Assembly type'] == "Metagenome-Assembled Genome (MAG)") and \
-                dataset_NCBI.loc[ind,'accession type'] == field:
-            accession_range = dataset_NCBI.loc[ind,'accessions']
+    for ind, row in dataset_NCBI.iterrows():
+        if (row['Assembly type'] == "clone or isolate" or row['Assembly type'] == "Metagenome-Assembled Genome (MAG)") \
+                and row['accession type'] == field:
+            accession_range = row['accessions']
             accession = accession_range.split("-", 1)[0]
-            #print(accession)
             params = {'db': 'nucleotide', 'id': accession}
             r = requests.get(url, headers=headers, params=params)
-            #print(r)
             summary = ElementTree.fromstring(r.content)
             result = summary.find('DocSum')
-            #print(result)
             if r.status_code == 200 and result is not None:
                 tracking.loc[ind, 'Public in NCBI'] = 'Y'
+            else:
+                pass
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser = argparse.ArgumentParser(description="step 4 script argparser")
     parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
     parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
                         default="scripts/assemblytracking/")
     parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
     opts = parser.parse_args()
-    print('''
-    --------------------------------------
-    running step4 - procesing at NCBI
-    --------------------------------------
-        ''')
-    # set the working directory
-    # check the current working directory
-    os.chdir(opts.workingdir)
-    # set which project to track - determines the folder where tracking files will be read and written
-    project = opts.project  # DToL or ASG or ERGA
 
+    os.chdir(opts.workingdir) # set the working directory
+    project = opts.project
     # set the location of the tracking files
     tracking_files_path = f'{project}-tracking-files'
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
-    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
     config_file_path = opts.config
 
     # get the NCBI API key from the config file
@@ -140,37 +129,45 @@ if __name__ == "__main__":
     config.read(config_file_path)
     ncbi_api_key = config['NCBI_DETAILS']['datasets_api_key']
 
+    print('''
+    --------------------------------------
+      running step4 - procesing at NCBI
+    --------------------------------------
+        ''')
+
     # create sub dataframe with accessions not public at NCBI
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import the tracking file
     dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
-    #dataset_NCBI = tracking
-    print('Total GCAs to check at NCBI:', len(dataset_NCBI))
+    print('Total GCAs to check at NCBI:', len(dataset_NCBI)) # find out how many GCAs to check
 
     # check contigs
-    get_seq('Contigs', dataset_NCBI)
-
+    get_seq('Contigs', dataset_NCBI, ncbi_api_key)
     # check chromosomes
-    get_seq('Chromosomes', dataset_NCBI)
-
+    get_seq('Chromosomes', dataset_NCBI, ncbi_api_key)
     # check GCA
-    GCA, GCA_re = check_GCA('accessions', dataset_NCBI)
-
-    # compare ids between GCA and tracking info
-    GCA = validation(GCA, dataset_NCBI)
+    GCA, GCA_re = check_GCA('accessions', dataset_NCBI, ncbi_api_key)
 
     # update info on tracking file for GCA
-    for ind in GCA.index:
-        accession = GCA.loc[ind,'accession']
-        if GCA.loc[ind,'project_OK' == "True"] and GCA[ind,'sample_OK'] == "True":
-            tracking.loc[tracking['accessions'] == accession, 'Public in NCBI'] = "Y"
-        else:
-            pass
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
+    public_GCA = 0
+    if GCA.empty:
+        pass
+    else:
+        GCA = validation(GCA, dataset_NCBI)  # compare ids between GCA and tracking info
+        for ind in GCA.index:
+            accession = GCA.loc[ind,'accession']
+            if GCA.loc[ind, 'project_OK'] == "Y" and GCA.loc[ind, 'sample_OK'] == "Y":
+                tracking.loc[tracking['accessions'] == accession, 'Public in NCBI'] = "Y"
+                public_GCA += 1
+            else:
+                pass
+    print(public_GCA, 'GCAs marked as public in tracking file')
 
-    ####################
-    ##  FILE OUTPUTS  ##
-    ####################
-
+    # save updated tracking file + output info
     GCA.to_csv(f'{tracking_files_path}/GCA_ncbi.txt', sep="\t")
-
-    # save updated tracking file
     tracking.to_csv(f'{tracking_files_path}/tracking_file.txt', sep="\t")
+
+    # h0w many GCAs left not found
+    dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
+    print('Total GCAs not found at NCBI:', len(dataset_NCBI))
 

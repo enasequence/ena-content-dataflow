@@ -50,7 +50,7 @@ def get_db_creds(database, config_file_path):
     return engine
 
 
-def check_era_for_submission(tracking_file_path, xl_sheet0, engine):
+def check_era_for_submission(tracking_file_path, tracking_files_path, xl_sheet0, engine):
     # TODO: consider time delay between haplotype release
     #  need to keep input file list + run again for >1week or add more generic query for untracked against all tolids
     print(f'checking ERA database for new assembly submissions and status...')
@@ -125,9 +125,9 @@ def check_era_for_submission(tracking_file_path, xl_sheet0, engine):
 
     conn.close()
     print('DONE')
-    xl_sheet0.to_csv(f'{tracking_files_path}/In_process_to_submit.txt', sep='\t', index=False)
+    xl_sheet0.to_csv(f'{tracking_files_path}/In_process_to_submit.csv', index=False)
     print(f'''In Process to Submit notes added, check the file at: 
-                {tracking_files_path}/In_process_to_submit.txt''')
+                {tracking_files_path}/In_process_to_submit.csv''')
 
 
     # filter 1 - get names from era result that are not complete (status != 'COMPLETED' in pipelite2 table)
@@ -152,12 +152,11 @@ def check_era_for_submission(tracking_file_path, xl_sheet0, engine):
 
     print(len(new_names_all), 'submissions found.')
     print(len(new_names), 'new submissions found that have completed processing.')
-    #print(new_names)
 
     return new_names, incomplete_era
 
 
-def get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incomplete_era):
+def get_ena_accessions(tracking_file_path, tracking_files_path, xl_sheet2, engine, new_names, incomplete_era):
     # searches for assemblies in ENA database and get accession numbers
     # have status 4 - move to next step
     # have status 2 - 'Still at ENA'
@@ -173,8 +172,8 @@ def get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incompl
     processingat_ENA_new = list(processingat_ENA_new)
     new_names = processingat_ENA_new + new_names
     new_names = set(new_names)
+    print('new_names', new_names)
     print(len(new_names), 'total new names to search in ENA')
-
     gcs_assembly_result_obj = []
 
     with engine.connect() as conn:  # opens the connection to database
@@ -194,7 +193,7 @@ def get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incompl
                            "shared to NCBI": row.submitted, "project": row.project_acc, "analysis ID": row.assembly_id,
                            "sample ID": row.biosample_id, "GCA ID": row.gc_id, "Contig range": row.contig_acc_range,
                            "Chr range": row.chromosome_acc_range, "Assembly type": row.assembly_type,
-                           "status ID": row.status_id, "Notes":""}
+                           "status ID": row.status_id}
                 result.append(rowdict)
             gcs_assembly_result_obj.extend(result)
 
@@ -205,11 +204,12 @@ def get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incompl
     # strip #%H:%M:%S from result
     not_released = None
     gcsassembly_result = pd.DataFrame(gcs_assembly_result_obj)
+    gcsassembly_result.to_csv('gcsassembly_result.csv')
     if gcsassembly_result.empty:
         pass
     else:
         gcsassembly_result = pd.DataFrame(gcs_assembly_result_obj)
-        print('gcsassembly_result', gcsassembly_result)
+
         gcsassembly_result['submission date'] = gcsassembly_result['submission date'].dt.strftime("%Y-%m-%d")
         gcsassembly_result['accessioned'] = gcsassembly_result["accessioned"].dt.strftime("%Y-%m-%d")
         gcsassembly_result['shared to NCBI'] = gcsassembly_result["shared to NCBI"].dt.strftime("%Y-%m-%d")
@@ -217,29 +217,29 @@ def get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incompl
         # save results
         releasing_sequences = gcsassembly_result.loc[gcsassembly_result["status ID"] == 4]
         releasing_sequences = releasing_sequences.sort_values(by=["submission date", "name"])
-        releasing_sequences.to_csv(f'{tracking_files_path}/Releasing_sequences.txt', sep='\t', index=False)
+        releasing_sequences.to_csv(f'{tracking_files_path}/Releasing_sequences.csv', index=False)
         print(len(releasing_sequences), f'''new assemblies with accessions and status 4 found ready to be added to the tracking file listed in: 
-        {tracking_files_path}/Releasing_sequences.txt''')
+        {tracking_files_path}/Releasing_sequences.csv''')
 
     if (not_released is None) and incomplete_era.empty:
         pass
     elif (not_released is None):
         still_at_ena = incomplete_era
-        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.txt', sep='\t', index=False)
+        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.csv', index=False)
         print(len(still_at_ena), f'''submissions \'still at ENA\' listed in: 
-        {tracking_files_path}/Still_at_ENA.txt''')
+        {tracking_files_path}/Still_at_ENA.csv''')
     elif incomplete_era.empty:
         not_released_append = not_released.iloc[:, [0, 1, 4, 5, 11, 10, 7]]
         still_at_ena = not_released_append
-        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.txt', sep='\t', index=False)
+        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.csv', index=False)
         print(len(still_at_ena), f'''submissions \'still at ENA\' listed in: 
-        {tracking_files_path}/Still_at_ENA.txt''')
+        {tracking_files_path}/Still_at_ENA.csv''')
     else:
         not_released_append = not_released.iloc[:, [0, 1, 4, 5, 11, 10, 7]]
         still_at_ena = pd.concat([incomplete_era, not_released_append])
-        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.txt', sep='\t', index=False)
+        still_at_ena.to_csv(f'{tracking_files_path}/Still_at_ENA.csv', index=False)
         print(len(still_at_ena), f'''submissions \'still at ENA\' listed in: 
-        {tracking_files_path}/Still_at_ENA.txt''')
+        {tracking_files_path}/Still_at_ENA.csv''')
 
 
 
@@ -250,17 +250,17 @@ def main(opts, tracking_files_path, tracking_file_path, exceldl_path):
     xl_sheet0 = xl_sheet0.drop(['Unnamed: 3'], axis=1)
     # run functions
     engine = get_db_creds('ERA', opts.config)
-    new_names, incomplete_era = check_era_for_submission(tracking_file_path, xl_sheet0, engine)
+    new_names, incomplete_era = check_era_for_submission(tracking_file_path, tracking_files_path, xl_sheet0, engine)
     engine = get_db_creds('ENA', opts.config)
     xl_sheet2 = pd.read_excel(exceldl_path, sheet_name=2, header=1)
     if (new_names is None):
         pass
     else:
-        get_ena_accessions(tracking_file_path, xl_sheet2, engine, new_names, incomplete_era)
+        get_ena_accessions(tracking_file_path, tracking_files_path, xl_sheet2, engine, new_names, incomplete_era)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser = argparse.ArgumentParser(description="sql processing script argparser")
 
     parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
     parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
@@ -268,18 +268,19 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
 
     opts = parser.parse_args()
-    '''
-    --------------------------------------
-    running sql processing ena
-    --------------------------------------
-        '''
 
-    # Print introductory message
     # set file path strings (needs to be outside of main function)
     tracking_files_path = f'{opts.project}-tracking-files'
     # set the location of the downloaded excel file for reading
     exceldl_path = f'{tracking_files_path}/{opts.project} assembly tracking.xlsx'
     # FILE OUTPUTS SAVE LOCATIONS
     tracking_file_path = f'{tracking_files_path}/tracking_file.txt'
+
+    print('''
+    --------------------------------------
+      running sql processing ena script
+    --------------------------------------
+        ''')
+
     main(opts, tracking_files_path, tracking_file_path, exceldl_path)
 

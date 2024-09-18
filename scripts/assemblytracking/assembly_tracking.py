@@ -17,12 +17,12 @@
 import os, sys, argparse, subprocess
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="sql_processingatENA")
+    parser = argparse.ArgumentParser(description="assembly tracking argparser")
     parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
     parser.add_argument('-c', '--config', help="config file path", default="config_private.yaml")
     parser.add_argument('-w', '--workingdir', help="location of tracking file folders",
                         default="scripts/assemblytracking/")
-    parser.add_argument('-a', '--action', help="action to perform, Options: sql, add(add and track) or track(track only)",
+    parser.add_argument('-a', '--action', help="action to perform, Options: sql(get new accessions), add(add and track) or track(track only)",
                         default="scripts/assemblytracking/")
     opts = parser.parse_args()
 
@@ -44,9 +44,9 @@ if __name__ == "__main__":
 
     if opts.action == 'sql':
         print(f'''
-+===============================================================+
-|              Running SQL database queries...                  |
-+===============================================================+
+    +===============================================================+
+    |      Action 'sql' selected. Running database queries...       |
+    +===============================================================+
         ''')
         sqlargs = ['-p',f'{opts.project}', '-c',f'{opts.config}', '-w', f'{opts.workingdir}']
         command = [sys.executable, 'sql_processingatENA.py'] + sqlargs
@@ -54,9 +54,10 @@ if __name__ == "__main__":
         print(result.stdout)
     elif opts.action == 'add':
         print(f'''
-+===============================================================+
-| Adding new assemblies to tracking file and checking status    |
-+===============================================================+
+    +===============================================================+
+    |                    Action 'add' selected                      |
+    |  Adding new assemblies to tracking file and checking status   |
+    +===============================================================+
         ''')
         addtargs = ['-p', f'{opts.project}', '-w', f'{opts.workingdir}']
         addncbiargs = ['-p', f'{opts.project}', '-c', f'{opts.config}', '-w', f'{opts.workingdir}']
@@ -78,9 +79,10 @@ if __name__ == "__main__":
         print(result.stdout)
     elif opts.action == 'track':
         print(f'''
-+===============================================================+
-|            Checking status of tracked assemblies              |
-+===============================================================+
+    +===============================================================+
+    |                  Action 'track' selected                      |
+    |             Checking status of tracked assemblies             |
+    +===============================================================+
         ''')
         addtargs = ['-p', f'{opts.project}', '-w', f'{opts.workingdir}']
         addncbiargs = ['-p', f'{opts.project}', '-c', f'{opts.config}', '-w', f'{opts.workingdir}']
@@ -99,9 +101,10 @@ if __name__ == "__main__":
         print(result.stdout)
     elif opts.action == 'all':
         print(f'''
-+===============================================================+
-|          Running full set of tracking scripts! :o             |
-+===============================================================+
+    +===============================================================+
+    |                   Action 'all' selected!                      |
+    |                Running all tracking scripts                   |
+    +===============================================================+
         ''')
         sqlargs = ['-p',f'{opts.project}', '-c',f'{opts.config}', '-w', f'{opts.workingdir}']
         command = [sys.executable, 'sql_processingatENA.py'] + sqlargs
