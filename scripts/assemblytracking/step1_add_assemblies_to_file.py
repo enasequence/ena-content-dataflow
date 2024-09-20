@@ -66,6 +66,7 @@ def add_to_tracking(releasing_seq_tx, tracking):
 
     # get index of the latest row in the tracking file and increment this index onto new assemblies to be added to tracking
     last_index = tracking['index'].iloc[-1]
+    releasing_seq_tx = releasing_seq_tx.drop(columns='status ID')
     releasing_seq_tx.index = releasing_seq_tx.index + last_index + 1
 
     # (optional - from initial import script) to import list of public assemblies from another source to track

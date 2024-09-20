@@ -77,7 +77,7 @@ def get_data(field, base_url):
                     status_code = io.StringIO(str(r.status_code))
                     status_error = pd.read_csv(status_code, names=['status code'])
                     status_error['accession'] = value
-                    print(value ,' has status_error:')
+                    print(value,' has status_error:')
                     print(status_error)
                     status_error_list.append(status_error)
     if not df_data_list:
@@ -91,7 +91,7 @@ def get_data(field, base_url):
     return v_range, e_range
 
 # validation function
-def validation(range):
+def validation(range, Project, Sample):
     dataset_ENA = tracking[tracking["Public in ENA"] == "N"]
     range['version_OK'] = "True"
     range['project_OK'] = ""
@@ -102,20 +102,20 @@ def validation(range):
 
     for ind, row in range.iterrows():
         i_accession = row['i']
-        dataset_row = dataset_ENA.loc[i_accession]
-        if row['dataType'] == "CONTIGSET" or row['dataType'] == "ASSEMBLY":
-            accession = row['accession']
+        if row['dataType'] == "ASSEMBLY":  # validate GCAs
+            dataset_row = dataset_ENA.loc[(dataset_ENA['index'] == i_accession) & (dataset_ENA['accession type'] == 'GCA')]
             version_range = row['version']
             version_r = int(version_range)
             version = dataset_row['version']
-            #print(accession, version_r, version)
             if version_r == version:
                 row['version_OK'] = "True"
             else:
                 row['version_OK'] = "False"
-        if row['dataType'] == "CONTIGSET" or row['dataType'] == "SEQUENCE":
-            row['project_OK'] = np.where(row['project'] == dataset_row['project'], 'True', 'False')
-            row['sample_OK'] = np.where(row['sample'] == dataset_row['sample ID'], 'True', 'False')
+
+        elif row['dataType'] == "SEQUENCE":  # validate chromosomes
+            dataset_row = dataset_ENA.loc[i_accession]
+            range.loc[ind, 'project_OK'] = np.where(row['project'] == dataset_row['project'], 'True', 'False')
+            range.loc[ind, 'sample_OK'] = np.where(row['sample'] == dataset_row['sample ID'], 'True', 'False')
             project_row = Project[Project['i'] == i_accession]
             if project_row.empty:
                 row['taxon_prj_OK'] = "Error"
@@ -123,7 +123,7 @@ def validation(range):
                 project_error_list.append(project_id)
             else:
                 taxon_prj = project_row['taxon'].values[0]
-                row['taxon_prj_OK'] = np.where(row['taxon'] == taxon_prj, 'True', 'False')
+                range.loc[ind, 'taxon_prj_OK'] = np.where(row['taxon'] == taxon_prj, 'True', 'False')
             sample_row = Sample[Sample['i'] == i_accession]
             if sample_row.empty:
                 row['taxon_sp_OK'] = "Error"
@@ -131,7 +131,28 @@ def validation(range):
                 sample_error_list.append(sample_id)
             else:
                 taxon_sp = sample_row['taxon'].values[0]
-                row['taxon_sp_OK'] = np.where(row['taxon'] == taxon_sp, 'True', 'False')
+                range.loc[ind, 'taxon_sp_OK'] = np.where(row['taxon'] == taxon_sp, 'True', 'False')
+
+        elif row['dataType'] == "CONTIGSET": # validate contigs
+            dataset_row = dataset_ENA.loc[i_accession]
+            range.loc[ind, 'project_OK'] = np.where(row['project'] == dataset_row['project'], 'True', 'False')
+            range.loc[ind, 'sample_OK'] = np.where(row['sample'] == dataset_row['sample ID'], 'True', 'False')
+            project_row = Project[Project['i'] == i_accession]
+            if project_row.empty:
+                row['taxon_prj_OK'] = "Error"
+                project_id = (row['project'], i_accession)
+                project_error_list.append(project_id)
+            else:
+                taxon_prj = project_row['taxon'].values[0]
+                range.loc[ind, 'taxon_prj_OK'] = np.where(row['taxon'] == taxon_prj, 'True', 'False')
+            sample_row = Sample[Sample['i'] == i_accession]
+            if sample_row.empty:
+                row['taxon_sp_OK'] = "Error"
+                sample_id = (row['sample'], i_accession)
+                sample_error_list.append(sample_id)
+            else:
+                taxon_sp = sample_row['taxon'].values[0]
+                range.loc[ind, 'taxon_sp_OK'] = np.where(row['taxon'] == taxon_sp, 'True', 'False')
     if not project_error_list:
         pass
     else:
@@ -175,26 +196,29 @@ if __name__ == "__main__":
     # to query the Browser API for taxID of sample and export to a data frame
     print("Sample")
     Sample, Sample_re = get_accessions('sample ID', base_url)
+
     # to query the Browser API for summary records of Contigs and export to a data frame
     print("Contigs")
     Contig_range, Contig_range_re = get_data('Contigs', base_url)
-
     # compare ids between project, sample, taxon and Contig_range
-    Contig_range, Contig_Project_errors, Contig_sample_errors = validation(Contig_range)
+    Contig_range, Contig_Project_errors, Contig_sample_errors = validation(Contig_range, Project, Sample)
+    Contig_range.to_csv(f'{tracking_files_path}/Contig_range.csv')  #, sep='\t'
 
     # to query the Browser API for summary records of Chr_range and export it to a data frame
     print("Chr range")
     Chr_range, Chr_range_re = get_data('Chromosomes', base_url)
-    Chr_range, Chr_Project_errors, Chr_sample_errors = validation(Chr_range) # compare ids between project, sample, taxon and Chr_range
+    Chr_range, Chr_Project_errors, Chr_sample_errors = validation(Chr_range, Project, Sample)  # compare ids between project, sample, taxon and Chr_range
+    Chr_range.to_csv(f'{tracking_files_path}/Chr_range.csv')
 
     # update info on tracking file for Contigs
     for ind, row in Contig_range.iterrows():
         accession = row['contigs']
-        if (Chr_range['version_OK'][ind] == "True" and Chr_range['project_OK'][ind] == "True" and
-                Chr_range['sample_OK'][ind] == "True" and Chr_range['taxon_prj_OK'][ind] == "True" and
-                Chr_range['taxon_sp_OK'][ind] == "True"):
+        if (row['version_OK'] == "True" and row['project_OK'] == "True" and row['sample_OK'] == "True"
+                and row['taxon_prj_OK'] == "True" and  row['taxon_sp_OK'] == "True"):
             tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
             tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime('today').strftime('%d/%m/%Y')
+        else:
+            pass
 
     # update info on tracking file for Chromosomes
     for ind in Chr_range.index:
@@ -210,12 +234,15 @@ if __name__ == "__main__":
             tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
             tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime(
                 'today').strftime('%d/%m/%Y')
+        else:
+            pass
 
 
     # to query the Browser API for summary records of GCAs and export to a data frame
     print("GCA")
     GCA, GCA_re = get_data('GCA', base_url)
-    GCA, p_error, s_error = validation(GCA) # compare ids between project, sample, taxon and GCA
+    GCA, p_error, s_error = validation(GCA, Project, Sample)  # compare ids between project, sample, taxon and GCA
+    GCA.to_csv(f'{tracking_files_path}/GCA.csv')
 
     # update info on tracking file for GCAs
     for ind in GCA.index:
@@ -224,6 +251,8 @@ if __name__ == "__main__":
             tracking.loc[tracking['accessions'] == accession, 'Public in ENA'] = "Y"
             tracking.loc[tracking['accessions'] == accession, 'publicly available date'] = pd.to_datetime(
                 'today').strftime('%d/%m/%Y')
+        else:
+            pass
 
     # to query the Browser API for summary records of analysis (metagenomes and binned metagenomes) and export to a data frame
     print("metagenomes")

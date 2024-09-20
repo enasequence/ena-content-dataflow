@@ -59,6 +59,9 @@ if __name__ == "__main__":
     GCA_public = GCA_MET[GCA_MET['Public in ENA'] == "Y"]
     today = datetime.date.today().strftime('%d/%m/%Y')
     PublicGCA_new = GCA_public[GCA_public['publicly available date'] == today]
+    #timestring = '17/09/2024'
+    #date = timestring.strptime('%d/%m/%Y')
+    #PublicGCA_new = GCA_public[GCA_public['publicly available date'] >= date]
 
     # drop columns - replace multiple column drops with integer based range dropping
     PublicGCA_new = PublicGCA_new.drop(PublicGCA_new.iloc[:, 13:17], axis=1)
@@ -69,7 +72,7 @@ if __name__ == "__main__":
     for ind in PublicGCA_new.index:
         index = PublicGCA_new["index"][ind]
         tracking_set = tracking[tracking['index'] == index]
-        print(tracking_set)
+        #print(tracking_set)
         for i in tracking_set.index:
             if tracking_set['accession type'][i] == "Contigs":
                 PublicGCA_new['contig range'][ind] = tracking_set["accessions"][i]
@@ -92,7 +95,7 @@ if __name__ == "__main__":
     for ind in GCAnotPublic.index:
         index = GCAnotPublic["index"][ind]
         tracking_set = tracking[tracking['index'] == index]
-        print(tracking_set)
+        #print(tracking_set)
         for i in tracking_set.index:
             if tracking_set['accession type'][i] == "Contigs":
                 GCAnotPublic['contig range'][ind] = tracking_set["accessions"][i]
@@ -109,6 +112,19 @@ if __name__ == "__main__":
     Releasing_GCA = GCAnotPublic[GCAnotPublic['phase'] == "Releasing GCAs"]
     Processing_NCBI = GCAnotPublic[GCAnotPublic['phase'] == "Processing at NCBI"]
     Releasing_seq = GCAnotPublic[GCAnotPublic['phase'] == "Releasing sequences"]
+
+    ## gets publicly available csv with publicly available assembly records listed and the date
+    ## essentially plan here is to parse full tracking file and tidy it all up...
+    #publicly_av_obj = []
+    dup_name = pd.DataFrame()
+    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import the tracking file
+    tracking_index_unq = tracking['name'].unique()
+    for x in tracking_index_unq:
+        sub_df = tracking.loc[tracking['name'] == x]
+        num_rows = sub_df.shape[0]
+        if num_rows > 3:
+            dup_name = pd.concat([dup_name,sub_df])
+    dup_name.to_csv(f'{tracking_files_path}/dup_name.csv')
 
     ####################
     ##  FILE OUTPUTS  ##

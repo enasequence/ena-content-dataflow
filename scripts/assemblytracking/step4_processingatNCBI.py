@@ -152,13 +152,14 @@ if __name__ == "__main__":
 
     # update info on tracking file for GCA
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
+    dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
     public_GCA = 0
     if GCA.empty:
         pass
     else:
         GCA = validation(GCA, dataset_NCBI)  # compare ids between GCA and tracking info
         for ind in GCA.index:
-            accession = GCA.loc[ind,'accession']
+            accession = GCA.loc[ind, 'accession']
             if GCA.loc[ind, 'project_OK'] == "Y" and GCA.loc[ind, 'sample_OK'] == "Y":
                 tracking.loc[tracking['accessions'] == accession, 'Public in NCBI'] = "Y"
                 public_GCA += 1
@@ -170,7 +171,7 @@ if __name__ == "__main__":
     GCA.to_csv(f'{tracking_files_path}/GCA_ncbi.txt', sep="\t")
     tracking.to_csv(f'{tracking_files_path}/tracking_file.txt', sep="\t")
 
-    # h0w many GCAs left not found
+    # how many GCAs left not found
     dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
     print('Total GCAs not found at NCBI:', len(dataset_NCBI))
 
