@@ -21,6 +21,69 @@ import datetime
 
 # TODO: see if this can just be one function in another script
 
+def get_summary(tracking):
+    pub_av = []
+    tracking_index_unq = tracking['index'].unique()
+    for ind in tracking_index_unq:
+        mini_track = tracking[tracking["index"] == ind]
+        name = mini_track['name']
+        name = name.unique()
+        name = list(name)
+        name = str(name[0])
+        mini_row = {'index': str(ind), 'name': name}
+        col_list = ['submission date', 'accessioned', 'shared to NCBI', 'project', 'analysis ID', 'sample ID', 'taxon']
+        for col in col_list:
+            col_content = mini_track.loc[:, col]
+            col_content = list(col_content)
+            col_content = col_content[0]
+            mini_row[col] = col_content
+        try:
+            GCA = mini_track[mini_track['accession type'] == 'GCA']
+            GCA = GCA['accessions']
+            GCA = list(GCA)
+            GCA = GCA[0]
+            mini_row['GCA ID'] = GCA
+            version = mini_track[mini_track['accession type'] == 'GCA']
+            version = version['version']
+            version = list(version)
+            version = version[0]
+            version = str(version)
+            mini_row['version'] = version
+        except:
+            mini_row['GCA ID'] = None
+        col = 'publicly available date'
+        col_content = mini_track.loc[:, col]
+        col_content = list(col_content)
+        col_content = col_content[0]
+        mini_row[col] = col_content
+        try:
+            contig = mini_track[mini_track['accession type'] == 'Contigs']
+            contig = contig['accessions']
+            contig = list(contig)
+            contig = contig[0]
+            mini_row['contig range'] = contig
+        except:
+            mini_row['contig range'] = None
+        try:
+            chr = mini_track[mini_track['accession type'] == 'Chromosomes']
+            chr = chr['accessions']
+            chr = list(chr)
+            chr = chr[0]
+            mini_row['chromosome range'] = chr
+        except:
+            mini_row['chromosome range'] = None
+        col = 'Assembly type'
+        col_content = mini_track.loc[:, col]
+        col_content = list(col_content)
+        col_content = col_content[0]
+        mini_row[col] = col_content
+
+        pub_av.append(mini_row)
+
+    pub_av_df = pd.DataFrame(pub_av)
+    pub_av_df.to_csv(f'{tracking_files_path}/publicly_available.csv')
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="sql_processingatENA")
     parser.add_argument('-p', '--project', help="Project to track DToL, ASG or ERGA", default="none")
@@ -114,17 +177,10 @@ if __name__ == "__main__":
     Releasing_seq = GCAnotPublic[GCAnotPublic['phase'] == "Releasing sequences"]
 
     ## gets publicly available csv with publicly available assembly records listed and the date
-    ## essentially plan here is to parse full tracking file and tidy it all up...
-    #publicly_av_obj = []
-    dup_name = pd.DataFrame()
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import the tracking file
-    tracking_index_unq = tracking['name'].unique()
-    for x in tracking_index_unq:
-        sub_df = tracking.loc[tracking['name'] == x]
-        num_rows = sub_df.shape[0]
-        if num_rows > 3:
-            dup_name = pd.concat([dup_name,sub_df])
-    dup_name.to_csv(f'{tracking_files_path}/dup_name.csv')
+    get_summary(tracking)
+
+
 
     ####################
     ##  FILE OUTPUTS  ##

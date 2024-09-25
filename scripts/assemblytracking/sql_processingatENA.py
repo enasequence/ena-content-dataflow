@@ -248,7 +248,7 @@ def main(opts, tracking_files_path, tracking_file_path, exceldl_path):
     warnings.simplefilter(action='ignore', category=FutureWarning)
     os.chdir(opts.workingdir)
     xl_sheet0 = pd.read_excel(exceldl_path, sheet_name=0, header=1)
-    # xl_sheet0 = xl_sheet0.drop(['Unnamed: 3'], axis=1)
+    xl_sheet0 = xl_sheet0.drop(['Unnamed: 3'], axis=1)
     # run functions
     engine = get_db_creds('ERA', opts.config)
     new_names, incomplete_era = check_era_for_submission(tracking_file_path, tracking_files_path, xl_sheet0, engine)

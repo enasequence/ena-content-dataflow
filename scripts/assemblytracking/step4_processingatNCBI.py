@@ -171,5 +171,5 @@ if __name__ == "__main__":
 
     # how many GCAs left not found
     dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
-    print('Total GCAs not found at NCBI:', len(dataset_NCBI))
+    print('Total assemblies not public at NCBI:', len(dataset_NCBI))
 
