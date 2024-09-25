@@ -44,7 +44,7 @@ def get_taxon(releasing_seq):
         else:
             status_code = io.StringIO(str(r.status_code))
             status_error = pd.read_csv(status_code, names=['status code'])
-            status_error['accession'] = sample
+            status_error['accession'] = biosample_id
             status_error_list.append(status_error)
     # print out error info
     if status_error_list is None:

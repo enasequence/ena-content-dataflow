@@ -141,7 +141,7 @@ if __name__ == "__main__":
     # create sub dataframe with accessions not public at NCBI
     tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)  # import the tracking file
     dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
-    print('Total GCAs to check at NCBI:', len(dataset_NCBI)) # find out how many GCAs to check
+    print('Total assemblies to check at NCBI:', len(dataset_NCBI)) # find out how many GCAs to check
 
     # check contigs
     get_seq('Contigs', dataset_NCBI, ncbi_api_key)
@@ -151,8 +151,6 @@ if __name__ == "__main__":
     GCA, GCA_re = check_GCA('accessions', dataset_NCBI, ncbi_api_key)
 
     # update info on tracking file for GCA
-    tracking = pd.read_csv(tracking_file_path, sep='\t', index_col=0)
-    dataset_NCBI = tracking[tracking["Public in NCBI"] == "N"]
     public_GCA = 0
     if GCA.empty:
         pass

@@ -102,8 +102,8 @@ def validation(range, Project, Sample):
 
     for ind, row in range.iterrows():
         i_accession = row['i']
-        if row['dataType'] == "ASSEMBLY":  # validate GCAs
-            dataset_row = dataset_ENA.loc[(dataset_ENA['index'] == i_accession) & (dataset_ENA['accession type'] == 'GCA')]
+        dataset_row = dataset_ENA.loc[i_accession]
+        if row['dataType'] == "ASSEMBLY" and dataset_row['accession type'] == "GCA": # validate GCAs
             version_range = row['version']
             version_r = int(version_range)
             version = dataset_row['version']
@@ -113,7 +113,6 @@ def validation(range, Project, Sample):
                 row['version_OK'] = "False"
 
         elif row['dataType'] == "SEQUENCE":  # validate chromosomes
-            dataset_row = dataset_ENA.loc[i_accession]
             range.loc[ind, 'project_OK'] = np.where(row['project'] == dataset_row['project'], 'True', 'False')
             range.loc[ind, 'sample_OK'] = np.where(row['sample'] == dataset_row['sample ID'], 'True', 'False')
             project_row = Project[Project['i'] == i_accession]
@@ -134,7 +133,6 @@ def validation(range, Project, Sample):
                 range.loc[ind, 'taxon_sp_OK'] = np.where(row['taxon'] == taxon_sp, 'True', 'False')
 
         elif row['dataType'] == "CONTIGSET": # validate contigs
-            dataset_row = dataset_ENA.loc[i_accession]
             range.loc[ind, 'project_OK'] = np.where(row['project'] == dataset_row['project'], 'True', 'False')
             range.loc[ind, 'sample_OK'] = np.where(row['sample'] == dataset_row['sample ID'], 'True', 'False')
             project_row = Project[Project['i'] == i_accession]
