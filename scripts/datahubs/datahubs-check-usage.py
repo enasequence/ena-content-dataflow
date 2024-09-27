@@ -59,16 +59,17 @@ class Datahub:
 
 
 class Project:
-    def __init__(self, prj_id, stu_id, prj_title, hold_date, latest_data, status, datahub, webin_id,
+    def __init__(self, prj_id, prj_title, hold_date, last_updated, status, datahub, webin_id, project_type, stu_id='',
                  run_count=0, latest_run=None, analysis_count=0, latest_analysis=None, notes=''):
         self.prj_id = prj_id
-        self.stu_id = stu_id
         self.prj_title = prj_title
         self.hold_date = hold_date
-        self.latest_data = latest_data
+        self.last_updated = last_updated
         self.status = status
         self.datahub = datahub
         self.webin_id = webin_id
+        self.project_type = project_type
+        self.stu_id = stu_id
         self.run_count = run_count
         self.latest_run = latest_run
         self.analysis_count = analysis_count
@@ -88,13 +89,22 @@ def fetch_proj_metadata(engine):
     proj_list = list()
     with engine.connect() as conn:
         with conn.begin():
-            result = conn.execute(text("""select dmk.project_id, stu.study_id, prj.PROJECT_TITLE, prj.HOLD_DATE, 
-            prj.last_updated, prj.status_id, dmk.META_KEY, prj.submission_account_id 
-            from
-            project prj join dcc_meta_key dmk on dmk.project_id = prj.project_id
-            join study stu on stu.project_id = prj.project_id """))
-        for row in result:
-            proj_list.append(Project(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
+            result = conn.execute(text("""select dmk.project_id, prj.PROJECT_TITLE, prj.HOLD_DATE, prj.last_updated, 
+            prj.status_id, dmk.META_KEY, prj.submission_account_id, prj.project_type 
+            from project prj join dcc_meta_key dmk on dmk.project_id = prj.project_id"""))
+            for row in result:
+                proj_list.append(Project(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
+    for p in proj_list:
+            if p.project_type == 'UMBRELLA':
+                pass
+            else:
+                p_to_check = p.prj_id
+                with engine.connect() as conn:
+                    with conn.begin():
+                        result2 = conn.execute(text("""select study_id, project_id from study where project_id = :prj_id"""),
+                                       {"prj_id": p_to_check})
+                    for row in result2:
+                        p.stu_id = row[0]
     return proj_list
 
 
@@ -113,31 +123,30 @@ def fetch_dhub_metadata(engine, exemption_list):
 
     # get additional metadata
     for dhub in dhub_list:
-        if dhub.dhub_name not in exemption_list:
-            dhub_to_check = dhub.dhub_name
-            with engine.connect() as conn:
-                with conn.begin():
-                    # get data providers webin accounts
-                    result3 = conn.execute(text("""select submission_account_id, meta_key from dcc_user 
-                                                   where role = 'PROVIDER' and meta_key = :dhub_name"""),
-                                                                                {"dhub_name": dhub_to_check})
-                    provider_webin_list = list()
-                    for row in result3:
-                        provider_webin_list.append(row[0])
-                    dhub.provider_webin = provider_webin_list
-                    # get coordinator contact
-                    result2 = conn.execute(text("""select submission_account_id, meta_key, email_address 
-                                                   from dcc_user 
-                                                   where role = 'COORDINATOR' and meta_key = :dhub_name"""),
-                                                                                {"dhub_name": dhub_to_check})
-                    for row in result2:
-                        dhub.coord_contact = row.email_address
-                    # get current status from dcc_account
-                    result2 = conn.execute(text("""select account_status 
-                                                   from dcc_account where meta_key = :dhub_name"""),
-                                                                        {"dhub_name": dhub_to_check})
-                    for row in result2:
-                         dhub.status = row.account_status
+        dhub_to_check = dhub.dhub_name
+        with engine.connect() as conn:
+            with conn.begin():
+                # get data providers webin accounts
+                result3 = conn.execute(text("""select submission_account_id, meta_key from dcc_user 
+                                               where role = 'PROVIDER' and meta_key = :dhub_name"""),
+                                                                            {"dhub_name": dhub_to_check})
+                provider_webin_list = list()
+                for row in result3:
+                    provider_webin_list.append(row[0])
+                dhub.provider_webin = provider_webin_list
+                 # get coordinator contact
+                result2 = conn.execute(text("""select submission_account_id, meta_key, email_address 
+                                               from dcc_user 
+                                               where role = 'COORDINATOR' and meta_key = :dhub_name"""),
+                                                                            {"dhub_name": dhub_to_check})
+                for row in result2:
+                    dhub.coord_contact = row.email_address
+                # get current status from dcc_account
+                result2 = conn.execute(text("""select account_status 
+                                               from dcc_account where meta_key = :dhub_name"""),
+                                                                    {"dhub_name": dhub_to_check})
+                for row in result2:
+                     dhub.status = row.account_status
 
     # add linked project info for annotation functions
     # (not checking exempted datahubs due to large data count skewing plot)
@@ -163,39 +172,49 @@ def fetch_dhub_metadata(engine, exemption_list):
 def check_runs(proj_list, engine):
     # counts runs and gets latest run for each project in proj_list
     for proj in proj_list:
-        with engine.connect() as conn:
-            with conn.begin():
-                count_result = conn.execute(text("""select first_created from run where experiment_id in
+        s = proj.stu_id
+        if not s:
+            proj.latest_run = None
+            proj.run_count = 0
+        else:
+            with engine.connect() as conn:
+                with conn.begin():
+                    count_result = conn.execute(text("""select first_created from run where experiment_id in
                                     (select experiment_id from experiment where study_id in
                                     (select study_id from study where PROJECT_ID = :prj_id))"""),
                                             {"prj_id": proj.prj_id})
-                date_list = []
-                for row in count_result:
-                    proj.run_count += 1
-                    date_list.append(row[0])
-                if proj.run_count > 0:
-                    proj.latest_run = max(date_list)  # .strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    proj.latest_run = None
+                    date_list = []
+                    for row in count_result:
+                        proj.run_count += 1
+                        date_list.append(row[0])
+                    if proj.run_count > 0:
+                        proj.latest_run = max(date_list)  # .strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        proj.latest_run = None
     return proj_list
 
 
 def check_analyses(proj_list, engine):
     # counts analyses and gets latest analysis for each project in proj_list
     for proj in proj_list:
-        with engine.connect() as conn:
-            with conn.begin():
-                count_result = conn.execute(text("""select analysis_id, first_created 
-                from analysis where STUDY_ID = :stu_id"""), {"stu_id": proj.stu_id})
+        s = proj.stu_id
+        if not s:
+            proj.latest_analysis = None
+            proj.analysis_count = 0
+        else:
+            with engine.connect() as conn:
+                with conn.begin():
+                    count_result = conn.execute(text("""select analysis_id, first_created 
+                    from analysis where STUDY_ID = :stu_id"""), {"stu_id": proj.stu_id})
 
-                date_list = []
-                for row in count_result:
-                    proj.analysis_count += 1
-                    date_list.append(row.first_created)
-                if proj.analysis_count > 0:
-                    proj.latest_analysis = max(date_list)  # .strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    proj.latest_analysis = None
+                    date_list = []
+                    for row in count_result:
+                        proj.analysis_count += 1
+                        date_list.append(row.first_created)
+                    if proj.analysis_count > 0:
+                        proj.latest_analysis = max(date_list)  # .strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        proj.latest_analysis = None
     return proj_list
 
 
@@ -211,7 +230,10 @@ def save_project_csv(proj_list, save_path):
     # save project object data in csv format
     projects = [{"datahub": proj.datahub,
                  "prj_id": proj.prj_id,
+                 "stu_id": proj.stu_id,
+                 "prj_type": proj.project_type,
                  "prj_webin": proj.webin_id,
+                 "latest_data": proj.latest_data,
                  "hold_date": proj.hold_date,
                  "status_id": proj.status,
                  "run_count": proj.run_count,
@@ -239,13 +261,14 @@ def save_datahub_csv(dhub_list, save_path):
                  "latest_run": dhub.latest_run,
                  "analysis_count": dhub.analysis_count,
                  "latest_analysis": dhub.latest_analysis,
-                 "recc_state": dhub.recc_status,
                  "coord_contact": dhub.coord_contact,
-                 "notes": dhub.notes,
+                 "recc_state": dhub.recc_status,
+                 "reason": dhub.notes
                  }
                 for dhub in dhub_list]
     df = pd.DataFrame(datahubs)
     dhubcsvpath = save_path + 'datahubs.csv'
+    print('datahub csv saved at', dhubcsvpath)
     df.to_csv(dhubcsvpath, index=False)
     return dhubcsvpath
 
@@ -266,13 +289,13 @@ def make_html_plot(dhubcsvpath, save_path, selected_datatype):
         cust = ['dhub_name', 'run_count'] #, 'latest_run'
         hover_temp = ["Data Hub: %{customdata[0]}", "latest run: %{x}", "Projects: %{y}",
                                                  "Runs: %{customdata[1]}"] #, "Latest run: %{customdata[2]}"
-        title = "Data Hubs by Projects, Latest data and Run count"
+        title = "Data Hubs by Projects, Latest run and Run count"
         selected_latest = 'latest_run'
     elif selected_datatype == 'analysis_count':
         cust = ['dhub_name', 'analysis_count'] #, 'latest_analysis'
         hover_temp = ["Data Hub: %{customdata[0]}", "latest analysis: %{x}", "Projects: %{y}",
                                                  "Analyses: %{customdata[1]}"] #, "Latest analysis: %{customdata[2]}"
-        title = "Data Hubs by Projects, Latest data and Analysis count"
+        title = "Data Hubs by Projects, Latest analysis and Analysis count"
         selected_latest = 'latest_analysis'
 
     fig = px.scatter(df, x=df[selected_latest], y=df['project_count'],
@@ -342,10 +365,9 @@ def annotate_projects(proj_list):
         if (proj.run_count == 0 and proj.analysis_count == 0):  # if no data, mark as empty
             proj.notes += 'Empty'
 
-        if proj.status == 4 and (proj.hold_date is None):  # if project is public
+        if proj.status == 4:  # if project is public
             proj.notes += 'Ded-1'
-        elif (proj.status == 2 or proj.status == 7) and (
-                proj.hold_date is not None):  # if project is due public in future
+        elif (proj.status == 2 or proj.status == 7):  # if project is due public in future
             # CHECK IF PROJECT WILL BE PUBLIC SOON
             six_m_in_future = datetime.today() + timedelta(days=183)
             hold_date = proj.hold_date
@@ -405,37 +427,38 @@ def annotate_dhubs_and_report(proj_list, dhub_list, save_path, exemption_list):
         run_dates = [datetime(2014, 1, 1)]
         analysis_dates = [datetime(2014, 1, 1)]
 
-        #for project in dhub.projects:
-        for proj in proj_list:
-            if (proj.prj_id in dhub.projects):  # for each project within the datahub, check for features:
-                #proj_count += 1
-                dhub.run_count += proj.run_count
-                dhub.analysis_count += proj.analysis_count
-                if proj.latest_run is not None:
-                        run_dates.append(proj.latest_run)
-                if proj.latest_analysis is not None:
-                        analysis_dates.append(proj.latest_analysis)
-                else:
-                    pass
+        if proj_count == 0:
+            dhub.notes += f'no projects | Empty'
+        elif proj_count > 0:
+            for proj in proj_list:
+                if (proj.prj_id in dhub.projects):  # for each project within the datahub, check for features:
+                    dhub.run_count += proj.run_count
+                    dhub.analysis_count += proj.analysis_count
+                    if proj.latest_run is not None:
+                            run_dates.append(proj.latest_run)
+                    if proj.latest_analysis is not None:
+                            analysis_dates.append(proj.latest_analysis)
+                    else:
+                        pass
 
-                if 'Ded' in proj.notes:
+                    if 'Ded' in proj.notes:
                         ded_proj_count += 1
-                if '1' in proj.notes:
+                    if '1' in proj.notes:
                         public_proj_count += 1
-                if '2' in proj.notes:
+                    if '2' in proj.notes:
                         duepublic_proj_count += 1
-                if '3a' in proj.notes:
+                    if '3a' in proj.notes:
                         old_analysis_projs += 1
-                if '3r' in proj.notes:
+                    if '3r' in proj.notes:
                         old_run_projs += 1
-                if 'Empty' in proj.notes:
+                    if 'Empty' in proj.notes:
                         empty_projs += 1
-                if ('c' in proj.notes):
+                    if ('c' in proj.notes):
                         can_proj += 1
-                if ('s' in proj.notes):
+                    if ('s' in proj.notes):
                         sup_proj += 1
-                else:
-                    pass
+                    else:
+                        pass
 
         # logic to get latest data for datahub
         m = None
@@ -456,17 +479,24 @@ def annotate_dhubs_and_report(proj_list, dhub_list, save_path, exemption_list):
 
         if (dhub.dhub_name in exemption_list):
             dhub.recc_status = 'EXEMPT'
-        elif len(dhub.projects) == 0 and (dhub.dhub_name not in exemption_list):
+        elif (dhub.dhub_name not in exemption_list) and (proj_count == 0) and dhub.run_count == 0 \
+                and dhub.analysis_count == 0:
             empty_dhubs.append(dhub)
-            dhub.notes += 'Empty'
-            dhub.recc_status = 'DORMANT'
-        elif len(dhub.projects) > 0 and (dhub.dhub_name not in exemption_list):
+            dhub.recc_status = 'INACTIVE'
+        elif (dhub.dhub_name not in exemption_list) and (proj_count > 0) and dhub.run_count == 0 \
+                and dhub.analysis_count == 0:
+            if ded_proj_count == proj_count:  # if all project are dormant, mark datahub as dormant
+                dhub.recc_status = 'INACTIVE'
+            #empty_dhubs.append(dhub)
+            dhub.notes += f'no data   |  '
+        elif (dhub.dhub_name not in exemption_list) and (proj_count > 0) and (dhub.run_count > 0 \
+                or dhub.analysis_count > 0):
             dhub.notes += f'{dhub.run_count} Runs, {dhub.analysis_count} Analyses   |   '
             if ded_proj_count == proj_count:  # if all project are dormant, mark datahub as dormant
-                dhub.recc_status = 'DORMANT'
+                dhub.recc_status = 'INACTIVE'
             # now add informative notes about the datahub
             if proj_count == public_proj_count:
-                dhub.notes += f'All {proj_count} projects are public.'
+                dhub.notes += f'All {proj_count} projects are public. '
             elif (public_proj_count > 0) and (public_proj_count < proj_count):
                 dhub.notes += f'Of {proj_count} total projects: {public_proj_count} public projects,'
             else:
@@ -480,17 +510,16 @@ def annotate_dhubs_and_report(proj_list, dhub_list, save_path, exemption_list):
                 dhub.notes += f' {can_proj} cancelled projects,'
             if sup_proj > 0:
                 dhub.notes += f' {sup_proj} suppressed projects,'
-            if old_analysis_projs > 0:
-                dhub.notes += f' {old_analysis_projs} projects with no new analysis data for 6mo,'
-            if old_run_projs > 0:
-                dhub.notes += f' {old_run_projs} projects wth no new run data for 6mo,'
-
-            # CHECK IF data hub has recent data...
+            #if old_analysis_projs > 0:
+            #    dhub.notes += f' {old_analysis_projs} projects with no new analysis data for 6m,'
+            #if old_run_projs > 0:
+            #    dhub.notes += f' {old_run_projs} projects with no new run data for 6m,'
+            # CHECK if data hub has recent data...
             six_m_ago = datetime.today() - timedelta(days=183)
             latest_data = dhub.latest_data
             diff = latest_data - six_m_ago
             if diff.days < 0:  # if latest data more than 6m ago
-                pass
+                dhub.notes += 'has no new data for 6m'
             elif diff.days >= 0:
                 dhub.notes += 'has recent data'
 
@@ -501,14 +530,14 @@ def annotate_dhubs_and_report(proj_list, dhub_list, save_path, exemption_list):
 
     total_recc = 0
     for dhub in dhub_list:
-        if (dhub.recc_status == 'DORMANT'):
+        if (dhub.recc_status == 'INACTIVE'):
             total_recc += 1
 
     body = f"""             ***this is an automated email***
 
 ------------------- DATA HUBS USAGE REPORT ----------------------
 
-Out of {len(dhub_list)} total data hubs, {total_recc} are reccommended to be changed to DORMANT.
+Out of {len(dhub_list)} total data hubs, {total_recc} are reccommended to be changed to INACTIVE(DORMANT).
 
 Outputs for this script have been saved at:
 {save_path}
@@ -527,9 +556,10 @@ https://www.ebi.ac.uk/seqdb/confluence/display/EMBL/Data+Hubs+Documentation
 
     body += f"""\n
 
-{len(empty_dhubs)} empty datahubs (no projects associated):
-DATAHUB NAME |  DATA  |   DORMANT REASON    |  TITLE   
+{len(empty_dhubs)} empty datahubs:
+DATAHUB NAME |  DATA  |   INACTIVE REASON    |  TITLE   
 """
+    empty_dhubs = sorted(empty_dhubs, key=lambda dhub: dhub.dhub_name)
     for dhub in empty_dhubs:
         body += f'{dhub.dhub_name} | {dhub.notes}  | {dhub.title}  \n'
 
@@ -538,11 +568,11 @@ DATAHUB NAME |  DATA  |   DORMANT REASON    |  TITLE
 
 
 {other} additional Data Hubs:
-DATAHUB NAME |  DATA  |   DORMANT REASON    |  TITLE   
+DATAHUB NAME |  DATA  |   INACTIVE REASON    |  TITLE   
 """
     dhub_list = sorted(dhub_list, key=lambda dhub: dhub.dhub_name)
     for dhub in dhub_list:
-        if (len(dhub.projects) > 0) and (dhub.recc_status == 'DORMANT'):
+        if (len(dhub.projects) > 0) and (dhub.recc_status == 'INACTIVE'):
             body += f'{dhub.dhub_name} | {dhub.notes}  | {dhub.title}  \n'
 
     body += """
