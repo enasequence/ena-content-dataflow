@@ -1,5 +1,4 @@
-scripts/assemblytracking/DToL-tracking-files
-scripts/assemblytracking/ASG-tracking-files
-scripts/output.txt
 .idea
+scripts/output.txt
+scripts/assemblytracking/*-tracking-files
 *config_private.yaml
