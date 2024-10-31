@@ -1,0 +1,2063 @@
+16627489	
+6	"United Kingdom
+18	"Wageningen University, Netherlands"
+1	.
+6	/country=""South Africa
+6	0021 [Switzerland]
+1	0023 [Switzerland]
+3	0024 [Switzerland]
+4	0025 [Switzerland]
+3	0026 [Switzerland]
+1	0027 [Switzerland]
+8	004 [USA]
+47	004 [United States]
+17	025 [Germany]
+16	1 km offshore of Warnemuende, Germany
+6	11 km SE Pto Inca, Huanuco PE
+6	13 km E Pto Inca, Huanuco PE
+1	1896
+1	2011
+1	2011-03-20
+2	32.9000N 117.2550W Scripps Institute of Oceanography, pier, La Jolla, California USA
+1	42.6667° N, 76.5333° W
+13	505 [Nicaragua]
+88	80¡ 19' 87.5"" W
+48	80¡ 20' 77.0"" W
+12	85¡ 48' 23.01"" W
+9	85¡ 48' 23.6"" W
+9	85¡ 49' 55.3"" W
+12	85¡ 50' 28.5"" W
+9	85¡ 50' 40.0"" W
+12	85¡ 51' 51.7"" W
+12	85¡ 56' 39.1"" W
+12	85¡ 56' 6.5"" W
+16	?
+16	AU
+140	AUS
+1	Abkhazia
+1	Adagoi, Portugal
+22	Adelaide, South Australia, Australia
+1	Admiralty Island, AK
+2	Adriatic Sea
+19	Afganistan
+2452	Afghanistan
+2	Africa
+419	Ailaoshan
+1	Aix en Provence
+11	Ajusco
+2	Al-Hofuf
+5	Alabama, USA
+13	Alaska
+11	Alaska, North Pacific
+23	Alaska, USA
+520	Albania
+67	Albay
+24	Alberta (AB)
+5	Alborz Province, Iran
+3	Alconorales Natural Park, Andaluzia, Spain
+7	Alcudia Bay (Mallorca, Spain)
+15	Alde estuary, Suffolk, UK
+3	Aldeia das Dez, Portugal
+1723	Algeria
+2	All samples were harvested in the Indian River Bay, DE.
+4	Alnarp, Swden
+9	Alpha Ridge
+2	Amami Island
+1	America
+964	American Samoa
+5	Amman, Jordan
+5	An'hui, China
+1	Anchorage, AK
+1	Andalusia
+1	Andalusien
+1	Andaman
+14	Andaman Sea
+1	Andora
+48	Andorra
+2471	Angola
+12	Anguilla
+1	Anqing, Anhui
+8	Antarctic
+6	Antarctic Peninsula
+43112	Antarctica
+24	Antarctica;Lake Fryxell
+24	Antarctica;West Lobe Bonney
+19	Antigua and Barbuda
+1	Antilles
+1	Apache_Reservation,_AZ
+1	Appenzell Innerrhoden, Eastern Switzerland
+12	Arabian Sea
+7	Arctic
+24248	Arctic Ocean
+6	Arctic Ocean;south pole
+9	Arctic deep sea
+98	Arctic ocean
+2	Ardley cove	¬Fildes Peninsula
+31858	Argentina
+161	Argentina, Unknown, Unknown
+10	Argentine Sea
+5	Arica, Chile
+10	Arkona Sea
+4	Armagh, Northern Ireland
+679	Armenia
+24	Aruba
+1	Assam, India
+2	At
+68	Atacama Desert
+2	Atl
+13	Atlantic
+90541	Atlantic Ocean
+5	Atlantic Ocean Mauritanian Upwelling
+5	Atlantic Ocean Patagonian Continental Shelf
+1	Atlantic Ocearn
+1	Atlantis II, Red Sea
+87	Attapeu, Laos
+5	Auburn, AL
+5	Auckland, New Zealand
+1	Austalia
+1	Austrailia
+368278	Australia
+1	Australia, China
+4	Australia, New South Wales
+1	Australia, New South Wales, Bathurst
+1	Australia, New South Wales, Bigga
+1	Australia, New South Wales, Carcoar
+1	Australia, New South Wales, Forbes
+1	Australia, New South Wales, Moss Vale
+1	Australia, New South Wales, Mt Hunter
+1	Australia, New South Wales, Yass
+3	Australia, South Australia, Kangaroo Island
+7	Australia, Tasmania, King Island
+3	Australia, Victoria
+1	Australia, Victoria, Hamilton
+3	Australia, Western Australia
+3	Australia, Western Australia, Albany
+1	Australia;United Kingdom
+74481	Austria
+1	Austria, Burgenland
+1	Austria, NA, NA
+27	Austria, Schiltern (+48°31’ +15°37’)
+1	Austria, Styria
+1	Austria, Upper Austria
+3	Austria, Vienna
+539	Austria;Austria
+1	Austrilia
+1	Avala, Beli Potok, Serbia
+1	Azerbaidjan, NA, NA
+760	Azerbaijan
+1	Azerbeijan
+10	Azov sea
+1	BEL
+3	BRA
+1	BRD3-NUTM1
+1	BRD4-NUTM1
+256	BW;Botswana
+1	BaZhong,China
+2	Babs Cove
+18	Baffin Bay
+2172	Bahamas
+99	Bahrain
+1	Baie de Plaisance, Ã?les-de-la-Madeleine (QuÃ©bec, Canada)
+1	Baker Bay
+1	Baker Island
+21	Balaklava SA
+20	Balearic Islands. Spain.
+11359	Baltic Sea
+13	Baltimore, Md
+4	Banambani
+5	Bancoumana
+26266	Bangladesh
+1	Banteay, Cambodia
+5	Baoji
+1	Baoting,China
+1	Baranof Island, AK
+457	Barbados
+15	Bari
+4	Barinas, Venezuela
+2	Barletta
+117	Barro Colorado Island
+2	Barrow, AK
+2	Bass Strait
+1	Baulkham Hills;NSW;Australia;Australia
+15	Bay St. Louis Mississippi
+1	Bay of Biscay (NE Atlantic Ocean)
+1	Bay of Cadiz
+15	Bayou La Batre Alabama
+1	Beaufort Sea
+89	Beijing
+1	Beijing, China
+1441	Belarus
+9	Belgian Congo
+62976	Belgium
+1	Belgium, Belgium, Brussels
+1	Belgium, Belgium, Verviers
+6	Belgium, Campine Region
+1	Belgium;Ireland
+5234	Belize
+2	Bellingshausen Sea
+11	Belt Sea
+1	Beltsville, Maryland, USA
+27	Bengolea. Cba. Argentina
+5	Bengued, Philippines
+1970	Benin
+1	Benin, Borgou, Kpessou
+4	Benin, Borgou, Tchaourou, Kaki Koka
+1	Benin, Tebo
+1	Benin, Yatanifaga
+27	Berchidda
+16	Bering Sea
+4	Bering Sea, North Pacific
+1	Berlgium
+2378	Bermuda
+1	Bermuda Atlantic Time Series (BATS) station site
+85	Bermuda Atlantic Time-series Study
+2	Bern, Switzerland
+13	Bet-Dagan, Israel
+1	Bhopal Madhya Pradesh India
+18	Bhopal, Madhya Pradesh, India
+9	Bhopal,Madhya Pradesh, India
+887	Bhutan
+1	Bhutan, Bumthang
+1	Biala Woda, near Szczawnica, Poland
+113	Binh Phuoc, Vietnam
+4	Bird Island, South Georgia
+352	Bizerta Lagoon, Tunisia
+10	Black Sea
+2	Black Sea Carbonate reef
+1	Bloemfontein [South Africa]
+1	Bloemfortein [South Africa]
+5	Bobo-dioulasso, Burkina Faso
+5	Bogota, Colombia
+14	Bohai Sea
+1	Boiling Springs Lake
+4417	Bolivia
+46	Bonaire Island
+334	Borneo
+10	Bornholm Basin
+449	Bosnia and Herzegovina
+1	Bosque_del_Apache,_NM
+26	Boston [USA]
+7489	Botswana
+4	BotswanaOrNamibia
+2	Bougainville
+815	Boulder, CO, USA
+21	Bouvet Island
+1	Branford, CT
+6	Bransfield Strait
+158842	Brazil
+1	Brazil - Paraíba state
+107	Brazil, Rio de Janeiro
+213	Brazil, Unknown, Unknown
+1	Brazil/Northeastern region
+5	Bretagne, France
+1	British Isles
+51	British Virgin Islands
+20	Brownsville, TX
+410	Brunei
+1	Brunei;Kuala Belalong;Ulu Temburong National Park
+2	Brunei_Darussalam
+36	Brunsbuttel, Elbe estuary, Schleswig-Holstein, Germany
+6	Buchstein, Germany
+6	Buenos Aires
+4696	Bulgaria
+7737	Burkina Faso
+9	Burkina_Faso
+12	Burma
+366	Burundi
+1	Buy from germany
+20	C1 from Halden, 59N, Norway
+132	CA
+11	CAR;Central African Republic
+180	CEU
+1	CHE
+21	CHILE
+1	Cairns QLD, Australia.-16.9185514,145.77805480000006
+5	Cairo, Egypt
+4	Calgary [Canada]
+1	California
+4	California state, USA
+5	California, North Pacific
+1	Caloundra, Queensland
+97	Cambodge
+10668	Cambodia
+1	Cambodia;Ari Ksatr
+5	Cameron highland, Malaysia
+9508	Cameroon
+1	Cameroun
+398332	Canada
+1	Canada Airdie AB
+1	Canada Airdrie AB
+13	Canada Basin
+1	Canada Ft. Macleod AB
+5	Canada Lunbrek AB
+28	Canada Macleod AB
+1	Canada Waingright AB
+1	Canada, British Columbia, Vancouver Island, Barkley Sound
+1	Canada, British Columbia, Vancouver Island, Port Alberni
+1	Canada, Lunbrek AB
+3	Canada, North Western Territories
+215	Canada;CAN
+1	Canada;United Kingdom
+9	Cañar, Ecuador
+2	Canary Islands
+1	Canary Isles
+12	Caney Fork River Riparian Zone
+1	Canonsburg, PA. USA
+5	Cape Town, South Africa
+1314	Cape Verde
+1	Capiz province, Philippines
+15	Capulin, Nevado de Toluca, Estado de Mexico, Mexico
+4	Caratão, Abrantes, Portugal
+6	Caribbean Sea
+1	Caribean sea
+1	Carltonville [South Africa]
+13	Castelo de Vide, Portugal
+793	Cayman Islands
+1	Cayo, Belize
+2924	Central African Republic
+2	Central America
+69	Central Arctic Ocean/Eurasian basin;Arctic Ocean
+1	Central Switzerland
+1	Central_America
+1	Cerkvenjak, Slovenia
+10	Cerro San Andres
+731	Chad
+1	Chai nat, Thailand
+1	Chak 13 BC, Bahawalpur, Pakistan
+7	Changshu City
+1	Charles River Laboratories
+21	Charleston SA
+3	Cheasapeake Bay
+1	Chennai
+110	Chernobyl Nuclear Power Plant Exclusion Zone
+10	Chesapeake Bay
+4	Chesapeake bay station 858
+16	Chiba Perfecture, Japan
+5	Chifeng, Inner Mongolia , China
+34413	Chile
+2059516	China
+1	China 
+5	China Agricultural University pig farm,Zhuozhou, China
+1	China Nanjing Forestry University
+1	China Shaoxing
+1	China Yunnan
+3	China(PRC)
+4	China, Guangxi
+1	China, Hong Kong
+2	China, Province of Zhejiang
+200	China;China
+1	China;south China
+1	ChinaÂ	ÂºDali
+1	ChinaÂ	ÂºLijiang
+2	ChinaÂ	ÂºShangri-La
+7	ChinaÂ	ÂºShilin
+8	China_Zhuhai
+1	China：Xiamen
+5	Chittagong, Bangladesh
+1	Chize
+1	Chon Buri, Thailand
+4	Chongqing, China
+1	Choptank River
+114	Christmas Island
+24	Chukchi Sea
+1	Chukichi Shelf
+1	Chungbuk
+31	Cincinnati, OH
+7	Ciudad del Carmen, Campeche
+10	Clipperton Island
+31	Cocos Islands
+14	Cofre de Perote
+23043	Colombia
+17	Colombia, Chinchina, Naranjal experimental station
+1	Colombia, Tolima, Mariquita Reserve
+1	Colombia;Caroline Island;Leticia
+4	Columbia
+1	Columbia River, US
+365	Commonwealth of Puerto Rico
+402	Comoros
+3	Comorres
+1	Concepcin, Chile
+22	Congo
+334	Cook Islands
+4	Coral Sea
+103	Coral Sea Islands
+5	Cordoba, Argentina
+2	Corio Bay
+4	Corsica (France)
+18330	Costa Rica
+2	Costa Rica;France
+19	Costa_Rica
+8181	Cote d'Ivoire
+1	Côte d'Ivoire
+34	Cote_d'Ivoire
+1	Cowells_sand_after
+1	Cowells_water
+18	Crete
+2	Crimea, Black sea near Sevastopol, Karantinnaya Bay
+2	Crimea, Black sea near Sevastopol, Martinova Bay
+1	Crimea, Black sea near Sevastopol, Sevastopol Bay
+7203	Croatia
+16	Croatia, , Zagreb
+1	Croatia, Adriatic sea, Island of Ugljan
+7	Croatia;Mediterranean Sea
+26	Crystal River Florida
+2578	Cuba
+1	Cuber, Slovenia
+3469	Curacao
+1	Curacao Island
+23	Cuxhaven, Elbe estuary, Schleswig-Holstein, Germany
+1	Cypress Hills, Alta.
+8631	Cyprus
+7	Cyprus, Mediterranean Sea
+3	Cyprus;Mediterranean Sea
+84	Cystic fibrosis lung
+54327	Czech Republic
+1	Czech republic
+880	Czechia
+185	Czechoslovakia
+1	Czechoslovia(pre1989)
+2	DE
+1	DNK
+196	DR Congo
+1	DRC
+7	Dalat, Vietnam
+5	Dar es salaam, Tanzania
+1	Darwin, Norther Territory
+2	Dauphin Island
+2	Daxin,China
+1	Decatur, IL, US
+1	Delft
+2	Delhi
+11	Democratic Republic of Congo
+10463	Democratic Republic of the Congo
+6	Democratic_People's_Republic_of_Korea
+686013	Denmark
+2	Denmark, Jutland, Ebeltoft
+5	Denmark, Jutland, Kolind
+37	Denmark, Kopenhagen
+1	Denmark, Zealand, Helsinge
+206	Denmark;Denmark
+1	Denver, Colorado
+8	Deppoldshausen
+1	Derwent River, Tasmania
+3	Destuben, Germany
+40	Deutschland
+2	Dhaka, Bangladesh
+1	Dï¿½_nemark
+15	Dilatada, Nevado de Toluca, Estado de Mexico, Mexico
+2	Diomede, AK
+1	Discovery Deep, Red Sea
+516	Djibouti
+176	Dominica
+2165	Dominican Republic
+1	Dominican_Republic
+2	Duan,China
+3	Dushanbe, Tajikistan
+1	Dutch Guiana
+4	ESP
+22	East China Sea
+1	East Scotia Ridge
+1	East Sea, Korea
+16	East Timor
+8	Eastern Mediterranean Sea
+5	Eastern Tropical South Pacific
+28621	Ecuador
+6037	Egypt
+4	Egypt and India
+10	Egypt's Red Sea Coast
+2	Egypt;Mediterranean Sea
+3	Ekaterinburg, Russia
+21	El Hierro
+999	El Salvador
+7	El Zamorano
+2	Emutete, Kenya
+356	England
+1	England & Wales
+1	England, Bedfordshire
+2	England, Berkshire
+1	England, Cambridgeshire
+7	England, Cheshire
+3	England, Cornwall and Isles of Scilly
+4	England, Derbyshire
+8	England, Devon
+2	England, Dorset
+2	England, East Riding and North Lincolnshire
+1	England, Essex
+1	England, Gloucestershire
+1	England, Greater London
+2	England, Greater Manchester
+5	England, Hampshire
+2	England, Herefordshire
+2	England, Hertfordshire
+6	England, Lancashire
+2	England, Leicestershire and Rutland
+2	England, Lincolnshire
+2	England, Merseyside
+5	England, Norfolk
+1	England, North Yorkshire
+3	England, Northamptonshire
+1	England, Northumberland
+2	England, Nottinghamshire
+2	England, Oxfordshire
+1	England, Shropshire
+1	England, Somerset excl North
+1	England, Suffolk
+1	England, Surrey
+1	England, Tayside
+2	England, West Midlands
+1	England, West Yorkshire
+7	England, Wiltshire
+11	English Channel
+5	Enniskillen, Northern Ireland
+1	Equador
+360	Equatorial Guinea
+813	Eritrea
+41091	Estonia
+4	Estuary
+193	Eswatini
+22955	Ethiopia
+124	Ethiopia, Oromiya, Jimma
+2	Ethiopia, Oromiya, Jimma Zone, Jimma
+1	Ethiopia, Oromiya, Jimma,
+125	Europa Island
+10	Europe
+1	FRA
+1	FSU
+3	Faisalabad, Pakistan
+102	Falkland Islands (Islas Malvinas)
+7	Falkland Islands, Great Britain
+1	Fanzana
+3	Farminton, MN
+1	Farms at Hai Phong, Quang Ninh, and Khanh Hoa provinces in Vietnam
+1	Faroe
+361	Faroe Islands
+3	Fayetteville, AR USA
+4967	Fiji
+213285	Finland
+2	Finland, Finland Proper, Turku
+2	Finland, Haapavesi
+12	Finland, Hameelinna
+1	Finland, Harma
+1	Finland, Kotka
+1	Finland, Kuusamo
+1	Finland, Loppi
+4	Finland, Northern Ostrobothnia, Oulu
+5	Finland, Oulu
+1	Finland, Rääkkylä
+1	Finland, Sodankylä
+18	Finland, Southern Finland
+1	Finland, Switzerland and Spain
+3	Finland, Turku
+8	Finland, Uusimaa, Helsinki
+1	Finland, Uusimaa, Helsinki, Laakso
+10	Finland/Kilpisjrvi/Kilpisjrvi
+5	Finland/Kilpisjrvi/Saana 11
+5	Finland/Kilpisjrvi/Saana 12
+4	Finland/Kilpisjrvi/Saana 15
+10	Finland/Kilpisjrvi/Saanajrvi
+10	Finland/Kilpisjrvi/Tshkaljrvi
+29	Finland/souther Finland
+23	Finland/southern Finland
+1	Finse, Norway
+17	Florida, USA
+27	Fort DeSoto Beach
+4	Foshan,China
+2	Fox Creek, Alta.
+6	Fram Strait
+6	Fram Strait;Arctic Ocean;Arctic Ocean
+225162	France
+10	France (Breuil Forest)
+1	France (soldier)
+1	France Marseille
+1	France and Algeria
+40	France and Vietnam
+1	France, ,
+13	France, Burgundy
+9	France, Burgundy, Chardonnay
+2	France, Ligurian Sea
+2	France/Mediterranean sea
+2	France;Atlantic Ocean
+365	France;France
+1	France;Guadaloupe Island
+5	France;Mediterranean Sea
+13	Frankreich
+7481	French Guiana
+8620	French Polynesia
+63	French Southern and Antarctic Lands
+1	French West Indies
+1	French_Guiana
+18	Freshwater of Pearl Estuary
+4	Frula, Huesca
+12	Ft. Collins, CO
+21	Fuerteventura Lanzarote
+5	Fujian, China
+8	Fujian,China
+1	Fuzhou
+51248	GAZ
+87	GBR
+25	GER
+4	GERMANY
+1	GRC
+1	GUATEMALA
+2509	Gabon
+1	Gabon (OgooueÊMaritime)
+6751	Gambia
+5	Gansu, China
+19	Gary, Indiana
+76	Gaza Strip
+1	Gazipur, Bangladesh
+8	Gdansk Deep
+1	Geneve
+11982	Georgia
+72	Georgia Republic
+1	German
+1	German, Sennickerode
+1113824	Germany
+1	Germany, ,
+43	Germany, , Aachen
+42	Germany, , Berlin
+112	Germany, , Cologne
+1	Germany, , Freiburg
+12	Germany, , Giessen
+25	Germany, , Hamburg
+2	Germany, , Lübeck
+116	Germany, , Tübingen
+13	Germany, 1, Cologne
+5	Germany, 2, Cologne
+7	Germany, 3, Cologne
+6	Germany, 4, Cologne
+6	Germany, 5, Cologne
+2	Germany, 6, Cologne
+4	Germany, 7, Cologne
+1	Germany, ?, Berlin
+13	Germany, ?, Freiburg
+3	Germany, ?, Giessen
+1	Germany, ?, Lübeck
+3	Germany, ?, München
+1	Germany, B1, Cologne
+1	Germany, B2, Cologne
+1	Germany, B3, Cologne
+5	Germany, B4, Tübingen
+1	Germany, B5, Tübingen
+1	Germany, B6, Tübingen
+1	Germany, B7, Hamburg
+6	Germany, BB, Berlin
+1	Germany, BB, Cottbus
+1	Germany, BE, Berlin
+1	Germany, BSIBK7594, Tübingen
+1	Germany, BW, BW
+1	Germany, BY, Munich
+2	Germany, Bavaria
+16	Germany, Berlin
+1	Germany, C1, Cologne
+1	Germany, C2, Cologne
+1	Germany, C3, Cologne
+1	Germany, C4, Tübingen
+1	Germany, C6, Tübingen
+1	Germany, C7, Hamburg
+1	Germany, CO180, Tübingen
+1	Germany, CO192, Tübingen
+1	Germany, CO194, Tübingen
+1	Germany, CO196, Tübingen
+1	Germany, CO200_HQ, Tübingen
+1	Germany, CO213, Tübingen
+1	Germany, CO22, Tübingen
+1	Germany, CO228, Tübingen
+1	Germany, CO234, Tübingen
+1	Germany, CO246_HQ, Tübingen
+1	Germany, CO247, Tübingen
+1	Germany, CO248, Tübingen
+1	Germany, CO249, Tübingen
+1	Germany, CO250, Tübingen
+1	Germany, CO253, Tübingen
+1	Germany, CO26, Tübingen
+1	Germany, CO261, Tübingen
+1	Germany, CO263, Tübingen
+1	Germany, CO264, Tübingen
+1	Germany, CO271, Tübingen
+1	Germany, CO274, Tübingen
+1	Germany, CO281, Tübingen
+1	Germany, CO282, Tübingen
+1	Germany, CO289, Tübingen
+1	Germany, CO290, Tübingen
+1	Germany, CO293, Tübingen
+1	Germany, CO301, Tübingen
+1	Germany, CO310, Tübingen
+1	Germany, CO322, Tübingen
+1	Germany, CO333, Tübingen
+1	Germany, CO342, Tübingen
+1	Germany, CO353, Tübingen
+1	Germany, CO359, Tübingen
+1	Germany, CO4, Tübingen
+1	Germany, CO403, Tübingen
+1	Germany, CO404, Tübingen
+1	Germany, CO410, Tübingen
+1	Germany, CO418-1, Tübingen
+1	Germany, CO471, Tübingen
+1	Germany, CO472, Tübingen
+1	Germany, CO483, Tübingen
+1	Germany, CO488, Tübingen
+1	Germany, CO49, Tübingen
+1	Germany, CO493, Tübingen
+1	Germany, CO495, Tübingen
+1	Germany, CO51, Tübingen
+1	Germany, CO52, Tübingen
+1	Germany, CO525, Tübingen
+1	Germany, CO53, Tübingen
+1	Germany, CO533, Tübingen
+1	Germany, CO536, Tübingen
+1	Germany, CO537, Tübingen
+1	Germany, CO539, Tübingen
+1	Germany, CO55, Tübingen
+1	Germany, CO556, Tübingen
+1	Germany, CO566, Tübingen
+1	Germany, CO57, Tübingen
+1	Germany, CO582, Tübingen
+1	Germany, CO584, Tübingen
+1	Germany, CO591, Tübingen
+1	Germany, CO593, Tübingen
+1	Germany, CO60, Tübingen
+1	Germany, CO605, Tübingen
+1	Germany, CO614, Tübingen
+1	Germany, CO641, Tübingen
+1	Germany, CO658, Tübingen
+1	Germany, CO66, Tübingen
+1	Germany, CO685, Tübingen
+1	Germany, CO716, Tübingen
+1	Germany, CO73, Tübingen
+1	Germany, CO742, Tübingen
+1	Germany, CO746, Tübingen
+1	Germany, CO766, Tübingen
+1	Germany, CO783, Tübingen
+1	Germany, CO784, Tübingen
+1	Germany, CO795, Tübingen
+1	Germany, CO803, Tübingen
+1	Germany, CO804, Tübingen
+1	Germany, CO805, Tübingen
+1	Germany, CO807-1, Tübingen
+1	Germany, CO81, Tübingen
+1	Germany, CO814, Tübingen
+1	Germany, CO820, Tübingen
+1	Germany, CO840, Tübingen
+1	Germany, CO849, Tübingen
+1	Germany, CO85, Tübingen
+1	Germany, CO860, Tübingen
+1	Germany, CO863, Tübingen
+1	Germany, CO864, Tübingen
+1	Germany, CO866, Tübingen
+1	Germany, CO87, Tübingen
+1	Germany, CO883, Tübingen
+1	Germany, CO888, Tübingen
+1	Germany, CO890, Tübingen
+1	Germany, CO892, Tübingen
+1	Germany, CO93, Tübingen
+1	Germany, CO94, Tübingen
+1	Germany, CO96, Tübingen
+1	Germany, Co21, Tübingen
+1	Germany, Co38, Tübingen
+1	Germany, Co45_HQ, Tübingen
+1	Germany, Co626, Tübingen
+1	Germany, Co627, Tübingen
+1	Germany, Co629, Tübingen
+1	Germany, Co63, Tübingen
+1	Germany, Co656, Tübingen
+1	Germany, Co667, Tübingen
+1	Germany, Co690, Tübingen
+1	Germany, Co692, Tübingen
+1	Germany, Co709, Tübingen
+1	Germany, Co726, Tübingen
+1	Germany, Co736, Tübingen
+1	Germany, Co747, Tübingen
+1	Germany, Co760, Tübingen
+40	Germany, Cologne
+35	Germany, Frieburg
+11	Germany, Giessen
+5	Germany, Göttingen
+10	Germany, Lower Saxony
+21	Germany, Lübeck
+1	Germany, MV, Schwerin
+91	Germany, Muenster
+1	Germany, NEWCN1156, Tübingen
+1	Germany, NI, Braunschweig
+1	Germany, NI, Sennickerode
+3	Germany, NW, Bochum
+13	Germany, NW, Cologne
+2	Germany, NW, Leverkusen
+2	Germany, NW, NRW
+2	Germany, RP, Mainz
+1	Germany, Reipoltskirchen, LK Kusel
+2	Germany, SN, Dresden
+3	Germany, SN, SN
+5	Germany, Sennickerode
+1	Germany, TH, TH
+1	Germany, Thuringia, Weimarer Land
+5	Germany, Tübingen
+1	Germany, co459, Tübingen
+2	Germany/Libya
+8	Germany/Syria
+809	Germany;Germany
+33797	Ghana
+4	Gibraltar
+16	Glorioso Islands
+5	Gongga, Tibet, China
+1	Goundri
+19	Gran Canaria
+20	Grand Terre Island Louisiana
+1	Great Britain
+2	Great Salt Lake
+1	Greatwall	¬Fildes Peninsula
+26766	Greece
+2	Greece, ,
+33	Greece;Mediterranean Sea
+9872	Greenland
+96	Grenada
+11	Groningen, Holland
+4138	Guadeloupe
+1	Guadeloupe, French West Indies
+1862	Guam
+12	Guanabara Bay, Rio de Janeiro, Brazil
+1	Guangdong China
+4	Guangdong, China
+16	Guangdong,China
+4	Guangzhou	¬ China
+2	Guangzhou, Guangdong Province, China
+1952	Guatemala
+4	Guaymas Basin
+13	Guernsey
+3	Guiana
+2490	Guinea
+2363	Guinea-Bissau
+5	Guizhou, China
+1	Gulf Stream
+3	Gulf of Aqaba
+7	Gulf of California
+4	Gulf of California (Sea of Cortés)
+1	Gulf of California and Eastern Tropical North Pacific
+25	Gulf of Maine
+108	Gulf of Mexico
+6	Gulf of Mexico (MC118)
+2	Gulf of Naples
+46	Guri, Republic of Korea
+2976	Guyana
+4	Hainan
+4	Hainan, China
+6	Hainan,China
+2411	Haiti
+4	Haji Buang lake, Kalimantan, Indonesia
+4	Halkidiki, Greece
+1	Hangzhou
+4	Hangzhou Bay
+15	Hanzhong
+3	Havana, Cuba
+1	Havre aux Maisons lagoon
+171	Hawaii, USA
+1	Hawaii-Hilo Experimental farm
+21	Heard Island and McDonald Islands
+5	Heilongjiang, China
+64	Helgoland
+9	Helgoland Roads, German Bight, North Sea
+3	Helgoland, Germany
+21	Helgoland, Scleswig-Holstein, Germany
+2	Helsinki, Finland
+1	Hidden Valley, Montana
+12	Hirusen highland, Okayama Perfecture, Japan
+1	Hochi Min City, Vietnam
+1	Hochi Minh city area, Vietnam
+3	Hofuf
+5	Hohhot, Inner Mongolia, China
+2	Holland
+3	Höllberg, Germany
+17	Holmegaard
+4395	Honduras
+40421	Hong Kong
+1	Hong Kong SRA
+1	Hong_Kong
+1	Hongkong
+3	Hortus Leiden, the Netherlands
+1	Hortus, Leiden, the Netherlands
+1	Hot spring
+1	Houston, B.C. Canada
+1	Houston, BC
+6	Houston, Texas
+2	Howland Island
+5	Huaral, Peru
+4	Huizhou,China
+2	Hunan,China
+14315	Hungary
+5	Hungray
+1	Hwy_93_Kingman,_AZ
+4	Hyderabad, Telangana, India
+1	Hyderabad,Telangana, India
+1	INDIA
+74	IRL
+174	ISL
+33659	Iceland
+1	Ilan, Taiwan,China
+1	Illinois
+1	Ilocos, Nagsanga, Philippines
+2	Iloilo province, Philippines
+110924	India
+2	India (Bihar)
+6	India (Delhi)
+6	India,
+1	India, Kashmir
+1	Indian
+14308	Indian Ocean
+3	Indianapolis, Indiana
+79	Indochina
+19	Indochina_Indonesia_Admixed
+36	Indochina_Indonesia_Philippines
+17619	Indonesia
+2	Indonesia, Java
+21	Inman Valley SA
+1	Inner Mongolia, China
+3	Ionian Sea
+9874	Iran
+1784	Iraq
+158107	Ireland
+1	Ireland, Connaught, Galway
+1	Ireland, Munster
+2	Ireland, Munster, Cork
+1	Ireland;Sweden
+1	Ireland;United Kingdom
+704	Iriomote
+3	Irish Sea
+1	Irland
+33	Isle of Man
+1	Isolated from home–make koumiss in Sinkiang of China
+62417	Israel
+30	Israel / Dead Sea
+2	Israel(Carmel)
+3	Israel(Central)
+2	Israel(Negev)
+483	Israel;Israel
+2	Israel;Mediterranean Sea
+5	Istambul, Turkey
+21	Italia
+135147	Italy
+2	Italy(Bergamo)
+2	Italy(Sardinia)
+2	Italy(Tuscany)
+1	Italy, ,
+6	Italy, Cagliari
+1	Italy, Lamole
+8	Italy, Long term monitoring station MareChiara, Naples Bay
+1	Italy, Province of Vercelli
+1	Italy, Santa Sofia (Forlì)
+6	Italy, Sassari
+1	Italy, Trasanni di Urbino (Pesaro Urbino)
+1	Italy, central-L'Aquila (Scoppito)
+10	Italy;Mediterranean Sea
+17	Ivory Coast
+12	Iztaccihuatl
+710	Jamaica
+4	Jan Mayen
+289896	Japan
+1	Japan Ehime, Niihama
+141	Japan Sea
+5	Japan Tokyo
+1	Japan, Gifu
+1	Japan, Okayama
+5	Japan, Shimane
+2	Japan, Tokyo
+3	Japan, Tottori
+1	Japan, Yamaguchi
+28	Japan;Japan
+4	Japana
+251	Jersey
+3	Jhabua, Madhya Pradesh, India
+2	Jiangmen,China
+2	Jiangsu
+4	Jilin Province
+1	JingZhou,China
+118	Joensuu, Finland
+3	Johnston Atoll
+2638	Jordan
+1	Joydebpur, Bangladesh
+150	Juan de Nova Island
+164	KOREA
+4	KSA
+9	Kadapa,Andhra Pradesh, India
+5	Kagoshima, Japan
+1	Kagosima Bay
+4	Kakaban lake, Kalimantan, Indonesia
+4	Kalix water from a bridge close to Svartbyn, Sweden
+10	Kampala [Uganda]
+1	Kampong, Cambodia
+1	Kanchanaburi, Thailand
+3	Kanowna Island, Australia
+4	Katmandu, Nepal
+7	Kattegat
+5909	Kazakhstan
+2	Kebrit Deep, Red Sea
+53	Kela
+1	Kenai Peninsula, AK
+79457	Kenya
+1	Kenya;Nanyuki
+411	Kerguelen Archipelago
+4	Kerguelen Ile Haute
+2	Key West Coral Nursery
+1	Khagrachari, Bangladesh
+2	Khagrachari, Dighinala, Bangladesh
+2	Kho Qua, Vietnam
+1	Khumaltar, Nepal
+9	Khun Han, Thailand
+1	Kikuyu town [Kenya]
+16	Kingaroy SA
+114	Kinshasa, DRCongo
+1361	Kiribati
+3	Klein Curacao
+1	Kobilje - Sv. Martin, Slovenia
+26	Kolkata
+2	Kongsfjorden, Spitsbergen
+18610	Korea
+3	Korea, Republic of
+5	Korea, South
+37	Korea,_Republic_of
+119	Kosovo
+5	Kota Kinabalu, Malaysia
+1508	Kuwait
+47	Kyiv area
+15	Kyrgyz
+958	Kyrgyzstan
+2	Kyrgyzystan
+16	La Gomera
+12	La Malinche
+22	La Palma
+5	La Serena, Chile
+2	La Sotonera (Castillo de Castej???n), Huesca
+76	LabControl test
+5	Laboratory
+4	Laboratory (Benin)
+4	Laboratory (French Polynesia)
+3	Laboratory (USA)
+1	Laboratory USA
+1	Lake 239, Experimental Lakes Area, Ontario
+1	Lake Baikal
+15	Lake Erie
+1	Lake Geneva
+1	Lake Giles, PA
+1	Lake Huron_HU37
+1	Lake Huron_HU38
+1	Lake Huron_HU54
+1	Lake Huron_HU951
+1	Lake Huron_HU952
+1	Lake Huron_HU953
+6	Lake Konstanz, Germany
+1	Lake Michigan_MI18
+1	Lake Michigan_MI40
+1	Lake Nordåsvatnet
+1	Lake Ontario_ON25
+1	Lake Ontario_ON41
+1	Lake Placid Rd, Caravonica QLD 4878, Australia
+3	Lake Redon, Pyrenees Mountains, Spain
+35	Lake Superior
+36	Lamborn
+2	Lamjung, Nepal
+30	Lancaster
+127	Lao_People's_Democratic_Republic
+2199	Laos
+10	Laos, Poa village
+12	Latitude
+8365	Latvia
+1	Latvia, Burtnieki
+1	Latvia, Daugavpils
+1	Latvia, Gulbene
+3	Latvia, Jelgava
+1	Latvia, Koceni
+2	Latvia, Kocēni
+1	Latvia, Kuldīga
+1	Latvia, Nīca
+1	Latvia, Rēzekne
+3	Latvia, Tērvete
+13	Lazarev Sea
+4377	Lebanon
+49	Lebanon, NH USA
+2	Leci???ena, zaragoza
+1	LeiYang,China
+70	Leiden_NL
+98	Lesotho
+1	Lesser Antilles
+1	Lettland
+5	Liaoning, China
+968	Liberia
+1	Liberia;Between Liberia and Ivory Coast
+362	Libya
+1	Libyan Arab Jamahiriya
+1923	Liechtenstein
+3	Ligurian Sea
+507	Lijiang
+134	Line Islands
+19	Lintong
+4564	Lithuania
+13	Lokkersnol, Eastern scheldt estuary, Netherlands
+48	Loma Ridge
+37	London, UK
+4	Long Island Sound
+2	Los Angeles, USA
+5	Louisiana, USA
+1	Lovers_Point_sand_after
+1	Lovers_Point_sand_before
+1	Lovers_Point_water
+20	Lower Laguna Madre, TX
+266	Luebeck, Germany
+6	Lützow-Holm Bay
+4265	Luxembourg
+1	Lybia
+2	MACEDONIA
+120	MALAYSIA
+150	MISSING
+6	MIssing
+107	MOLA-Mediterranean Sea
+801	Macau
+437	Macedonia
+19059	Madagascar
+1	Madagascar, Amoron'i Mania, Ambatofinandrahana
+3	Madagascar, Amoron'i Mania, Ambositra
+1	Madagascar, Amoron'i Mania, Ambositra, Ambatomarina
+2	Madagascar, Amoron'i Mania, Ambositra, Ambohimilanja
+1	Madagascar, Amoron'i Mania, Ambositra, Ambositra I
+1	Madagascar, Amoron'i Mania, Ambositra, Ambositra II
+1	Madagascar, Amoron'i Mania, Ambositra, Ambovombe
+5	Madagascar, Amoron'i Mania, Ambositra, Andina
+1	Madagascar, Amoron'i Mania, Ambositra, IlakaCentre
+1	Madagascar, Amoron'i Mania, Ambositra, Ivato
+1	Madagascar, Amoron'i Mania, Ambositra, Soavina
+1	Madagascar, Amoron'i Mania, Ambositra, TalataVohimena
+8	Madagascar, Amoron'i Mania, Ambositra, Tsarasaotra
+1	Madagascar, Amoron'i Mania, Ambositra, Tsarasoatra
+1	Madagascar, Amoron'i Mania, Fandriana
+1	Madagascar, Amoron'i Mania, Manandriana, Ambovombe
+1	Madagascar, Amoron'i Mania, Manandriana, Ambovombecentre
+1	Madagascar, Amoron'i Mania, Manandriana, Talata Vohimena
+1	Madagascar, Amoron'i Mania, Manandriana, Vinany Andakatanikel
+1	Madagascar, Amoron'i Mania, Manandriana, VinanyAndakana
+1	Madagascar, Haute Matsiatra, Ambohimahasoa, Vohiposa
+1	Madagascar, Vakinankaratra, Antanifotsy
+1	Madagascar;Ansirabe
+1	Madagascar;Joffreville
+5	Madrid, Spain
+23	Madurai
+121	Mae Sot, Thailand
+1	Magadan Region
+5	Maine, USA
+1	Malaisia
+25184	Malawi
+111	Malawi;Malawi
+1	Malaya
+24069	Malaysia
+304	Maldives
+7548	Mali
+726	Malta
+7	Manatee pocket Florida
+5	Manica, Mozambique
+25	Manila
+13	Manitoba (MB)
+5	Manitoba, Canada
+1	Manuka, Hawaii
+1	Marão, Campeã, Portugal
+5	Marathon, Greece
+196	Marshall Islands
+268	Martinique
+5	Maryland, USA
+434	Mauritania
+3491	Mauritius
+62	Mauritius;Mauritius
+1346	Mayotte
+3	McMurdo Dry Valleys of Antarctica
+1	McMurdo Sound
+6	Mediterannean Sea
+2	Mediterranean
+11031	Mediterranean Sea
+13	Mediterranean Sea, Spain
+8	Mediterranean, Spain
+1	Melose
+5	Mendoza, Argentina
+9	Mersey estuary, at Eastham Sands, Liverpool, UK
+1	Mexica
+76372	Mexico
+2	Mexico. Loreto Bay, Gulf of California.
+1	Meyendel, the Netherlands
+5	Michigan, USA
+604	Micronesia
+216	Micronesia, Federated States of
+1	Mid-Atlantic ridge
+1	Miers Valley, McMurdo Region, east Antarctica
+1	Mindanao, Philippines
+18	Minjiang River estuary
+1	Minnesota, USA
+2	MisSing
+10507	Missing
+75	Mississippi River
+5	Missouri, USA
+4976	Moldova
+223	Monaco
+3714	Mongolia
+5	Montana, USA
+27	Monte Buey. Cba. Argentina
+731	Montenegro
+5	Montevideo, Uruguay
+4	Montgomery County, Pennsylvania
+34	Montserrat
+13	Morecambe Bay, UK
+13	Morehead, KY
+4566	Morocco
+2	Moroco;Mediterranean Sea
+5	Morondava, Madagascar
+3	Moscow, Russia
+5	Mount Apo, Philippines
+8837	Mozambique
+1	Mumbai
+5	Muop Dang, Vietnam
+12	Mwanza gulf population
+1	Myanma
+3830	Myanmar
+1	N AdÂlie Cove , Antarctica
+1	N-E Siberia, Indigirka R.
+1	N-E Siberia, Novosibirsk Islands
+10	N.A.
+1	N.Ireland
+2	N30.51 E21.23
+59	NCBS
+1	NE Providence Channel
+70	NIGERIA
+148	NL
+5	NLD
+76	NOT APPLICABLE
+82	NOT COLLECTED
+1	NOT PROVIDED
+1	NOT RECORDED
+13	NOT applicable
+49	NOT collected
+1644	NULL
+1	NULL (orig)
+1	NUTM1
+27	NZ
+419	Nabanhe
+1	Nabeta Bay, Shimoda, Shizuoka
+2	Nakhon Pathom, Thailand
+1	Nakhonsitha province, Thailand
+4961	Namibia
+6	Namidia
+1	Nanaimo
+1	Narathiwat, Thailand
+1	Nauru
+1	Navassa Island
+1	Near Rosendale NY [USA]
+9	Nederland
+14138	Nepal
+1	Nepal, Kaski
+6	Netherland
+158716	Netherlands
+281	Netherlands 
+2	Netherlands (Berghem)
+6	Netherlands (Nijmegen)
+355	Netherlands Antilles
+2	Netherlands,
+1	Netherlands, , groningen
+11	Netherlands, Amersfoort
+45	Netherlands, Groningen
+2	Netherlands, Leeuwarden
+16	Netherlands, Sittard
+8	Netherlands, Utrecht
+48	Netherlands;Netherlands
+1	Netherlands;New Zealand
+11	Nevado de Toluca
+5	New Bruswick, Canada
+3058	New Caledonia
+1	New Caledonia;Noumea
+4	New Guinea
+3	New Haven, CT
+5	New Mexico, USA
+5	New South Wales, Australia
+1	New York City
+5	New York, USA
+90402	New Zealand
+1	New Zealand;Belgium
+1	New_Zealand
+8	Newry, Northern Ireland
+4626	Nicaragua
+1	Nigeira
+3028	Niger
+28610	Nigeria
+1	Nigeria, Borno, Maiduguri
+80	Nigeria, Ethiopia
+1	Niigata
+32	Norfolk Island
+56	North Africa
+7	North Atlantic
+115	North Atlantic Ocean
+10	North Carolina, USA
+447	North Korea
+25	North Lima, OH
+149	North Macedonia
+4	North Pacific
+135	North Pacific Ocean
+46	North Pacific Ocean Gyre
+33	North Pacific Subtropical Gyre
+9349	North Sea
+13	North Sea, Netherlands
+5	North Sulawesi, Indonesia
+48	North Wales populations, Moelfre (53??? 21.283??? N, 04??? 13.896??? W) (Anglesey, UK)
+15	North Yellow Sea
+1	North-East Siberia, Lena Delta
+18	North-Western Black Sea
+6	Northern Baffin Bay
+443	Northern Ireland
+1	Northern Ireland;United Kingdom
+3678	Northern Mariana Islands
+76	Northern Pacific Ocean
+1	Northwestern Pacific Ocean
+91499	Norway
+1	Norway, Akershus, Rykkinn
+1	Norway, Akershus, Skui
+1	Norway, Akershus, �s
+1	Norway, Buskerud, Nesbyen
+6	Norway, Gvarv river
+2	Norway, Hedmark, Brumunddal
+2	Norway, Kvisla ved Drevsjo
+1	Norway, Nordland, Indre Kvar�y
+1	Norway, Oppland, Lillehammer
+2	Norway, Oppland, Snertingdal
+1	Norway, Rogaland, Bjerkreim
+7	Norway, Rogaland, Bryne
+3	Norway, Rogaland, Fister
+1	Norway, Rogaland, Fogn
+1	Norway, Rogaland, Hjelmeland
+1	Norway, Rogaland, Karmsund
+6	Norway, Rogaland, Rennes�y
+2	Norway, Rogaland, Undheim
+2	Norway, Rogaland, �lg�rd
+1	Norway, Telemark, Vr�liosen
+1	Norway, Troms, Tromsdalen
+1	Norwegian Sea
+4258	Not Applicable
+5135	Not Collected
+253	Not Provided
+33	Not Recorded
+23386	Not applicable
+2	Not applicable;USA
+2431	Not collected
+334	Not provided
+3	Not recorded
+2	Nottigham, England
+1	Nova Scotia, Canada
+8	Novosibirsk
+3	Novosibirsk, Russia
+1	Oahu, Hawaii
+12	Oceania
+4	Ocsa, Hungary
+1	Off to Concepcion, Chili
+2	Offshore of Tennou, Akita
+10	Offshore of Tennou, Akita Japan
+32	Okhotsk Sea
+88	Okhotsk Sea, Japan
+2374	Oman
+5	Ontario, Canada
+1	Oregon
+4	Oregon state, USA
+1	Orkney Islands
+2	OrkneyIslands
+4	Orrios, Teruel
+7	Osaka university animal facility
+1	Osorno, Chile
+1	Oudomxay, Laos
+29	PN-New Zealand
+1	POL
+1	Pabna, Bangladesh
+21	Pacific
+83554	Pacific Ocean
+1	Pacific coast, US
+4	Padova, Italy
+91	Pailin, Cambodia
+11329	Pakistan
+1	Pakistan, North-West Frontier
+1	Pakistan, Northern Areas
+1	Pakistan, Punjab
+5	Palampur, India
+1205	Palau
+42	Palmyra Atoll
+17277	Panama
+1	Panama, Darien, Cana
+4	Panama, Gamboa
+3	Pangasinan province, Philippines
+5	Pantelleria island Mediterranean Sea
+9864	Papua New Guinea
+18	PapuaNewGuinea
+1446	Paracel Islands
+1547	Paraguay
+1	Parco del Monte Subasio, Italy
+3	Paris, France
+1	Paul Boquilobo, Portugal
+4	Pechhof, Germany
+1	Peeples_Valley,_AZ
+7	Peninsular Malaysia
+22	Pensecola, FL, USA
+2	Perdido Pass
+27	Pergamino. Bs. As. Argentina
+31886	Peru
+25	Peru-Matses
+31	Peru-Tunapuco
+24	Peru;Peru
+3	Petit Bois Island
+5	Phetchabun, Thailand
+11451	Philippines
+57	Philippines_Indonesia_Admixed
+3	Phillip Island, Australia
+1	Phillipines
+1	Phisnulok, Thailand
+1	Phnom Penh, Cambodia
+2	Pitcairn Islands
+41442	Poland
+16	Poland/Hungary
+13	Polar Antarctic Province
+1	Polen
+1	Poolepynten, Svalbard
+21	Port Kenny SA
+4	Port Vila, Vanuatu
+2	Portage Brl, Canada
+1	Portage BrÂlÂ, Canada
+1	Porto Rico
+2	Portofino Promontory Mediterranean Sea
+82134	Portugal
+1	Possession Island, Crozet Archipelago
+116	Preah Vihear, Cambodia
+5	Pretoria, South Africa
+2	Prince Edward Island, Canada
+3	Pt Loma San Diego
+8211	Puerto Rico
+169	Puerto Rico (USA)
+202	Puerto Rico;Puerto Rico
+130	Puerto Rico;USA
+4	PuertoRico
+291	PuertoRico;Puerto Rico
+1	Punto Gaspareno, near Cabo San Lucas, Baja California, Mexico GPS (23°10'58.09"N, 110° 8'26.51"W)
+103	Pursat, Cambodia
+5505	Qatar
+19	Qinghai-Tibetan Plateau
+1	Quang Binh, Vietnam
+1	Quanzhou,China
+24	Quebec City;Canada;Canada
+5	Quebec, Canada
+8	R. decussatus sampled in Ria Formosa
+177	RSA
+5	Rahuri, India
+1	Rajasthan, India
+1	Rajkot city
+53	Ramu, Bangladesh
+5	Rangoon, Myanmar
+21	Ranong, Thailand
+106	Rattanakiri, Cambodia
+2	Rauhala, South-West Finland
+7	Raunefjorden
+5	Recife, Brazil
+1	Red Rocks Lake, Boulder, Colorado USA
+63	Red Sea
+24	Red Sea coral reef
+1	Red sea coast line, Saudi Arabia
+4	Reims, Marne, France
+8	Reinshof
+26	Rep. Georgia
+99	Republic of Armenia
+1	Republic of Congo
+24	Republic of Ireland
+48	Republic of Korea
+1207	Republic of the Congo
+30	Restricted access
+2530	Reunion
+1	Rhodope Mountains, Bulgaria
+3	Rifle DOE IFRC, Rifle Colorado
+3	Rikaze, Tibet, China
+1	Rissoa
+1	Riverside, California
+1	Roi Et, Thailand
+8216	Romania
+1	Romania, ,
+5	Romita, Mexico
+1	Roosendaal, De Moeren, the Netherlands
+15	Rosa Morada, Nevado de Toluca, Estado de Mexico, Mexico
+110	Ross Sea
+3	Roth, Germany
+53537	Russia
+2	Russia(Caucasus)
+1	Russia, Kemerovo
+2	Russia, Moscow
+30	Russian Federation
+2578	Rwanda
+96	S.K.Nagar Dantiwada
+1	SOMLIT Estacade, Roscoff, France
+2	SOMLIT, Astan, Roscoff, France
+1	SPAIN (orig)
+21	Saba Island Region
+20	Sabine Lake, TX
+2	Sabino_Canyon,_AZ
+4	Saclay, Essone, France
+2	Saint Barthelemy
+110	Saint Helena
+295	Saint Kitts and Nevis
+101	Saint Lucia
+15	Saint Martin
+3	Saint Martin, Dutch Caribbean
+1	Saint Pierre and Miquelon
+108	Saint Vincent and the Grenadines
+1	Sakon, Thailand
+1	Saldanha Bay
+220	Salinas Valley
+1	Saline di Torre Colimena (Taranto)
+27	Salt Lake City UT
+18	Saltwater of Pearl Estuary
+961	Samoa
+2	Sampled from Inner Cardigan Bay, Irish sea
+2	Sampled from Lundy, Bristol Channel
+3	Sampled from North Cardigan Bay, Irish sea
+2	Sampled from Red Wharf Bay, Irish Sea
+4	Sampled from Red Wharf Bay, Irish sea
+1	Sampled from South Cardigan Bay, Irish Sea
+7	Sampled from South Cardigan Bay, Irish sea
+9	Sampled from St Bee's Head, Irish sea
+200	San Antonio TX
+2	San Bernardino Mountains, CA
+1	San Francisco Bay Area, CA
+2	San Marino
+2	San_Carlos,_AZ
+27	Sandy Beach Park
+1	Sangchon food Corporation (Yongin-si, Kyunggi-do, Republic of korea)
+1	Sankt Gallen, Eastern Switzerland
+5	Santa Maria, Brazil
+703	Sao Tome and Principe
+5	Sapporo, Japan
+1	Sardinia
+2	Sardinia, Italy
+14	Sargasso Sea
+491	Sasayama
+35	Saskatchewan (SK)
+5	Saskatchewan, Canada
+25968	Saudi Arabia
+3	Saudi Arabia;Saudi Arabia
+1	Saudi Arabia;United Kingdom
+4	Sauwandarek lake, Papua, Indonesia
+1	Savoonga, AK
+1	Schweden
+77	Schweiz
+55	Scotland
+7	Scotland, UK
+5	Seattle, USA
+1	Seattle, WA
+1	Sedziejowice, Poland
+1	Semfote, Cambodia
+6390	Senegal
+2587	Serbia
+6	Serbia and Montenegro
+24	Seropdica, RJ
+2563	Seychelles
+1	Seychelles;Cousin Island
+1	ShanTou,China
+5	Shandong, China
+7	Shanghai
+13	Shanghai, China
+4	Shantou,China
+235	Shenzhen
+7	Shishou City, Hubei Province, China
+8	Shoreham Harbour, Dredger Berth
+2	Shoreham Harbour, estuary outside harbour
+2	Shoreham Harbour, main channel
+82	Shwe Kyin, Myanmar
+9	Siberia
+2	Sichuan,China
+2554	Sierra Leone
+2	Sierra Nevada, CA
+2	SierraLeone
+21	Sierra_Leone
+58367	Singapore
+27	Singapore;Singapore
+2	Singida, Tanzania
+5	Sint Maarten
+27	Sisakhet, Thailand
+57	Skarholmen, Uppsala (Sweden)
+48864	Slovakia
+14802	Slovenia
+1	Solapur,Maharashtra,India
+746	Solomon Islands
+1	Solomon_Islands
+146	Somalia
+4	Sør Rondane Mountains
+48	Sourth America;Restricted access
+2	South Adriatic Sea
+99162	South Africa
+170	South Africa patient blood
+700	South Africa, Eastern Cape
+7	South Africa, Eastern Cape, Queenstown
+7	South Africa, Eastern cape
+345	South Africa, Free State
+2	South Africa, Free State, Bloemfontein
+7	South Africa, Free state
+2376	South Africa, Gauteng
+798	South Africa, KwaZulu-Natal
+1	South Africa, KwaZulu-Natal, Vryheid
+207	South Africa, Limpopo
+2	South Africa, Limpopo, Mopani, Tzaneen-Mopani
+174	South Africa, Mpumalanga
+278	South Africa, North West
+74	South Africa, Northern Cape
+15	South Africa, Orange Free State
+1760	South Africa, Western Cape
+1	South Africa, Western Cape, Dunoon
+5	South Africa, Western cape
+524	South America;Restricted access
+13	South Atlantic Ocean
+5	South Australia, Australia
+8	South China
+12	South China Sea
+11	South Georgia
+843	South Georgia and the South Sandwich Islands
+77747	South Korea
+6	South Orkneys
+60	South Pacific Ocean
+249	South Sudan
+16	South Yellow Sea
+12	South-Eastern Black Sea
+4	South-West Germany
+2	SouthAfrica
+5	Southeast Alaska
+1	Southeast Asia
+52	Southeast of France
+220	Southern Africa
+39	Southern Bay of Biscay
+1	Southern California coast, Pacific Ocean
+1	Southern Kattegat, Buoy St.
+4	Southern Mariana Trough
+5909	Southern Ocean
+5	Southern Ocean Polar Front
+23	Southwest of France
+250381	Spain
+1	Spain, Asturias
+1	Spain, Asturias, Caleao
+1	Spain, Asturias, Morcín
+1	Spain, Asturias, Tineo
+2	Spain/France
+4	Spain;Atlantic Ocean
+13	Spain;Mediterranean Sea
+135	Spain;Spain
+8	Spitsbergen, Norway
+18	Spitsbergen, Svalbard
+461	Spratly Islands
+3726	Sri Lanka
+55	Sri_Lanka
+1	St 1
+2	St 22
+1	St 23
+1	St 24
+1	St 26
+1	St 33
+1	St 35
+1	St 37
+4	St 38
+1	St 4
+1	St 42
+1	St 43
+2	St 45
+1	St 54
+1	St 55
+1	St 57
+1	St 7
+16	St. Cloud, FL
+4	St. George Island, FL, USA
+218	Stadt Gottingen
+185	State of Palestine
+17	Station ALOHA North Pacific Subtropical Gyre
+1	Station Roscoff Astan
+2	Storegga seep enrichment
+4	Storrs, CT
+6	Storrs, Connecticut
+3	Strait of Georgia
+2391	Sudan
+697	Sugadaira
+20	Superior, Wisconsin
+9	Surinam
+303	Suriname
+6504	Svalbard
+118	Swaziland
+148831	Sweden
+202	Sweden [GAZ
+1	Sweden, Blekinge l�n
+1	Sweden, Dalarna
+1	Sweden, Dalarna, Långsjöberget
+2	Sweden, Dalarnas l�n
+2	Sweden, Gotlands l�n
+1	Sweden, J�nk�pings l�n
+1	Sweden, Kronobergs l�n,
+2	Sweden, Lake Erken
+1276	Sweden, NA, NA
+2	Sweden, NA, Orebro
+2	Sweden, Orebro
+2	Sweden, Sk�ne l�n
+280	Sweden, Stockholm
+2	Sweden, S�dermanlands l�n
+5	Sweden, Uppsala
+1	Sweden, V�stra G�talands l�n
+2	Sweden, �rebro l�n
+3	Sweden, �sterg�tlands l�n
+1	Sweden;Saudi Arabia
+1	Sweden;United Kingdom
+274409	Switzerland
+1	Switzerland, ,
+1	Switzerland, Chur-Calandahütte
+1	Sylt, Germany
+1	Synthetic mixture of 18 yeast/bacteria/archaeal species
+1134	Syria
+17	Syrian Arab Republic
+46	TUNISIA
+4	Tahiti (French Polynesia)
+1	Tailand
+2	Taimyr Peninsula
+2	Tainan, Taiwan,China
+40469	Taiwan
+6	Taiwan, China
+1	Taiwan;Chia-i
+1	Taiwan;Yun Shui
+511	Tajikistan
+10	Tamil Nadu, India
+1	Tanahun, Nepal
+1	Tanganyika
+104715	Tanzania
+18	Taoyuan0
+18	Taoyuan1
+522	Tasman Sea
+1	Tasmania
+5	Tasmania, Australia
+2	Tavolara island Mediterranean Sea
+2	Tbilisi, Georgia
+1	Tchad
+32	Temperate Northern Atlantic
+19	Tenerife
+1	Tennessee, USA
+2	Terra Nova Bay
+693	Teshio
+5	Texas, USA
+29	Texcoco, Estado de Mexico, Mexico
+45144	Thailand
+1	Thailand, Bangkok, Bangkok
+1	The 4 forest class 2 class 2-class (26°50′ N, 117°54′ E) of the Daoping work area of the Yang Kou Forest Farm, Fujian Province, China
+118	The Bahamas
+180	The Gambia
+1	The Mariana Trench, western Pacific Ocean
+389	The Netherlands
+36	The former Yugoslav Republic of Macedonia
+110	The western North Pacific south of Japan
+297	Tianjin, China
+1	Tianmu Mountain, Zhejiang Province, China
+2	Tibet
+1	Timor Sea
+119	Timor-Leste
+11	Tlaloc
+619	Togo
+3	Tokelau
+1	Tokyo
+606	Tomakomai
+2160	Tonga
+1	Tortolita_Mtns.,_AZ
+1	Trinidad
+2659	Trinidad and Tobago
+17	Trinidad&Tobago
+1	Tripura, India
+96	Trois-Sauts (French Guiana)
+3	Tromelin Island
+1	Tschechien
+33	Tucson, AZ
+2	Tucson,_AZ
+447	Tuebingen, Germany
+5	Tulcan, Ecuador
+4596	Tunisia
+2	Tunisia;Mediterranean Sea
+2	Turkemenistan
+16289	Turkey
+1	Turkey, NW, Bursa
+8	Turkey;Mediterranean Sea
+293	Turkmenistan
+185	Turks and Caicos Islands
+8	Tuvalu
+9	Tyne estuary at Howdon, Tyne and Wear, UK
+2	Tyrrenian Sea
+2	Tyrrhenian Sea
+1	U.S.A;USA
+152	UAE
+41	UCSD
+5	UG;Uganda
+87	UGANDA
+4289	UK
+6	UK (Leeds)
+1	UK (Manchester)
+34	UK patient blood
+16	UK, London
+1	UK;Canada
+1	UK;Ireland
+1	UK;Sweden
+2	UK;USA
+215	UK;United Kingdom
+29	UNITED STATES
+5	UNK
+857	US
+6900903	USA
+23	USA (orig)
+89	USA territory
+6	USA, AK, Douglas
+25	USA, AK, Juneau
+2	USA, Alaska, Fairbanks
+1	USA, San Francisco
+1	USA, Tulsa
+1	USA;Australia
+1	USA;Auwahi;Maui
+1	USA;Catalina Island;California
+4	USA;Malawi
+1	USA;Mount St. Helena;California
+1	USA;Netherlands
+8273	USA;USA
+197	USA;United States of America
+2	USA;Wolfskill Orchand;Winters;California
+4	USDA-ARS, Beltsville, MD
+646	USSR
+39973	Uganda
+5172	Ukraine
+1	Ukraine, Unknown, Unknown
+2	Union_of_Soviet_Socialist_Republics_(Former)
+4653	United Arab Emirates
+12	United Arab Emirates, Dubai
+1	United Kindgom, England, Priest Pot, Cumbria
+1	United Kindom
+3964028	United Kingdom
+56	United Kingdom (England, Wales & N. Ireland)
+7	United Kingdom (Scotland)
+13	United Kingdom (UK)
+2	United Kingdom (UK), Scotland
+525	United Kingdom of Great Britain and Northern Ireland
+4	United Kingdom, England
+18	United Kingdom, England, Southampton
+64	United Kingdom, England, Woodchester
+1	United Kingdom, Hampshire
+29	United Kingdom, Northern Ireland
+83	United Kingdom, Scotland
+2274	United States
+2	United States (captive)
+7	United States Minor Outlying Islands
+391	United States of America
+21	United States of America of America
+10	United States of America;USA
+13	United States, California
+28	United States, Georgia
+1	United States, Indiana
+10	United states of america
+120	United-Kingdom
+50	United_States_of_America
+1	Unites_States_of_America
+1	University Park, PA USA
+5	Upolu, Samoa
+1	Urugay
+3087	Uruguay
+8	Utah, USA
+3	Utica, IL
+4	Uttar Pradesh, India
+701	Uzbekistan
+102	Valencia
+38	Valencia (Spain)
+14	Valencia, Spain
+5	Vancouver Island, North Pacific
+5	Vancouver, Canada
+2331	Vanuatu
+5	Vauxhaul, Alberta, Canada
+1	Velike Lasce, Kobila hill, Slovenia
+21	Veluwe
+4329	Venezuela
+1	Verona
+27	Viale. E. Ríos Argentina
+5	Vientiane, Laos
+28155	Viet Nam
+56	Viet_Nam
+12	Vietman
+578	Vietnam
+128	Vietnam;Viet Nam
+6	Villamayor, Zaragoza
+2	Villanueva de Gallego, zaragoza
+1516	Virgin Islands
+5	Vladivostok, Russia
+5	Volgograd, Russia
+2	W. Africa
+9	WHO Reference Center
+1	Wageningen
+2	Wales
+3	Wales, Carmarthenshire
+1	Wales, Ceredigion
+3	Wales, North West Wales
+5	Wales, Pembrokeshire
+1	Wales, Powys
+3	Wales, South Wales
+490	Wallis and Futuna
+5	Washington National Primate Research Center Tissue Distribution Program
+3	Washington State University
+2	Washington-USA
+19	Weinan
+1	West Africa
+695	West Bank
+4	West Bengal, India
+1	West Bengal,India
+5	West Cornwall, England
+5	West Java, Indonesia
+5	West Kalimantan, Indonesia
+1	West Siberia, North, Gydan Peninsula
+2	West_Africa
+5	Western Australia, Australia
+5	Western English Channel
+6	Western Sahara
+2	Western Sahara (Morocco)
+2	White Oak River
+1	White Sea
+20	Wilmington, NC
+1	Winnipeg [Canada]
+1	Wissenkerke, Keihoogteweg, the Netherlands
+99	Xi'an
+14	Xianyang
+2	Xinhui,China
+1	Xinjiang
+5	Xinjiang, China
+178	YRI
+23	Yadkin River Riparian Zone
+737	Yakushidake
+718	Yakushima
+4	Yamanashi-ken, Japan
+1	Yangshuo,China
+2	Yaound
+9	Yatir, Israel
+39	Yellowstone National Park
+591	Yemen
+1	Yenisei river transsect 1 left bank
+1	Yenisei river transsect 1 mainstream
+1	Yenisei river transsect 1 right bank
+1	Yenisei river transsect 10 left bank
+1	Yenisei river transsect 10 mainstream
+1	Yenisei river transsect 10 right bank
+1	Yenisei river transsect 2 left bank
+1	Yenisei river transsect 2 mainstream
+1	Yenisei river transsect 2 right bank
+1	Yenisei river transsect 3 left bank
+1	Yenisei river transsect 3 mainstream
+1	Yenisei river transsect 3 right bank
+1	Yenisei river transsect 4 left bank
+1	Yenisei river transsect 4 mainstream
+1	Yenisei river transsect 4 right bank
+1	Yenisei river transsect 5 left bank
+1	Yenisei river transsect 5 mainstream
+1	Yenisei river transsect 5 right bank
+1	Yenisei river transsect 6 left bank
+1	Yenisei river transsect 6 mainstream
+1	Yenisei river transsect 6 right bank
+1	Yenisei river transsect 7 left bank
+1	Yenisei river transsect 7 mainstream
+1	Yenisei river transsect 7 right bank
+1	Yenisei river transsect 8 left bank
+1	Yenisei river transsect 8 mainstream
+1	Yenisei river transsect 8 right bank
+1	Yenisei river transsect 9 left bank
+1	Yenisei river transsect 9 mainstream
+1	Yenisei river transsect 9 right bank
+128	Yingtan Red Soil Ecology Experimental Station
+23	Yokohama_Japan
+670	Yona
+724	Yoshidayama
+2	Youngs Bay
+636	Yugoslavia
+1	Yuma,_Co,_AZ
+1	Yunnan
+5	Yunnan, China
+2	Yunnan,China
+170	ZM;Zambia
+136	Zaire
+5200	Zambia
+1	Zambia, Central, Lusaka
+16	Zambia, Lusaka
+31	Zambia, Ndola
+1	Zambia1
+1	Zambia2
+5	Zewai, Ethiopia
+4664	Zimbabwe
+1	Zimbabwe, Harare
+1	Zimbabwe, Manicaland
+1	Zimbabwe, Mashonaland East
+2	Zimbabwe, Mashonaland West
+2	Zimbabwe, Masvingo
+2	Zimbabwe, Matabeleland South
+281	Zimbabwe;Zimbabwe
+12	_no_info
+6	aus;Australia
+3	can;Canada
+1	carbon-fixing bacteria
+1	country
+1	cyprus
+1	dd
+1	dongbei
+10	fjord;Svalbard;southwest Spitsbergen
+1	freshwater reservoir
+424	guangzhou,china
+1	hanford H-100
+12	hospital
+1	http
+1	illumina
+11	italy
+9	kOREA
+1	kirkman
+188	korea
+1	laboratory
+1	latitude = +27.94 & longitude = -114.06 [Pacific Ocean
+133	lung cancer panel
+1617510	missing
+1	missing value
+2	misssing
+29	mix of water near Warnemuende (Baltic Sea), Germany & Kalix Water Svartbyn, Sweden
+3	morocco
+1	nanjing
+5	nd
+8	near Bayreuth, Germany (49??58'16'' N, 11??34'51'' E and 460 m alt.)
+4	negative control
+1	net;Netherlands
+2	no
+1	no_data
+4	non
+6	norh East China Sea
+13	north pole;Arctic Ocean
+6	north pole;Caribbean Sea
+6	north pole;Pacific Ocean
+6	northwestern Lake Huron
+112	not appicable
+38	not available
+1	not available, , Cologne
+9	not collected
+98	not provided, Bangkok, Bangkok
+133	not provided, Cologne
+3	not provided, NA, NA
+1932	not provided, Not provided, Not provided
+73	not provided, Tübingen
+2	not provided, US, NA
+343	not provided, Unknown, Unknown
+7	not recorded
+1	on Dana Fork, Yosemite National Park
+1	open Mediterranean Sea
+30	pacific ocean gyre
+698	sandiego
+1	sea fungi
+1	southern East China Sea
+2	subtropical western North Pacific
+1	suburb of Beijing
+1	sunset
+1	sweden
+2	texas gulf coast
+2	the Arctic Ocean
+1	the Netherland
+15	the Netherlands
+1	unclear
+1	undefine
+48	undefined
+1	unisankyo
+2	unk
+1	unknown,
+1	unkown
+36	usa;United States of America
+1	zhangjiajie
+1	{China}
