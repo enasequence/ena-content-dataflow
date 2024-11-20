@@ -272,7 +272,7 @@
     },
     {
       "name": "Cache Valley virus",
-      "taxon_id": "80935 ",
+      "taxon_id": "80935",
       "taxon_rank": "no rank",
       "classification": "Viruses",
       "notes": "",
@@ -327,7 +327,7 @@
       "disease": ""
     },
     {
-      "name": "Eastern equine encephalitis virus ",
+      "name": "Eastern equine encephalitis virus",
       "taxon_id": "11021",
       "taxon_rank": "Species",
       "classification": "Viruses",
@@ -424,7 +424,7 @@
     },
     {
       "name": "Kyasanur Forest disease virus",
-      "taxon_id": "33743 ",
+      "taxon_id": "33743",
       "taxon_rank": "no rank",
       "classification": "Viruses",
       "notes": "",
@@ -503,7 +503,7 @@
       "disease": ""
     },
     {
-      "name": "O\u00e2\u20ac\u2122nyong-nyong virus",
+      "name": "Onyong-nyong virus",
       "taxon_id": "2169701",
       "taxon_rank": "Species",
       "classification": "Viruses",
@@ -583,7 +583,7 @@
       "disease": ""
     },
     {
-      "name": "Severe fever with thrombocytopenia syndrome virus ",
+      "name": "Severe fever with thrombocytopenia syndrome virus",
       "taxon_id": "1003835",
       "taxon_rank": "no rank",
       "classification": "Viruses",

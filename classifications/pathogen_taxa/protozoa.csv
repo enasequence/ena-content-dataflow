@@ -49,3 +49,10 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 142796,Eumycetozoa,Protozoa,Class,WHO
 237895,Cryptosporidium hominis,Protozoa,Species,HSE (UK)
 482538,Cystoisospora belli,Protozoa,Species,HSE (UK)
+5673,Naegleria fowleri,Protozoa,Species,NIAID
+5741,Giardia intestinalis,Protozoa,Species,NIAID
+5759,Entamoeba histolytica,Protozoa,Species,NIAID
+5807,Cryptosporidium parvum,Protozoa,Species,NIAID
+5811,Toxoplasma gondii,Protozoa,Species,NIAID
+66527,Balamuthia mandrillaris,Protozoa,Species,NIAID
+88456,Cyclospora cayetanensis,Protozoa,Species,NIAID

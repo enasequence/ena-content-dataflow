@@ -57,3 +57,6 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
 2060905,Blastomyces parvus,Fungi,Species,HSE (UK)
 41688,Lomentospora prolificans,Fungi,Species,HSE (UK)
+4827,Mucorales,Fungi,Order,NIAID
+5500,Coccidioides,Fungi,Genus,NIAID
+6029,Microsporidia,Fungi,Phylum,NIAID

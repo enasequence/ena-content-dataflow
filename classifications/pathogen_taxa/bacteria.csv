@@ -176,3 +176,28 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 126385,Providencia alcalifaciens,Bacteria,Species,HSE (UK)
 134821,Ureaplasma parvum,Bacteria,Species,HSE (UK)
 149539,Salmonella enterica serovar enteritidis,Bacteria,Species,HSE (UK)
+1280,Staphylococcus aureus,Bacteria,Species,NIAID
+13373,Burkholderia mallei,Bacteria,Species,NIAID
+1392,Bacillus anthracis,Bacteria,Species,NIAID
+1491,Clostridium botulinum,Bacteria,Species,NIAID
+1502,Clostridium perfringens,Bacteria,Species,NIAID
+1639,Listeria monocytogenes,Bacteria,Species,NIAID
+1674146,Borrelia mayonii,Bacteria,Species,NIAID
+171,Leptospira,Bacteria,Species,NIAID
+197,Campylobacter jejuni,Bacteria,Species,NIAID
+234,Brucella,Bacteria,Genus,NIAID
+263,Francisella tularensis,Bacteria,Species,NIAID
+28450,Burkholderia pseudomallei,Bacteria,Species,NIAID
+47466,Borrelia miyamotoi,Bacteria,Species,NIAID
+520,Bordetella pertussis,Bacteria,Species,NIAID
+562,Escherichia coli,Bacteria,Species,NIAID
+590,Salmonella,Bacteria,Genus,NIAID
+620,Shigella,Bacteria,Genus,NIAID
+630,Yersinia enterocolitica,Bacteria,Species,NIAID
+632,Yersinia pestis,Bacteria,Species,NIAID
+662,Vibrio,Bacteria,Genus,NIAID
+77643,Mycobacterium tuberculosis complex,Bacteria,Species group,NIAID
+777,Coxiella burnetii,Bacteria,Species,NIAID
+780,Rickettsia,Bacteria,Genus,NIAID
+83554,Chlamydia psittaci,Bacteria,Species,NIAID
+943,Ehrlichia,Bacteria,Species,NIAID
