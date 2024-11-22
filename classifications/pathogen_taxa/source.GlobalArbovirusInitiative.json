@@ -1,0 +1,68 @@
+{
+  "source_full_name": "The World Health Organisation's Global Arbovirus Initiative",
+  "source_short_name": "Global Arbovirus Initiative",
+  "source_urls": [
+    "https://iris.who.int/bitstream/handle/10665/376630/9789240088948-eng.pdf?sequence=1",
+	"https://www.who.int/initiatives/global-arbovirus-initiative"
+  ],
+  "last_updated": "2024",
+  "taxa": [
+    {
+      "name": "Dengue virus",
+      "taxon_id": "12637",
+      "taxon_rank": "No rank",
+      "classification": "Viruses"
+    },
+    {
+      "name": "Yellow fever virus",
+      "taxon_id": "11089",
+      "taxon_rank": "No rank",
+      "classification": "Viruses",
+      "notes": "",
+      "disease": ""
+    },
+    {
+      "name": "West Nile virus",
+      "taxon_id": "11082",
+      "taxon_rank": "No rank",
+      "classification": "Viruses"
+    },
+	{
+      "name": "Zika virus",
+      "taxon_id": "64320",
+      "taxon_rank": "No rank",
+      "classification": "Viruses"
+    },
+	    {
+      "name": "Usutu virus",
+      "taxon_id": "64286",
+      "taxon_rank": "No rank",
+      "classification": "Viruses"
+    },
+	{
+      "name": "Chikungunya virus",
+      "taxon_id": "37124",
+      "taxon_rank": "Species",
+      "classification": "Viruses"
+    },
+	    {
+      "name": "Orthonairovirus haemorrhagiae",
+      "taxon_id": "3052518",
+      "taxon_rank": "Species",
+      "classification": "Viruses",
+	  "notes": "alt name: Crimean-Congo hemorrhagic fever virus"
+    },
+	{
+      "name": "Rift Valley fever virus",
+      "taxon_id": "11588",
+      "taxon_rank": "No rank",
+      "classification": "Viruses"
+    },
+	{
+      "name": "Spondweni virus",
+      "taxon_id": "64318",
+      "taxon_rank": "Species",
+      "classification": "Viruses"
+    }
+  ]
+}
