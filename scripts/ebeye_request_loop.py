@@ -33,7 +33,7 @@ size  = 100
 while True:
     cmd = [
         'ebeye_requests.py', 'getResults', opts.domain,
-        f"\"{opts.filter}\"", f"\"{opts.fields}\"", f"--size {size}", f"--start {start}"
+        f"\'{opts.filter}\'", f"\'{opts.fields}\'", f"--size {size}", f"--start {start}"
     ]
     sys.stderr.write(" ".join(cmd) + "\n")
 
