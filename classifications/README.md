@@ -40,6 +40,9 @@ The UK Department for Environment, Food and Rural Affairs maintains a list of an
 ### NIAID Priority Pathogens
 
 ### Global Arbovirus Initiative (WHO)
+The Global Arbovirus Initiative provides a framework of objectives and priority activities to tackle emerging and re-emerging arboviruses with epidemic and pandemic potential. It is a joint initiative across the World Health Organisation's Health Emergencies Program, Department of Control of Neglected Tropical Diseases and Immunization, Vaccines and Biologicals Department. Specific Aedes-borne and non-Aedes borne arboviruses considered to be of significant risk for global disease outbreak are mentioned by the Global Arbovirus Initiative. 
+
+[Link to publication mentioning arboviruses of interest can be found here](https://iris.who.int/bitstream/handle/10665/376630/9789240088948-eng.pdf?sequence=1)
 
 ### Arbovirus Encephalitides - StatPearls Publishing
 
