@@ -37,6 +37,12 @@ The UK Department for Environment, Food and Rural Affairs maintains a list of an
 
 [Link to full list here](https://www.legislation.gov.uk/uksi/2008/944/schedule/1/made)
 
+### NIAID 
+
+### Global Arbovirus Initiative (WHO)
+
+### Arbovirus Encephalitides - StatPearls Publishing
+
 ### User asserted/requested taxa
 
 | Scientific Name | TaxID | Reason for Inclusion | Requested by |
