@@ -45,6 +45,9 @@ The Global Arbovirus Initiative provides a framework of objectives and priority 
 [Link to publication mentioning arboviruses of interest can be found here](https://iris.who.int/bitstream/handle/10665/376630/9789240088948-eng.pdf?sequence=1)
 
 ### Arbovirus Encephalitides - StatPearls Publishing
+Arbovirus Encephalitides is an online arbovirus resource written by clinicians at the University of Rochester, New York and published by StatPearls. StatPearls is a professional healthcare education and technology company that publishes a variety of peer-reviewed medical resources for healthcare professionals. 
+
+[Link to resource here](https://www.ncbi.nlm.nih.gov/books/NBK560866/)
 
 ### User asserted/requested taxa
 
