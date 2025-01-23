@@ -1,690 +1,500 @@
 {
-  "source_full_name": "National Institute of Allergy and Infectious Diseases",
-  "source_short_name": "NIAID",
-  "source_urls": [
-    "https://www.niaid.nih.gov/research/niaid-biodefense-pathogens"
-  ],
-  "last_updated": "2024-06-13",
-  "taxa": [
-    {
-      "name": "Bacillus anthracis",
-      "taxon_id": "1392",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Anthrax",
-      "notes": ""
-    },
-    {
-      "name": "Bordetella pertussis",
-      "taxon_id": "520",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Borrelia mayonii",
-      "taxon_id": "1674146",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Borrelia miyamotoi",
-      "taxon_id": "47466",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Brucella",
-      "taxon_id": "234",
-      "taxon_rank": "Genus",
-      "classification": "Bacteria",
-      "disease": "Brucellosis",
-      "notes": ""
-    },
-    {
-      "name": "Burkholderia mallei",
-      "taxon_id": "13373",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Glanders",
-      "notes": ""
-    },
-    {
-      "name": "Burkholderia pseudomallei",
-      "taxon_id": "28450",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Melioidosis",
-      "notes": ""
-    },
-    {
-      "name": "Campylobacter jejuni",
-      "taxon_id": "197",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Chlamydia psittaci",
-      "taxon_id": "83554",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Psittacosis",
-      "notes": ""
-    },
-    {
-      "name": "Coxiella burnetii",
-      "taxon_id": "777",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Q fever",
-      "notes": ""
-    },
-    {
-      "name": "Ehrlichia",
-      "taxon_id": "943",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Escherichia coli",
-      "taxon_id": "562",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "",
-      "notes": ""
-    },
-    {
-      "name": "Francisella tularensis",
-      "taxon_id": "263",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Tularemia",
-      "notes": ""
-    },
-    {
-      "name": "Leptospira",
-      "taxon_id": "171",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Listeria monocytogenes",
-      "taxon_id": "1639",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Rickettsia",
-      "taxon_id": "780",
-      "taxon_rank": "Genus",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Salmonella",
-      "taxon_id": "590",
-      "taxon_rank": "Genus",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Shigella",
-      "taxon_id": "620",
-      "taxon_rank": "Genus",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mycobacterium tuberculosis complex",
-      "taxon_id": "77643",
-      "taxon_rank": "Species group",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Vibrio",
-      "taxon_id": "662",
-      "taxon_rank": "Genus",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Yersinia enterocolitica",
-      "taxon_id": "630",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Yersinia pestis",
-      "taxon_id": "632",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "disease": "Plague",
-      "notes": ""
-    },
-    {
-      "name": "Coccidioides",
-      "taxon_id": "5500",
-      "taxon_rank": "Genus",
-      "classification": "Fungi",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Microsporidia",
-      "taxon_id": "6029",
-      "taxon_rank": "Phylum",
-      "classification": "Fungi",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mucorales",
-      "taxon_id": "4827",
-      "taxon_rank": "Order",
-      "classification": "Fungi",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Balamuthia mandrillaris",
-      "taxon_id": "66527",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Cryptosporidium parvum",
-      "taxon_id": "5807",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Cyclospora cayetanensis",
-      "taxon_id": "88456",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Entamoeba histolytica",
-      "taxon_id": "5759",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Giardia intestinalis",
-      "taxon_id": "5741",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "alt name: Giardia lamblia",
-      "disease": ""
-    },
-    {
-      "name": "Naegleria fowleri",
-      "taxon_id": "5673",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Toxoplasma gondii",
-      "taxon_id": "5811",
-      "taxon_rank": "Species",
-      "classification": "Protozoa",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Alkhurma virus",
-      "taxon_id": "172148",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Cache Valley virus",
-      "taxon_id": "80935",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "California encephalitis virus",
-      "taxon_id": "35305",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Caliciviridae",
-      "taxon_id": "11974",
-      "taxon_rank": "family",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus chapareense",
-      "taxon_id": "3052302",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Chapare mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Orthonairovirus haemorrhagiae",
-      "taxon_id": "3052518",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Crimean-Congo hemorrhagic fever orthonairovirus",
-      "disease": ""
-    },
-    {
-      "name": "Chikungunya virus",
-      "taxon_id": "37124",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Dengue virus",
-      "taxon_id": "12637",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Eastern equine encephalitis virus",
-      "taxon_id": "11021",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Orthoebolavirus",
-      "taxon_id": "3044781",
-      "taxon_rank": "Genus",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Enterovirus D68",
-      "taxon_id": "42789",
-      "taxon_rank": "Serotype",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Enterovirus A71",
-      "taxon_id": "39054",
-      "taxon_rank": "Serotype",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus guanaritoense",
-      "taxon_id": "3052307",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Guanarito mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Orthohantavirus",
-      "taxon_id": "1980442",
-      "taxon_rank": "Genus",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Heartland virus",
-      "taxon_id": "1216928",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Henipavirus hendraense",
-      "taxon_id": "3052223",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Hendra henipavirus",
-      "disease": ""
-    },
-    {
-      "name": "Hepatovirus A",
-      "taxon_id": "12092",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Orthomyxoviridae",
-      "taxon_id": "11308",
-      "taxon_rank": "Family",
-      "classification": "Viruses",
-      "notes": "contains all Influenza sub-types",
-      "disease": ""
-    },
-    {
-      "name": "Japanese encephalitis virus",
-      "taxon_id": "11072",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus juninense",
-      "taxon_id": "2169991",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Junin arenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Kyasanur Forest disease virus",
-      "taxon_id": "33743",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "La Crosse virus",
-      "taxon_id": "11577",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Langya virus",
-      "taxon_id": "2971765",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus lassaense",
-      "taxon_id": "3052310",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Lassa mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus lujoense",
-      "taxon_id": "3052314",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Lujo mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus choriomeningitidis",
-      "taxon_id": "3052303",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Lymphocytic choriomeningitis mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Mammarenavirus machupoense",
-      "taxon_id": "3052317",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Machupo mammarenavirus",
-      "disease": ""
-    },
-    {
-      "name": "Orthomarburgvirus",
-      "taxon_id": "3044783",
-      "taxon_rank": "Genus",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Henipavirus nipahense",
-      "taxon_id": "3052225",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "alt name: Nipah henipavirus",
-      "disease": ""
-    },
-    {
-      "name": "Mayaro virus",
-      "taxon_id": "59301",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Onyong-nyong virus",
-      "taxon_id": "2169701",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Omsk hemorrhagic fever virus",
-      "taxon_id": "12542",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Oropouche virus",
-      "taxon_id": "118655",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Enterovirus C",
-      "taxon_id": "138950",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Powassan virus",
-      "taxon_id": "11083",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Punta Toro virus",
-      "taxon_id": "11587",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Lyssavirus rabies",
-      "taxon_id": "11292",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Rift Valley fever virus",
-      "taxon_id": "11588",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "St. Louis encephalitis virus",
-      "taxon_id": "11080",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Coronaviridae",
-      "taxon_id": "11118",
-      "taxon_rank": "Family",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Severe fever with thrombocytopenia syndrome virus",
-      "taxon_id": "1003835",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Flaviviridae",
-      "taxon_id": "11050",
-      "taxon_rank": "Family",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Orthopoxvirus",
-      "taxon_id": "10242",
-      "taxon_rank": "Genus",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Venezuelan equine encephalitis virus",
-      "taxon_id": "11036",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "West Nile virus",
-      "taxon_id": "11082",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Western equine encephalitis virus",
-      "taxon_id": "11039",
-      "taxon_rank": "Species",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Yellow fever virus",
-      "taxon_id": "11089",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Zika virus",
-      "taxon_id": "64320",
-      "taxon_rank": "no rank",
-      "classification": "Viruses",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Clostridium botulinum",
-      "taxon_id": "1491",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Clostridium perfringens",
-      "taxon_id": "1502",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Prion",
-      "taxon_id": "36469",
-      "taxon_rank": "Species",
-      "classification": "Other",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Ricinus communis",
-      "taxon_id": "3988",
-      "taxon_rank": "Species",
-      "classification": "Other",
-      "notes": "",
-      "disease": ""
-    },
-    {
-      "name": "Staphylococcus aureus",
-      "taxon_id": "1280",
-      "taxon_rank": "Species",
-      "classification": "Bacteria",
-      "notes": "",
-      "disease": ""
-    }
-  ]
+    "source_full_name": "National Institute of Allergy and Infectious Diseases",
+    "source_short_name": "NIAID",
+    "source_urls": [
+        "https://docs.google.com/document/d/1vntP8pgztnXF8yiNz76myYOBorSoosH4/edit"
+    ],
+    "last_updated": "2025-01-16",
+    "taxa": [
+        {
+            "name": "Enterococcus faecium",
+            "taxon_id": 1352,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Staphylococcus aureus",
+            "taxon_id": 1280,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Klebsiella pneumoniae",
+            "taxon_id": 573,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Acinetobacter baumannii",
+            "taxon_id": 470,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Pseudomonas aeruginosa",
+            "taxon_id": 287,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Enterobacter",
+            "taxon_id": 547,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": "incl: Enterobacter spp."
+        },
+        {
+            "name": "Enterobacterales",
+            "taxon_id": 91347,
+            "taxon_rank": "order",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Clostridium botulinum",
+            "taxon_id": 1491,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Enterococcus",
+            "taxon_id": 1350,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Escherichia coli",
+            "taxon_id": 562,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Mycobacterium tuberculosis",
+            "taxon_id": 1773,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Neisseria gonorrhoeae",
+            "taxon_id": 485,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Treponema pallidum",
+            "taxon_id": 160,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Bacillus anthracis",
+            "taxon_id": 1392,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Yersinia pestis",
+            "taxon_id": 632,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Francisella tularensis",
+            "taxon_id": 263,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Burkholderia",
+            "taxon_id": 32008,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": "incl: Burkholderia spp."
+        },
+        {
+            "name": "Clostridioides difficile",
+            "taxon_id": 1496,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Campylobacter",
+            "taxon_id": 194,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Salmonella",
+            "taxon_id": 590,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": "incl: Nontyphoidal Salmonella"
+        },
+        {
+            "name": "Salmonella enterica subsp. enterica serovar Typhi",
+            "taxon_id": 90370,
+            "taxon_rank": "no rank",
+            "classification": "Bacteria",
+            "notes": "alt name: Salmonella serotype Typhi"
+        },
+        {
+            "name": "Shigella",
+            "taxon_id": 620,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Streptococcus pneumoniae",
+            "taxon_id": 1313,
+            "taxon_rank": "species",
+            "classification": "Bacteria",
+            "notes": ""
+        },
+        {
+            "name": "Mycobacterium",
+            "taxon_id": 1763,
+            "taxon_rank": "genus",
+            "classification": "Bacteria",
+            "notes": "incl: Non-tubercular mycobacteria"
+        },
+        {
+            "name": "Mammarenavirus lassaense",
+            "taxon_id": 3052310,
+            "taxon_rank": "species",
+            "classification": "Viruses",
+            "notes": "alt name: Lassa virus"
+        },
+        {
+            "name": "Henipavirus nipahense",
+            "taxon_id": 3052225,
+            "taxon_rank": "species",
+            "classification": "Viruses",
+            "notes": "alt name: Nipah virus"
+        },
+        {
+            "name": "Rift Valley Fever virus",
+            "taxon_id": 11588,
+            "taxon_rank": "no rank",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "enterovirus D68",
+            "taxon_id": 42789,
+            "taxon_rank": "serotype",
+            "classification": "Viruses",
+            "notes": "alt name: Enterovirus D68 virus"
+        },
+        {
+            "name": "Hepacivirus hominis",
+            "taxon_id": 3052230,
+            "taxon_rank": "species",
+            "classification": "Viruses",
+            "notes": "incl: Hepatitis C virus"
+        },
+        {
+            "name": "Sudan ebolavirus",
+            "taxon_id": 186540,
+            "taxon_rank": "no rank",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Orthomarburgvirus marburgense",
+            "taxon_id": 3052505,
+            "taxon_rank": "species",
+            "classification": "Viruses",
+            "notes": "incl: Marburg virus strains"
+        },
+        {
+            "name": "Zaire ebolavirus",
+            "taxon_id": 186538,
+            "taxon_rank": "no rank",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Monkeypox virus",
+            "taxon_id": 10244,
+            "taxon_rank": "species",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Human alphaherpesvirus 1",
+            "taxon_id": 10298,
+            "taxon_rank": "no rank",
+            "classification": "Viruses",
+            "notes": "alt name: Herpes simplex virus 1"
+        },
+        {
+            "name": "Human alphaherpesvirus 2",
+            "taxon_id": 10310,
+            "taxon_rank": "no rank",
+            "classification": "Viruses",
+            "notes": "alt name: Herpes simplex virus 2"
+        },
+        {
+            "name": "Hepadnaviridae",
+            "taxon_id": 10404,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Papillomaviridae",
+            "taxon_id": 151340,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Poxviridae",
+            "taxon_id": 10240,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Retroviridae",
+            "taxon_id": 11632,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Adenoviridae",
+            "taxon_id": 10508,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Anelloviridae",
+            "taxon_id": 687329,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Arteriviridae",
+            "taxon_id": 76803,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Astroviridae",
+            "taxon_id": 39733,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Bornaviridae",
+            "taxon_id": 178830,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Caliciviridae",
+            "taxon_id": 11974,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Hepeviridae",
+            "taxon_id": 3079366,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Herpesviridae",
+            "taxon_id": 10292,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Parvoviridae",
+            "taxon_id": 10780,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Picobirnaviridae",
+            "taxon_id": 585893,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Pneumoviridae",
+            "taxon_id": 11244,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Polyomaviridae",
+            "taxon_id": 151341,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Sedoreoviridae",
+            "taxon_id": 2946186,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": "alt name: Reoviridae"
+        },
+        {
+            "name": "Rhabdoviridae",
+            "taxon_id": 11270,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Coronaviridae",
+            "taxon_id": 11118,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": "incl: Novel coronaviruses"
+        },
+        {
+            "name": "Orthomyxoviridae",
+            "taxon_id": 11308,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Arenaviridae",
+            "taxon_id": 11617,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Hantaviridae",
+            "taxon_id": 1980413,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Nairoviridae",
+            "taxon_id": 1980415,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Peribunyaviridae",
+            "taxon_id": 1980416,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Phenuiviridae",
+            "taxon_id": 1980418,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Filoviridae",
+            "taxon_id": 11266,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Flaviviridae",
+            "taxon_id": 11050,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Paramyxoviridae",
+            "taxon_id": 11158,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Picornaviridae",
+            "taxon_id": 12058,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Togaviridae",
+            "taxon_id": 11018,
+            "taxon_rank": "family",
+            "classification": "Viruses",
+            "notes": ""
+        },
+        {
+            "name": "Candida",
+            "taxon_id": 5475,
+            "taxon_rank": "genus",
+            "classification": "Fungi",
+            "notes": "incl: Candida spp."
+        },
+        {
+            "name": "Aspergillus fumigatus",
+            "taxon_id": 746128,
+            "taxon_rank": "species",
+            "classification": "Fungi",
+            "notes": ""
+        },
+        {
+            "name": "Coccidioides",
+            "taxon_id": 5500,
+            "taxon_rank": "genus",
+            "classification": "Fungi",
+            "notes": "incl: Coccidioides spp."
+        },
+        {
+            "name": "Mucorales",
+            "taxon_id": 4827,
+            "taxon_rank": "order",
+            "classification": "Fungi",
+            "notes": ""
+        },
+        {
+            "name": "Candidozyma auris",
+            "taxon_id": 498019,
+            "taxon_rank": "species",
+            "classification": "Fungi",
+            "notes": "alt name: Candida auris"
+        }
+    ]
 }

@@ -1,16 +1,17 @@
 Taxonomy ID,Scientific Name,Type,Rank,Source
-4827,Mucorales,Fungi,Order,WHO
+4827,Mucorales,Fungi,Order,"NIAID, WHO"
 4840,Rhizomucor pusillus,Fungi,Species,HSE (UK)
 4909,Pichia kudriavzevii,Fungi,Species,WHO
 5036,Histoplasma,Fungi,Genus,WHO
 5039,Blastomyces dermatitidis,Fungi,Species,HSE (UK)
 5052,Aspergillus spp,Fungi,Genus,HSE (UK)
 5207,Cryptococcus neoformans,Fungi,Species,WHO
+5475,Candida,Fungi,Genus,NIAID
 5476,Candida albicans,Fungi,Species,"HSE (UK), WHO"
 5478,Nakaseomyces glabratus,Fungi,Species,WHO
 5480,Candida parapsilosis,Fungi,Species,WHO
 5482,Candida tropicalis,Fungi,Species,"HSE (UK), WHO"
-5500,Coccidioides,Fungi,Genus,WHO
+5500,Coccidioides,Fungi,Genus,"NIAID, WHO"
 5501,Coccidioides immitis,Fungi,Species,HSE (UK)
 5506,Fusarium,Fungi,Genus,WHO
 5506,Fusarium spp,Fungi,Genus,HSE (UK)
@@ -47,16 +48,14 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 199306,Coccidioides posadasii,Fungi,Species,HSE (UK)
 278162,Histoplasma capsulatum var. capsulatum,Fungi,Species,HSE (UK)
 498019,Candida auris,Fungi,Species,WHO
+498019,Candidozyma auris,Fungi,Species,NIAID
 552467,Cryptococcus bacillisporus,Fungi,Species,HSE (UK)
 561152,Scopulariopsis brevicaulis,Fungi,Species,HSE (UK)
 563466,Scedosporium apiospermum,Fungi,Species,HSE (UK)
-746128,Aspergillus fumigatus,Fungi,Species,"HSE (UK), WHO"
+746128,Aspergillus fumigatus,Fungi,Species,"HSE (UK), NIAID, WHO"
 1048829,Paracoccidioides lutzii,Fungi,Species,HSE (UK)
 1489895,Trematosphaeria grisea,Fungi,Species,HSE (UK)
 1535326,Candida spp,Fungi,Genus,HSE (UK)
 1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
 2060905,Blastomyces parvus,Fungi,Species,HSE (UK)
 41688,Lomentospora prolificans,Fungi,Species,HSE (UK)
-4827,Mucorales,Fungi,Order,NIAID
-5500,Coccidioides,Fungi,Genus,NIAID
-6029,Microsporidia,Fungi,Phylum,NIAID

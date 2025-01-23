@@ -1,129 +1,107 @@
 Taxonomy ID,Scientific Name,Type,Rank,Source
-287,Pseudomonas aeruginosa,Bacteria,Species,WHO
-470,Acinetobacter baumannii,Bacteria,Species,WHO
-485,Neisseria gonorrhoeae,Bacteria,Species,WHO
+160,Treponema pallidum,Bacteria,Species,NIAID
+194,Campylobacter,Bacteria,Genus,NIAID
+263,Francisella tularensis,Bacteria,Species,NIAID
+287,Pseudomonas aeruginosa,Bacteria,Species,"NIAID, WHO"
+470,Acinetobacter baumannii,Bacteria,Species,"NIAID, WHO"
+485,Neisseria gonorrhoeae,Bacteria,Species,"NIAID, WHO"
 543,Enterobacteriaceae,Bacteria,Family,WHO
-590,Salmonella,Bacteria,Genus,WHO
-620,Shigella,Bacteria,Genus,WHO
+547,Enterobacter,Bacteria,Genus,NIAID
+562,Escherichia coli,Bacteria,Species,NIAID
+573,Klebsiella pneumoniae,Bacteria,Species,NIAID
+590,Salmonella,Bacteria,Genus,"NIAID, WHO"
+620,Shigella,Bacteria,Genus,"NIAID, WHO"
+632,Yersinia pestis,Bacteria,Species,NIAID
 727,Haemophilus influenzae,Bacteria,Species,WHO
-1280,Staphylococcus aureus,Bacteria,Species,WHO
-1313,Streptococcus pneumoniae,Bacteria,Species,WHO
+1280,Staphylococcus aureus,Bacteria,Species,"NIAID, WHO"
+1313,Streptococcus pneumoniae,Bacteria,Species,"NIAID, WHO"
 1319,Streptococcus sp. 'group B',Bacteria,Species,WHO
-1352,Enterococcus faecium,Bacteria,Species,WHO
-1773,Mycobacterium tuberculosis,Bacteria,Species,WHO
-4827,Mucorales,Fungi,Order,WHO
+1350,Enterococcus,Bacteria,Genus,NIAID
+1352,Enterococcus faecium,Bacteria,Species,"NIAID, WHO"
+1392,Bacillus anthracis,Bacteria,Species,NIAID
+1491,Clostridium botulinum,Bacteria,Species,NIAID
+1496,Clostridioides difficile,Bacteria,Species,NIAID
+1763,Mycobacterium,Bacteria,Genus,NIAID
+1773,Mycobacterium tuberculosis,Bacteria,Species,"NIAID, WHO"
+4827,Mucorales,Fungi,Order,"NIAID, WHO"
 4909,Pichia kudriavzevii,Fungi,Species,WHO
 5036,Histoplasma,Fungi,Genus,WHO
 5207,Cryptococcus neoformans,Fungi,Species,WHO
+5475,Candida,Fungi,Genus,NIAID
 5476,Candida albicans,Fungi,Species,WHO
 5478,Nakaseomyces glabratus,Fungi,Species,WHO
 5480,Candida parapsilosis,Fungi,Species,WHO
 5482,Candida tropicalis,Fungi,Species,WHO
-5500,Coccidioides,Fungi,Genus,WHO
+5500,Coccidioides,Fungi,Genus,"NIAID, WHO"
 5506,Fusarium,Fungi,Genus,WHO
-10244,Monkeypox virus,Viruses,Species,WHO
+10240,Poxviridae,Viruses,Family,NIAID
+10244,Monkeypox virus,Viruses,Species,"NIAID, WHO"
+10292,Herpesviridae,Viruses,Family,NIAID
+10298,Human alphaherpesvirus 1,Viruses,No rank,NIAID
+10310,Human alphaherpesvirus 2,Viruses,No rank,NIAID
+10404,Hepadnaviridae,Viruses,Family,NIAID
+10508,Adenoviridae,Viruses,Family,NIAID
+10780,Parvoviridae,Viruses,Family,NIAID
+11018,Togaviridae,Viruses,Family,NIAID
+11050,Flaviviridae,Viruses,Family,NIAID
+11082,West Nile virus,Viruses,No rank,Global Arbovirus Initiative
+11089,Yellow fever virus,Viruses,No rank,Global Arbovirus Initiative
+11118,Coronaviridae,Viruses,Family,NIAID
+11158,Paramyxoviridae,Viruses,Family,NIAID
+11244,Pneumoviridae,Viruses,Family,NIAID
+11266,Filoviridae,Viruses,Family,NIAID
 11269,Orthomarburgvirus marburgense,Viruses,Species,WHO
-11588,Rift Valley fever virus,Viruses,Species,WHO
+11270,Rhabdoviridae,Viruses,Family,NIAID
+11308,Orthomyxoviridae,Viruses,Family,NIAID
+11588,Rift Valley Fever virus,Viruses,No rank,NIAID
+11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, WHO"
+11617,Arenaviridae,Viruses,Family,NIAID
 11620,Mammarenavirus lassaense,Viruses,Species,WHO
+11632,Retroviridae,Viruses,Family,NIAID
+11974,Caliciviridae,Viruses,Family,NIAID
+12058,Picornaviridae,Viruses,Family,NIAID
+12637,Dengue virus,Viruses,No rank,Global Arbovirus Initiative
+32008,Burkholderia,Bacteria,Genus,NIAID
 36470,Streptococcus sp. 'group A',Bacteria,Species,WHO
+37124,Chikungunya virus,Viruses,Species,Global Arbovirus Initiative
 37727,Talaromyces marneffei,Fungi,Species,WHO
 38946,Paracoccidioides,Fungi,Genus,WHO
+39733,Astroviridae,Viruses,Family,NIAID
 41687,Scedosporium,Fungi,Genus,WHO
 41688,Lomentospora prolificans,Fungi,Species,WHO
 42068,Pneumocystis jirovecii,Fungi,Species,WHO
-64320,Zika virus,Viruses,Species,WHO
-121791,Henipavirus nipahense,Viruses,Species,WHO
-142796,Eumycetozoa,Protozoa,Class,WHO
-260964,Henipavirus,Viruses,Genus,WHO
-498019,Candida auris,Fungi,Species,WHO
-746128,Aspergillus fumigatus,Fungi,Species,WHO
-1570291,Ebola virus,Viruses,Species,WHO
-1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
-1980519,Orthonairovirus haemorrhagiae,Viruses,Species,WHO
-1003835,Severe fever with thrombocytopenia syndrome virus,Viruses,No rank,NIAID
-10242,Orthopoxvirus,Viruses,Genus,NIAID
-11021,Eastern equine encephalitis virus,Viruses,Species,NIAID
-11036,Venezuelan equine encephalitis virus,Viruses,Species,NIAID
-11039,Western equine encephalitis virus,Viruses,Species,NIAID
-11050,Flaviviridae,Viruses,Family,NIAID
-11072,Japanese encephalitis virus,Viruses,No rank,NIAID
-11080,St. Louis encephalitis virus,Viruses,No rank,NIAID
-11082,West Nile virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID"
-11083,Powassan virus,Viruses,No rank,NIAID
-11089,Yellow fever virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID"
-11118,Coronaviridae,Viruses,Family,NIAID
-11292,Lyssavirus rabies,Viruses,Species,NIAID
-11308,Orthomyxoviridae,Viruses,Family,NIAID
-11577,La Crosse virus,Viruses,No rank,NIAID
-11587,Punta Toro virus,Viruses,No rank,NIAID
-11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID"
-118655,Oropouche virus,Viruses,No rank,NIAID
-11974,Caliciviridae,Viruses,Family,NIAID
-12092,Hepatovirus A,Viruses,Species,NIAID
-1216928,Heartland virus,Viruses,No rank,NIAID
-12542,Omsk hemorrhagic fever virus,Viruses,No rank,NIAID
-12637,Dengue virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID"
-1280,Staphylococcus aureus,Bacteria,Species,NIAID
-13373,Burkholderia mallei,Bacteria,Species,NIAID
-138950,Enterovirus C,Viruses,Species,NIAID
-1392,Bacillus anthracis,Bacteria,Species,NIAID
-1491,Clostridium botulinum,Bacteria,Species,NIAID
-1502,Clostridium perfringens,Bacteria,Species,NIAID
-1639,Listeria monocytogenes,Bacteria,Species,NIAID
-1674146,Borrelia mayonii,Bacteria,Species,NIAID
-171,Leptospira,Bacteria,Species,NIAID
-172148,Alkhurma virus,Viruses,No rank,NIAID
-197,Campylobacter jejuni,Bacteria,Species,NIAID
-1980442,Orthohantavirus,Viruses,Genus,NIAID
-2169701,Onyong-nyong virus,Viruses,Species,NIAID
-2169991,Mammarenavirus juninense,Viruses,Species,NIAID
-234,Brucella,Bacteria,Genus,NIAID
-263,Francisella tularensis,Bacteria,Species,NIAID
-28450,Burkholderia pseudomallei,Bacteria,Species,NIAID
-2971765,Langya virus,Viruses,Species,NIAID
-3044781,Orthoebolavirus,Viruses,Genus,NIAID
-3044783,Orthomarburgvirus,Viruses,Genus,NIAID
-3052223,Henipavirus hendraense,Viruses,Species,NIAID
-3052225,Henipavirus nipahense,Viruses,Species,NIAID
-3052302,Mammarenavirus chapareense,Viruses,Species,NIAID
-3052303,Mammarenavirus choriomeningitidis,Viruses,Species,NIAID
-3052307,Mammarenavirus guanaritoense,Viruses,Species,NIAID
-3052310,Mammarenavirus lassaense,Viruses,Species,NIAID
-3052314,Mammarenavirus lujoense,Viruses,Species,NIAID
-3052317,Mammarenavirus machupoense,Viruses,Species,NIAID
-3052518,Orthonairovirus haemorrhagiae,Viruses,Species,"Global Arbovirus Initiative, NIAID"
-33743,Kyasanur Forest disease virus,Viruses,No rank,NIAID
-35305,California encephalitis virus,Viruses,No rank,NIAID
-36469,Prion,Other,Species,NIAID
-37124,Chikungunya virus,Viruses,Species,"Global Arbovirus Initiative, NIAID"
-39054,Enterovirus A71,Viruses,Serotype,NIAID
-3988,Ricinus communis,Other,Species,NIAID
-42789,Enterovirus D68,Viruses,Serotype,NIAID
-47466,Borrelia miyamotoi,Bacteria,Species,NIAID
-4827,Mucorales,Fungi,Order,NIAID
-520,Bordetella pertussis,Bacteria,Species,NIAID
-5500,Coccidioides,Fungi,Genus,NIAID
-562,Escherichia coli,Bacteria,Species,NIAID
-5673,Naegleria fowleri,Protozoa,Species,NIAID
-5741,Giardia intestinalis,Protozoa,Species,NIAID
-5759,Entamoeba histolytica,Protozoa,Species,NIAID
-5807,Cryptosporidium parvum,Protozoa,Species,NIAID
-5811,Toxoplasma gondii,Protozoa,Species,NIAID
-590,Salmonella,Bacteria,Genus,NIAID
-59301,Mayaro virus,Viruses,Species,NIAID
-6029,Microsporidia,Fungi,Phylum,NIAID
-620,Shigella,Bacteria,Genus,NIAID
-630,Yersinia enterocolitica,Bacteria,Species,NIAID
-632,Yersinia pestis,Bacteria,Species,NIAID
+42789,enterovirus D68,Viruses,Serotype,NIAID
 64286,Usutu virus,Viruses,No rank,Global Arbovirus Initiative
 64318,Spondweni virus,Viruses,Species,Global Arbovirus Initiative
-64320,Zika virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID"
-662,Vibrio,Bacteria,Genus,NIAID
-66527,Balamuthia mandrillaris,Protozoa,Species,NIAID
-77643,Mycobacterium tuberculosis complex,Bacteria,Species group,NIAID
-777,Coxiella burnetii,Bacteria,Species,NIAID
-780,Rickettsia,Bacteria,Genus,NIAID
-80935,Cache Valley virus,Viruses,No rank,NIAID
-83554,Chlamydia psittaci,Bacteria,Species,NIAID
-88456,Cyclospora cayetanensis,Protozoa,Species,NIAID
-943,Ehrlichia,Bacteria,Species,NIAID
+64320,Zika virus,Viruses,No rank,Global Arbovirus Initiative
+64320,Zika virus,Viruses,Species,WHO
+76803,Arteriviridae,Viruses,Family,NIAID
+90370,Salmonella enterica subsp. enterica serovar Typhi,Bacteria,No rank,NIAID
+91347,Enterobacterales,Bacteria,Order,NIAID
+121791,Henipavirus nipahense,Viruses,Species,WHO
+142796,Eumycetozoa,Protozoa,Class,WHO
+151340,Papillomaviridae,Viruses,Family,NIAID
+151341,Polyomaviridae,Viruses,Family,NIAID
+178830,Bornaviridae,Viruses,Family,NIAID
+186538,Zaire ebolavirus,Viruses,No rank,NIAID
+186540,Sudan ebolavirus,Viruses,No rank,NIAID
+260964,Henipavirus,Viruses,Genus,WHO
+498019,Candida auris,Fungi,Species,WHO
+498019,Candidozyma auris,Fungi,Species,NIAID
+585893,Picobirnaviridae,Viruses,Family,NIAID
+687329,Anelloviridae,Viruses,Family,NIAID
+746128,Aspergillus fumigatus,Fungi,Species,"NIAID, WHO"
+1570291,Ebola virus,Viruses,Species,WHO
+1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
+1980413,Hantaviridae,Viruses,Family,NIAID
+1980415,Nairoviridae,Viruses,Family,NIAID
+1980416,Peribunyaviridae,Viruses,Family,NIAID
+1980418,Phenuiviridae,Viruses,Family,NIAID
+1980519,Orthonairovirus haemorrhagiae,Viruses,Species,WHO
+2946186,Sedoreoviridae,Viruses,Family,NIAID
+3052225,Henipavirus nipahense,Viruses,Species,NIAID
+3052230,Hepacivirus hominis,Viruses,Species,NIAID
+3052310,Mammarenavirus lassaense,Viruses,Species,NIAID
+3052505,Orthomarburgvirus marburgense,Viruses,Species,NIAID
+3052518,Orthonairovirus haemorrhagiae,Viruses,Species,Global Arbovirus Initiative
+3079366,Hepeviridae,Viruses,Family,NIAID

@@ -27,7 +27,7 @@ from ena_utils import *
 from difflib import SequenceMatcher as SM
 from tqdm import tqdm
 
-priority_sources = ['WHO','NIAID','Global Arbovirus Initiative'] # should input value of 'source_short_name' from source json 
+priority_sources = ['WHO','Global Arbovirus Initiative', 'NIAID'] # should input value of 'source_short_name' from source json
 if '--no-validate' in sys.argv:
     validate_taxon_ids = False
     sys.argv.remove('--no-validate')
