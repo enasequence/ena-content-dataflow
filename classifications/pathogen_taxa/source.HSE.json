@@ -1520,7 +1520,7 @@
             "name": "Lomentospora prolificans",
             "hazard_group": "2",
             "notes": "HSE listed name: Scedosporium proliferans (inflatum)",
-            "taxon_id": "41688",
+            "taxon_id": 41688,
             "taxon_rank": "Species",
             "classification": "Fungi"
         },
