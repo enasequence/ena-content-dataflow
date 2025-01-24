@@ -53,8 +53,7 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 11269,Orthomarburgvirus marburgense,Viruses,Species,WHO
 11270,Rhabdoviridae,Viruses,Family,NIAID
 11308,Orthomyxoviridae,Viruses,Family,NIAID
-11588,Rift Valley Fever virus,Viruses,No rank,NIAID
-11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, WHO"
+11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID, WHO"
 11617,Arenaviridae,Viruses,Family,NIAID
 11620,Mammarenavirus lassaense,Viruses,Species,WHO
 11632,Retroviridae,Viruses,Family,NIAID

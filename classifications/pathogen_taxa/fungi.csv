@@ -28,7 +28,7 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 40355,Fonsecaea pedrosoi,Fungi,Species,HSE (UK)
 40410,Cryptococcus neoformans var. neoformans,Fungi,Species,HSE (UK)
 41687,Scedosporium,Fungi,Genus,WHO
-41688,Lomentospora prolificans,Fungi,Species,WHO
+41688,Lomentospora prolificans,Fungi,Species,"HSE (UK), WHO"
 42068,Pneumocystis jirovecii,Fungi,Species,WHO
 42458,Lichtheimia corymbifera,Fungi,Species,HSE (UK)
 43987,Geotrichum spp,Fungi,Genus,HSE (UK)
@@ -42,8 +42,7 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 100816,Madurella mycetomatis,Fungi,Species,HSE (UK)
 121759,Paracoccidioides brasiliensis,Fungi,Species,HSE (UK)
 149546,Histoplasma capsulatum var. duboisii,Fungi,Species,HSE (UK)
-149547,Histoplasma capsulatum var. Farciminosum,Fungi,Species,SAPO
-149547,Histoplasma capsulatum var. farciminosum,Fungi,Species,HSE (UK)
+149547,Histoplasma capsulatum var. farciminosum,Fungi,Species,"HSE (UK), SAPO"
 160030,Zopfia rosatii,Fungi,Species,HSE (UK)
 199306,Coccidioides posadasii,Fungi,Species,HSE (UK)
 278162,Histoplasma capsulatum var. capsulatum,Fungi,Species,HSE (UK)
@@ -58,4 +57,3 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 1535326,Candida spp,Fungi,Genus,HSE (UK)
 1884637,Cryptococcus gattii species complex,Fungi,Species group,WHO
 2060905,Blastomyces parvus,Fungi,Species,HSE (UK)
-41688,Lomentospora prolificans,Fungi,Species,HSE (UK)

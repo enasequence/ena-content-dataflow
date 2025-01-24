@@ -32,8 +32,7 @@ Taxonomy ID,Scientific Name,Type,Rank,Source
 11292,Lyssavirus rabies,Viruses,Species,SAPO
 11308,Orthomyxoviridae,Viruses,Family,NIAID
 11320,Influenza A virus,Viruses,No rank,SAPO
-11588,Rift Valley Fever virus,Viruses,No rank,"NIAID, SAPO"
-11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, WHO"
+11588,Rift Valley fever virus,Viruses,No rank,"Global Arbovirus Initiative, NIAID, SAPO, WHO"
 11617,Arenaviridae,Viruses,Family,NIAID
 11620,Mammarenavirus lassaense,Viruses,Species,WHO
 11632,Retroviridae,Viruses,Family,NIAID
