@@ -40,7 +40,7 @@ The UK Department for Environment, Food and Rural Affairs maintains a list of an
 ### NIAID Priority Pathogens
 The National Institute of Allergy and Infectious Diseases (NIAID) conducts and supports basic and applied research to better understand, treat, and ultimately prevent infectious, immunologic, and allergic diseases. NIAID's Division of Microbiology and Infectious Diseases (DMID) supports extramural research to control and prevent diseases caused by virtually all human infectious agents except HIV, and have produced the following list of priority pathogens.
 
-[Link to resource here]()
+[Link to resource here](https://github.com/enasequence/ena-content-dataflow/blob/PP-326/classifications/NIAID_priority_pathogens_Additional_Info_Nov2024.docx.pdf)
 
 ### Global Arbovirus Initiative (WHO)
 The Global Arbovirus Initiative provides a framework of objectives and priority activities to tackle emerging and re-emerging arboviruses with epidemic and pandemic potential. It is a joint initiative across the World Health Organisation's Health Emergencies Program, Department of Control of Neglected Tropical Diseases and Immunization, Vaccines and Biologicals Department. Specific Aedes-borne and non-Aedes borne arboviruses considered to be of significant risk for global disease outbreak are mentioned by the Global Arbovirus Initiative. 
