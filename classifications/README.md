@@ -37,6 +37,21 @@ The UK Department for Environment, Food and Rural Affairs maintains a list of an
 
 [Link to full list here](https://www.legislation.gov.uk/uksi/2008/944/schedule/1/made)
 
+### NIAID Priority Pathogens
+The National Institute of Allergy and Infectious Diseases (NIAID) conducts and supports basic and applied research to better understand, treat, and ultimately prevent infectious, immunologic, and allergic diseases. NIAID's Division of Microbiology and Infectious Diseases (DMID) supports extramural research to control and prevent diseases caused by virtually all human infectious agents except HIV, and have produced the following list of priority pathogens.
+
+[Link to resource here]()
+
+### Global Arbovirus Initiative (WHO)
+The Global Arbovirus Initiative provides a framework of objectives and priority activities to tackle emerging and re-emerging arboviruses with epidemic and pandemic potential. It is a joint initiative across the World Health Organisation's Health Emergencies Program, Department of Control of Neglected Tropical Diseases and Immunization, Vaccines and Biologicals Department. Specific Aedes-borne and non-Aedes borne arboviruses considered to be of significant risk for global disease outbreak are mentioned by the Global Arbovirus Initiative. 
+
+[Link to publication mentioning arboviruses of interest can be found here](https://iris.who.int/bitstream/handle/10665/376630/9789240088948-eng.pdf?sequence=1)
+
+### Arbovirus Encephalitides - StatPearls Publishing
+Arbovirus Encephalitides is an online arbovirus resource written by clinicians at the University of Rochester, New York and published by StatPearls. StatPearls is a professional healthcare education and technology company that publishes a variety of peer-reviewed medical resources for healthcare professionals. 
+
+[Link to resource here](https://www.ncbi.nlm.nih.gov/books/NBK560866/)
+
 ### User asserted/requested taxa
 
 | Scientific Name | TaxID | Reason for Inclusion | Requested by |
