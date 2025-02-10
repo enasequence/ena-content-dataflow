@@ -38,7 +38,7 @@ The UK Department for Environment, Food and Rural Affairs maintains a list of an
 [Link to full list here](https://www.legislation.gov.uk/uksi/2008/944/schedule/1/made)
 
 ### NIAID Priority Pathogens
-The National Institute of Allergy and Infectious Diseases (NIAID) conducts and supports basic and applied research to better understand, treat, and ultimately prevent infectious, immunologic, and allergic diseases. NIAID's Division of Microbiology and Infectious Diseases (DMID) supports extramural research to control and prevent diseases caused by virtually all human infectious agents except HIV, and have produced the following list of priority pathogens.
+The National Institute of Allergy and Infectious Diseases (NIAID) conducts and supports basic and applied research to better understand, treat, and ultimately prevent infectious, immunologic, and allergic diseases. NIAID's Division of Microbiology and Infectious Diseases (DMID), supports extramural research to control and prevent diseases caused by virtually all human infectious agents except HIV. DMID have produced a priority pathogen list below:
 
 [Link to resource here](https://github.com/enasequence/ena-content-dataflow/blob/PP-326/classifications/NIAID_priority_pathogens_Additional_Info_Nov2024.docx.pdf)
 
