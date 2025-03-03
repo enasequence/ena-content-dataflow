@@ -8,7 +8,7 @@ To define a "pathogen" is difficult, and not something the ENA is well placed to
 ## Defintion Sources
 
 ### Viruses
-As all viruses are by definition are obligate intracellular parasites, the simplest rule for inclusion was to consider all viruses to be pathogens. This everything falling under NCBI taxonomy ID "10239" are included in this defintion.
+As all viruses are by definition are obligate intracellular parasites, the simplest rule for inclusion was to consider all viruses to be pathogens. Thus everything falling under NCBI taxonomy ID "10239" is included in this definition. This includes viruses categorised as arboviruses according to the 'Global Arbovirus Initiative (WHO)' and 'Arbovirus Encephalitides - StatPearls Publishing' sources (see below).
 
 ### United Kingdom Health & Safety Executive - The Approved List of biological agents
 The HSE in the UK produces a list of biological agents. The approved list is for use by people who deliberately work with biological agents, especially those in research, development, teaching or diagnostic laboratories and industrial processes, or those who work with humans or animals who are (or are suspected to be) infected with such an agent.
@@ -36,6 +36,21 @@ There is a list for [bacteria](https://www.who.int/publications/i/item/978924009
 The UK Department for Environment, Food and Rural Affairs maintains a list of animal pathogen that are of interest/concern within the UK. Its purpose is to prevent the release of dangerous animal pathogens into the environment where they may cause serious animal or human disease.
 
 [Link to full list here](https://www.legislation.gov.uk/uksi/2008/944/schedule/1/made)
+
+### NIAID Priority Pathogens
+The National Institute of Allergy and Infectious Diseases (NIAID) conducts and supports basic and applied research to better understand, treat, and ultimately prevent infectious, immunologic, and allergic diseases. NIAID's Division of Microbiology and Infectious Diseases (DMID), supports extramural research to control and prevent diseases caused by virtually all human infectious agents except HIV. DMID have produced a priority pathogen list below:
+
+[Link to resource here](https://github.com/enasequence/ena-content-dataflow/blob/PP-326/classifications/NIAID_priority_pathogens_Additional_Info_Nov2024.docx.pdf)
+
+### Global Arbovirus Initiative (WHO)
+The Global Arbovirus Initiative provides a framework of objectives and priority activities to tackle emerging and re-emerging arboviruses with epidemic and pandemic potential. It is a joint initiative across the World Health Organisation's Health Emergencies Program, Department of Control of Neglected Tropical Diseases and Immunization, Vaccines and Biologicals Department. Specific Aedes-borne and non-Aedes borne arboviruses considered to be of significant risk for global disease outbreak are mentioned by the Global Arbovirus Initiative. 
+
+[Link to publication mentioning arboviruses of interest can be found here](https://iris.who.int/bitstream/handle/10665/376630/9789240088948-eng.pdf?sequence=1)
+
+### Arbovirus Encephalitides - StatPearls Publishing
+Arbovirus Encephalitides is an online arbovirus resource written by clinicians at the University of Rochester, New York and published by StatPearls. StatPearls is a professional healthcare education and technology company that publishes a variety of peer-reviewed medical resources for healthcare professionals. 
+
+[Link to resource here](https://www.ncbi.nlm.nih.gov/books/NBK560866/)
 
 ### User asserted/requested taxa
 
