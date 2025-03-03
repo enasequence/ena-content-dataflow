@@ -8,7 +8,7 @@ To define a "pathogen" is difficult, and not something the ENA is well placed to
 ## Defintion Sources
 
 ### Viruses
-As all viruses are by definition are obligate intracellular parasites, the simplest rule for inclusion was to consider all viruses to be pathogens. Thus everything falling under NCBI taxonomy ID "10239" is covered by this definition - including arboviruses.
+As all viruses are by definition are obligate intracellular parasites, the simplest rule for inclusion was to consider all viruses to be pathogens. Thus everything falling under NCBI taxonomy ID "10239" is included in this definition. This includes viruses categorised as arboviruses according to the 'Global Arbovirus Initiative (WHO)' and 'Arbovirus Encephalitides - StatPearls Publishing' sources (see below).
 
 ### United Kingdom Health & Safety Executive - The Approved List of biological agents
 The HSE in the UK produces a list of biological agents. The approved list is for use by people who deliberately work with biological agents, especially those in research, development, teaching or diagnostic laboratories and industrial processes, or those who work with humans or animals who are (or are suspected to be) infected with such an agent.
