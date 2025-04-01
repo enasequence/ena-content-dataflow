@@ -2,10 +2,13 @@
 
 __author__ == 'Nadim Rahman'
 
-import argparse, datetime, io, json, os, requests, sys
-import pandas as pd
 
 # EXAMPLE: python define_proteomes.py --input ~/Downloads/priority.csv --taxID_header 'Taxonomy ID'
+# Input to include at minimum, a column of NCBI Taxonomic IDs to compare against.
+
+
+import argparse, datetime, io, json, os, requests, sys
+import pandas as pd
 
 UNIPROT_PROTEOME_URL= 'https://rest.uniprot.org/proteomes/stream'
 headers = {
