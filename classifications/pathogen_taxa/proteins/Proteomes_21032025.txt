@@ -1,0 +1,26 @@
+id	proteomeType	taxonomy.scientificName	taxonomy.taxonId
+UP000255551	Representative proteome	Neisseria gonorrhoeae	485
+UP000000815	Reference and representative proteome	Yersinia pestis	632
+UP000000594	Reference proteome	Bacillus anthracis	1392
+UP000249293	Representative proteome	Pichia kudriavzevii	4909
+UP000536275	Representative proteome	Candida albicans	5476
+UP000444721	Representative proteome	Naegleria fowleri	5763
+UP000019149	Representative proteome	Echinococcus granulosus	6210
+UP000017246	Representative proteome	Echinococcus multilocularis	6211
+UP000516359	Reference proteome	Monkeypox virus	10244
+UP000126093	Representative proteome	Human papillomavirus	10566
+UP000006710	Reference proteome	Sindbis virus	11034
+UP000553632	Representative proteome	Perkinsus olseni	32597
+UP000125387	Representative proteome	Epizootic hemorrhagic disease virus	40054
+UP000233524	Representative proteome	Lomentospora prolificans	41688
+UP000010422	Representative proteome	Pneumocystis jirovecii	42068
+UP000095192	Representative proteome	Cyclospora cayetanensis	88456
+UP000078237	Representative proteome	Madurella mycetomatis	100816
+UP000284702	Representative proteome	Aphanomyces astaci	112090
+UP000285060	Representative proteome	Aphanomyces invadans	157072
+UP000201513	Representative proteome	Penaeid shrimp infectious myonecrosis virus	282786
+UP000230249	Reference and representative proteome	Candidozyma auris	498019
+UP000028545	Representative proteome	Pseudallescheria apiosperma	563466
+UP000000354	Reference and representative proteome	Severe acute respiratory syndrome coronavirus	694009
+UP000007541	Reference and representative proteome	Spring viremia of carp virus	696863
+UP000201247	Representative proteome	Mammarenavirus lujoense	3052314
