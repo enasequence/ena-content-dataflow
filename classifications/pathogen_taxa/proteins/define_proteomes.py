@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-__author__ == 'Nadim Rahman'
+__author__ = 'Nadim Rahman'
 
 
 # EXAMPLE: python define_proteomes.py --input ~/Downloads/priority.csv --taxID_header 'Taxonomy ID'
